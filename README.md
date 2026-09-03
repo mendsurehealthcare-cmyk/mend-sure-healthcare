@@ -108,6 +108,39 @@ All of the `/api/reports`, `/api/auth/me`, and `/api/inquiries/mine` routes
 require an `Authorization: Bearer <access_token>` header, using the token
 returned from login/signup.
 
+## Logo & brand assets
+
+The master artwork lives in `images/logo/` — a transparent PNG and a
+white-background PNG, both over 1MB. Those are **masters, not web assets**.
+`npm run build:logo` crops them to their real content, resizes, and writes the
+optimised files the site loads into `client/public/`:
+
+| File | Built from | Used for |
+| --- | --- | --- |
+| `logo-mark.png` | transparent | The roundel alone — navbar |
+| `logo-lockup.png` | transparent | Full stacked lockup — footer |
+| `favicon-32.png`, `favicon-192.png` | transparent | Browser tab |
+| `apple-touch-icon.png` | white background | iOS home screen |
+| `og-image.jpg` | white background | Social share preview |
+
+The outputs are committed, so neither a deploy nor `sharp` is needed at build
+time. Re-run the script only if the artwork changes.
+
+**The wordmark is navy, so it only works on light backgrounds.** The footer sits
+on `surface-container-low` and the navbar on `surface`, so both are fine. If you
+ever put the lockup on the navy `bg-primary` band, the "MENDSURE" text will
+disappear into it — use `logo-mark.png` with white type beside it instead, which
+is what the navbar does.
+
+The navbar sets its wordmark in type rather than using the lockup image,
+because the master is a stacked lockup — roundel above the name — and is far
+too tall for a 64px bar. The two-line treatment there mirrors the artwork:
+`MENDSURE` in `text-primary`, `HEALTHCARE SERVICES` in `text-secondary`.
+
+iOS composites home-screen icons onto an opaque tile, which is why
+`apple-touch-icon.png` is built from the white-background master — a
+transparent source would come out sitting on black.
+
 ## City & country autocomplete
 
 The "City in India" field in the hero search and the "Country" field in the

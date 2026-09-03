@@ -146,10 +146,19 @@ export default function Navbar() {
       </div>
 
       <div className="mx-auto flex h-space-3xl max-w-7xl items-center justify-between px-space-md sm:px-space-xl">
+        {/* The roundel is decorative here — the wordmark beside it already
+            names the link, so alt="" avoids a screen reader saying it twice.
+            The stacked master lockup is too tall for a 64px bar, so the
+            wordmark is set in type rather than used as an image. */}
         <NavLink to="/" className="flex shrink-0 items-center gap-space-sm">
-          <img src="/logo-icon.svg" alt="Mend Sure" className="h-8 w-8" />
-          <span className="text-headline-sm font-bold tracking-tight whitespace-nowrap text-primary">
-            Mend Sure
+          <img src="/logo-mark.png" alt="" className="h-10 w-10 shrink-0" />
+          <span className="flex flex-col justify-center leading-none">
+            <span className="text-headline-sm font-extrabold tracking-tight whitespace-nowrap text-primary">
+              MENDSURE
+            </span>
+            <span className="mt-space-3xs text-[9px] font-semibold tracking-[0.16em] whitespace-nowrap text-secondary">
+              HEALTHCARE SERVICES
+            </span>
           </span>
         </NavLink>
 

@@ -1,2 +1,7 @@
 Mend-Sure-Backend-Reference.pdf
 server/db
+
+# Logo masters (~2MB). The web-sized assets built from them already live in
+# client/public — these are only needed to re-run `npm run build:logo`.
+images
+scripts

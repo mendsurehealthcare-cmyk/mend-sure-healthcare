@@ -3,7 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useApi } from '../lib/useApi';
 import { specialtyIcon } from '../lib/specialtyIcons';
 import { INDIA_CITY_INDEX } from '../lib/locations';
+import { COMPANY } from '../lib/company';
 import Autocomplete from '../components/Autocomplete';
+import SocialIcon from '../components/SocialIcon';
 import Button from '../components/Button';
 import Icon from '../components/Icon';
 import SectionHeading from '../components/SectionHeading';
@@ -547,12 +549,12 @@ export default function Home() {
               <Icon name="arrow_forward" className="!text-[18px]" />
             </Button>
             <a
-              href="https://wa.me/910000000000"
+              href={COMPANY.whatsapp.href}
               target="_blank"
-              rel="noreferrer"
+              rel="noreferrer noopener"
               className="inline-flex items-center gap-space-xs rounded-lg bg-primary-container px-space-xl py-space-md text-label-md text-on-primary-container transition-colors hover:bg-surface hover:text-on-surface"
             >
-              <Icon name="call" className="!text-[18px]" />
+              <SocialIcon name="whatsapp" className="h-[18px] w-[18px]" />
               Talk to Our Care Team
             </a>
           </div>

@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const { missingEnv } = require('./lib/config');
 
 const treatmentsRouter = require('./routes/treatments');
 const hospitalsRouter = require('./routes/hospitals');
@@ -30,11 +31,40 @@ app.use(
 app.use(express.json());
 
 // Useful for checking a deployment is alive without touching the database.
-app.get('/api/health', (req, res) => {
+// It also reports whether the API is actually configured, so a broken deploy
+// can be diagnosed from a single curl rather than from the function logs.
+function health(req, res) {
+  const missing = missingEnv();
+
+  if (missing.length > 0) {
+    return res.status(503).json({
+      status: 'misconfigured',
+      missingEnvVars: missing,
+      hint: 'Add these under Vercel -> Project Settings -> Environment Variables, then redeploy.',
+    });
+  }
+
   res.json({ status: 'ok' });
-});
-app.get('/health', (req, res) => {
-  res.json({ status: 'ok' });
+}
+
+app.get('/api/health', health);
+app.get('/health', health);
+
+// Every data route needs Supabase. Answering with a clear 503 up front beats
+// letting each route fail on its own with a confusing message, and keeps the
+// response JSON so the client shows its normal error state rather than
+// choking on an HTML error page.
+app.use('/api', (req, res, next) => {
+  const missing = missingEnv();
+
+  if (missing.length > 0) {
+    console.error(`Refusing request: missing env ${missing.join(', ')}`);
+    return res.status(503).json({
+      error: 'The API is not configured yet. Please try again shortly.',
+    });
+  }
+
+  next();
 });
 
 app.use('/api/treatments', treatmentsRouter);

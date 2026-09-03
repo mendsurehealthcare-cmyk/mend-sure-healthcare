@@ -2,6 +2,8 @@ import { useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useApi } from '../lib/useApi';
 import { specialtyIcon } from '../lib/specialtyIcons';
+import { INDIA_CITY_INDEX } from '../lib/locations';
+import Autocomplete from '../components/Autocomplete';
 import Button from '../components/Button';
 import Icon from '../components/Icon';
 import SectionHeading from '../components/SectionHeading';
@@ -157,12 +159,17 @@ export default function Home() {
   return (
     <div className="flex w-full flex-col">
       {/* 1. Hero + quick consultation form */}
-      <section className="relative overflow-hidden bg-primary px-space-md pt-space-2xl pb-space-3xl text-on-primary sm:px-space-xl">
-        <div
-          className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-10"
-          style={{ backgroundImage: `url('${HERO_IMAGE}')` }}
-        />
-        <div className="pointer-events-none absolute -top-32 -right-32 h-96 w-96 rounded-full bg-secondary/20 blur-3xl" />
+      {/* The decorations are clipped by their own wrapper rather than by the
+          section, so the city autocomplete can overflow the hero's bottom edge
+          instead of being cut off mid-list. */}
+      <section className="relative bg-primary px-space-md pt-space-2xl pb-space-3xl text-on-primary sm:px-space-xl">
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div
+            className="absolute inset-0 bg-cover bg-center opacity-10"
+            style={{ backgroundImage: `url('${HERO_IMAGE}')` }}
+          />
+          <div className="absolute -top-32 -right-32 h-96 w-96 rounded-full bg-secondary/20 blur-3xl" />
+        </div>
 
         <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-center gap-space-2xl lg:grid-cols-12">
           <div className="space-y-space-lg lg:col-span-7">
@@ -195,17 +202,17 @@ export default function Home() {
                   className="w-full rounded-lg bg-surface-container-lowest py-space-sm pr-space-md pl-10 text-body-md text-on-surface focus:ring-2 focus:ring-secondary focus:outline-none"
                 />
               </div>
-              <div className="relative flex-1">
-                <Icon
-                  name="location_on"
-                  className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 !text-[20px] text-outline"
-                />
-                <input
-                  type="text"
+              <div className="flex-1">
+                <Autocomplete
+                  index={INDIA_CITY_INDEX}
                   value={locationSearch}
-                  onChange={(e) => setLocationSearch(e.target.value)}
+                  onChange={setLocationSearch}
+                  priority={cities}
+                  priorityLabel="Partner hospitals"
+                  icon="location_on"
                   placeholder="City in India (optional)"
-                  className="w-full rounded-lg bg-surface-container-lowest py-space-sm pr-space-md pl-10 text-body-md text-on-surface focus:ring-2 focus:ring-secondary focus:outline-none"
+                  aria-label="City in India"
+                  inputClassName="w-full rounded-lg bg-surface-container-lowest py-space-sm pr-space-md text-body-md text-on-surface focus:ring-2 focus:ring-secondary focus:outline-none"
                 />
               </div>
               <button

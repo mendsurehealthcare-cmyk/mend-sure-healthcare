@@ -108,6 +108,53 @@ All of the `/api/reports`, `/api/auth/me`, and `/api/inquiries/mine` routes
 require an `Authorization: Bearer <access_token>` header, using the token
 returned from login/signup.
 
+## City & country autocomplete
+
+The "City in India" field in the hero search and the "Country" field in the
+consultation form suggest as you type, via `client/src/components/Autocomplete.jsx`.
+
+The lists come from
+[dr5hn/countries-states-cities-database](https://github.com/dr5hn/countries-states-cities-database),
+trimmed to what the site needs and committed under `client/src/data/`:
+
+| File | Contents | Size |
+| --- | --- | --- |
+| `countries.json` | 250 countries, with ISO code and flag emoji | ~12 KB |
+| `india-cities.json` | 4,079 Indian cities | ~45 KB |
+
+To pick up upstream corrections:
+
+```bash
+npm run build:locations
+```
+
+That re-downloads and regenerates both files. The outputs are committed
+deliberately, so a Vercel build never depends on GitHub being reachable. The
+full upstream dataset is ~44MB — never import it directly into the client.
+
+**Attribution:** the dataset is licensed ODbL, which requires attribution if you
+publish or redistribute it. Crediting dr5hn in your site footer or a
+`/licenses` page covers this.
+
+### Two behaviours worth knowing
+
+**Alternate names.** The dataset carries only current official names, but
+patients writing from the US, UK, and Gulf overwhelmingly use the older ones.
+`CITY_ALIASES` and `COUNTRY_ALIASES` in `client/src/lib/locations.js` map the
+names people actually type — Bangalore, Bombay, Madras, Calcutta, Gurgaon,
+Trivandrum, USA, UK, UAE — onto the dataset's entries, and the dropdown shows
+an "also called" hint when a match came through one. Note the direction: the
+key must be the name **as the dataset spells it**, which is not always the
+current official spelling (Kochi is filed as "Cochin", Kalaburagi as
+"Kalaburgi"). `npm run build:locations` doesn't validate these — if you add an
+alias for a name the dataset doesn't have, it silently never matches.
+
+**Hospital cities rank first.** The hero field is passed the cities we actually
+have partner hospitals in; those sort above equally good matches and get a
+"Partner hospitals" badge, because picking a city with no hospitals dead-ends
+on an empty results page. It stays a free-text field either way — a patient can
+type a town that isn't listed and still submit.
+
 ## Deploying to Vercel
 
 The whole app — React frontend and Express API — deploys as **one Vercel
@@ -144,9 +191,20 @@ How it fits together:
    `CLIENT_ORIGIN` and `PORT` are only for local development — leave them out.
    The API refuses to start without the two Supabase values and says so plainly
    in the function logs.
-3. Deploy, then check `https://<your-domain>/api/health`. It should return
-   `{"status":"ok"}`. If that works but a page doesn't, the problem is data or
-   env, not deployment.
+3. Deploy, then check `https://<your-domain>/api/health`:
+
+   - `200 {"status":"ok"}` — the API is up and configured.
+   - `503 {"status":"misconfigured","missingEnvVars":[...]}` — the deploy
+     worked, but step 2 didn't. The response names exactly which variables are
+     missing. Add them and redeploy.
+   - `500 FUNCTION_INVOCATION_FAILED` — the function itself crashed; check the
+     runtime logs in the Vercel dashboard.
+
+   While the API is unconfigured, every `/api` route returns a 503 and the
+   listing pages (Doctors, Hospitals, Treatments) show their "couldn't load"
+   state with no cards. The home page hides those sections entirely when they
+   have no data, so it can look fine while the rest of the site has no content
+   — check `/api/health` before assuming the frontend is at fault.
 
 ### Deployment gotchas already handled
 
@@ -187,7 +245,9 @@ client/src/
                 live in the @theme block. One place for any theme change.
   components/   Reusable UI pieces (Navbar, Footer, cards, forms, etc.)
   pages/        One file per route (Home, Treatments, Contact, etc.)
-  lib/          Small helpers: API calls, the useApi() fetch hook, formatting
+  lib/          Small helpers: API calls, the useApi() fetch hook, formatting,
+                locations.js — autocomplete search, ranking, and name aliases
+  data/         Generated country/city lists (see npm run build:locations)
 
 server/src/
   routes/       One file per resource (treatments, hospitals, doctors, ...)

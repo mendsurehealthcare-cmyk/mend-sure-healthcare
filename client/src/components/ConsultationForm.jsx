@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { submitInquiry } from '../lib/api';
+import { COUNTRY_INDEX } from '../lib/locations';
+import Autocomplete from './Autocomplete';
 import Icon from './Icon';
 
 const initialForm = {
@@ -110,14 +112,17 @@ export default function ConsultationForm({ sourcePage }) {
           />
         </div>
         <div>
-          <label className={labelClasses}>Country</label>
-          <input
-            type="text"
+          <label className={labelClasses} htmlFor="consultation-country">
+            Country
+          </label>
+          <Autocomplete
+            id="consultation-country"
+            index={COUNTRY_INDEX}
+            value={form.country}
+            onChange={(country) => setForm((prev) => ({ ...prev, country }))}
             name="country"
             placeholder="Country you're calling from"
-            value={form.country}
-            onChange={handleChange}
-            className={fieldClasses}
+            inputClassName={fieldClasses}
           />
         </div>
       </div>

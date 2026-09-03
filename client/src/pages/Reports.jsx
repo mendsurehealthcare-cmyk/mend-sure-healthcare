@@ -13,7 +13,9 @@ const ALLOWED_TYPES = {
   'image/jpeg': 'JPG',
   'image/png': 'PNG',
 };
-const MAX_BYTES = 20 * 1024 * 1024;
+// Must stay in step with MAX_UPLOAD_BYTES in server/src/routes/reports.js,
+// which is itself capped by Vercel's 4.5MB serverless request body limit.
+const MAX_BYTES = 4 * 1024 * 1024;
 
 function fileIcon(fileName = '') {
   return fileName.toLowerCase().endsWith('.pdf') ? 'picture_as_pdf' : 'image';
@@ -64,7 +66,7 @@ export default function Reports() {
     }
 
     if (selected.size > MAX_BYTES) {
-      setUploadError(`That file is ${formatFileSize(selected.size)}. The limit is 20MB.`);
+      setUploadError(`That file is ${formatFileSize(selected.size)}. The limit is 4MB.`);
       setFile(null);
       return;
     }
@@ -187,7 +189,7 @@ export default function Reports() {
                     <span className="text-body-sm text-on-surface-variant">
                       {file
                         ? `${ALLOWED_TYPES[file.type]} · ${formatFileSize(file.size)}`
-                        : 'PDF, JPG, or PNG · up to 20MB'}
+                        : 'PDF, JPG, or PNG · up to 4MB'}
                     </span>
                   </label>
                   <input

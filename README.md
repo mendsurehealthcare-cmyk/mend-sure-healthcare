@@ -108,6 +108,60 @@ All of the `/api/reports`, `/api/auth/me`, and `/api/inquiries/mine` routes
 require an `Authorization: Bearer <access_token>` header, using the token
 returned from login/signup.
 
+## Deploying to Vercel
+
+The whole app — React frontend and Express API — deploys as **one Vercel
+project on one domain**. That's why the client can call `fetch('/api/...')`
+with no base URL and no CORS setup in production.
+
+How it fits together:
+
+- `vercel.json` builds the client into `client/dist` and serves it as static
+  files, falling back to `index.html` for any non-`/api` path so client-side
+  routes survive a hard refresh.
+- `api/[...path].js` is a catch-all serverless function. Every `/api/*` request
+  goes to it, and it hands the request to the same Express app used locally
+  (`server/src/app.js`).
+- The root `package.json` holds the API's runtime dependencies, because Vercel
+  installs from the repo root and the function resolves its imports from there.
+
+### Steps
+
+1. In Vercel, import the GitHub repo. Leave **Root Directory** as the repo root
+   — do *not* point it at `client/` or `server/`, since one project needs both.
+   Framework Preset should be **Other**; `vercel.json` supplies the build.
+2. Under **Settings → Environment Variables**, add the same values that are in
+   `server/.env`, for the Production, Preview, and Development environments:
+
+   | Variable | Required | Notes |
+   | --- | --- | --- |
+   | `SUPABASE_URL` | yes | Supabase → Settings → API |
+   | `SUPABASE_SERVICE_ROLE_KEY` | yes | the `service_role` key, never the anon key |
+   | `RESEND_API_KEY` | no | without it, new enquiries log instead of emailing |
+   | `NOTIFY_TO_EMAIL` | no | inbox for new-enquiry alerts |
+   | `NOTIFY_FROM_EMAIL` | no | must be a Resend-verified sender |
+
+   `CLIENT_ORIGIN` and `PORT` are only for local development — leave them out.
+   The API refuses to start without the two Supabase values and says so plainly
+   in the function logs.
+3. Deploy, then check `https://<your-domain>/api/health`. It should return
+   `{"status":"ok"}`. If that works but a page doesn't, the problem is data or
+   env, not deployment.
+
+### Deployment gotchas already handled
+
+- **`app.listen()` doesn't run on Vercel.** Route wiring lives in
+  `server/src/app.js`; `server/src/index.js` only starts a listener locally.
+- **`trust proxy` is on.** Requests arrive via Vercel's edge proxy, and without
+  it `express-rate-limit` throws and 500s the auth and enquiry routes.
+- **Report uploads are capped at 4MB**, because Vercel rejects serverless
+  request bodies over 4.5MB before your code sees them. If you need larger
+  files, upload straight from the browser to Supabase Storage with a signed
+  upload URL, bypassing the function entirely.
+- **Rate limits are per-instance.** `express-rate-limit` keeps counters in
+  memory, and serverless instances come and go, so the limits are softer in
+  production than locally. Move them to a shared store if that matters.
+
 ## Before You Launch
 
 The seed data in `server/db/seed.sql` is **placeholder content** — fake
@@ -140,7 +194,14 @@ server/src/
   middleware/   requireAuth.js — checks the login token on protected routes
   lib/          pagination.js, notifyTeam.js — small shared helpers
   supabaseClient.js
-  index.js      App entry point
+  app.js        Builds and exports the Express app (shared by both entries)
+  index.js      Local dev entry — starts a listener on PORT
+
+api/
+  [...path].js  Vercel serverless entry — wraps the same Express app
+
+vercel.json     Build + routing config for the single-project deployment
+package.json    Root: API runtime deps and the client build command
 
 server/db/
   schema.sql          Creates the public content tables (treatments, hospitals, ...)

@@ -1,9 +1,13 @@
 const { createClient } = require('@supabase/supabase-js');
 
+// Without these, createClient throws a bare "supabaseUrl is required" as the
+// module loads, which on Vercel surfaces as a 500 on every single endpoint with
+// no hint as to why. Fail loudly and say exactly what to set instead.
 if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
-  console.warn(
-    'Warning: SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY is missing. ' +
-    'Copy server/.env.example to server/.env and fill in your Supabase project details.'
+  throw new Error(
+    'SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY must both be set. ' +
+    'Locally: copy server/.env.example to server/.env and fill them in. ' +
+    'On Vercel: add them under Project Settings -> Environment Variables, then redeploy.'
   );
 }
 

@@ -9,9 +9,15 @@ const BUCKET = 'patient-reports';
 
 const ALLOWED_TYPES = new Set(['application/pdf', 'image/jpeg', 'image/png']);
 
+// Vercel rejects any serverless request body over 4.5MB before it ever reaches
+// this code, and the platform's error is an opaque 413 the client can't explain
+// to the patient. Capping just under that ceiling means multer catches it first
+// and returns a message the upload form can actually display.
+const MAX_UPLOAD_BYTES = 4 * 1024 * 1024;
+
 const upload = multer({
   storage: multer.memoryStorage(),
-  limits: { fileSize: 20 * 1024 * 1024 }, // 20MB
+  limits: { fileSize: MAX_UPLOAD_BYTES },
   fileFilter: (req, file, cb) => {
     if (!ALLOWED_TYPES.has(file.mimetype)) {
       return cb(new Error('Only PDF, JPG, and PNG files are allowed.'));
@@ -26,7 +32,11 @@ router.use(requireAuth);
 router.post('/', (req, res) => {
   upload.single('file')(req, res, async (uploadError) => {
     if (uploadError) {
-      return res.status(400).json({ error: uploadError.message });
+      const message =
+        uploadError.code === 'LIMIT_FILE_SIZE'
+          ? 'That file is larger than 4MB. Please upload a smaller file or split it into parts.'
+          : uploadError.message;
+      return res.status(400).json({ error: message });
     }
     if (!req.file) {
       return res.status(400).json({ error: 'No file was uploaded.' });

@@ -1,10 +1,10 @@
-const express = require('express');
+const asyncRouter = require('../lib/asyncRouter');
 const rateLimit = require('express-rate-limit');
 const supabase = require('../supabaseClient');
 const freshClient = require('../lib/freshClient');
 const requireAuth = require('../middleware/requireAuth');
 
-const router = express.Router();
+const router = asyncRouter();
 
 // Login/signup/password-reset are classic brute-force & spam targets, so
 // they're rate-limited the same way the lead-capture form already is.

@@ -1,7 +1,7 @@
-const express = require('express');
+const asyncRouter = require('../lib/asyncRouter');
 const supabase = require('../supabaseClient');
 
-const router = express.Router();
+const router = asyncRouter();
 
 // GET /api/testimonials
 router.get('/', async (req, res) => {
@@ -11,7 +11,8 @@ router.get('/', async (req, res) => {
     .order('created_at', { ascending: false });
 
   if (error) {
-    return res.status(500).json({ error: error.message });
+    console.error('Testimonials query failed:', error);
+    return res.status(500).json({ error: 'Could not load patient stories. Please try again shortly.' });
   }
 
   res.json(data);

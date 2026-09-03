@@ -66,13 +66,23 @@ function friendlyAuthError(message = '') {
 // Every API error comes back as { error: "..." }, so unwrap it into a real
 // Error the forms can display directly.
 async function parse(response) {
-  const data = await response.json().catch(() => ({}));
+  const data = await response.json().catch(() => null);
 
   if (!response.ok) {
+    // A failure that isn't our JSON came from something in front of the API —
+    // a platform error page, a gateway timeout, a misrouted deploy. Naming the
+    // status code matters: the generic message alone gives neither the patient
+    // nor whoever they report it to anything to go on.
+    if (!data || !data.error) {
+      throw new Error(
+        `We couldn't reach the server (error ${response.status}). Please try again in a moment — if it keeps happening, let us know.`
+      );
+    }
+
     throw new Error(friendlyAuthError(data.error) || 'Something went wrong. Please try again.');
   }
 
-  return data;
+  return data ?? {};
 }
 
 function postJson(path, body) {
@@ -118,7 +128,15 @@ async function refreshSession() {
     return null;
   }
 
-  const data = await response.json();
+  // A 200 that isn't JSON means something upstream answered instead of the API
+  // — a platform error page, say. Treat that as a failed refresh and make the
+  // patient log in again, rather than throwing a JSON parse error at them.
+  const data = await response.json().catch(() => null);
+  if (!data?.access_token) {
+    clearSession();
+    return null;
+  }
+
   setSession(data);
   return data;
 }

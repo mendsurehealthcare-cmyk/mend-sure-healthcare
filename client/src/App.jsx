@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './context/AuthProvider';
+import ErrorBoundary from './components/ErrorBoundary';
 import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 import Home from './pages/Home';
@@ -23,7 +24,10 @@ export default function App() {
     <BrowserRouter>
       <AuthProvider>
         <Layout>
-          <Routes>
+          {/* Inside Layout so a page-level crash keeps the header, nav, and
+              footer — the patient can still navigate away or find a number. */}
+          <ErrorBoundary>
+            <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/treatments" element={<Treatments />} />
             <Route path="/treatments/:slug" element={<TreatmentDetail />} />
@@ -56,8 +60,9 @@ export default function App() {
               }
             />
 
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </ErrorBoundary>
         </Layout>
       </AuthProvider>
     </BrowserRouter>

@@ -83,10 +83,30 @@ app.use('/api', (req, res) => {
 
 // Same reasoning for thrown errors: without this Express replies with an HTML
 // stack trace, which surfaces in the UI as an unhelpful JSON parse error.
+//
+// Rejections from async handlers reach here because the route files build
+// their routers with asyncRouter() — see server/src/lib/asyncRouter.js.
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
-  console.error(err);
-  res.status(err.status || 500).json({ error: err.message || 'Internal server error' });
+  const status = err.status || err.statusCode || 500;
+
+  // The full error, with stack, goes to the function logs where it's useful.
+  console.error(`${req.method} ${req.originalUrl} failed:`, err);
+
+  // Writing to a response that already started throws, so hand a late failure
+  // back to Express's default handler, whose job is to close the connection.
+  if (res.headersSent) return next(err);
+
+  // The client gets a message it can show a patient. 4xx errors are things the
+  // caller can act on (bad JSON, file too large), so those pass through; a 5xx
+  // is our fault and its message tends to carry connection strings, driver
+  // internals, and stack fragments that shouldn't leave the server.
+  res.status(status).json({
+    error:
+      status < 500
+        ? err.message || 'Request could not be processed.'
+        : 'Something went wrong on our end. Please try again shortly.',
+  });
 });
 
 module.exports = app;

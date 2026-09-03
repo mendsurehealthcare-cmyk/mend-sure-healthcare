@@ -20,10 +20,16 @@ export async function submitInquiry(formData) {
     body: JSON.stringify(formData),
   });
 
-  const data = await response.json();
+  // Not every failure comes back as our JSON: a platform timeout or gateway
+  // error answers with an HTML page, and calling .json() on that throws
+  // "Unexpected token '<'" — which is what the patient would then see instead
+  // of anything useful. Fall back to a message they can act on.
+  const data = await response.json().catch(() => null);
 
-  if (!response.ok) {
-    throw new Error(data.error || 'Something went wrong. Please try again.');
+  if (!response.ok || !data) {
+    throw new Error(
+      data?.error || "We couldn't submit your request just now. Please try again in a moment."
+    );
   }
 
   return data;

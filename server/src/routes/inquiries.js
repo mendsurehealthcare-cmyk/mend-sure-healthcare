@@ -1,11 +1,11 @@
-const express = require('express');
+const asyncRouter = require('../lib/asyncRouter');
 const rateLimit = require('express-rate-limit');
 const supabase = require('../supabaseClient');
 const requireAuth = require('../middleware/requireAuth');
 const { notifyNewInquiry } = require('../lib/notifyTeam');
 const verifyToken = require('../lib/verifyToken');
 
-const router = express.Router();
+const router = asyncRouter();
 
 // Limit how many quote requests one IP can submit, so a bot can't flood the table.
 const inquiryLimiter = rateLimit({

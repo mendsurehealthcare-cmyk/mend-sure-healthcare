@@ -1,8 +1,8 @@
-const express = require('express');
+const asyncRouter = require('../lib/asyncRouter');
 const supabase = require('../supabaseClient');
-const { getPageRange } = require('../lib/pagination');
+const { getPageRange, sendPage } = require('../lib/pagination');
 
-const router = express.Router();
+const router = asyncRouter();
 
 const SORTABLE_COLUMNS = new Set(['name', 'city']);
 
@@ -22,14 +22,7 @@ router.get('/', async (req, res) => {
     query = query.eq('city', req.query.city);
   }
 
-  const { data, error, count } = await query;
-
-  if (error) {
-    return res.status(500).json({ error: error.message });
-  }
-
-  res.set('X-Total-Count', String(count ?? data.length));
-  res.json(data);
+  await sendPage(res, query);
 });
 
 // GET /api/hospitals/:slug

@@ -1,10 +1,10 @@
-const express = require('express');
+const asyncRouter = require('../lib/asyncRouter');
 const multer = require('multer');
 const crypto = require('crypto');
 const supabase = require('../supabaseClient');
 const requireAuth = require('../middleware/requireAuth');
 
-const router = express.Router();
+const router = asyncRouter();
 const BUCKET = 'patient-reports';
 
 const ALLOWED_TYPES = new Set(['application/pdf', 'image/jpeg', 'image/png']);
@@ -28,48 +28,59 @@ const upload = multer({
 
 router.use(requireAuth);
 
-// POST /api/reports — upload a report file
-router.post('/', (req, res) => {
-  upload.single('file')(req, res, async (uploadError) => {
-    if (uploadError) {
-      const message =
-        uploadError.code === 'LIMIT_FILE_SIZE'
-          ? 'That file is larger than 4MB. Please upload a smaller file or split it into parts.'
-          : uploadError.message;
-      return res.status(400).json({ error: message });
-    }
-    if (!req.file) {
-      return res.status(400).json({ error: 'No file was uploaded.' });
-    }
+// Multer reports failures through its callback instead of throwing, so it gets
+// its own middleware to turn those into a message the upload form can show.
+//
+// It has to run as middleware rather than inside the route handler: nesting the
+// async upload logic in multer's callback puts it outside the router's promise
+// wrapper, and any rejection in there would hang the request instead of
+// reaching the error handler.
+function receiveFile(req, res, next) {
+  upload.single('file')(req, res, (uploadError) => {
+    if (!uploadError) return next();
 
-    const safeName = req.file.originalname.replace(/[^a-zA-Z0-9.\-_]/g, '_');
-    const storagePath = `${req.userId}/${crypto.randomUUID()}-${safeName}`;
+    const message =
+      uploadError.code === 'LIMIT_FILE_SIZE'
+        ? 'That file is larger than 4MB. Please upload a smaller file or split it into parts.'
+        : uploadError.message;
 
-    const { error: uploadFailure } = await supabase.storage
-      .from(BUCKET)
-      .upload(storagePath, req.file.buffer, { contentType: req.file.mimetype });
-
-    if (uploadFailure) {
-      return res.status(500).json({ error: uploadFailure.message });
-    }
-
-    const { data, error } = await supabase
-      .from('reports')
-      .insert({
-        user_id: req.userId,
-        file_name: req.file.originalname,
-        storage_path: storagePath,
-        note: req.body.note || null,
-      })
-      .select()
-      .single();
-
-    if (error) {
-      return res.status(500).json({ error: error.message });
-    }
-
-    res.status(201).json(data);
+    res.status(400).json({ error: message });
   });
+}
+
+// POST /api/reports — upload a report file
+router.post('/', receiveFile, async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: 'No file was uploaded.' });
+  }
+
+  const safeName = req.file.originalname.replace(/[^a-zA-Z0-9.\-_]/g, '_');
+  const storagePath = `${req.userId}/${crypto.randomUUID()}-${safeName}`;
+
+  const { error: uploadFailure } = await supabase.storage
+    .from(BUCKET)
+    .upload(storagePath, req.file.buffer, { contentType: req.file.mimetype });
+
+  if (uploadFailure) {
+    return res.status(500).json({ error: uploadFailure.message });
+  }
+
+  const { data, error } = await supabase
+    .from('reports')
+    .insert({
+      user_id: req.userId,
+      file_name: req.file.originalname,
+      storage_path: storagePath,
+      note: req.body.note || null,
+    })
+    .select()
+    .single();
+
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.status(201).json(data);
 });
 
 // GET /api/reports — list the logged-in patient's own reports

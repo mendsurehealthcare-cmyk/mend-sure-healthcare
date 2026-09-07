@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { submitInquiry } from '../lib/api';
 import { COUNTRY_INDEX } from '../lib/locations';
 import Autocomplete from './Autocomplete';
@@ -19,6 +20,7 @@ const fieldClasses =
 const labelClasses = 'mb-space-3xs block text-label-sm font-semibold text-on-surface-variant';
 
 export default function ConsultationForm({ sourcePage }) {
+  const { t } = useTranslation();
   const [form, setForm] = useState(initialForm);
   const [status, setStatus] = useState('idle'); // idle | submitting | success | error
   const [errorMessage, setErrorMessage] = useState('');
@@ -49,10 +51,10 @@ export default function ConsultationForm({ sourcePage }) {
       <div className="rounded-xl bg-tertiary-fixed p-space-lg text-center">
         <Icon name="check_circle" filled className="!text-[32px] text-on-tertiary-fixed-variant" />
         <p className="mt-space-xs text-label-md font-semibold text-on-tertiary-fixed">
-          Thank you! We've received your request.
+          {t('form.successTitle')}
         </p>
         <p className="mt-space-3xs text-body-sm text-on-tertiary-fixed-variant">
-          Our care team will reach out within 24 hours.
+          {t('form.successBody')}
         </p>
       </div>
     );
@@ -76,11 +78,11 @@ export default function ConsultationForm({ sourcePage }) {
 
       <div className="grid gap-space-md sm:grid-cols-2">
         <div>
-          <label className={labelClasses}>Full Name</label>
+          <label className={labelClasses}>{t('form.fullName')}</label>
           <input
             type="text"
             name="fullName"
-            placeholder="Enter your full name"
+            placeholder={t('form.fullNamePlaceholder')}
             required
             value={form.fullName}
             onChange={handleChange}
@@ -88,11 +90,11 @@ export default function ConsultationForm({ sourcePage }) {
           />
         </div>
         <div>
-          <label className={labelClasses}>Email Address</label>
+          <label className={labelClasses}>{t('form.email')}</label>
           <input
             type="email"
             name="email"
-            placeholder="patient@example.com"
+            placeholder={t('form.emailPlaceholder')}
             required
             value={form.email}
             onChange={handleChange}
@@ -100,11 +102,11 @@ export default function ConsultationForm({ sourcePage }) {
           />
         </div>
         <div>
-          <label className={labelClasses}>Phone Number / WhatsApp</label>
+          <label className={labelClasses}>{t('form.phone')}</label>
           <input
             type="tel"
             name="phone"
-            placeholder="+1 (555) 000-0000"
+            placeholder={t('form.phonePlaceholder')}
             required
             value={form.phone}
             onChange={handleChange}
@@ -113,7 +115,7 @@ export default function ConsultationForm({ sourcePage }) {
         </div>
         <div>
           <label className={labelClasses} htmlFor="consultation-country">
-            Country
+            {t('form.country')}
           </label>
           <Autocomplete
             id="consultation-country"
@@ -121,18 +123,18 @@ export default function ConsultationForm({ sourcePage }) {
             value={form.country}
             onChange={(country) => setForm((prev) => ({ ...prev, country }))}
             name="country"
-            placeholder="Country you're calling from"
+            placeholder={t('form.countryPlaceholder')}
             inputClassName={fieldClasses}
           />
         </div>
       </div>
 
       <div>
-        <label className={labelClasses}>Treatment You're Interested In</label>
+        <label className={labelClasses}>{t('form.treatment')}</label>
         <input
           type="text"
           name="treatmentInterested"
-          placeholder="Optional"
+          placeholder={t('form.treatmentPlaceholder')}
           value={form.treatmentInterested}
           onChange={handleChange}
           className={fieldClasses}
@@ -140,10 +142,10 @@ export default function ConsultationForm({ sourcePage }) {
       </div>
 
       <div>
-        <label className={labelClasses}>Brief Clinical Summary / Symptoms</label>
+        <label className={labelClasses}>{t('form.message')}</label>
         <textarea
           name="message"
-          placeholder="Tell us a bit about your condition (optional)"
+          placeholder={t('form.messagePlaceholder')}
           rows={3}
           value={form.message}
           onChange={handleChange}
@@ -158,13 +160,13 @@ export default function ConsultationForm({ sourcePage }) {
         disabled={status === 'submitting'}
         className="flex w-full items-center justify-center gap-space-xs rounded-lg bg-secondary py-space-md text-label-md text-on-secondary shadow-sm transition-colors hover:bg-secondary-fixed-dim hover:text-on-secondary-fixed disabled:cursor-not-allowed disabled:opacity-60"
       >
-        <span>{status === 'submitting' ? 'Sending...' : 'Get My Free Quote'}</span>
+        <span>{status === 'submitting' ? t('form.submitting') : t('form.submit')}</span>
         {status !== 'submitting' && <Icon name="arrow_forward" className="!text-[18px]" />}
       </button>
 
       <p className="flex items-center justify-center gap-space-3xs text-center text-body-sm text-outline">
         <Icon name="lock" className="!text-[14px]" />
-        100% confidential — your medical data is never shared.
+        {t('form.confidential')}
       </p>
     </form>
   );

@@ -45,17 +45,32 @@ export default function Hospitals() {
 
   const [query, setQuery] = useState('');
   const [city, setCity] = useState('all');
+  const [sort, setSort] = useState('name-asc');
 
+  // Cities are derived from the data rather than hardcoded, so adding a
+  // hospital in a new city puts it in the filter automatically.
   const cities = useMemo(() => {
     if (!hospitals) return [];
-    return [...new Set(hospitals.map((h) => h.city).filter(Boolean))];
+    return [...new Set(hospitals.map((h) => h.city).filter(Boolean))].sort((a, b) =>
+      a.localeCompare(b)
+    );
+  }, [hospitals]);
+
+  // How many hospitals sit in each city, so the filter can show its counts
+  // without recomputing them per option on every render.
+  const cityCounts = useMemo(() => {
+    const counts = new Map();
+    for (const hospital of hospitals || []) {
+      if (hospital.city) counts.set(hospital.city, (counts.get(hospital.city) || 0) + 1);
+    }
+    return counts;
   }, [hospitals]);
 
   const filtered = useMemo(() => {
     if (!hospitals) return [];
     const q = query.trim().toLowerCase();
 
-    return hospitals.filter((hospital) => {
+    const matches = hospitals.filter((hospital) => {
       const matchesCity = city === 'all' || hospital.city === city;
       const matchesQuery =
         !q ||
@@ -64,7 +79,22 @@ export default function Hospitals() {
           .includes(q);
       return matchesCity && matchesQuery;
     });
-  }, [hospitals, query, city]);
+
+    // localeCompare rather than < : it sorts accented and non-Latin names
+    // correctly, which a plain comparison does not.
+    const byName = (a, b) => (a.name || '').localeCompare(b.name || '');
+
+    const sorters = {
+      'name-asc': byName,
+      'name-desc': (a, b) => byName(b, a),
+      // Group by city, then alphabetically within each city.
+      city: (a, b) => (a.city || '').localeCompare(b.city || '') || byName(a, b),
+    };
+
+    // Sort a copy: the array from useApi is shared state, and sorting in place
+    // would mutate it.
+    return [...matches].sort(sorters[sort] ?? byName);
+  }, [hospitals, query, city, sort]);
 
   const totalDepartments = useMemo(() => {
     if (!hospitals) return 0;
@@ -125,31 +155,68 @@ export default function Hospitals() {
                   type="text"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  placeholder="e.g., Cardiology, Chennai..."
+                  placeholder="e.g., Cardiology, Gurgaon..."
                   className="w-full rounded-lg bg-surface-container-low py-space-sm pr-space-md pl-10 text-body-md text-on-surface transition-all focus:ring-2 focus:ring-secondary focus:outline-none"
                 />
               </div>
             </div>
 
             <div className="flex flex-col gap-space-sm">
-              <label className="text-label-sm text-on-surface-variant">Filter by city</label>
+              <label htmlFor="hospital-city" className="text-label-sm text-on-surface-variant">
+                Filter by city
+              </label>
               <select
+                id="hospital-city"
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
                 className="w-full rounded-lg bg-surface-container-low px-space-md py-space-sm text-body-md text-on-surface transition-all focus:ring-2 focus:ring-secondary focus:outline-none"
               >
-                <option value="all">All cities</option>
+                <option value="all">All cities ({hospitals?.length ?? 0})</option>
                 {cities.map((item) => (
                   <option key={item} value={item}>
-                    {item}
+                    {item} ({cityCounts.get(item) ?? 0})
                   </option>
                 ))}
               </select>
             </div>
 
-            <p className="text-body-sm text-on-surface-variant">
-              {filtered.length} {filtered.length === 1 ? 'facility' : 'facilities'} matching
-            </p>
+            <div className="flex flex-col gap-space-sm">
+              <label htmlFor="hospital-sort" className="text-label-sm text-on-surface-variant">
+                Sort by
+              </label>
+              <select
+                id="hospital-sort"
+                value={sort}
+                onChange={(e) => setSort(e.target.value)}
+                className="w-full rounded-lg bg-surface-container-low px-space-md py-space-sm text-body-md text-on-surface transition-all focus:ring-2 focus:ring-secondary focus:outline-none"
+              >
+                <option value="name-asc">Name (A–Z)</option>
+                <option value="name-desc">Name (Z–A)</option>
+                <option value="city">City, then name</option>
+              </select>
+            </div>
+
+            <div className="flex items-center justify-between gap-space-sm">
+              <p className="text-body-sm text-on-surface-variant">
+                {filtered.length} {filtered.length === 1 ? 'facility' : 'facilities'} matching
+              </p>
+
+              {/* Only offered once a filter is actually narrowing the list —
+                  a permanently visible "clear" invites the question of what
+                  there is to clear. */}
+              {(query || city !== 'all') && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setQuery('');
+                    setCity('all');
+                  }}
+                  className="text-label-sm font-semibold text-secondary transition-colors hover:underline"
+                >
+                  Clear filters
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </section>

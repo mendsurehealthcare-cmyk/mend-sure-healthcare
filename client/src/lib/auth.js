@@ -37,13 +37,17 @@ export function clearSession() {
 
 /*
   Supabase's auth errors are written for developers, not patients — e.g.
-  `Email address "x@y.co" is invalid` (its way of saying the domain has no
-  MX records). Rewrite the ones a patient can actually trigger into something
-  that tells them what to do about it; anything unrecognised passes through.
+  `Email address "x@y.co" is invalid`. Rewrite the ones a patient can actually
+  trigger into something that tells them what to do about it; anything
+  unrecognised passes through.
 */
 function friendlyAuthError(message = '') {
+  // Supabase rejects addresses it cannot confirm are real, deliverable
+  // mailboxes — not just malformed ones. Pointing only at the domain (as this
+  // message used to) sends people hunting for a typo in "gmail.com" when the
+  // actual problem is that the mailbox itself doesn't exist.
   if (/is invalid/i.test(message) && /email/i.test(message)) {
-    return "We couldn't verify that email address. Please check the spelling — especially the part after the @.";
+    return "That email address couldn't be verified as a real inbox. Please check it for typos, or try a different address you can receive mail at.";
   }
 
   if (/already registered|already exists/i.test(message)) {

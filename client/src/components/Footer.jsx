@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { COMPANY } from '../lib/company';
 import Icon from './Icon';
 import SocialIcon from './SocialIcon';
@@ -6,6 +7,8 @@ import SocialIcon from './SocialIcon';
 const linkClasses = 'transition-colors hover:text-primary';
 
 export default function Footer() {
+  const { t } = useTranslation();
+
   return (
     <footer className="w-full border-t border-outline-variant/20 bg-surface-container-low py-space-2xl">
       <div className="mx-auto mb-space-xl grid max-w-7xl grid-cols-1 gap-space-xl px-space-md sm:grid-cols-2 sm:px-space-xl lg:grid-cols-4">
@@ -20,7 +23,7 @@ export default function Footer() {
             className="mb-space-md h-auto w-40"
           />
           <p className="mb-space-md text-body-sm text-on-surface-variant">
-            Helping patients get world-class treatment in India at a fraction of US and UK prices.
+            {t('footer.tagline')}
           </p>
 
           <div className="flex items-center gap-space-sm">
@@ -30,7 +33,7 @@ export default function Footer() {
                 href={account.href}
                 target="_blank"
                 rel="noreferrer noopener"
-                aria-label={`Mend Sure on ${account.label}`}
+                aria-label={t('footer.socialLabel', { network: account.label })}
                 className="flex h-10 w-10 items-center justify-center rounded-lg bg-surface-container text-on-surface-variant transition-colors hover:bg-primary hover:text-on-primary"
               >
                 <SocialIcon name={account.name} className="h-5 w-5" />
@@ -40,28 +43,28 @@ export default function Footer() {
         </div>
 
         <div>
-          <h4 className="mb-space-md text-label-md font-bold text-on-surface">Quick Links</h4>
+          <h4 className="mb-space-md text-label-md font-bold text-on-surface">{t('footer.quickLinks')}</h4>
           <ul className="space-y-space-xs text-body-sm text-on-surface-variant">
-            <li><Link to="/treatments" className={linkClasses}>Treatments</Link></li>
-            <li><Link to="/hospitals" className={linkClasses}>Partner Hospitals</Link></li>
-            <li><Link to="/doctors" className={linkClasses}>Our Doctors</Link></li>
-            <li><Link to="/how-it-works" className={linkClasses}>How It Works</Link></li>
+            <li><Link to="/treatments" className={linkClasses}>{t('nav.treatments')}</Link></li>
+            <li><Link to="/hospitals" className={linkClasses}>{t('footer.partnerHospitals')}</Link></li>
+            <li><Link to="/doctors" className={linkClasses}>{t('footer.ourDoctors')}</Link></li>
+            <li><Link to="/how-it-works" className={linkClasses}>{t('nav.howItWorks')}</Link></li>
           </ul>
 
           <h4 className="mt-space-lg mb-space-md text-label-md font-bold text-on-surface">
-            Support &amp; Safety
+            {t('footer.support')}
           </h4>
           <ul className="space-y-space-xs text-body-sm text-on-surface-variant">
-            <li><Link to="/about" className={linkClasses}>About Us</Link></li>
-            <li><Link to="/testimonials" className={linkClasses}>Patient Stories</Link></li>
-            <li><Link to="/contact" className={linkClasses}>Get a Free Quote</Link></li>
-            <li><Link to="/reports" className={linkClasses}>My Medical Reports</Link></li>
-            <li><Link to="/login" className={linkClasses}>Patient Login</Link></li>
+            <li><Link to="/about" className={linkClasses}>{t('footer.aboutUs')}</Link></li>
+            <li><Link to="/testimonials" className={linkClasses}>{t('nav.patientStories')}</Link></li>
+            <li><Link to="/contact" className={linkClasses}>{t('footer.freeQuote')}</Link></li>
+            <li><Link to="/reports" className={linkClasses}>{t('nav.myReports')}</Link></li>
+            <li><Link to="/login" className={linkClasses}>{t('footer.patientLogin')}</Link></li>
           </ul>
         </div>
 
         <div>
-          <h4 className="mb-space-md text-label-md font-bold text-on-surface">Contact Us</h4>
+          <h4 className="mb-space-md text-label-md font-bold text-on-surface">{t('footer.contact')}</h4>
 
           {/* not-italic because browsers italicise <address> by default. */}
           <address className="space-y-space-md text-body-sm text-on-surface-variant not-italic">
@@ -117,17 +120,15 @@ export default function Footer() {
         </div>
 
         <div>
-          <h4 className="mb-space-md text-label-md font-bold text-on-surface">Medical Disclaimer</h4>
+          <h4 className="mb-space-md text-label-md font-bold text-on-surface">{t('footer.disclaimerTitle')}</h4>
           <p className="text-body-sm leading-relaxed text-on-surface-variant">
-            The content provided on Mend Sure is for informational purposes only and does not
-            substitute for professional medical advice, diagnosis, or treatment. Always seek the
-            advice of your physician.
+            {t('footer.disclaimer')}
           </p>
         </div>
       </div>
 
       <div className="mx-auto max-w-7xl border-t border-outline-variant/10 px-space-md pt-space-lg text-center text-body-sm text-on-surface-variant sm:px-space-xl">
-        © {new Date().getFullYear()} {COMPANY.legalName}. All rights reserved.
+        © {new Date().getFullYear()} {COMPANY.legalName}. {t('footer.rights')}
       </div>
     </footer>
   );

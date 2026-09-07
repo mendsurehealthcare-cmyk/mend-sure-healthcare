@@ -1,20 +1,26 @@
 import { useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/useAuth';
 import Icon from './Icon';
+import LanguageSwitcher from './LanguageSwitcher';
 
+// labelKey rather than a literal: the label is resolved at render time so it
+// re-renders in the new language the moment the switcher changes it.
 const links = [
-  { to: '/treatments', label: 'Treatments' },
-  { to: '/hospitals', label: 'Hospitals' },
-  { to: '/doctors', label: 'Doctors' },
-  { to: '/how-it-works', label: 'How It Works' },
-  { to: '/testimonials', label: 'Patient Stories' },
-  { to: '/about', label: 'About' },
+  { to: '/treatments', labelKey: 'nav.treatments' },
+  { to: '/hospitals', labelKey: 'nav.hospitals' },
+  { to: '/doctors', labelKey: 'nav.doctors' },
+  { to: '/how-it-works', labelKey: 'nav.howItWorks' },
+  { to: '/testimonials', labelKey: 'nav.patientStories' },
+  { to: '/about', labelKey: 'nav.about' },
 ];
 
 // Nav links render as pills: the active route gets a solid navy pill, the rest
 // stay quiet until hovered.
-function NavItem({ to, label, onClick }) {
+function NavItem({ to, labelKey, label, onClick }) {
+  const { t } = useTranslation();
+
   return (
     <NavLink
       to={to}
@@ -27,13 +33,14 @@ function NavItem({ to, label, onClick }) {
         }`
       }
     >
-      {label}
+      {labelKey ? t(labelKey) : label}
     </NavLink>
   );
 }
 
 // Avatar button + dropdown shown once a patient is logged in.
 function AccountMenu({ user, onLogout }) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const menuRef = useRef(null);
   const location = useLocation();
@@ -63,7 +70,7 @@ function AccountMenu({ user, onLogout }) {
         onClick={() => setOpen((value) => !value)}
         aria-haspopup="menu"
         aria-expanded={open}
-        aria-label="Account menu"
+        aria-label={t('nav.accountMenu')}
         className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-label-md font-semibold text-on-primary transition-colors hover:bg-primary-container"
       >
         {initial}
@@ -76,7 +83,7 @@ function AccountMenu({ user, onLogout }) {
         >
           <div className="bg-surface-container-low px-space-md py-space-sm">
             <p className="truncate text-label-md font-semibold text-on-surface">
-              {user.full_name || 'Your account'}
+              {user.full_name || t('nav.yourAccount')}
             </p>
             <p className="truncate text-body-sm text-on-surface-variant">{user.email}</p>
           </div>
@@ -87,7 +94,7 @@ function AccountMenu({ user, onLogout }) {
             className="flex items-center gap-space-sm px-space-md py-space-sm text-body-md text-on-surface transition-colors hover:bg-surface-container"
           >
             <Icon name="folder_shared" className="!text-[20px] text-secondary" />
-            My Medical Reports
+            {t('nav.myReports')}
           </NavLink>
 
           <NavLink
@@ -96,7 +103,7 @@ function AccountMenu({ user, onLogout }) {
             className="flex items-center gap-space-sm px-space-md py-space-sm text-body-md text-on-surface transition-colors hover:bg-surface-container"
           >
             <Icon name="account_circle" className="!text-[20px] text-secondary" />
-            My Account
+            {t('nav.myAccount')}
           </NavLink>
 
           <button
@@ -109,7 +116,7 @@ function AccountMenu({ user, onLogout }) {
             className="flex w-full items-center gap-space-sm border-t border-outline-variant/20 px-space-md py-space-sm text-left text-body-md text-on-surface transition-colors hover:bg-error-container hover:text-on-error-container"
           >
             <Icon name="logout" className="!text-[20px]" />
-            Log Out
+            {t('nav.logOut')}
           </button>
         </div>
       )}
@@ -118,6 +125,7 @@ function AccountMenu({ user, onLogout }) {
 }
 
 export default function Navbar() {
+  const { t } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
   const [search, setSearch] = useState('');
   const navigate = useNavigate();
@@ -140,9 +148,9 @@ export default function Navbar() {
       <div className="flex items-center justify-between bg-primary px-space-md py-space-2xs text-label-sm text-on-primary sm:px-space-2xl">
         <div className="flex items-center gap-space-sm">
           <Icon name="emergency" className="!text-[16px]" />
-          <span>Emergency Hotline: 24/7 Support</span>
+          <span>{t('nav.hotline')}</span>
         </div>
-        <span className="hidden opacity-80 sm:inline">Verified Clinical Network</span>
+        <span className="hidden opacity-80 sm:inline">{t('nav.verifiedNetwork')}</span>
       </div>
 
       <div className="mx-auto flex h-space-3xl max-w-7xl items-center justify-between px-space-md sm:px-space-xl">
@@ -178,7 +186,7 @@ export default function Navbar() {
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search a specialty..."
+              placeholder={t('nav.searchPlaceholder')}
               className="w-56 rounded-lg bg-surface-container-low py-space-xs pr-space-md pl-10 text-body-md text-on-surface transition-all focus:ring-2 focus:ring-secondary focus:outline-none"
             />
           </form>
@@ -187,7 +195,7 @@ export default function Navbar() {
             to="/contact"
             className="hidden shrink-0 rounded-lg bg-secondary px-space-md py-space-xs text-label-md whitespace-nowrap text-on-secondary shadow-sm transition-colors hover:bg-secondary-fixed-dim hover:text-on-secondary-fixed xl:inline-flex"
           >
-            Book Consultation
+            {t('nav.bookConsultation')}
           </NavLink>
 
           {user ? (
@@ -198,14 +206,18 @@ export default function Navbar() {
               className="hidden shrink-0 items-center gap-space-3xs rounded-lg px-space-sm py-space-xs text-label-md whitespace-nowrap text-on-surface-variant transition-colors hover:bg-surface-container hover:text-on-surface xl:inline-flex"
             >
               <Icon name="login" className="!text-[18px]" />
-              Log In
+              {t('nav.logIn')}
             </NavLink>
           )}
+
+          {/* Hidden below xl alongside the rest of the desktop controls — the
+              mobile menu carries its own copy so the bar stays uncluttered. */}
+          <LanguageSwitcher className="hidden xl:block" />
 
           <button
             type="button"
             className="text-primary xl:hidden"
-            aria-label="Toggle menu"
+            aria-label={t('nav.toggleMenu')}
             onClick={() => setMenuOpen((open) => !open)}
           >
             <Icon name={menuOpen ? 'close' : 'menu'} />
@@ -222,8 +234,8 @@ export default function Navbar() {
           <div className="mt-space-xs flex flex-col gap-space-xs border-t border-outline-variant/20 pt-space-md">
             {user ? (
               <>
-                <NavItem to="/reports" label="My Medical Reports" onClick={() => setMenuOpen(false)} />
-                <NavItem to="/account" label="My Account" onClick={() => setMenuOpen(false)} />
+                <NavItem to="/reports" labelKey="nav.myReports" onClick={() => setMenuOpen(false)} />
+                <NavItem to="/account" labelKey="nav.myAccount" onClick={() => setMenuOpen(false)} />
                 <button
                   type="button"
                   onClick={() => {
@@ -232,11 +244,11 @@ export default function Navbar() {
                   }}
                   className="rounded-lg px-space-sm py-space-xs text-left text-body-md text-on-surface-variant transition-colors hover:text-on-surface"
                 >
-                  Log Out
+                  {t('nav.logOut')}
                 </button>
               </>
             ) : (
-              <NavItem to="/login" label="Log In / Create Account" onClick={() => setMenuOpen(false)} />
+              <NavItem to="/login" labelKey="nav.logInCreate" onClick={() => setMenuOpen(false)} />
             )}
 
             <NavLink
@@ -244,8 +256,10 @@ export default function Navbar() {
               onClick={() => setMenuOpen(false)}
               className="rounded-lg bg-secondary px-space-lg py-space-sm text-center text-label-md text-on-secondary"
             >
-              Book Consultation
+              {t('nav.bookConsultation')}
             </NavLink>
+
+            <LanguageSwitcher className="mt-space-xs" />
           </div>
         </nav>
       )}

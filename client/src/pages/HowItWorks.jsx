@@ -1,3 +1,4 @@
+import { useDocumentMeta } from '../lib/useDocumentMeta';
 import Button from '../components/Button';
 import Icon from '../components/Icon';
 import PageHero from '../components/PageHero';
@@ -14,103 +15,107 @@ const CTA_IMAGE =
 
 const steps = [
   {
-    label: 'Share Your Case',
-    badge: 'Secure Portal',
-    badgeIcon: 'upload_file',
-    title: 'Share Your Case',
-    body: "Send us your diagnostic scans, lab reports, and physician notes. Your dedicated care coordinator reviews them for completeness and comes back to you with any gaps. This is free and takes just a few minutes.",
-    bullets: [
-      'Encrypted transfer for all medical files',
-      'No obligation and no cost to submit',
-      'A named care coordinator assigned to your case',
+    "label": "Share Your Case",
+    "badge": "Free & Secure",
+    "badgeIcon": "upload_file",
+    "title": "Tell Us About Your Case",
+    "body": "Submit your diagnostic scans, lab results, and physician notes for review. Your care coordinator will go through your documents and let you know if anything is missing.",
+    "note": "Simple and secure — you can share your records with us, and your care coordinator will get back to you with any queries.",
+    "bullets": [
+      "Encrypted upload of diagnostic and lab documents",
+      "No cost or obligation to submit",
+      "Named care coordinator for your case"
     ],
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuBBpikxChJ-B7kYq1H5cN5sXHQcM_fBWBIJKRQgkpCcTsg_pv13Uy0VUycEHqwu0MJDjb2lw1VWUWqpURDv20r3-vqSA5ZQNAPsMIcL1y5c7VWjJlifFmDdE5jePUKju75cIpG2AHOnwKExrlG8_ICRuHhZ9oVp7Nsx0BohsKfcAaBgcvl9cxHNsDPL-VmnUnfMXDOA0oP6Q5yNKfSTJz8UiQx4K_iNUyGRHVF44V3Ok4P7rc7O_Pmr',
-    imageAlt: 'A secure medical records dashboard showing encrypted patient imaging scans.',
-    imageCaption: 'Confidential medical data handling',
-    action: { to: '/contact', label: 'Send Your Records' },
+    "action": {
+      "to": "/contact",
+      "label": "Send Your Records"
+    },
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuBBpikxChJ-B7kYq1H5cN5sXHQcM_fBWBIJKRQgkpCcTsg_pv13Uy0VUycEHqwu0MJDjb2lw1VWUWqpURDv20r3-vqSA5ZQNAPsMIcL1y5c7VWjJlifFmDdE5jePUKju75cIpG2AHOnwKExrlG8_ICRuHhZ9oVp7Nsx0BohsKfcAaBgcvl9cxHNsDPL-VmnUnfMXDOA0oP6Q5yNKfSTJz8UiQx4K_iNUyGRHVF44V3Ok4P7rc7O_Pmr",
+    "imageAlt": "A secure medical records dashboard showing encrypted patient imaging scans.",
+    "imageCaption": "Confidential medical data handling"
   },
   {
-    label: 'Specialist Review',
-    badge: 'Expert Panel',
-    badgeIcon: 'group',
-    title: 'Get a Second Opinion',
-    body: 'Your case goes to senior specialists at our partner hospitals, who assess it collaboratively and confirm the most appropriate, evidence-based treatment before you commit to anything.',
-    bullets: [
-      'Reviewed by senior specialists in your condition',
-      'Second opinion confirmed before you book travel',
-      'A clear treatment roadmap you can take to your own doctor',
+    "label": "Second Opinion",
+    "badge": "Senior Specialists",
+    "badgeIcon": "group",
+    "title": "Second Opinion",
+    "body": "We share your case with senior specialists at our network of hospitals, who come together to confirm the most suitable course of treatment for your condition.",
+    "note": "You receive a second opinion, reviewed and approved by senior doctors, plus a suggested treatment plan you can share with your local physician.",
+    "bullets": [
+      "Reviewed by our network of senior specialists",
+      "Second opinion provided and confirmed before booking",
+      "A suggested treatment plan for your approval"
     ],
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuBvl3F1eSI77ckZ3ueY8iSyByACQftPpVESijNUlADyvCh93tkmdgWNo5urrMDJxosX1X5gkJToRmaTp9Qv-gj-GlF87OyTinaLaHkgaiHqXQUEEgHjpHf69FIEeo3zY09246GwhIlCsse1tzRNmCmGBKZkNKI_MfqI8P9q4hCoXYRZSJIcFviBesfqTmow3L7QAXj4eoRcMgK4FyX9kiYPOLn0jA4ovPtGS4c3cLfPzR1Dz0Ddzof_',
-    imageAlt: 'A team of physicians and surgeons reviewing medical scans in a clinical board room.',
-    imageCaption: 'Collaborative specialist review',
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuBvl3F1eSI77ckZ3ueY8iSyByACQftPpVESijNUlADyvCh93tkmdgWNo5urrMDJxosX1X5gkJToRmaTp9Qv-gj-GlF87OyTinaLaHkgaiHqXQUEEgHjpHf69FIEeo3zY09246GwhIlCsse1tzRNmCmGBKZkNKI_MfqI8P9q4hCoXYRZSJIcFviBesfqTmow3L7QAXj4eoRcMgK4FyX9kiYPOLn0jA4ovPtGS4c3cLfPzR1Dz0Ddzof_",
+    "imageAlt": "A team of physicians and surgeons reviewing medical scans in a clinical board room.",
+    "imageCaption": "Collaborative specialist review"
   },
   {
-    label: 'Hospital Matching',
-    badge: 'Accredited Network',
-    badgeIcon: 'local_hospital',
-    title: 'Treatment Plan & Quote',
-    body: 'We match you with the accredited hospital and surgeon best suited to your procedure, balancing clinical outcomes, technology, and your budget — then send a clear, all-in price.',
-    bullets: [
-      'Matched on outcomes, technology, and cost',
-      'Surgeon profiles including experience and case volume',
-      'All-inclusive cost estimate with zero hidden fees',
+    "label": "Plan & Quote",
+    "badge": "Transparent Costs",
+    "badgeIcon": "request_quote",
+    "title": "Treatment Plan and Quote",
+    "body": "We identify the right hospital and surgeon for your treatment and share a detailed treatment plan and budget with you. Our focus is on the best value treatment for your condition, supported by the latest technology and a surgeon with the relevant experience for your case.",
+    "bullets": [
+      "Hospital and surgeon recommended and approved",
+      "Surgeon's profile including experience and case volumes",
+      "Budget breakdown with no added costs"
     ],
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuBZ8wH228m_5OJaWsxtns2FLdkzLONTrnKKc6kR95F-fePwGAJd9_0JEO_J6-umRbj1G0MyJrOvVv9841o7oeKurYNWATABinE6VaTyi8O9FPaqEfpD3JVgq33r4mwj8Gw6XXzv9P1GLZX26f4XfgQsKKnTYhflZeUiHxIN4lt6FEAMZjgnGvGegcfJTAcMkSSuVBem2NfsQVqA7GFtQxZw2H_d5Tq3SIhyufRAxGo11OK2U4gizkDh',
-    imageAlt: 'A modern accredited hospital exterior with glass architecture and landscaping.',
-    imageCaption: 'Accredited partner hospitals across India',
-    action: { to: '/hospitals', label: 'Browse Partner Hospitals' },
+    "action": {
+      "to": "/hospitals",
+      "label": "Browse Partner Hospitals"
+    },
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuBZ8wH228m_5OJaWsxtns2FLdkzLONTrnKKc6kR95F-fePwGAJd9_0JEO_J6-umRbj1G0MyJrOvVv9841o7oeKurYNWATABinE6VaTyi8O9FPaqEfpD3JVgq33r4mwj8Gw6XXzv9P1GLZX26f4XfgQsKKnTYhflZeUiHxIN4lt6FEAMZjgnGvGegcfJTAcMkSSuVBem2NfsQVqA7GFtQxZw2H_d5Tq3SIhyufRAxGo11OK2U4gizkDh",
+    "imageAlt": "A modern accredited hospital exterior with glass architecture and landscaping.",
+    "imageCaption": "Accredited partner hospitals across India"
   },
   {
-    label: 'Travel & Visa',
-    badge: 'Trip Logistics',
-    badgeIcon: 'flight_takeoff',
-    title: 'Plan Your Trip',
-    body: 'Once you approve the plan, we handle the logistics: medical visa invitation letters, embassy paperwork, airport pickup, and accommodation close to the hospital for you and your family.',
-    bullets: [
-      'Medical visa invitation letters and embassy guidance',
-      'Airport pickup and hospital transfers',
-      'Accommodation options near the hospital for family',
+    "label": "Plan Your Visit",
+    "badge": "Travel & Visa",
+    "badgeIcon": "flight_takeoff",
+    "title": "Plan Your Visit",
+    "body": "Your visit to India is planned and organised by your care coordinator. We take care of the medical visa and any embassy requirements, arrange transport to and from the hospital, and organise accommodation if required for you and your family.",
+    "bullets": [
+      "Assistance with medical visa and embassy requirements",
+      "Airport transfers to and from the hospital",
+      "Accommodation options if required"
     ],
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuCoUR0jlige_o9D2lAHWJH0Ndp_OxVV4jqXbP_kdpvbYrKQFFV_vYM5Wu4kgb9i9DjntWphcAqKHlezoOqmB96ylhJ9t_pZiywwIp23Pqy1VKd2saWbYZUuf4dTH7WGUSL-5gjneOGYogU2psekVUyu0KpcEARqfFdqAkXdzmPCwhjbpVj3-FJcoGzAE6B7ctyUYVdjMs0UC-MsiHqyLweagDX0SulatCd3tM4KPST6G9i1BksT4SGF',
-    imageAlt: 'An airport arrivals lounge with a vehicle waiting for a patient.',
-    imageCaption: 'Door-to-door travel coordination',
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuCoUR0jlige_o9D2lAHWJH0Ndp_OxVV4jqXbP_kdpvbYrKQFFV_vYM5Wu4kgb9i9DjntWphcAqKHlezoOqmB96ylhJ9t_pZiywwIp23Pqy1VKd2saWbYZUuf4dTH7WGUSL-5gjneOGYogU2psekVUyu0KpcEARqfFdqAkXdzmPCwhjbpVj3-FJcoGzAE6B7ctyUYVdjMs0UC-MsiHqyLweagDX0SulatCd3tM4KPST6G9i1BksT4SGF",
+    "imageAlt": "An airport arrivals lounge with a vehicle waiting for a patient.",
+    "imageCaption": "Door-to-door travel coordination"
   },
   {
-    label: 'Treatment & Stay',
-    badge: 'In-Hospital Care',
-    badgeIcon: 'medical_services',
-    title: 'Arrive & Get Treated',
-    body: 'A local coordinator meets you at the airport and stays with you through admission, treatment, and discharge — handling interpretation, paperwork, and daily updates to your family back home.',
-    bullets: [
-      'Coordinator present from arrival through discharge',
-      'Interpreter support in the hospital',
-      'Daily updates to family in your home country',
+    "label": "Arrive & Treat",
+    "badge": "In-Hospital Care",
+    "badgeIcon": "medical_services",
+    "title": "Arrive and Get Treated",
+    "body": "A local coordinator meets you at the airport and stays with you for the duration of your treatment. You also have access to an interpreter in the hospital, and we keep your family informed throughout.",
+    "note": "Your care coordinator is with you from admission until discharge, and family members are kept up to date with regular communication.",
+    "bullets": [
+      "Meet and greet at the airport by your coordinator",
+      "Interpreter available in the hospital",
+      "Family members kept informed throughout your treatment"
     ],
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuDmm_ux0Yk56tFKvC6eaEHdRDKRN0pjWRZze2DuiBVilrU8Uan-1XQOYpY5UzF8_wivj6S4BSm_hi2FISH9LlG7XzX5hCk3_4nuYGsjokin3hJiQrAk2dLfTyGj-HWc1EVjA7STEOeJqGGQ9fXq3b3EF0gIlzW5YJ-LKPuhtAgq7KmvjxJtdvxUvxZ05KJ7XE8voeGwEN1Z55uSVc-lUZ_ZB2SX0-q6lkalmE8ySvq8ETApx8wyEGD3',
-    imageAlt: 'A medical professional assisting a patient in a hospital recovery suite.',
-    imageCaption: 'Supported in-hospital care and recovery',
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuDmm_ux0Yk56tFKvC6eaEHdRDKRN0pjWRZze2DuiBVilrU8Uan-1XQOYpY5UzF8_wivj6S4BSm_hi2FISH9LlG7XzX5hCk3_4nuYGsjokin3hJiQrAk2dLfTyGj-HWc1EVjA7STEOeJqGGQ9fXq3b3EF0gIlzW5YJ-LKPuhtAgq7KmvjxJtdvxUvxZ05KJ7XE8voeGwEN1Z55uSVc-lUZ_ZB2SX0-q6lkalmE8ySvq8ETApx8wyEGD3",
+    "imageAlt": "A medical professional assisting a patient in a hospital recovery suite.",
+    "imageCaption": "Supported in-hospital care and recovery"
   },
   {
-    label: 'Recovery Support',
-    badge: 'Follow-Up',
-    badgeIcon: 'monitor_heart',
-    title: 'Recover With Support',
-    body: "Your care doesn't end at discharge. We stay in touch to make sure your recovery is on track before you fly home, then coordinate follow-up consultations with your surgeon and your local physician.",
-    bullets: [
-      'Check-ins before you fly home',
-      'Follow-up consultations with your operating surgeon',
-      'Records shared with your local physician',
+    "label": "Return & Recover",
+    "badge": "Follow-Up",
+    "badgeIcon": "monitor_heart",
+    "title": "Return Home and Continue Recovery",
+    "body": "We keep in touch with you after discharge to make sure your recovery is progressing well, and coordinate follow-up consultations by video or phone with your surgeon and local physician if required.",
+    "note": "Your care coordinator continues to support you before you return home to your country of residence.",
+    "bullets": [
+      "Post-discharge follow-up to assess recovery",
+      "Coordinated follow-up consultations if required",
+      "Local physician liaison"
     ],
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuA0L3kHjnJL54g6TNeuVxjj07RChS0PCea_Aw0HFFMj7iDTiD1XA8WXEQ13Iu9w9Ksx5YAQJk68R12uLMW-Zhwf2W-bdaND_-p6LB6f-LbWLRQCftJWiqI29Po_fv-jyhupgbX6m6SMSjlJxCP2-PeM9SKO4KDaXLKbnmDTAV-PPAUOb1WbFp1o91pcL5Ck9uoQwy-rcQYXVEPqhR_60e892wZT09sJqM8HItL4_1PUXTlJPotsm0Is',
-    imageAlt: 'A patient in a video consultation with their surgeon from home.',
-    imageCaption: 'Follow-up care once you are home',
-  },
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuA0L3kHjnJL54g6TNeuVxjj07RChS0PCea_Aw0HFFMj7iDTiD1XA8WXEQ13Iu9w9Ksx5YAQJk68R12uLMW-Zhwf2W-bdaND_-p6LB6f-LbWLRQCftJWiqI29Po_fv-jyhupgbX6m6SMSjlJxCP2-PeM9SKO4KDaXLKbnmDTAV-PPAUOb1WbFp1o91pcL5Ck9uoQwy-rcQYXVEPqhR_60e892wZT09sJqM8HItL4_1PUXTlJPotsm0Is",
+    "imageAlt": "A patient in a video consultation with their surgeon from home.",
+    "imageCaption": "Follow-up care once you are home"
+  }
 ];
 
 const faqs = [
@@ -133,12 +138,18 @@ const faqs = [
 ];
 
 export default function HowItWorks() {
+  useDocumentMeta({
+    title: 'How It Works — Your Medical Treatment Journey in India | MENDSURE',
+    description:
+      'From sharing your case to full recovery, MENDSURE guides international patients through every step of treatment in India — with an expert second opinion and clear costs at every stage.',
+  });
+
   return (
     <div className="flex w-full flex-col">
       <PageHero
-        eyebrow="Clinical Excellence & Safety"
-        title="How Mend Sure Manages Your Medical Journey"
-        subtitle="A transparent, medically rigorous 6-step pathway ensuring safety, careful hospital matching, coordinated travel, and post-operative recovery support."
+        eyebrow="How It Works"
+        title="A Simple, Guided Process for Medical Treatment in India"
+        subtitle="From your initial enquiry to your return home, a dedicated care coordinator is with you at every step — handling the medical, logistical, and personal details."
         backgroundImage={HERO_IMAGE}
         backgroundAlt="Abstract medical network pattern representing healthcare connections and patient safety."
         aside={
@@ -171,12 +182,27 @@ export default function HowItWorks() {
         </Button>
       </PageHero>
 
+      {/* Opening statement. Sets expectations before the detail, and names the
+          one thing patients most want to know: someone is with them. */}
+      <section className="mx-auto w-full max-w-3xl px-space-md pt-space-3xl sm:px-space-xl">
+        <p className="mb-space-md text-body-lg leading-relaxed text-on-surface-variant">
+          Travelling abroad for medical treatment can be confusing. At MENDSURE, we have worked with
+          patients across the globe to make the entire process simpler and more transparent. From
+          your initial enquiry to your return home, a dedicated care coordinator is with you every
+          step of the way, dealing with the medical, logistical, and personal details so you can
+          focus on what matters most — your health.
+        </p>
+        <p className="text-headline-sm leading-relaxed font-normal text-on-surface">
+          Here's what to expect when you choose MENDSURE for treatment in India.
+        </p>
+      </section>
+
       {/* Step-by-step pathway */}
       <section className="mx-auto w-full max-w-7xl px-space-md py-space-3xl sm:px-space-xl">
         <SectionHeading
-          eyebrow="End-to-End Protocol"
-          title="The 6 Stages of Your Medical Journey"
-          subtitle="Step through each stage to see the clinical oversight, logistics, and dedicated team assigned to your care."
+          eyebrow="Your Journey, Step by Step"
+          title="The 6 Stages of Your Treatment"
+          subtitle="Step through each stage to see exactly what happens, what you receive, and who is looking after you."
         />
         <StepTabs steps={steps} />
       </section>
@@ -191,8 +217,28 @@ export default function HowItWorks() {
         </div>
       </section>
 
-      {/* FAQ */}
+      {/* The human side. Sits after the process detail deliberately: once a
+          reader has seen the mechanics, this is what tells them who is behind
+          it. */}
       <section className="mx-auto w-full max-w-4xl px-space-md py-space-3xl sm:px-space-xl">
+        <div className="rounded-2xl bg-surface-container-lowest p-space-lg text-center shadow-sm sm:p-space-2xl">
+          <div className="mx-auto mb-space-md flex h-12 w-12 items-center justify-center rounded-lg bg-secondary-container text-on-secondary-container">
+            <Icon name="volunteer_activism" className="!text-[24px]" />
+          </div>
+          <h2 className="mx-auto mb-space-md max-w-2xl text-headline-lg font-bold text-balance text-primary">
+            Care That Understands Both the Medical and the Human Side
+          </h2>
+          <p className="mx-auto max-w-2xl text-body-lg leading-relaxed text-on-surface-variant">
+            MENDSURE makes it simple and affordable to get high-quality medical treatment across a
+            range of specialities. You are supported by a care coordinator throughout your journey,
+            who works with you to understand your specific needs and coordinates your treatment with
+            our network of private hospitals in India.
+          </p>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="mx-auto w-full max-w-4xl px-space-md pb-space-3xl sm:px-space-xl">
         <SectionHeading
           title="Common Questions About Our Process"
           subtitle="Everything you need to know about safety, pricing, and coordination."
@@ -209,15 +255,28 @@ export default function HowItWorks() {
           />
           <div className="relative z-10 mx-auto max-w-2xl">
             <h2 className="mb-space-md text-headline-xl text-on-primary">
-              Ready to Begin Your Medical Journey?
+              Start With a Free Case Review
             </h2>
-            <p className="mb-space-xl text-body-lg text-primary-fixed-dim">
-              Send your medical records today for a free review and a transparent quote from our
-              partner specialists.
+            <p className="mb-space-lg text-body-lg leading-relaxed text-primary-fixed-dim">
+              Take the first step towards expert medical treatment in India by submitting your
+              diagnostic reports for a free, no-obligation review by one of our care coordinators.
             </p>
+
+            {/* The three objections that stop people submitting, answered on
+                the button itself rather than buried in small print. */}
+            <ul className="mx-auto mb-space-xl flex flex-wrap items-center justify-center gap-x-space-lg gap-y-space-xs text-label-md text-primary-fixed-dim">
+              {['No cost', 'No obligation', 'Reviewed by senior specialists'].map((item) => (
+                <li key={item} className="flex items-center gap-space-2xs">
+                  <Icon name="check_circle" className="!text-[18px] text-secondary-container" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+
             <div className="flex flex-wrap justify-center gap-space-md">
               <Button to="/contact" className="px-space-xl py-space-md shadow-lg">
                 Start Free Case Review
+                <Icon name="arrow_forward" className="!text-[18px]" />
               </Button>
               <Button to="/treatments" variant="onDark" className="px-space-xl py-space-md">
                 Compare Treatment Costs

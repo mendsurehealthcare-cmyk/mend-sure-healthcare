@@ -1,0 +1,243 @@
+{
+  "nav": {
+    "treatments": "Tratamientos",
+    "hospitals": "Hospitales",
+    "doctors": "Médicos",
+    "howItWorks": "Cómo funciona",
+    "patientStories": "Historias de pacientes",
+    "about": "Nosotros",
+    "bookConsultation": "Reservar consulta",
+    "logIn": "Iniciar sesión",
+    "logInCreate": "Iniciar sesión / Crear cuenta",
+    "logOut": "Cerrar sesión",
+    "myReports": "Mis informes médicos",
+    "myAccount": "Mi cuenta",
+    "yourAccount": "Tu cuenta",
+    "searchPlaceholder": "Buscar una especialidad...",
+    "language": "Elegir idioma",
+    "toggleMenu": "Abrir o cerrar el menú",
+    "accountMenu": "Menú de cuenta",
+    "hotline": "Línea de emergencia: atención 24/7",
+    "verifiedNetwork": "Red clínica verificada"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "exploreTreatments": "Ver tratamientos",
+    "viewProfile": "Ver perfil",
+    "viewFacility": "Ver hospital"
+  },
+  "home": {
+    "hero": {
+      "badge": "RED SANITARIA GLOBAL ACREDITADA",
+      "titleLead": "Cirugía de primer nivel, al",
+      "titleHighlight": "menor coste garantizado",
+      "subtitle": "Mend Sure conecta a pacientes de Estados Unidos, Reino Unido y otros países con hospitales acreditados en India: la misma calidad asistencial, por una fracción del coste.",
+      "searchSpecialty": "Busca un tratamiento o especialidad",
+      "searchCity": "Ciudad en India (opcional)",
+      "searchCityLabel": "Ciudad en India",
+      "searchButton": "Buscar",
+      "partnerHospitals": "Hospitales asociados",
+      "highlight1": "Hasta un 80% de ahorro medio",
+      "highlight2": "Segunda opinión médica gratuita",
+      "highlight3": "Gestor de cuidados dedicado",
+      "formTitle": "Solicita una opinión experta gratuita",
+      "formSubtitle": "Recibe una llamada y un presupuesto en menos de 48 horas."
+    },
+    "specialties": {
+      "eyebrow": "Excelencia clínica integral",
+      "title": "Explora nuestras {{count}} especialidades médicas principales",
+      "subtitle": "Dirigidas por especialistas de renombre mundial, con tecnología médica de vanguardia y planes de tratamiento personalizados.",
+      "cardText": "Centros acreditados y cirujanos con experiencia en toda nuestra red de socios."
+    },
+    "treatments": {
+      "eyebrow": "Precios transparentes y todo incluido",
+      "title": "Tratamientos populares",
+      "viewAll": "Ver todos los tratamientos"
+    },
+    "hospitals": {
+      "eyebrow": "Centros asociados de primer nivel",
+      "title": "Hospitales acreditados de primera línea",
+      "subtitle": "Trabajamos en exclusiva con centros médicos acreditados que cuentan con quirófanos de última generación y unidades para pacientes internacionales."
+    },
+    "pricing": {
+      "eyebrow": "Transparencia financiera absoluta",
+      "title": "Presupuestos más bajos garantizados, con igualación de precio del 100%",
+      "body": "Eliminamos las tarifas hospitalarias ocultas y los márgenes de intermediarios. Ahorra directamente en tu cirugía frente a las tarifas habituales de Estados Unidos y Reino Unido, con nuestra garantía de igualación de precio.",
+      "stat1Value": "Hasta 80%",
+      "stat1Label": "Ahorro medio del paciente",
+      "stat2Value": "0%",
+      "stat2Label": "Comisiones ocultas de reserva",
+      "stat3Value": "100%",
+      "stat3Label": "Política de igualación de precio",
+      "cardTitle": "Compara y ahorra hoy",
+      "cardBody": "Envíanos tu presupuesto hospitalario actual y nuestro equipo lo verificará o lo mejorará.",
+      "cardButton": "Envía tu presupuesto"
+    },
+    "journey": {
+      "eyebrow": "Acompañamiento completo, de principio a fin",
+      "title": "Tu proceso de atención en 4 pasos con Mend Sure",
+      "subtitle": "Nos ocupamos de cada detalle clínico y logístico para que puedas centrarte por completo en tu recuperación.",
+      "cta": "Ver el proceso completo",
+      "step1Title": "Revisión por expertos",
+      "step1Text": "Comparte tus informes médicos de forma segura. Nuestros especialistas asociados revisan tu caso y te devuelven un plan de tratamiento y una segunda opinión.",
+      "step1Meta": "Duración: 24 horas",
+      "step2Title": "Selección de hospital",
+      "step2Text": "Elige entre hospitales acreditados seleccionados según tu diagnóstico, tu presupuesto y la ciudad que prefieras.",
+      "step2Meta": "Presupuestos transparentes",
+      "step3Title": "Viaje e ingreso",
+      "step3Text": "Nos encargamos de las cartas de invitación para el visado médico, la recogida en el aeropuerto, el alojamiento durante la recuperación y el ingreso prioritario.",
+      "step3Meta": "Conserjería dedicada",
+      "step4Title": "Recuperación posoperatoria",
+      "step4Text": "Seguimiento continuo, coordinación de fisioterapia y contacto periódico una vez has vuelto a casa sin contratiempos.",
+      "step4Meta": "Apoyo de por vida"
+    },
+    "doctors": {
+      "eyebrow": "Especialistas de referencia mundial",
+      "title": "Conoce a nuestros especialistas",
+      "subtitle": "Cirujanos y médicos certificados en toda nuestra red de hospitales asociados.",
+      "cta": "Buscar un especialista"
+    },
+    "services": {
+      "eyebrow": "Asistencia integral al paciente",
+      "title": "Nuestros servicios cubren todo lo que necesitas",
+      "subtitle": "Desde tu primera opinión médica hasta la enfermería privada durante la recuperación, organizamos cada parte de tu proceso.",
+      "cta": "Habla con un gestor de cuidados",
+      "opinionTitle": "Opinión médica y estimación de costes",
+      "opinionText": "Comparte tus informes y recibe una segunda opinión verificada de nuestros especialistas, con un presupuesto detallado y todo incluido antes de comprometerte a nada.",
+      "preTravelTitle": "Consultas previas al viaje",
+      "preTravelText": "Habla por videollamada con el médico que te tratará antes de volar, para dejar cerrados el plan, los plazos y tu aptitud para viajar.",
+      "visaTitle": "Asistencia con el visado",
+      "visaText": "Cartas de invitación para el visado médico, listas de documentación y gestiones con la embajada para ti y tu acompañante.",
+      "moneyTitle": "Cambio de divisa",
+      "moneyText": "Orientación sobre casas de cambio autorizadas y canales de pago seguros, para que obtengas un tipo justo sin llevar efectivo innecesario.",
+      "interpreterTitle": "Intérpretes y traductores",
+      "interpreterText": "Apoyo lingüístico en la consulta y en planta, además de la traducción de tu historial médico y los informes de alta.",
+      "transportTitle": "Asistencia con el transporte",
+      "transportText": "Recogida y traslado al aeropuerto, desplazamientos al hospital y transporte local organizado en torno a tus citas y tu tratamiento.",
+      "stayTitle": "Opciones de alojamiento",
+      "stayText": "Alojamientos verificados cerca de tu hospital para todos los presupuestos: casas de huéspedes, apartamentos con servicios y hoteles para ti y tu familia.",
+      "admissionTitle": "Ingreso, citas y farmacia",
+      "admissionText": "Ingreso prioritario, gestión de citas con tu especialista y ayuda para conseguir la medicación prescrita durante y después de tu estancia.",
+      "nursingTitle": "Enfermería privada",
+      "nursingText": "Auxiliares y enfermeras cualificadas para el cuidado a pie de cama, en el hospital o en tu alojamiento, durante toda la recuperación."
+    },
+    "cities": {
+      "eyebrow": "Nuestra red en India",
+      "title": "Dónde te atendemos en India",
+      "subtitle": "Nuestros hospitales asociados están presentes en los principales centros médicos de India."
+    },
+    "testimonials": {
+      "eyebrow": "Casos reales de pacientes",
+      "title": "Pacientes satisfechos, servicio del que nos enorgullecemos",
+      "subtitle": "Escucha a personas que recuperaron su salud y su vida gracias a Mend Sure."
+    },
+    "faq": {
+      "eyebrow": "¿Tienes dudas?",
+      "title": "Preguntas frecuentes",
+      "subtitle": "Todo lo que necesitas saber sobre viajes médicos, costes, seguridad y segundas opiniones.",
+      "q1": "¿Cómo empiezo?",
+      "a1": "Rellena el formulario de consulta de esta página con tu diagnóstico y los informes médicos que tengas. Nuestro equipo lo revisa y te envía un plan de tratamiento con un precio claro y todo incluido, normalmente en menos de 48 horas.",
+      "q2": "¿Aceptáis seguros internacionales?",
+      "a2": "La cobertura varía según la aseguradora y el hospital. En cuanto compartas los datos de tu póliza con nuestro equipo, te confirmaremos qué está cubierto antes de que te comprometas a nada.",
+      "q3": "¿Qué apoyo ofrecéis a los pacientes que viajan?",
+      "a3": "Asistencia con el visado médico, opciones de alojamiento, traslados al aeropuerto y servicio de intérpretes, todo coordinado para que el viaje sea tan tranquilo como el propio tratamiento.",
+      "q4": "¿Puedo tener una estimación de coste antes de viajar?",
+      "a4": "Sí, ese es precisamente el objetivo del presupuesto gratuito. Verás un precio detallado y todo incluido para tu caso concreto antes de reservar ningún vuelo."
+    },
+    "cta": {
+      "eyebrow": "Empieza hoy tu proceso de recuperación",
+      "title": "¿Listo para una atención de primer nivel a menor coste?",
+      "body": "Habla ahora con un asesor sénior de atención al paciente para una consulta gratuita y una estimación de coste personalizada.",
+      "book": "Reservar consulta gratuita",
+      "talk": "Habla con nuestro equipo"
+    }
+  },
+  "form": {
+    "fullName": "Nombre completo",
+    "fullNamePlaceholder": "Escribe tu nombre completo",
+    "email": "Correo electrónico",
+    "emailPlaceholder": "paciente@ejemplo.com",
+    "phone": "Teléfono / WhatsApp",
+    "phonePlaceholder": "+34 600 000 000",
+    "country": "País",
+    "countryPlaceholder": "País desde el que contactas",
+    "treatment": "Tratamiento que te interesa",
+    "treatmentPlaceholder": "Opcional",
+    "message": "Resumen clínico breve / síntomas",
+    "messagePlaceholder": "Cuéntanos un poco sobre tu caso (opcional)",
+    "submit": "Quiero mi presupuesto gratuito",
+    "submitting": "Enviando...",
+    "successTitle": "¡Gracias! Hemos recibido tu solicitud.",
+    "successBody": "Nuestro equipo se pondrá en contacto contigo en menos de 24 horas.",
+    "confidential": "100% confidencial: tus datos médicos nunca se comparten."
+  },
+  "footer": {
+    "tagline": "Ayudamos a los pacientes a recibir tratamiento de primer nivel en India por una fracción de los precios de Estados Unidos y Reino Unido.",
+    "quickLinks": "Enlaces rápidos",
+    "partnerHospitals": "Hospitales asociados",
+    "ourDoctors": "Nuestros médicos",
+    "support": "Ayuda y seguridad",
+    "aboutUs": "Sobre nosotros",
+    "freeQuote": "Solicitar presupuesto gratuito",
+    "patientLogin": "Acceso de pacientes",
+    "contact": "Contacto",
+    "disclaimerTitle": "Aviso médico",
+    "disclaimer": "El contenido de Mend Sure tiene únicamente fines informativos y no sustituye el consejo, el diagnóstico ni el tratamiento de un profesional médico. Consulta siempre a tu médico.",
+    "rights": "Todos los derechos reservados.",
+    "socialLabel": "Mend Sure en {{network}}"
+  },
+  "pages": {
+    "treatments": {
+      "eyebrow": "Precios transparentes y todo incluido",
+      "title": "Tratamientos y procedimientos",
+      "subtitle": "Compara hospitales acreditados y precios con todo incluido para el procedimiento que necesitas."
+    },
+    "hospitals": {
+      "eyebrow": "Red de hospitales acreditados",
+      "title": "Hospitales asociados de primer nivel e instalaciones médicas avanzadas",
+      "subtitle": "Accede a instituciones acreditadas internacionalmente por toda India, con unidades específicas para pacientes internacionales y acompañamiento durante la recuperación."
+    },
+    "doctors": {
+      "eyebrow": "Especialistas de referencia mundial",
+      "title": "Nuestros médicos",
+      "subtitle": "Especialistas certificados y con experiencia en nuestros hospitales asociados acreditados de India.",
+      "specialists": "Especialistas",
+      "specialties": "Especialidades",
+      "allSpecialists": "Todos los especialistas",
+      "searchPlaceholder": "Buscar por nombre u hospital...",
+      "noMatch": "Ningún médico coincide con esa búsqueda.",
+      "loading": "Cargando médicos...",
+      "error": "No hemos podido cargar los médicos ahora mismo. Inténtalo de nuevo en unos instantes."
+    },
+    "howItWorks": {
+      "eyebrow": "Acompañamiento completo, de principio a fin",
+      "title": "Cómo funciona Mend Sure",
+      "subtitle": "Desde tu primer mensaje hasta tu vuelo de vuelta, estos son todos los pasos de los que nos ocupamos."
+    },
+    "about": {
+      "eyebrow": "Quiénes somos",
+      "title": "Sobre MENDSURE",
+      "subtitle": "Tu socio de confianza para una atención sanitaria de primer nivel en India"
+    },
+    "testimonials": {
+      "eyebrow": "Casos reales de pacientes",
+      "title": "Historias de pacientes",
+      "subtitle": "Escucha a personas que transformaron su salud con Mend Sure."
+    },
+    "contact": {
+      "eyebrow": "Habla con nosotros",
+      "title": "Solicita un presupuesto gratuito",
+      "subtitle": "Cuéntanos tu caso y nuestro equipo te responderá en menos de 24 horas."
+    },
+    "login": {
+      "title": "Tu cuenta de Mend Sure"
+    }
+  },
+  "errors": {
+    "pageTitle": "Algo ha fallado en esta página",
+    "pageBody": "Lo sentimos: esta página no se ha cargado correctamente. Recargarla suele solucionarlo. Si necesitas ayuda ahora, puedes contactar directamente con nuestro equipo.",
+    "reload": "Recargar la página",
+    "goHome": "Ir a la página de inicio",
+    "callUs": "O llámanos al"
+  }
+}

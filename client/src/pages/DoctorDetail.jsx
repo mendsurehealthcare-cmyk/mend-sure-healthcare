@@ -20,7 +20,7 @@ export default function DoctorDetail() {
         eyebrow={doctor.specialty}
         eyebrowIcon={specialtyIcon(doctor.specialty)}
         title={doctor.name}
-        subtitle={doctor.hospitals ? `${doctor.hospitals.name} · ${doctor.hospitals.city}` : undefined}
+        subtitle={[doctor.designation, doctor.department].filter(Boolean).join(' · ') || undefined}
         backgroundImage={doctor.image_url}
         backgroundAlt={doctor.name}
         aside={
@@ -45,7 +45,46 @@ export default function DoctorDetail() {
                 About {doctor.name}
               </h2>
               <div className="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm">
-                <p className="text-body-lg leading-relaxed text-on-surface-variant">{doctor.bio}</p>
+                {doctor.bio && (
+                  <p className="mb-space-lg text-body-lg leading-relaxed text-on-surface-variant">
+                    {doctor.bio}
+                  </p>
+                )}
+
+                {/* The at-a-glance summary. Every value here comes straight
+                    from the directory — nothing about training, outcomes, or
+                    case volume is inferred. */}
+                <dl className="grid grid-cols-1 gap-space-md sm:grid-cols-2">
+                  {[
+                    { icon: 'badge', label: 'Position', value: doctor.designation },
+                    { icon: 'medical_services', label: 'Department', value: doctor.department },
+                    { icon: specialtyIcon(doctor.specialty), label: 'Speciality', value: doctor.specialty },
+                    {
+                      icon: 'local_hospital',
+                      label: 'Practises at',
+                      value: doctor.hospitals?.name || doctor.hospital_name,
+                    },
+                    doctor.experience_years && {
+                      icon: 'schedule',
+                      label: 'Experience',
+                      value: `${doctor.experience_years}+ years`,
+                    },
+                  ]
+                    .filter((item) => item && item.value)
+                    .map((item) => (
+                      <div key={item.label} className="flex items-start gap-space-sm">
+                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary-fixed text-primary">
+                          <Icon name={item.icon} className="!text-[18px]" />
+                        </div>
+                        <div className="min-w-0">
+                          <dt className="text-label-sm font-semibold tracking-wide text-on-surface-variant uppercase">
+                            {item.label}
+                          </dt>
+                          <dd className="text-body-md text-on-surface">{item.value}</dd>
+                        </div>
+                      </div>
+                    ))}
+                </dl>
               </div>
             </section>
 

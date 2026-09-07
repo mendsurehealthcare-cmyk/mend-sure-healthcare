@@ -18,6 +18,23 @@ const SPECIALTY_ICONS = {
   'Cosmetic Surgery': 'face',
   Pediatrics: 'child_care',
   Hematology: 'bloodtype',
+
+  // Care categories used by the doctor directory.
+  'Cardiac Care': 'cardiology',
+  'Oncology Care': 'oncology',
+  'Orthopaedic Care': 'orthopedics',
+  'Nephrology & Kidney Transplant': 'nephrology',
+  'Neuro and Spine Surgery': 'neurology',
+  'Cosmetic Care': 'face',
+  'Liver Transplant': 'gastroenterology',
+  Gastroenterology: 'gastroenterology',
+  'General Surgery': 'surgical',
+  'ENT Care': 'hearing',
+  'Paediatric Care': 'child_care',
+  'Lung Care': 'pulmonology',
+  Rheumatology: 'orthopedics',
+  Gynaecology: 'female',
+  'Peripheral Vascular': 'vital_signs',
 };
 
 export function specialtyIcon(specialty) {

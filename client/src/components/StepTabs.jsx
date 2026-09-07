@@ -6,8 +6,12 @@ import Icon from './Icon';
   The stepped "pathway" explorer: a row of numbered tabs above a two-column
   panel (copy + checklist on the left, image on the right).
 
-  Each step: { badge, badgeIcon, label, title, body, bullets[], image,
+  Each step: { badge, badgeIcon, label, title, body, note, bullets[], image,
                imageAlt, imageCaption, action: { to, label } }
+
+  `note` is optional — a short reassurance about what the patient receives, or
+  who is with them, at that stage. It's set apart from the body so it reads as
+  a promise rather than as more description.
 */
 export default function StepTabs({ steps }) {
   const [active, setActive] = useState(0);
@@ -48,7 +52,15 @@ export default function StepTabs({ steps }) {
             <h3 className="mb-space-md text-headline-lg text-on-surface">
               {active + 1}. {step.title}
             </h3>
-            <p className="mb-space-lg text-body-lg leading-relaxed text-on-surface-variant">{step.body}</p>
+            <p className="mb-space-md text-body-lg leading-relaxed text-on-surface-variant">
+              {step.body}
+            </p>
+
+            {step.note && (
+              <p className="mb-space-lg border-l-2 border-secondary pl-space-md text-body-md leading-relaxed text-on-surface">
+                {step.note}
+              </p>
+            )}
 
             <ul className="mb-space-lg space-y-space-sm text-body-md text-on-surface-variant">
               {step.bullets.map((bullet) => (

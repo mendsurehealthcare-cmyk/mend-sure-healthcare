@@ -78,9 +78,16 @@ export default function HospitalWideCard({ hospital }) {
           </div>
 
           <h3 className="mb-space-sm text-headline-md text-on-surface">{hospital.name}</h3>
-          <p className="mb-space-lg text-body-md leading-relaxed text-on-surface-variant">
-            {hospital.description}
-          </p>
+
+          {/* Rendered only when there is something to say. An always-present
+              paragraph leaves an empty block of margin on hospitals whose
+              description hasn't been written yet, which reads as a broken card
+              rather than a short one. */}
+          {hospital.description && (
+            <p className="mb-space-lg text-body-md leading-relaxed text-on-surface-variant">
+              {hospital.description}
+            </p>
+          )}
 
           <div className="mb-space-lg grid grid-cols-1 gap-space-md sm:grid-cols-2">
             {features.map((feature) => (

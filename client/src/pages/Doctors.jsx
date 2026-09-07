@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useApi } from '../lib/useApi';
 import Icon from '../components/Icon';
 import PageHero from '../components/PageHero';
@@ -6,13 +7,35 @@ import DoctorCard from '../components/DoctorCard';
 import StateMessage from '../components/StateMessage';
 
 export default function Doctors() {
-  const { data: doctors, loading, error } = useApi('/doctors');
+  const { t } = useTranslation();
+  // The whole directory in one request: filtering and searching happen in the
+  // browser, so a paginated response would silently hide most of the roster.
+  const { data: doctors, loading, error } = useApi('/doctors?pageSize=300');
   const [specialty, setSpecialty] = useState('All');
   const [query, setQuery] = useState('');
 
+  // Ordered by how many doctors each covers, so the biggest departments come
+  // first rather than whatever order the rows happened to arrive in.
   const specialties = useMemo(() => {
     if (!doctors) return ['All'];
-    return ['All', ...new Set(doctors.map((d) => d.specialty).filter(Boolean))];
+
+    const counts = new Map();
+    for (const doctor of doctors) {
+      if (doctor.specialty) counts.set(doctor.specialty, (counts.get(doctor.specialty) || 0) + 1);
+    }
+
+    return [
+      'All',
+      ...[...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).map(([s]) => s),
+    ];
+  }, [doctors]);
+
+  const specialtyCounts = useMemo(() => {
+    const counts = new Map();
+    for (const doctor of doctors || []) {
+      if (doctor.specialty) counts.set(doctor.specialty, (counts.get(doctor.specialty) || 0) + 1);
+    }
+    return counts;
   }, [doctors]);
 
   const filtered = useMemo(() => {
@@ -21,9 +44,21 @@ export default function Doctors() {
 
     return doctors.filter((doctor) => {
       const matchesSpecialty = specialty === 'All' || doctor.specialty === specialty;
+      // Searching the department and job title too: patients look for
+      // "cardiology" or "transplant", which are department words, and referrers
+      // look for "Chairman".
       const matchesQuery =
         !q ||
-        `${doctor.name} ${doctor.specialty || ''} ${doctor.hospitals?.name || ''}`
+        [
+          doctor.name,
+          doctor.specialty,
+          doctor.department,
+          doctor.designation,
+          doctor.hospitals?.name,
+          doctor.hospital_name,
+        ]
+          .filter(Boolean)
+          .join(' ')
           .toLowerCase()
           .includes(q);
       return matchesSpecialty && matchesQuery;
@@ -34,22 +69,22 @@ export default function Doctors() {
     <div className="flex w-full flex-col">
       <PageHero
         gradient
-        eyebrow="Leading Global Experts"
+eyebrow={t('pages.doctors.eyebrow')}
         eyebrowIcon="stethoscope"
-        title="Our Doctors"
-        subtitle="Experienced, board-certified specialists across our accredited partner hospitals in India."
+title={t('pages.doctors.title')}
+subtitle={t('pages.doctors.subtitle')}
         aside={
           <div className="flex items-center gap-space-md rounded-xl bg-surface-container/10 p-space-md backdrop-blur-md">
             <div className="flex flex-col">
               <span className="text-headline-md text-secondary-fixed">{doctors?.length ?? '—'}</span>
-              <span className="text-body-sm text-inverse-on-surface opacity-80">Specialists</span>
+              <span className="text-body-sm text-inverse-on-surface opacity-80">{t('pages.doctors.specialists')}</span>
             </div>
             <div className="h-10 w-px bg-outline-variant/30" />
             <div className="flex flex-col">
               <span className="text-headline-md text-secondary-fixed">
                 {specialties.length > 1 ? specialties.length - 1 : '—'}
               </span>
-              <span className="text-body-sm text-inverse-on-surface opacity-80">Specialties</span>
+              <span className="text-body-sm text-inverse-on-surface opacity-80">{t('pages.doctors.specialties')}</span>
             </div>
           </div>
         }
@@ -69,7 +104,9 @@ export default function Doctors() {
                     : 'bg-surface-container text-on-surface hover:bg-surface-container-high'
                 }`}
               >
-                {item === 'All' ? 'All Specialists' : item}
+                {item === 'All'
+                  ? `${t('pages.doctors.allSpecialists')} (${doctors?.length ?? 0})`
+                  : `${item} (${specialtyCounts.get(item) ?? 0})`}
               </button>
             ))}
           </div>
@@ -83,22 +120,22 @@ export default function Doctors() {
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search by name or hospital..."
+              placeholder={t('pages.doctors.searchPlaceholder')}
               className="w-full rounded-lg bg-surface-container-lowest py-space-xs pr-space-md pl-12 text-body-md text-on-surface transition-all focus:ring-2 focus:ring-secondary focus:outline-none"
             />
           </div>
         </div>
       </div>
 
-      {loading && <StateMessage>Loading doctors...</StateMessage>}
+      {loading && <StateMessage>{t('pages.doctors.loading')}</StateMessage>}
       {error && (
-        <StateMessage>Couldn't load doctors right now. Please try again shortly.</StateMessage>
+        <StateMessage>{t('pages.doctors.error')}</StateMessage>
       )}
 
       {doctors && (
         <div className="mx-auto w-full max-w-7xl px-space-md py-space-3xl sm:px-space-2xl">
           {filtered.length === 0 ? (
-            <StateMessage>No doctors match that search.</StateMessage>
+            <StateMessage>{t('pages.doctors.noMatch')}</StateMessage>
           ) : (
             <div className="grid grid-cols-1 gap-space-xl md:grid-cols-2 lg:grid-cols-3">
               {filtered.map((doctor) => (

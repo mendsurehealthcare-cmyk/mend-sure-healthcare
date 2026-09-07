@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useApi } from '../lib/useApi';
 import { specialtyIcon } from '../lib/specialtyIcons';
 import { INDIA_CITY_INDEX } from '../lib/locations';
@@ -23,111 +24,33 @@ const HERO_IMAGE =
 const CTA_IMAGE =
   'https://lh3.googleusercontent.com/aida-public/AB6AXuCufdBhQRB3aOi-VToAAVIXhTEN8OUX7P-OTTAH5l9YL9D7qXytVZguRJ3e1zthNkxvkbdP7Q0YzIphzUQEWMg4xVbh5a2QNWlTSaC-_TkZ6ELGpHTQ5HtWegTY006WpnQJQVNo8nt8100c50VcDOPxDmFUG2oAbv_HC48UUB8WV6-mjvrEH6RjaMsyfcxOypqu4Sssn6tqqGznJdgiBjMVt_GWgm8JFPYk6Ukb3DQWgDHJUjO1WXBd';
 
-const heroHighlights = [
-  'Up to 80% Average Savings',
-  'Free 2nd Medical Opinion',
-  'Dedicated Care Manager',
-];
+// Static content is stored as translation keys and resolved at render time,
+// so switching language re-renders these lists in place.
+const heroHighlights = ['home.hero.highlight1', 'home.hero.highlight2', 'home.hero.highlight3'];
 
 const journeySteps = [
-  {
-    number: '01',
-    icon: 'rate_review',
-    title: 'Expert Review',
-    text: 'Share your medical reports securely. Our partner specialists review your case and send back a treatment plan and second opinion.',
-    meta: 'Duration: 24 Hours',
-  },
-  {
-    number: '02',
-    icon: 'domain_verification',
-    title: 'Hospital Matching',
-    text: 'Choose from accredited hospitals matched precisely to your condition, budget, and preferred destination city.',
-    meta: 'Transparent Quotes',
-  },
-  {
-    number: '03',
-    icon: 'flight_takeoff',
-    title: 'Travel & Admission',
-    text: 'We handle medical visa invitation letters, airport pickups, recovery accommodation, and priority hospital admission.',
-    meta: 'Dedicated Concierge',
-  },
-  {
-    number: '04',
-    icon: 'support_agent',
-    title: 'Post-Op Recovery',
-    text: 'Continuous follow-up care, physical therapy coordination, and check-ins after you return safely to your home country.',
-    meta: 'Lifetime Support',
-  },
+  { number: '01', icon: 'rate_review', key: 'step1' },
+  { number: '02', icon: 'domain_verification', key: 'step2' },
+  { number: '03', icon: 'flight_takeoff', key: 'step3' },
+  { number: '04', icon: 'support_agent', key: 'step4' },
 ];
 
 const patientServices = [
-  {
-    icon: 'clinical_notes',
-    title: 'Medical Opinion & Cost Estimations',
-    text: 'Share your reports and receive a verified second opinion from our specialists, with itemized, all-in pricing before you commit to anything.',
-  },
-  {
-    icon: 'stethoscope',
-    title: 'Pre-Travel Consultations',
-    text: 'Talk to your treating doctor by video before you fly, so the treatment plan, timeline, and fitness to travel are settled in advance.',
-  },
-  {
-    icon: 'approval',
-    title: 'Visa Assistance',
-    text: 'Medical visa invitation letters, documentation checklists, and embassy liaison for you and your accompanying attendant.',
-  },
-  {
-    icon: 'currency_exchange',
-    title: 'Money Exchange',
-    text: 'Guidance on authorised currency exchange and secure payment channels, so you get fair rates without carrying unnecessary cash.',
-  },
-  {
-    icon: 'translate',
-    title: 'Interpreters & Translators',
-    text: 'Language support in the consultation room and on the ward, plus translation of medical records and discharge summaries.',
-  },
-  {
-    icon: 'airport_shuttle',
-    title: 'Transportation Assistance',
-    text: 'Airport pickup and drop, hospital transfers, and local travel arranged around your appointment and treatment schedule.',
-  },
-  {
-    icon: 'hotel',
-    title: 'Accommodation Options',
-    text: 'Verified stays near your hospital across budgets — guest houses, serviced apartments, and hotels for you and your family.',
-  },
-  {
-    icon: 'local_pharmacy',
-    title: 'Admission, Appointment & Pharma Care',
-    text: 'Priority admission, appointment scheduling with your consultant, and help sourcing prescribed medication during and after your stay.',
-  },
-  {
-    icon: 'personal_injury',
-    title: 'Private Duty Nursing',
-    text: 'Trained attendants and nurses for bedside care in hospital or at your accommodation through the recovery period.',
-  },
+  { icon: 'clinical_notes', key: 'opinion' },
+  { icon: 'stethoscope', key: 'preTravel' },
+  { icon: 'approval', key: 'visa' },
+  { icon: 'currency_exchange', key: 'money' },
+  { icon: 'translate', key: 'interpreter' },
+  { icon: 'airport_shuttle', key: 'transport' },
+  { icon: 'hotel', key: 'stay' },
+  { icon: 'local_pharmacy', key: 'admission' },
+  { icon: 'personal_injury', key: 'nursing' },
 ];
 
-const faqs = [
-  {
-    q: 'How do I get started?',
-    a: "Fill out the consultation form on this page with your condition and any medical reports you have. Our care team reviews it and sends back a treatment plan with clear, all-in pricing — usually within 48 hours.",
-  },
-  {
-    q: 'Do you accept international insurance?',
-    a: "Coverage varies by insurer and hospital. Once you share your policy details with our care team, we'll confirm what's covered before you commit to anything.",
-  },
-  {
-    q: 'What support do you provide for traveling patients?',
-    a: 'Medical visa assistance, accommodation options, airport transfers, and interpreter services — all coordinated so your trip is as stress-free as the treatment itself.',
-  },
-  {
-    q: 'Can I get a cost estimate before I travel?',
-    a: "Yes — that's the whole point of the free quote. You'll see itemized, all-in pricing based on your specific case before you book a single flight.",
-  },
-];
+const faqKeys = ['1', '2', '3', '4'];
 
 export default function Home() {
+  const { t } = useTranslation();
   const { data: treatments } = useApi('/treatments');
   const { data: hospitals } = useApi('/hospitals');
   const { data: doctors } = useApi('/doctors');
@@ -139,7 +62,7 @@ export default function Home() {
 
   const specialties = useMemo(() => {
     if (!treatments) return [];
-    return [...new Set(treatments.map((t) => t.specialty))];
+    return [...new Set(treatments.map((item) => item.specialty))];
   }, [treatments]);
 
   // Derived from live data rather than hardcoded: the API filters city with an
@@ -177,17 +100,16 @@ export default function Home() {
           <div className="space-y-space-lg lg:col-span-7">
             <div className="inline-flex items-center gap-space-xs rounded-full bg-primary-container px-space-md py-space-2xs text-label-sm font-semibold tracking-wide text-on-primary-container">
               <Icon name="verified" className="!text-[16px]" />
-              <span>ACCREDITED GLOBAL HEALTHCARE NETWORK</span>
+              <span>{t('home.hero.badge')}</span>
             </div>
 
             <h1 className="text-headline-xl font-extrabold tracking-tight lg:text-5xl lg:leading-tight">
-              World-class surgery, at the{' '}
-              <span className="text-secondary-container">lowest guaranteed cost</span>
+              {t('home.hero.titleLead')}{' '}
+              <span className="text-secondary-container">{t('home.hero.titleHighlight')}</span>
             </h1>
 
             <p className="max-w-xl text-body-lg leading-relaxed text-primary-fixed-dim">
-              Mend Sure connects patients from the US, UK, and beyond with accredited
-              hospitals in India — the same quality of care, at a fraction of the cost.
+              {t('home.hero.subtitle')}
             </p>
 
             <form onSubmit={handleHeroSearch} className="flex flex-col gap-space-sm sm:flex-row">
@@ -200,7 +122,7 @@ export default function Home() {
                   type="text"
                   value={specialtySearch}
                   onChange={(e) => setSpecialtySearch(e.target.value)}
-                  placeholder="Find a treatment or specialty"
+                  placeholder={t('home.hero.searchSpecialty')}
                   className="w-full rounded-lg bg-surface-container-lowest py-space-sm pr-space-md pl-10 text-body-md text-on-surface focus:ring-2 focus:ring-secondary focus:outline-none"
                 />
               </div>
@@ -210,10 +132,10 @@ export default function Home() {
                   value={locationSearch}
                   onChange={setLocationSearch}
                   priority={cities}
-                  priorityLabel="Partner hospitals"
+                  priorityLabel={t('home.hero.partnerHospitals')}
                   icon="location_on"
-                  placeholder="City in India (optional)"
-                  aria-label="City in India"
+                  placeholder={t('home.hero.searchCity')}
+                  aria-label={t('home.hero.searchCityLabel')}
                   inputClassName="w-full rounded-lg bg-surface-container-lowest py-space-sm pr-space-md text-body-md text-on-surface focus:ring-2 focus:ring-secondary focus:outline-none"
                 />
               </div>
@@ -221,7 +143,7 @@ export default function Home() {
                 type="submit"
                 className="flex items-center justify-center gap-space-xs rounded-lg bg-secondary px-space-lg py-space-sm text-label-md text-on-secondary shadow-sm transition-colors hover:bg-secondary-fixed-dim hover:text-on-secondary-fixed"
               >
-                <Icon name="search" className="!text-[18px]" /> Search
+                <Icon name="search" className="!text-[18px]" /> {t('home.hero.searchButton')}
               </button>
             </form>
 
@@ -229,7 +151,7 @@ export default function Home() {
               {heroHighlights.map((item) => (
                 <div key={item} className="flex items-center gap-space-xs">
                   <Icon name="check_circle" className="text-tertiary-fixed-dim" />
-                  <span>{item}</span>
+                  <span>{t(item)}</span>
                 </div>
               ))}
             </div>
@@ -238,10 +160,10 @@ export default function Home() {
           <div className="rounded-xl bg-surface-container-lowest p-space-lg text-on-surface shadow-xl lg:col-span-5">
             <div className="mb-space-lg">
               <h3 className="mb-space-3xs text-headline-md font-bold text-primary">
-                Request Free Expert Opinion
+                {t('home.hero.formTitle')}
               </h3>
               <p className="text-body-sm text-on-surface-variant">
-                Get a callback and cost estimate within 48 hours.
+                {t('home.hero.formSubtitle')}
               </p>
             </div>
             <ConsultationForm sourcePage="home-hero" />
@@ -253,9 +175,9 @@ export default function Home() {
       {specialties.length > 0 && (
         <section className="mx-auto w-full max-w-7xl px-space-md py-space-3xl sm:px-space-xl">
           <SectionHeading
-            eyebrow="Comprehensive Clinical Excellence"
-            title={`Explore Our ${specialties.length} Core Medical Specialties`}
-            subtitle="Led by world-renowned specialists using cutting-edge medical technology and personalized treatment plans."
+            eyebrow={t('home.specialties.eyebrow')}
+            title={t('home.specialties.title', { count: specialties.length })}
+            subtitle={t('home.specialties.subtitle')}
           />
 
           <div className="grid grid-cols-1 gap-space-lg sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
@@ -270,10 +192,10 @@ export default function Home() {
                 </div>
                 <h3 className="mb-space-2xs text-headline-sm font-bold text-primary">{specialty}</h3>
                 <p className="mb-space-md text-body-sm text-on-surface-variant">
-                  Accredited centers and experienced surgeons across our partner network.
+                  {t('home.specialties.cardText')}
                 </p>
                 <span className="flex items-center gap-space-3xs text-label-sm font-semibold text-secondary">
-                  Explore Treatments <Icon name="chevron_right" className="!text-[16px]" />
+                  {t('common.exploreTreatments')} <Icon name="chevron_right" className="!text-[16px]" />
                 </span>
               </Link>
             ))}
@@ -288,12 +210,12 @@ export default function Home() {
             <div className="mb-space-2xl flex flex-col justify-between md:flex-row md:items-end">
               <div>
                 <span className="mb-space-xs block text-label-sm font-bold tracking-widest text-secondary uppercase">
-                  Transparent, All-In Pricing
+                  {t('home.treatments.eyebrow')}
                 </span>
-                <h2 className="text-headline-lg font-bold text-primary">Popular Treatments</h2>
+                <h2 className="text-headline-lg font-bold text-primary">{t('home.treatments.title')}</h2>
               </div>
               <Button to="/treatments" variant="outline" className="mt-space-sm md:mt-0">
-                View All Treatments
+                {t('home.treatments.viewAll')}
               </Button>
             </div>
 
@@ -312,13 +234,12 @@ export default function Home() {
           <div className="mb-space-2xl flex flex-col justify-between md:flex-row md:items-end">
             <div>
               <span className="mb-space-xs block text-label-sm font-bold tracking-widest text-secondary uppercase">
-                World-Class Partner Facilities
+                {t('home.hospitals.eyebrow')}
               </span>
-              <h2 className="text-headline-lg font-bold text-primary">Accredited Premier Hospitals</h2>
+              <h2 className="text-headline-lg font-bold text-primary">{t('home.hospitals.title')}</h2>
             </div>
             <p className="mt-space-sm max-w-md text-body-md text-on-surface-variant md:mt-0">
-              Partnered exclusively with accredited medical centers featuring state-of-the-art
-              surgical suites and international patient wings.
+              {t('home.hospitals.subtitle')}
             </p>
           </div>
 
@@ -338,22 +259,18 @@ export default function Home() {
           <div className="relative z-10 grid grid-cols-1 items-center gap-space-xl lg:grid-cols-12">
             <div className="space-y-space-md lg:col-span-8">
               <span className="block text-label-sm font-bold tracking-widest text-secondary-container uppercase">
-                Absolute Financial Transparency
+                {t('home.pricing.eyebrow')}
               </span>
-              <h2 className="text-headline-lg font-bold">
-                Lowest Quotes Assured with 100% Price Match Guarantee
-              </h2>
+              <h2 className="text-headline-lg font-bold">{t('home.pricing.title')}</h2>
               <p className="max-w-2xl text-body-lg leading-relaxed text-primary-fixed-dim">
-                We eliminate hidden hospital fees and broker markups. Enjoy direct savings on
-                surgery compared to standard US and UK billing rates, backed by our Price Match
-                Guarantee.
+                {t('home.pricing.body')}
               </p>
 
               <div className="grid grid-cols-1 gap-space-lg pt-space-md sm:grid-cols-3">
                 {[
-                  { value: 'Up to 80%', label: 'Average Patient Savings' },
-                  { value: '0%', label: 'Hidden Booking Fees' },
-                  { value: '100%', label: 'Price Match Policy' },
+                  { value: t('home.pricing.stat1Value'), label: t('home.pricing.stat1Label') },
+                  { value: t('home.pricing.stat2Value'), label: t('home.pricing.stat2Label') },
+                  { value: t('home.pricing.stat3Value'), label: t('home.pricing.stat3Label') },
                 ].map((stat) => (
                   <div key={stat.label} className="rounded-xl bg-surface-container-lowest/10 p-space-md backdrop-blur-md">
                     <div className="mb-space-3xs text-headline-md font-extrabold text-secondary-container">
@@ -367,13 +284,13 @@ export default function Home() {
 
             <div className="flex flex-col items-start lg:col-span-4 lg:items-end">
               <div className="w-full max-w-sm space-y-space-md rounded-xl bg-surface p-space-lg text-on-surface shadow-xl">
-                <h4 className="text-headline-sm font-bold text-primary">Compare &amp; Save Today</h4>
+                <h4 className="text-headline-sm font-bold text-primary">{t('home.pricing.cardTitle')}</h4>
                 <p className="text-body-sm text-on-surface-variant">
-                  Send us your existing hospital quotation and our care team will verify or beat it.
+                  {t('home.pricing.cardBody')}
                 </p>
                 <Button to="/contact" className="w-full">
                   <Icon name="upload_file" className="!text-[18px]" />
-                  Send Your Estimate
+                  {t('home.pricing.cardButton')}
                 </Button>
               </div>
             </div>
@@ -385,9 +302,9 @@ export default function Home() {
       <section className="bg-surface-container-low px-space-md py-space-3xl sm:px-space-xl">
         <div className="mx-auto max-w-7xl">
           <SectionHeading
-            eyebrow="Seamless End-to-End Support"
-            title="Your 4-Step Care Journey with Mend Sure"
-            subtitle="We handle every clinical and logistical detail so you can focus entirely on healing and recovery."
+            eyebrow={t('home.journey.eyebrow')}
+            title={t('home.journey.title')}
+            subtitle={t('home.journey.subtitle')}
           />
 
           <div className="grid grid-cols-1 gap-space-lg md:grid-cols-2 lg:grid-cols-4">
@@ -403,17 +320,23 @@ export default function Home() {
                   <div className="mb-space-md flex h-12 w-12 items-center justify-center rounded-lg bg-primary-fixed text-primary">
                     <Icon name={step.icon} className="!text-[24px]" />
                   </div>
-                  <h3 className="mb-space-xs text-headline-sm font-bold text-primary">{step.title}</h3>
-                  <p className="text-body-sm text-on-surface-variant">{step.text}</p>
+                  <h3 className="mb-space-xs text-headline-sm font-bold text-primary">
+                    {t(`home.journey.${step.key}Title`)}
+                  </h3>
+                  <p className="text-body-sm text-on-surface-variant">
+                    {t(`home.journey.${step.key}Text`)}
+                  </p>
                 </div>
-                <div className="text-label-sm font-semibold text-secondary">{step.meta}</div>
+                <div className="text-label-sm font-semibold text-secondary">
+                  {t(`home.journey.${step.key}Meta`)}
+                </div>
               </div>
             ))}
           </div>
 
           <div className="mt-space-2xl text-center">
             <Button to="/how-it-works" variant="secondary">
-              See the Full Process
+              {t('home.journey.cta')}
             </Button>
           </div>
         </div>
@@ -423,9 +346,9 @@ export default function Home() {
       {doctors?.length > 0 && (
         <section className="mx-auto w-full max-w-7xl px-space-md py-space-3xl sm:px-space-xl">
           <SectionHeading
-            eyebrow="Leading Global Experts"
-            title="Meet Our Specialists"
-            subtitle="Board-certified surgeons and physicians across our partner hospital network."
+            eyebrow={t('home.doctors.eyebrow')}
+            title={t('home.doctors.title')}
+            subtitle={t('home.doctors.subtitle')}
           />
           <ScrollRow>
             {doctors.map((doctor) => (
@@ -436,7 +359,7 @@ export default function Home() {
           </ScrollRow>
           <div className="mt-space-2xl text-center">
             <Button to="/doctors" variant="secondary">
-              Find a Specialist
+              {t('home.doctors.cta')}
             </Button>
           </div>
         </section>
@@ -446,31 +369,33 @@ export default function Home() {
       <section className="bg-surface-container-low px-space-md py-space-3xl sm:px-space-xl">
         <div className="mx-auto max-w-7xl">
           <SectionHeading
-            eyebrow="Comprehensive Patient Assistance"
-            title="Our Services Cover Every Need"
-            subtitle="From your first medical opinion to private nursing during recovery, every part of your treatment journey is arranged for you."
+            eyebrow={t('home.services.eyebrow')}
+            title={t('home.services.title')}
+            subtitle={t('home.services.subtitle')}
           />
 
           <div className="grid grid-cols-1 gap-space-lg sm:grid-cols-2 lg:grid-cols-3">
             {patientServices.map((service) => (
               <div
-                key={service.title}
+                key={service.key}
                 className="flex h-full flex-col rounded-xl bg-surface-container-lowest p-space-lg shadow-sm transition-shadow hover:shadow-md"
               >
                 <div className="mb-space-md flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-secondary-container text-on-secondary-container">
                   <Icon name={service.icon} className="!text-[24px]" />
                 </div>
                 <h3 className="mb-space-xs text-headline-sm font-bold text-balance text-primary">
-                  {service.title}
+                  {t(`home.services.${service.key}Title`)}
                 </h3>
-                <p className="text-body-sm text-on-surface-variant">{service.text}</p>
+                <p className="text-body-sm text-on-surface-variant">
+                  {t(`home.services.${service.key}Text`)}
+                </p>
               </div>
             ))}
           </div>
 
           <div className="mt-space-2xl text-center">
             <Button to="/contact" variant="secondary">
-              Talk to a Care Manager
+              {t('home.services.cta')}
             </Button>
           </div>
         </div>
@@ -480,9 +405,9 @@ export default function Home() {
       {cities.length > 0 && (
         <section className="mx-auto w-full max-w-7xl px-space-md py-space-3xl text-center sm:px-space-xl">
           <SectionHeading
-            eyebrow="Our Network Across India"
-            title="Where We Treat You In India"
-            subtitle="Our partner hospitals span India's major medical hubs."
+            eyebrow={t('home.cities.eyebrow')}
+            title={t('home.cities.title')}
+            subtitle={t('home.cities.subtitle')}
           />
           <div className="flex flex-wrap justify-center gap-space-sm">
             {cities.map((city) => (
@@ -503,9 +428,9 @@ export default function Home() {
         <section className="bg-surface-container-low px-space-md py-space-3xl sm:px-space-xl">
           <div className="mx-auto max-w-7xl">
             <SectionHeading
-              eyebrow="Real Patient Success Stories"
-              title="Satisfied Patients, Proud Service"
-              subtitle="Hear from people who transformed their health and reclaimed their lives through Mend Sure."
+              eyebrow={t('home.testimonials.eyebrow')}
+              title={t('home.testimonials.title')}
+              subtitle={t('home.testimonials.subtitle')}
             />
             <div className="grid grid-cols-1 gap-space-xl md:grid-cols-3">
               {testimonials.slice(0, 3).map((testimonial) => (
@@ -519,11 +444,13 @@ export default function Home() {
       {/* 11. FAQ */}
       <section className="mx-auto w-full max-w-4xl px-space-md py-space-3xl sm:px-space-xl">
         <SectionHeading
-          eyebrow="Got Questions?"
-          title="Frequently Asked Questions"
-          subtitle="Everything you need to know about medical travel, costs, safety, and second opinions."
+          eyebrow={t('home.faq.eyebrow')}
+          title={t('home.faq.title')}
+          subtitle={t('home.faq.subtitle')}
         />
-        <FaqAccordion items={faqs} />
+        <FaqAccordion
+          items={faqKeys.map((n) => ({ q: t(`home.faq.q${n}`), a: t(`home.faq.a${n}`) }))}
+        />
       </section>
 
       {/* 12. Final CTA */}
@@ -534,18 +461,15 @@ export default function Home() {
         />
         <div className="relative z-10 mx-auto max-w-4xl space-y-space-lg">
           <span className="block text-label-sm font-bold tracking-widest text-secondary-container uppercase">
-            Start Your Healing Journey Today
+            {t('home.cta.eyebrow')}
           </span>
-          <h2 className="text-headline-xl font-extrabold tracking-tight">
-            Ready for World-Class Healthcare at Lower Cost?
-          </h2>
+          <h2 className="text-headline-xl font-extrabold tracking-tight">{t('home.cta.title')}</h2>
           <p className="mx-auto max-w-2xl text-body-lg text-primary-fixed-dim">
-            Speak with a senior patient care advisor now for a free consultation and personalized
-            cost estimate.
+            {t('home.cta.body')}
           </p>
           <div className="flex flex-wrap justify-center gap-space-md pt-space-sm">
             <Button to="/contact" className="px-space-xl py-space-md">
-              Book Free Consultation
+              {t('home.cta.book')}
               <Icon name="arrow_forward" className="!text-[18px]" />
             </Button>
             <a
@@ -555,7 +479,7 @@ export default function Home() {
               className="inline-flex items-center gap-space-xs rounded-lg bg-primary-container px-space-xl py-space-md text-label-md text-on-primary-container transition-colors hover:bg-surface hover:text-on-surface"
             >
               <SocialIcon name="whatsapp" className="h-[18px] w-[18px]" />
-              Talk to Our Care Team
+              {t('home.cta.talk')}
             </a>
           </div>
         </div>

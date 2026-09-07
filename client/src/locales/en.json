@@ -1,0 +1,243 @@
+{
+  "nav": {
+    "treatments": "Treatments",
+    "hospitals": "Hospitals",
+    "doctors": "Doctors",
+    "howItWorks": "How It Works",
+    "patientStories": "Patient Stories",
+    "about": "About",
+    "bookConsultation": "Book Consultation",
+    "logIn": "Log In",
+    "logInCreate": "Log In / Create Account",
+    "logOut": "Log Out",
+    "myReports": "My Medical Reports",
+    "myAccount": "My Account",
+    "yourAccount": "Your account",
+    "searchPlaceholder": "Search a specialty...",
+    "language": "Choose language",
+    "toggleMenu": "Toggle menu",
+    "accountMenu": "Account menu",
+    "hotline": "Emergency Hotline: 24/7 Support",
+    "verifiedNetwork": "Verified Clinical Network"
+  },
+  "common": {
+    "loading": "Loading...",
+    "exploreTreatments": "Explore Treatments",
+    "viewProfile": "View Profile",
+    "viewFacility": "View Facility"
+  },
+  "home": {
+    "hero": {
+      "badge": "ACCREDITED GLOBAL HEALTHCARE NETWORK",
+      "titleLead": "World-class surgery, at the",
+      "titleHighlight": "lowest guaranteed cost",
+      "subtitle": "Mend Sure connects patients from the US, UK, and beyond with accredited hospitals in India — the same quality of care, at a fraction of the cost.",
+      "searchSpecialty": "Find a treatment or specialty",
+      "searchCity": "City in India (optional)",
+      "searchCityLabel": "City in India",
+      "searchButton": "Search",
+      "partnerHospitals": "Partner hospitals",
+      "highlight1": "Up to 80% Average Savings",
+      "highlight2": "Free 2nd Medical Opinion",
+      "highlight3": "Dedicated Care Manager",
+      "formTitle": "Request Free Expert Opinion",
+      "formSubtitle": "Get a callback and cost estimate within 48 hours."
+    },
+    "specialties": {
+      "eyebrow": "Comprehensive Clinical Excellence",
+      "title": "Explore Our {{count}} Core Medical Specialties",
+      "subtitle": "Led by world-renowned specialists using cutting-edge medical technology and personalized treatment plans.",
+      "cardText": "Accredited centers and experienced surgeons across our partner network."
+    },
+    "treatments": {
+      "eyebrow": "Transparent, All-In Pricing",
+      "title": "Popular Treatments",
+      "viewAll": "View All Treatments"
+    },
+    "hospitals": {
+      "eyebrow": "World-Class Partner Facilities",
+      "title": "Accredited Premier Hospitals",
+      "subtitle": "Partnered exclusively with accredited medical centers featuring state-of-the-art surgical suites and international patient wings."
+    },
+    "pricing": {
+      "eyebrow": "Absolute Financial Transparency",
+      "title": "Lowest Quotes Assured with 100% Price Match Guarantee",
+      "body": "We eliminate hidden hospital fees and broker markups. Enjoy direct savings on surgery compared to standard US and UK billing rates, backed by our Price Match Guarantee.",
+      "stat1Value": "Up to 80%",
+      "stat1Label": "Average Patient Savings",
+      "stat2Value": "0%",
+      "stat2Label": "Hidden Booking Fees",
+      "stat3Value": "100%",
+      "stat3Label": "Price Match Policy",
+      "cardTitle": "Compare & Save Today",
+      "cardBody": "Send us your existing hospital quotation and our care team will verify or beat it.",
+      "cardButton": "Send Your Estimate"
+    },
+    "journey": {
+      "eyebrow": "Seamless End-to-End Support",
+      "title": "Your 4-Step Care Journey with Mend Sure",
+      "subtitle": "We handle every clinical and logistical detail so you can focus entirely on healing and recovery.",
+      "cta": "See the Full Process",
+      "step1Title": "Expert Review",
+      "step1Text": "Share your medical reports securely. Our partner specialists review your case and send back a treatment plan and second opinion.",
+      "step1Meta": "Duration: 24 Hours",
+      "step2Title": "Hospital Matching",
+      "step2Text": "Choose from accredited hospitals matched precisely to your condition, budget, and preferred destination city.",
+      "step2Meta": "Transparent Quotes",
+      "step3Title": "Travel & Admission",
+      "step3Text": "We handle medical visa invitation letters, airport pickups, recovery accommodation, and priority hospital admission.",
+      "step3Meta": "Dedicated Concierge",
+      "step4Title": "Post-Op Recovery",
+      "step4Text": "Continuous follow-up care, physical therapy coordination, and check-ins after you return safely to your home country.",
+      "step4Meta": "Lifetime Support"
+    },
+    "doctors": {
+      "eyebrow": "Leading Global Experts",
+      "title": "Meet Our Specialists",
+      "subtitle": "Board-certified surgeons and physicians across our partner hospital network.",
+      "cta": "Find a Specialist"
+    },
+    "services": {
+      "eyebrow": "Comprehensive Patient Assistance",
+      "title": "Our Services Cover Every Need",
+      "subtitle": "From your first medical opinion to private nursing during recovery, every part of your treatment journey is arranged for you.",
+      "cta": "Talk to a Care Manager",
+      "opinionTitle": "Medical Opinion & Cost Estimations",
+      "opinionText": "Share your reports and receive a verified second opinion from our specialists, with itemized, all-in pricing before you commit to anything.",
+      "preTravelTitle": "Pre-Travel Consultations",
+      "preTravelText": "Talk to your treating doctor by video before you fly, so the treatment plan, timeline, and fitness to travel are settled in advance.",
+      "visaTitle": "Visa Assistance",
+      "visaText": "Medical visa invitation letters, documentation checklists, and embassy liaison for you and your accompanying attendant.",
+      "moneyTitle": "Money Exchange",
+      "moneyText": "Guidance on authorised currency exchange and secure payment channels, so you get fair rates without carrying unnecessary cash.",
+      "interpreterTitle": "Interpreters & Translators",
+      "interpreterText": "Language support in the consultation room and on the ward, plus translation of medical records and discharge summaries.",
+      "transportTitle": "Transportation Assistance",
+      "transportText": "Airport pickup and drop, hospital transfers, and local travel arranged around your appointment and treatment schedule.",
+      "stayTitle": "Accommodation Options",
+      "stayText": "Verified stays near your hospital across budgets — guest houses, serviced apartments, and hotels for you and your family.",
+      "admissionTitle": "Admission, Appointment & Pharma Care",
+      "admissionText": "Priority admission, appointment scheduling with your consultant, and help sourcing prescribed medication during and after your stay.",
+      "nursingTitle": "Private Duty Nursing",
+      "nursingText": "Trained attendants and nurses for bedside care in hospital or at your accommodation through the recovery period."
+    },
+    "cities": {
+      "eyebrow": "Our Network Across India",
+      "title": "Where We Treat You In India",
+      "subtitle": "Our partner hospitals span India's major medical hubs."
+    },
+    "testimonials": {
+      "eyebrow": "Real Patient Success Stories",
+      "title": "Satisfied Patients, Proud Service",
+      "subtitle": "Hear from people who transformed their health and reclaimed their lives through Mend Sure."
+    },
+    "faq": {
+      "eyebrow": "Got Questions?",
+      "title": "Frequently Asked Questions",
+      "subtitle": "Everything you need to know about medical travel, costs, safety, and second opinions.",
+      "q1": "How do I get started?",
+      "a1": "Fill out the consultation form on this page with your condition and any medical reports you have. Our care team reviews it and sends back a treatment plan with clear, all-in pricing — usually within 48 hours.",
+      "q2": "Do you accept international insurance?",
+      "a2": "Coverage varies by insurer and hospital. Once you share your policy details with our care team, we'll confirm what's covered before you commit to anything.",
+      "q3": "What support do you provide for traveling patients?",
+      "a3": "Medical visa assistance, accommodation options, airport transfers, and interpreter services — all coordinated so your trip is as stress-free as the treatment itself.",
+      "q4": "Can I get a cost estimate before I travel?",
+      "a4": "Yes — that's the whole point of the free quote. You'll see itemized, all-in pricing based on your specific case before you book a single flight."
+    },
+    "cta": {
+      "eyebrow": "Start Your Healing Journey Today",
+      "title": "Ready for World-Class Healthcare at Lower Cost?",
+      "body": "Speak with a senior patient care advisor now for a free consultation and personalized cost estimate.",
+      "book": "Book Free Consultation",
+      "talk": "Talk to Our Care Team"
+    }
+  },
+  "form": {
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "Enter your full name",
+    "email": "Email Address",
+    "emailPlaceholder": "patient@example.com",
+    "phone": "Phone Number / WhatsApp",
+    "phonePlaceholder": "+1 (555) 000-0000",
+    "country": "Country",
+    "countryPlaceholder": "Country you're calling from",
+    "treatment": "Treatment You're Interested In",
+    "treatmentPlaceholder": "Optional",
+    "message": "Brief Clinical Summary / Symptoms",
+    "messagePlaceholder": "Tell us a bit about your condition (optional)",
+    "submit": "Get My Free Quote",
+    "submitting": "Sending...",
+    "successTitle": "Thank you! We've received your request.",
+    "successBody": "Our care team will reach out within 24 hours.",
+    "confidential": "100% confidential — your medical data is never shared."
+  },
+  "footer": {
+    "tagline": "Helping patients get world-class treatment in India at a fraction of US and UK prices.",
+    "quickLinks": "Quick Links",
+    "partnerHospitals": "Partner Hospitals",
+    "ourDoctors": "Our Doctors",
+    "support": "Support & Safety",
+    "aboutUs": "About Us",
+    "freeQuote": "Get a Free Quote",
+    "patientLogin": "Patient Login",
+    "contact": "Contact Us",
+    "disclaimerTitle": "Medical Disclaimer",
+    "disclaimer": "The content provided on Mend Sure is for informational purposes only and does not substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician.",
+    "rights": "All rights reserved.",
+    "socialLabel": "Mend Sure on {{network}}"
+  },
+  "pages": {
+    "treatments": {
+      "eyebrow": "Transparent, All-In Pricing",
+      "title": "Treatments & Procedures",
+      "subtitle": "Compare accredited hospitals and all-in costs for the procedure you need."
+    },
+    "hospitals": {
+      "eyebrow": "Accredited Hospital Network",
+      "title": "World-Class Partner Hospitals & Advanced Medical Facilities",
+      "subtitle": "Access internationally accredited institutions across India, with dedicated international patient wings and concierge recovery support."
+    },
+    "doctors": {
+      "eyebrow": "Leading Global Experts",
+      "title": "Our Doctors",
+      "subtitle": "Experienced, board-certified specialists across our accredited partner hospitals in India.",
+      "specialists": "Specialists",
+      "specialties": "Specialties",
+      "allSpecialists": "All Specialists",
+      "searchPlaceholder": "Search by name or hospital...",
+      "noMatch": "No doctors match that search.",
+      "loading": "Loading doctors...",
+      "error": "Couldn't load doctors right now. Please try again shortly."
+    },
+    "howItWorks": {
+      "eyebrow": "Seamless End-to-End Support",
+      "title": "How Mend Sure Works",
+      "subtitle": "From your first message to your flight home, here is every step we handle for you."
+    },
+    "about": {
+      "eyebrow": "Who We Are",
+      "title": "About MENDSURE",
+      "subtitle": "Your Trusted Partner for World-Class Healthcare in India"
+    },
+    "testimonials": {
+      "eyebrow": "Real Patient Success Stories",
+      "title": "Patient Stories",
+      "subtitle": "Hear from people who transformed their health through Mend Sure."
+    },
+    "contact": {
+      "eyebrow": "Talk To Us",
+      "title": "Get a Free Quote",
+      "subtitle": "Tell us about your condition and our care team will respond within 24 hours."
+    },
+    "login": {
+      "title": "Your Mend Sure Account"
+    }
+  },
+  "errors": {
+    "pageTitle": "Something went wrong on this page",
+    "pageBody": "Sorry — this page didn't load correctly. Reloading usually fixes it. If you need help now, our care team is reachable directly.",
+    "reload": "Reload the page",
+    "goHome": "Go to the homepage",
+    "callUs": "Or call us on"
+  }
+}

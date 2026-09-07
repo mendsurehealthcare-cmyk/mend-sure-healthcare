@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { withTranslation } from 'react-i18next';
 import { COMPANY } from '../lib/company';
 
 /*
@@ -14,7 +15,10 @@ import { COMPANY } from '../lib/company';
   It has to be a class: there is still no hook equivalent of
   componentDidCatch.
 */
-export default class ErrorBoundary extends Component {
+// withTranslation rather than useTranslation: error boundaries have to be
+// class components (there is still no hook for componentDidCatch), so the t
+// function arrives as a prop instead.
+class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
     this.state = { hasError: false };
@@ -31,17 +35,17 @@ export default class ErrorBoundary extends Component {
   }
 
   render() {
+    const { t } = this.props;
     if (!this.state.hasError) return this.props.children;
 
     return (
       <div className="flex min-h-[60vh] w-full items-center justify-center px-space-md py-space-3xl">
         <div className="w-full max-w-lg rounded-xl bg-surface-container-lowest p-space-xl text-center shadow-sm">
           <h1 className="mb-space-sm text-headline-md font-bold text-primary">
-            Something went wrong on this page
+            {t('errors.pageTitle')}
           </h1>
           <p className="mb-space-lg text-body-md text-on-surface-variant">
-            Sorry — this page didn't load correctly. Reloading usually fixes it. If you need help
-            now, our care team is reachable directly.
+            {t('errors.pageBody')}
           </p>
 
           <div className="flex flex-col items-center gap-space-sm sm:flex-row sm:justify-center">
@@ -50,7 +54,7 @@ export default class ErrorBoundary extends Component {
               onClick={() => window.location.reload()}
               className="w-full rounded-lg bg-secondary px-space-lg py-space-sm text-label-md text-on-secondary shadow-sm transition-colors hover:bg-secondary-fixed-dim hover:text-on-secondary-fixed sm:w-auto"
             >
-              Reload the page
+              {t('errors.reload')}
             </button>
             {/* A plain <a>, not a router Link: the router is part of what may
                 have just failed, so this forces a fresh document load. */}
@@ -58,12 +62,12 @@ export default class ErrorBoundary extends Component {
               href="/"
               className="w-full rounded-lg bg-surface-container px-space-lg py-space-sm text-label-md text-on-surface transition-colors hover:bg-surface-container-high sm:w-auto"
             >
-              Go to the homepage
+              {t('errors.goHome')}
             </a>
           </div>
 
           <p className="mt-space-lg text-body-sm text-on-surface-variant">
-            Or call us on{' '}
+            {t('errors.callUs')}{' '}
             <a href={COMPANY.phones[0].href} className="font-semibold text-primary hover:underline">
               {COMPANY.phones[0].label}
             </a>{' '}
@@ -77,3 +81,9 @@ export default class ErrorBoundary extends Component {
     );
   }
 }
+
+// Named rather than exported inline so React DevTools and Fast Refresh have
+// something to call it.
+const TranslatedErrorBoundary = withTranslation()(ErrorBoundary);
+
+export default TranslatedErrorBoundary;

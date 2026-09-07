@@ -267,7 +267,10 @@ hospital names, fake doctor profiles, and fake testimonials, each marked
       testimonials — cards fall back to a tinted icon panel without them
 - [ ] Replace the decorative hero/section background images (hard-coded
       `lh3.googleusercontent.com` URLs at the top of `Home.jsx`,
-      `Hospitals.jsx`, and `HowItWorks.jsx`) with your own hosted photos
+      `Hospitals.jsx`, `HowItWorks.jsx`, and `About.jsx`) with your own hosted
+      photos. The one on About is the most worth replacing — it sits beside the
+      opening statement at full size, and a real photograph of the care team or
+      a partner facility carries far more weight there than stock imagery
 - [ ] Delete or update any row still marked `is_placeholder = true`
 
 ## Project structure

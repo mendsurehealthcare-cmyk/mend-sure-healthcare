@@ -90,8 +90,20 @@ app.use('/api', (req, res) => {
 app.use((err, req, res, next) => {
   const status = err.status || err.statusCode || 500;
 
-  // The full error, with stack, goes to the function logs where it's useful.
-  console.error(`${req.method} ${req.originalUrl} failed:`, err);
+  // Never log the raw request body.
+  //
+  // body-parser attaches the unparsed payload to its errors, so a login or
+  // signup request with malformed JSON would write the patient's plaintext
+  // password straight into the function logs, where it would then sit
+  // indefinitely. Everything else about the error is still useful, so only the
+  // body is dropped.
+  const { body: _rawRequestBody, ...details } = err;
+
+  console.error(
+    `${req.method} ${req.originalUrl} failed:`,
+    err.stack || err.message,
+    Object.keys(details).length ? details : ''
+  );
 
   // Writing to a response that already started throws, so hand a late failure
   // back to Express's default handler, whose job is to close the connection.

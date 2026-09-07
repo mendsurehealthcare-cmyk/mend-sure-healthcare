@@ -1,5 +1,8 @@
 const DEFAULT_PAGE_SIZE = 20;
-const MAX_PAGE_SIZE = 100;
+// The doctor directory is a few hundred rows and the listing page filters it
+// in the browser, so it asks for the whole set in one request. Raise this if
+// any single directory outgrows it.
+const MAX_PAGE_SIZE = 300;
 
 // Turns ?page=&pageSize= into the { from, to } range Supabase's .range() wants,
 // plus the page/pageSize actually used (after clamping) so routes can echo them back.
@@ -27,6 +30,10 @@ function isRangeBeyondEnd(error) {
 
   Centralised so all four list endpoints agree on how an empty page, a real
   failure, and the X-Total-Count header are handled.
+
+  Takes either an unexecuted query or an already-awaited result, so a route
+  that needed to inspect the outcome first (to retry differently, say) can hand
+  the result straight over instead of running the query twice.
 */
 async function sendPage(res, query) {
   const { data, error, count } = await query;

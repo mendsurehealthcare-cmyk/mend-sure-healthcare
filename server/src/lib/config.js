@@ -29,4 +29,23 @@ function missingEnv() {
   return problems;
 }
 
-module.exports = { REQUIRED_ENV, missingEnv };
+/*
+  Where the browser should land after clicking a link in an auth email.
+
+  Supabase builds confirmation and password-reset links as
+  `<project>/auth/v1/verify?...&redirect_to=<this>`, and falls back to the
+  project's own "Site URL" when no redirect is supplied. That default is
+  http://localhost:3000, which is why an emailed link opens a dead localhost
+  tab on a real user's machine — so this is always sent explicitly.
+*/
+function siteUrl() {
+  const configured =
+    process.env.PUBLIC_SITE_URL || process.env.CLIENT_ORIGIN || 'http://localhost:5173';
+  return configured.replace(/\/+$/, '');
+}
+
+function authCallbackUrl() {
+  return `${siteUrl()}/auth/callback`;
+}
+
+module.exports = { REQUIRED_ENV, missingEnv, siteUrl, authCallbackUrl };

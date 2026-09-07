@@ -117,6 +117,41 @@ export async function forgotPassword(email) {
   return parse(await postJson('/auth/forgot-password', { email }));
 }
 
+/*
+  Stores the session Supabase handed back through an email link.
+
+  Used by the /auth/callback page after a confirmation link is opened, so the
+  patient lands signed in instead of being asked for the password they just
+  set up an account with.
+*/
+export function adoptSession({ accessToken, refreshToken, expiresAt }) {
+  setSession({
+    access_token: accessToken,
+    refresh_token: refreshToken,
+    expires_at: expiresAt ? Number(expiresAt) : undefined,
+  });
+}
+
+/*
+  Completes a password reset using the token from the emailed link.
+
+  The token is the proof of ownership: it only reaches someone who can read
+  mail sent to the address the account was registered with. Nothing else — not
+  being logged in elsewhere, not knowing the old password — will do.
+*/
+export async function updatePassword({ accessToken, refreshToken, password }) {
+  const data = await parse(
+    await postJson('/auth/update-password', {
+      access_token: accessToken,
+      refresh_token: refreshToken,
+      password,
+    })
+  );
+
+  if (data.access_token) setSession(data);
+  return data;
+}
+
 export function logout() {
   clearSession();
 }

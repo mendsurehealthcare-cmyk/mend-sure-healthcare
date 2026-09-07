@@ -15,6 +15,7 @@ import About from './pages/About';
 import Testimonials from './pages/Testimonials';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
+import AuthCallback from './pages/AuthCallback';
 import Account from './pages/Account';
 import Reports from './pages/Reports';
 import NotFound from './pages/NotFound';
@@ -40,6 +41,10 @@ export default function App() {
             <Route path="/testimonials" element={<Testimonials />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
+
+            {/* Where every emailed auth link lands: address confirmation,
+                password reset, and magic links. */}
+            <Route path="/auth/callback" element={<AuthCallback />} />
 
             {/* Patient-only pages — ProtectedRoute bounces anyone logged out
                 to /login and sends them back here afterwards. */}

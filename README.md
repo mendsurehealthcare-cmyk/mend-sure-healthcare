@@ -108,6 +108,44 @@ All of the `/api/reports`, `/api/auth/me`, and `/api/inquiries/mine` routes
 require an `Authorization: Bearer <access_token>` header, using the token
 returned from login/signup.
 
+## Patient accounts: emailed links
+
+Confirmation and password-reset emails are sent by Supabase, and the link in
+them comes back to `/auth/callback` on this site. Three settings have to agree,
+or the link opens somewhere useless:
+
+| Where | Setting | Value |
+| --- | --- | --- |
+| Vercel env vars | `PUBLIC_SITE_URL` | `https://www.mendsure.com` |
+| Supabase → Authentication → URL Configuration | Site URL | `https://www.mendsure.com` |
+| Same page | Redirect URLs | `https://www.mendsure.com/auth/callback` and `http://localhost:5173/auth/callback` |
+
+**Supabase validates every redirect against that allow-list.** If the address
+isn't on it, Supabase ignores what the API asked for and silently falls back to
+its own Site URL — which defaults to `http://localhost:3000`. A link opening a
+dead localhost tab on a patient's machine means this list, not the code.
+
+Environment variables only apply to builds made after they were set, so
+redeploy after changing `PUBLIC_SITE_URL`.
+
+### What the callback does
+
+`/auth/callback` reads the tokens Supabase returns in the URL *hash* — never
+the query string, so they are never sent to the server or written to an access
+log — and clears them from the address bar immediately so they can't be
+bookmarked or screenshotted.
+
+- **Confirmation links** verify the address, sign the patient in, and forward
+  them to `/account`.
+- **Recovery links** show a set-new-password form instead. They deliberately do
+  not grant a session on their own: the link only proves the holder can read
+  that inbox, so it buys exactly one action.
+
+Completing a reset calls `POST /api/auth/update-password`, which applies the
+change as that user via `setSession` rather than with the service-role key, so
+Supabase enforces its own rules and admin credentials never overwrite anyone's
+password.
+
 ## Logo & brand assets
 
 The master artwork lives in `images/logo/` — a transparent PNG and a

@@ -88,63 +88,102 @@ accept:
 - Hospitals: `?city=`, `?sort=name|city`, `?order=asc|desc`
 - Doctors: `?hospital=`, `?specialty=`, `?sort=name|experience_years`, `?order=asc|desc`
 
-## Patient accounts & report uploads
+## Patient accounts (Clerk)
 
-Patients can create an account, log in, and upload/retrieve their own
-medical reports (PDF, JPG, or PNG, up to 20MB each). Files are stored
-privately in Supabase Storage — only the uploading patient can access their
-own files. There's no frontend for this yet (API only):
+Signing up, logging in, verifying the email address and ending a session are
+all handled by [Clerk](https://clerk.com). **No password exists anywhere in
+this system** — a patient types their email, Clerk emails a six-digit code, and
+that code is the whole of authentication. Nothing to forget, no reset flow, and
+no credential for this codebase to store or leak.
 
-- `POST /api/auth/signup`, `POST /api/auth/login`, `POST /api/auth/refresh`,
-  `POST /api/auth/forgot-password`
-- `GET /api/auth/me`, `PATCH /api/auth/me` — profile (name/phone/country)
-- `POST /api/reports` (upload), `GET /api/reports` (list), `GET
-  /api/reports/:id/download` (get a link to the file), `DELETE
-  /api/reports/:id`
-- `GET /api/inquiries/mine` — the logged-in patient's own past "get a quote"
-  submissions
+There is no separate sign-up. An address Clerk has never seen gets an account
+instead of a session, which is why the first button says "Continue" rather than
+either. It is all one page, `/login`.
 
-All of the `/api/reports`, `/api/auth/me`, and `/api/inquiries/mine` routes
-require an `Authorization: Bearer <access_token>` header, using the token
-returned from login/signup.
+### The two keys
 
-## Patient accounts: emailed links
-
-Confirmation and password-reset emails are sent by Supabase, and the link in
-them comes back to `/auth/callback` on this site. Three settings have to agree,
-or the link opens somewhere useless:
-
-| Where | Setting | Value |
+| Variable | Where it goes | Notes |
 | --- | --- | --- |
-| Vercel env vars | `PUBLIC_SITE_URL` | `https://www.mendsure.com` |
-| Supabase → Authentication → URL Configuration | Site URL | `https://www.mendsure.com` |
-| Same page | Redirect URLs | `https://www.mendsure.com/auth/callback` and `http://localhost:5173/auth/callback` |
+| `VITE_CLERK_PUBLISHABLE_KEY` | Vercel **and** `client/.env.local` | Public. Vite inlines it into the bundle at build time, so it must be present wherever the build runs — setting it only at runtime does nothing. |
+| `CLERK_SECRET_KEY` | Vercel **and** `server/.env` | Server-side only. Never commit it and never expose it to the browser. |
 
-**Supabase validates every redirect against that allow-list.** If the address
-isn't on it, Supabase ignores what the API asked for and silently falls back to
-its own Site URL — which defaults to `http://localhost:3000`. A link opening a
-dead localhost tab on a patient's machine means this list, not the code.
+Both are in the Clerk dashboard under **API Keys**. Copy `client/.env.example`
+to `client/.env.local` for local development; both files are gitignored.
 
-Environment variables only apply to builds made after they were set, so
-redeploy after changing `PUBLIC_SITE_URL`.
+**The keys that ship in a fresh Clerk project are `pk_test_`/`sk_test_`, which
+belong to Clerk's *development* instance.** That instance is meant for
+localhost and preview builds: it carries a user cap and shows development
+banners. Before real patients use `www.mendsure.com`, create a production
+instance in Clerk, point it at that domain, and replace both variables with the
+`pk_live_`/`sk_live_` pair.
 
-### What the callback does
+**Environment variables only apply to builds made after they were set**, so
+redeploy after changing either one.
 
-`/auth/callback` reads the tokens Supabase returns in the URL *hash* — never
-the query string, so they are never sent to the server or written to an access
-log — and clears them from the address bar immediately so they can't be
-bookmarked or screenshotted.
+### What happens if a key is missing
 
-- **Confirmation links** verify the address, sign the patient in, and forward
-  them to `/account`.
-- **Recovery links** show a set-new-password form instead. They deliberately do
-  not grant a session on their own: the link only proves the holder can read
-  that inbox, so it buys exactly one action.
+Deliberately, not much — and never a blank site.
 
-Completing a reset calls `POST /api/auth/update-password`, which applies the
-change as that user via `setSession` rather than with the service-role key, so
-Supabase enforces its own rules and admin credentials never overwrite anyone's
-password.
+- **No publishable key:** the app mounts without `ClerkProvider`, everyone is
+  treated as logged out, and `/login` says accounts are unavailable and points
+  at the enquiry form. Every public page still works.
+- **No secret key:** `/api/health` answers `200` with `"accounts":
+  "unavailable"` and names the variable, and the logged-in routes answer `503`.
+  They deliberately do **not** answer `401` — that would log the patient out
+  and bounce them to a login page that signs them straight back in, a loop with
+  nothing in it naming the cause. The public content routes are untouched,
+  because the treatment, hospital and doctor listings do not care who is
+  asking.
+
+### How a request is authorised
+
+The browser asks Clerk for a session token and sends it as
+`Authorization: Bearer <token>`. `server/src/middleware/requireAuth.js` verifies
+it (`server/src/lib/verifyToken.js`) and attaches the Clerk user id as
+`req.userId`; every profile, report and enquiry query is filtered by it.
+
+Verification is local — Clerk signs tokens with a key pair and the public half
+is fetched once and cached — so this is not a network round-trip per request.
+Tokens are pinned to this site with `authorizedParties`, so a token minted for
+another app on the same Clerk instance is refused.
+
+The email address is never read from the token. Clerk does not put one there
+unless the instance is configured to add it as a custom claim, and the browser
+already has the live address from Clerk's own session — so the client supplies
+it for display and the API keys everything on the id alone. A copy stored in
+our database would go stale the moment someone changed their address.
+
+### Routes
+
+- `GET /api/auth/me`, `PATCH /api/auth/me` — the profile (name, phone,
+  country). These are *ours*, not Clerk's, because the care team reads them
+  next to an enquiry. `GET` creates the row on first sight: Clerk accounts live
+  outside the database, so there is no `auth.users` insert for a trigger to
+  fire on any more.
+- `POST /api/reports` (upload), `GET /api/reports` (list),
+  `GET /api/reports/:id/download` (short-lived signed link),
+  `DELETE /api/reports/:id`
+- `GET /api/inquiries/mine` — the patient's own past quote requests
+
+All of them require the `Authorization` header. Files are PDF, JPG or PNG up to
+4MB each — the cap is just under Vercel's 4.5MB request-body limit, so the
+upload form can show a real message instead of an opaque platform `413`.
+
+### Migrating the database
+
+Run `server/db/clerk-auth-schema.sql` in the Supabase SQL editor. A Clerk user
+id is a string like `user_2abc…`, not a uuid, so `profiles.id`,
+`reports.user_id` and `inquiries.user_id` change type and lose their foreign
+key to `auth.users`.
+
+That file also drops the old row-level security policies. They compared each
+row against `auth.uid()`, which reads the Supabase JWT — and there is no
+Supabase JWT any more, so under Clerk every one of them would deny every row
+while still looking like protection. RLS stays *enabled with no policies*,
+which is what `schema.sql` already does for the public tables: anon and
+authenticated keys are refused outright, and the only way in is the
+service-role key the API holds. The real check is `requireAuth` plus the
+`user_id` filter on every query.
 
 ## Logo & brand assets
 
@@ -303,16 +342,22 @@ How it fits together:
    | --- | --- | --- |
    | `SUPABASE_URL` | yes | Supabase → Settings → API |
    | `SUPABASE_SERVICE_ROLE_KEY` | yes | the `service_role` key, never the anon key |
+   | `VITE_CLERK_PUBLISHABLE_KEY` | for accounts | Clerk → API Keys. Read at **build** time, so a redeploy is required after adding it |
+   | `CLERK_SECRET_KEY` | for accounts | Clerk → API Keys. Server-side only |
    | `RESEND_API_KEY` | no | without it, new enquiries log instead of emailing |
    | `NOTIFY_TO_EMAIL` | no | inbox for new-enquiry alerts |
    | `NOTIFY_FROM_EMAIL` | no | must be a Resend-verified sender |
 
    `CLIENT_ORIGIN` and `PORT` are only for local development — leave them out.
    The API refuses to start without the two Supabase values and says so plainly
-   in the function logs.
+   in the function logs. Without the two Clerk values it still serves the whole
+   public site and only the account pages go dark — see **What happens if a key
+   is missing** above.
 3. Deploy, then check `https://<your-domain>/api/health`:
 
    - `200 {"status":"ok"}` — the API is up and configured.
+   - `200 {"status":"ok","accounts":"unavailable",...}` — content is fine, but
+     patient login is not configured. The response names the missing variable.
    - `503 {"status":"misconfigured","missingEnvVars":[...]}` — the deploy
      worked, but step 2 didn't. The response names exactly which variables are
      missing. Add them and redeploy.
@@ -330,7 +375,12 @@ How it fits together:
 - **`app.listen()` doesn't run on Vercel.** Route wiring lives in
   `server/src/app.js`; `server/src/index.js` only starts a listener locally.
 - **`trust proxy` is on.** Requests arrive via Vercel's edge proxy, and without
-  it `express-rate-limit` throws and 500s the auth and enquiry routes.
+  it `express-rate-limit` throws and 500s the enquiry route.
+- **A commit is not a deploy.** Vercel builds what is on `origin/main`. Work
+  that is committed locally but never pushed will not appear on the site, and
+  neither will files left untracked — `git commit -a` stages only files git is
+  already tracking, so a new directory like `client/public/images/` is silently
+  left behind. `git status` before assuming the deploy is at fault.
 - **Report uploads are capped at 4MB**, because Vercel rejects serverless
   request bodies over 4.5MB before your code sees them. If you need larger
   files, upload straight from the browser to Supabase Storage with a signed
@@ -391,8 +441,14 @@ package.json    Root: API runtime deps and the client build command
 server/db/
   schema.sql          Creates the public content tables (treatments, hospitals, ...)
   seed.sql            Adds placeholder sample data
-  auth-schema.sql     Patient accounts, profiles, reports, and the storage bucket
+  auth-schema.sql     Profiles, reports, and the storage bucket (Supabase-auth era)
   schema-updates.sql  Links enquiries to accounts; extra hospital fields
+  doctors-schema.sql  Designation, department, hospital_name, is_priority
+  clerk-auth-schema.sql  Re-keys profiles/reports/inquiries to Clerk user ids
+  hospitals-delhi-ncr.sql  The real partner hospitals
+
+Run them in that order. clerk-auth-schema.sql supersedes the account half of
+auth-schema.sql — see "Patient accounts (Clerk)".
 ```
 
 

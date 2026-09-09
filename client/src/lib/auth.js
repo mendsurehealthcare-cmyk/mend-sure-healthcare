@@ -1,70 +1,33 @@
 /*
-  Patient session handling.
+  Calling our API as the logged-in patient.
 
-  The API hands back a Supabase access token (valid ~1 hour) plus a refresh
-  token. We keep both in localStorage so a patient stays logged in across
-  reloads, and `authFetch` transparently swaps an expired access token for a
-  fresh one rather than kicking them out mid-upload.
+  Clerk owns the session now. It keeps the token in its own storage, refreshes
+  it before it expires, and hands out a fresh one through `getToken()` — so
+  the localStorage handling, the refresh-token dance and the retry-on-401
+  replay that used to live in this file are all gone, along with every
+  password path.
+
+  `getToken` is only reachable from Clerk's React hooks, and these helpers are
+  called from plain functions as well as components, so AuthProvider registers
+  it here once on mount.
 */
 
-const STORAGE_KEY = 'mendsure.session';
+let tokenSource = async () => null;
 
-export function getSession() {
+// Called by AuthProvider. Passing null puts it back to "logged out", which is
+// what a signed-out session or an unconfigured Clerk key looks like.
+export function registerTokenSource(getToken) {
+  tokenSource = getToken || (async () => null);
+}
+
+export async function getAuthToken() {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : null;
+    return await tokenSource();
   } catch {
-    // Private browsing / blocked storage — treat as logged out.
+    // Clerk throws if the session went away mid-call. Treat it as logged out;
+    // the caller turns that into a prompt to log in again.
     return null;
   }
-}
-
-function setSession(session) {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(session));
-  } catch {
-    // Nothing we can do; the session just won't survive a reload.
-  }
-}
-
-export function clearSession() {
-  try {
-    localStorage.removeItem(STORAGE_KEY);
-  } catch {
-    // Ignore.
-  }
-}
-
-/*
-  Supabase's auth errors are written for developers, not patients — e.g.
-  `Email address "x@y.co" is invalid`. Rewrite the ones a patient can actually
-  trigger into something that tells them what to do about it; anything
-  unrecognised passes through.
-*/
-function friendlyAuthError(message = '') {
-  // Supabase rejects addresses it cannot confirm are real, deliverable
-  // mailboxes — not just malformed ones. Pointing only at the domain (as this
-  // message used to) sends people hunting for a typo in "gmail.com" when the
-  // actual problem is that the mailbox itself doesn't exist.
-  if (/is invalid/i.test(message) && /email/i.test(message)) {
-    return "That email address couldn't be verified as a real inbox. Please check it for typos, or try a different address you can receive mail at.";
-  }
-
-  if (/already registered|already exists/i.test(message)) {
-    return 'An account with that email already exists. Try logging in instead.';
-  }
-
-  if (/password/i.test(message) && /short|least|weak/i.test(message)) {
-    return 'Please choose a password of at least 8 characters.';
-  }
-
-  // Supabase's own outbound email quota, not ours. The account isn't created
-  // when this fires, so retrying later genuinely works.
-  if (/email rate limit|rate limit exceeded/i.test(message)) {
-    return "We couldn't send your confirmation email just now. Please try again in a few minutes — your account hasn't been created yet.";
-  }
-
-  return message;
 }
 
 // Every API error comes back as { error: "..." }, so unwrap it into a real
@@ -83,130 +46,26 @@ async function parse(response) {
       );
     }
 
-    throw new Error(friendlyAuthError(data.error) || 'Something went wrong. Please try again.');
+    throw new Error(data.error);
   }
 
   return data ?? {};
 }
 
-function postJson(path, body) {
-  return fetch(`/api${path}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
-  });
-}
-
-export async function signup(email, password) {
-  const data = await parse(await postJson('/auth/signup', { email, password }));
-
-  // When email confirmation is switched on in Supabase, signup returns a
-  // { message } instead of tokens — the patient has to confirm first.
-  if (data.access_token) setSession(data);
-
-  return data;
-}
-
-export async function login(email, password) {
-  const data = await parse(await postJson('/auth/login', { email, password }));
-  setSession(data);
-  return data;
-}
-
-export async function forgotPassword(email) {
-  return parse(await postJson('/auth/forgot-password', { email }));
-}
-
 /*
-  Stores the session Supabase handed back through an email link.
-
-  Used by the /auth/callback page after a confirmation link is opened, so the
-  patient lands signed in instead of being asked for the password they just
-  set up an account with.
-*/
-export function adoptSession({ accessToken, refreshToken, expiresAt }) {
-  setSession({
-    access_token: accessToken,
-    refresh_token: refreshToken,
-    expires_at: expiresAt ? Number(expiresAt) : undefined,
-  });
-}
-
-/*
-  Completes a password reset using the token from the emailed link.
-
-  The token is the proof of ownership: it only reaches someone who can read
-  mail sent to the address the account was registered with. Nothing else — not
-  being logged in elsewhere, not knowing the old password — will do.
-*/
-export async function updatePassword({ accessToken, refreshToken, password }) {
-  const data = await parse(
-    await postJson('/auth/update-password', {
-      access_token: accessToken,
-      refresh_token: refreshToken,
-      password,
-    })
-  );
-
-  if (data.access_token) setSession(data);
-  return data;
-}
-
-export function logout() {
-  clearSession();
-}
-
-async function refreshSession() {
-  const session = getSession();
-  if (!session?.refresh_token) return null;
-
-  const response = await postJson('/auth/refresh', { refresh_token: session.refresh_token });
-
-  if (!response.ok) {
-    clearSession();
-    return null;
-  }
-
-  // A 200 that isn't JSON means something upstream answered instead of the API
-  // — a platform error page, say. Treat that as a failed refresh and make the
-  // patient log in again, rather than throwing a JSON parse error at them.
-  const data = await response.json().catch(() => null);
-  if (!data?.access_token) {
-    clearSession();
-    return null;
-  }
-
-  setSession(data);
-  return data;
-}
-
-/*
-  Calls the API as the logged-in patient. On a 401 it tries the refresh token
-  once and replays the request, so an expired access token is invisible to the
-  caller. Pass a FormData body for uploads — the Content-Type header is left
-  alone so the browser can set the multipart boundary itself.
+  Calls the API as the logged-in patient. Pass a FormData body for uploads —
+  the Content-Type header is left alone so the browser can set the multipart
+  boundary itself.
 */
 export async function authFetch(path, options = {}) {
-  const session = getSession();
-  if (!session) throw new Error('Please log in first.');
+  const token = await getAuthToken();
+  if (!token) throw new Error('Please log in first.');
 
-  const send = (token) => {
-    const headers = { ...options.headers, Authorization: `Bearer ${token}` };
+  const headers = { ...options.headers, Authorization: `Bearer ${token}` };
 
-    if (options.body && !(options.body instanceof FormData) && !headers['Content-Type']) {
-      headers['Content-Type'] = 'application/json';
-    }
-
-    return fetch(`/api${path}`, { ...options, headers });
-  };
-
-  let response = await send(session.access_token);
-
-  if (response.status === 401) {
-    const refreshed = await refreshSession();
-    if (!refreshed) throw new Error('Your session has expired. Please log in again.');
-    response = await send(refreshed.access_token);
+  if (options.body && !(options.body instanceof FormData) && !headers['Content-Type']) {
+    headers['Content-Type'] = 'application/json';
   }
 
-  return parse(response);
+  return parse(await fetch(`/api${path}`, { ...options, headers }));
 }

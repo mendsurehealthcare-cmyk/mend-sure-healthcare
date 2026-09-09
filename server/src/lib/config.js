@@ -1,5 +1,12 @@
-// The environment variables the API cannot run without.
+// The environment variables no API route can run without.
 const REQUIRED_ENV = ['SUPABASE_URL', 'SUPABASE_SERVICE_ROLE_KEY'];
+
+// Needed only by the logged-in routes. Deliberately kept out of REQUIRED_ENV,
+// which gates every /api request: the treatment, hospital and doctor listings
+// and the enquiry form are the whole public site and none of them know or care
+// who is asking. A deploy that is missing the Clerk key should lose its
+// account pages, not its front door.
+const AUTH_ENV = ['CLERK_SECRET_KEY'];
 
 // Returns a list of human-readable problems with the current environment, or
 // an empty array when everything needed is present and plausible.
@@ -30,13 +37,12 @@ function missingEnv() {
 }
 
 /*
-  Where the browser should land after clicking a link in an auth email.
+  The public origin this deployment is served from.
 
-  Supabase builds confirmation and password-reset links as
-  `<project>/auth/v1/verify?...&redirect_to=<this>`, and falls back to the
-  project's own "Site URL" when no redirect is supplied. That default is
-  http://localhost:3000, which is why an emailed link opens a dead localhost
-  tab on a real user's machine — so this is always sent explicitly.
+  Used to pin Clerk session tokens to this site — see verifyToken.js. Auth
+  emails no longer point anywhere here: Clerk emails a six-digit code that the
+  patient types back into the page they started on, so there is no link to
+  build and no callback route to land on.
 */
 function siteUrl() {
   const configured =
@@ -44,8 +50,12 @@ function siteUrl() {
   return configured.replace(/\/+$/, '');
 }
 
-function authCallbackUrl() {
-  return `${siteUrl()}/auth/callback`;
+// Which of the Clerk variables are missing. Surfaced by /api/health so a
+// broken login can be diagnosed with one curl, and checked by requireAuth so
+// the patient gets "temporarily unavailable" rather than "your session
+// expired" — which would send them round the login loop forever.
+function missingAuthEnv() {
+  return AUTH_ENV.filter((key) => !process.env[key]);
 }
 
-module.exports = { REQUIRED_ENV, missingEnv, siteUrl, authCallbackUrl };
+module.exports = { REQUIRED_ENV, AUTH_ENV, missingEnv, missingAuthEnv, siteUrl };

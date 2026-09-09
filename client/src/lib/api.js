@@ -1,4 +1,4 @@
-import { getSession } from './auth';
+import { getAuthToken } from './auth';
 
 // Submits the "get a free quote" form. Used by the Contact page and the
 // ConsultationForm component shown across the site.
@@ -7,11 +7,11 @@ import { getSession } from './auth';
 // send their token along, so the API links the enquiry to their account and it
 // shows up under "Your Quote Requests".
 export async function submitInquiry(formData) {
-  const session = getSession();
+  const token = await getAuthToken();
   const headers = { 'Content-Type': 'application/json' };
 
-  if (session?.access_token) {
-    headers.Authorization = `Bearer ${session.access_token}`;
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
   }
 
   const response = await fetch('/api/inquiries', {

@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const { missingEnv } = require('./lib/config');
+const { missingEnv, missingAuthEnv } = require('./lib/config');
 
 const treatmentsRouter = require('./routes/treatments');
 const hospitalsRouter = require('./routes/hospitals');
@@ -44,7 +44,19 @@ function health(req, res) {
     });
   }
 
-  res.json({ status: 'ok' });
+  // The Clerk key is reported but not fatal: without it the public site is
+  // entirely fine and only the account pages stop working, so this stays a 200
+  // that names the gap rather than a 503 that hides the working half.
+  const missingAuth = missingAuthEnv();
+
+  res.json({
+    status: 'ok',
+    ...(missingAuth.length > 0 && {
+      accounts: 'unavailable',
+      missingEnvVars: missingAuth,
+      hint: 'Patient login needs these under Vercel -> Project Settings -> Environment Variables.',
+    }),
+  });
 }
 
 app.get('/api/health', health);

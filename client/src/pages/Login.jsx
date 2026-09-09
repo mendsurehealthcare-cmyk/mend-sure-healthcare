@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { useSignIn, useSignUp } from '@clerk/clerk-react';
 import { useAuth } from '../context/useAuth';
-import { forgotPassword } from '../lib/auth';
+import { clerkConfigured, CLERK_MISSING_MESSAGE } from '../lib/clerk';
 import Icon from '../components/Icon';
 import PageHero from '../components/PageHero';
 
@@ -28,82 +29,335 @@ const assurances = [
   },
 ];
 
-export default function Login() {
-  const { user, login, signup } = useAuth();
-  const navigate = useNavigate();
-  const location = useLocation();
+/*
+  Turns a Clerk error into something a patient can act on.
 
-  const [mode, setMode] = useState('login'); // login | signup | forgot
-  const [form, setForm] = useState({ email: '', password: '' });
-  const [status, setStatus] = useState('idle'); // idle | submitting
+  Clerk's own `longMessage` is usually fine and is used as the fallback, but a
+  few of these are worth rewording: the codes it returns for a wrong or stale
+  verification code describe the token, not what the person should do next.
+*/
+function readableError(error) {
+  const first = error?.errors?.[0];
+
+  if (!first) {
+    return error?.message || 'Something went wrong. Please try again.';
+  }
+
+  switch (first.code) {
+    case 'form_code_incorrect':
+    case 'verification_failed':
+      return "That code doesn't match. Please check the six digits and try again.";
+    case 'verification_expired':
+      return 'That code has expired. Send a new one and try again.';
+    case 'form_identifier_invalid':
+      return 'Please enter a valid email address.';
+    case 'too_many_requests':
+    case 'client_state_invalid':
+      return 'Too many attempts just now. Please wait a minute and try again.';
+    default:
+      return first.longMessage || first.message || 'Something went wrong. Please try again.';
+  }
+}
+
+// Clerk answers with this when the address has never been seen, which is how
+// an unknown email is told apart from a real failure — it is the signal to
+// create the account rather than sign in to one.
+function isUnknownEmail(error) {
+  return error?.errors?.some((item) => item.code === 'form_identifier_not_found');
+}
+
+/*
+  The whole of signing in: one email field, then the six digits Clerk emails
+  back. There is no password anywhere, so there is nothing to forget, nothing
+  to reset, and no separate "create account" path — an address we have never
+  seen simply gets an account instead of a session, which is why the button
+  says "Continue" rather than either.
+*/
+function EmailCodeForm({ destination }) {
+  const navigate = useNavigate();
+  const { isLoaded: signInLoaded, signIn, setActive } = useSignIn();
+  const { isLoaded: signUpLoaded, signUp } = useSignUp();
+
+  const [step, setStep] = useState('email'); // email | code
+  const [flow, setFlow] = useState('signIn'); // signIn | signUp
+  const [email, setEmail] = useState('');
+  const [code, setCode] = useState('');
+  const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
+
+  const ready = signInLoaded && signUpLoaded;
+
+  async function startSignUp() {
+    await signUp.create({ emailAddress: email });
+    await signUp.prepareEmailAddressVerification({ strategy: 'email_code' });
+    setFlow('signUp');
+  }
+
+  async function sendCode() {
+    try {
+      const attempt = await signIn.create({ identifier: email });
+
+      // Which of the account's addresses to mail. Passwordless instances
+      // return one email_code factor per verified address.
+      const factor = attempt.supportedFirstFactors?.find(
+        (item) => item.strategy === 'email_code'
+      );
+
+      if (!factor) {
+        throw new Error('This account cannot be signed in to by email code.');
+      }
+
+      await signIn.prepareFirstFactor({
+        strategy: 'email_code',
+        emailAddressId: factor.emailAddressId,
+      });
+      setFlow('signIn');
+    } catch (err) {
+      if (!isUnknownEmail(err)) throw err;
+      await startSignUp();
+    }
+  }
+
+  async function handleEmailSubmit(event) {
+    event.preventDefault();
+    if (!ready) return;
+
+    setBusy(true);
+    setError('');
+    setNotice('');
+
+    try {
+      await sendCode();
+      setStep('code');
+      setNotice(`We've emailed a six-digit code to ${email}.`);
+    } catch (err) {
+      setError(readableError(err));
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function handleCodeSubmit(event) {
+    event.preventDefault();
+    if (!ready) return;
+
+    setBusy(true);
+    setError('');
+    setNotice('');
+
+    try {
+      const result =
+        flow === 'signIn'
+          ? await signIn.attemptFirstFactor({ strategy: 'email_code', code })
+          : await signUp.attemptEmailAddressVerification({ code });
+
+      if (result.status !== 'complete') {
+        // Clerk needs something more before it will hand over a session —
+        // another factor, or a field the instance requires at signup. Nothing
+        // in this flow asks for either, so it means the Clerk instance is
+        // configured differently from what this page implements.
+        setError('We need a little more to finish signing you in. Please contact us for help.');
+        return;
+      }
+
+      await setActive({ session: result.createdSessionId });
+      navigate(destination, { replace: true });
+    } catch (err) {
+      setError(readableError(err));
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function handleResend() {
+    setBusy(true);
+    setError('');
+    setNotice('');
+
+    try {
+      if (flow === 'signUp') {
+        await signUp.prepareEmailAddressVerification({ strategy: 'email_code' });
+      } else {
+        const factor = signIn.supportedFirstFactors?.find(
+          (item) => item.strategy === 'email_code'
+        );
+        await signIn.prepareFirstFactor({
+          strategy: 'email_code',
+          emailAddressId: factor?.emailAddressId,
+        });
+      }
+      setNotice(`We've sent another code to ${email}.`);
+    } catch (err) {
+      setError(readableError(err));
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  function startOver() {
+    setStep('email');
+    setCode('');
+    setError('');
+    setNotice('');
+  }
+
+  return (
+    <>
+      <h2 className="mb-space-3xs text-headline-md font-bold text-primary">
+        {step === 'email' ? 'Log in or create your account' : 'Enter your code'}
+      </h2>
+      <p className="mb-space-lg text-body-sm text-on-surface-variant">
+        {step === 'email'
+          ? "Enter your email and we'll send you a six-digit code. No password to remember."
+          : `We've sent six digits to ${email}. The code is good for ten minutes.`}
+      </p>
+
+      {step === 'email' ? (
+        <form onSubmit={handleEmailSubmit} className="space-y-space-md">
+          <div>
+            <label className={labelClasses} htmlFor="email">
+              Email Address
+            </label>
+            <input
+              id="email"
+              type="email"
+              name="email"
+              autoComplete="email"
+              placeholder="patient@example.com"
+              required
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              className={fieldClasses}
+            />
+          </div>
+
+          {error && <FormError>{error}</FormError>}
+
+          {/* Clerk mounts its bot check here when the instance has one turned
+              on. Without the element, signing up is rejected outright. */}
+          <div id="clerk-captcha" />
+
+          <SubmitButton busy={busy || !ready} label="Continue" busyLabel="Sending code..." />
+        </form>
+      ) : (
+        <form onSubmit={handleCodeSubmit} className="space-y-space-md">
+          <div>
+            <label className={labelClasses} htmlFor="code">
+              Six-Digit Code
+            </label>
+            <input
+              id="code"
+              // `type="text"` with a numeric inputMode: a number input lets a
+              // phone keyboard through but also brings spinners, scroll-wheel
+              // changes, and silent stripping of a leading zero.
+              type="text"
+              inputMode="numeric"
+              autoComplete="one-time-code"
+              pattern="[0-9]*"
+              maxLength={6}
+              placeholder="123456"
+              required
+              autoFocus
+              value={code}
+              onChange={(event) => setCode(event.target.value.replace(/\D/g, ''))}
+              className={`${fieldClasses} text-center text-headline-sm tracking-[0.4em]`}
+            />
+          </div>
+
+          {error && <FormError>{error}</FormError>}
+          {notice && <FormNotice>{notice}</FormNotice>}
+
+          <SubmitButton
+            busy={busy || !ready}
+            label={flow === 'signUp' ? 'Create Account' : 'Log In'}
+            busyLabel="Checking..."
+          />
+
+          <div className="flex flex-wrap items-center justify-between gap-space-sm text-body-sm">
+            <button
+              type="button"
+              onClick={handleResend}
+              disabled={busy}
+              className="font-semibold text-secondary hover:underline disabled:opacity-60"
+            >
+              Send a new code
+            </button>
+            <button
+              type="button"
+              onClick={startOver}
+              className="font-semibold text-secondary hover:underline"
+            >
+              Use a different email
+            </button>
+          </div>
+        </form>
+      )}
+
+      {step === 'email' && notice && <div className="mt-space-md"><FormNotice>{notice}</FormNotice></div>}
+    </>
+  );
+}
+
+function FormError({ children }) {
+  return (
+    <p className="flex items-start gap-space-xs rounded-lg bg-error-container p-space-sm text-body-sm text-on-error-container">
+      <Icon name="error" className="!text-[18px] shrink-0" />
+      {children}
+    </p>
+  );
+}
+
+function FormNotice({ children }) {
+  return (
+    <p className="flex items-start gap-space-xs rounded-lg bg-tertiary-fixed p-space-sm text-body-sm text-on-tertiary-fixed">
+      <Icon name="check_circle" className="!text-[18px] shrink-0" />
+      {children}
+    </p>
+  );
+}
+
+function SubmitButton({ busy, label, busyLabel }) {
+  return (
+    <button
+      type="submit"
+      disabled={busy}
+      className="flex w-full items-center justify-center gap-space-xs rounded-lg bg-secondary py-space-md text-label-md text-on-secondary shadow-sm transition-colors hover:bg-secondary-fixed-dim hover:text-on-secondary-fixed disabled:cursor-not-allowed disabled:opacity-60"
+    >
+      {busy ? busyLabel : label}
+      {!busy && <Icon name="arrow_forward" className="!text-[18px]" />}
+    </button>
+  );
+}
+
+// Shown instead of the form when the build has no Clerk publishable key, so
+// the page says what is wrong rather than offering a form that cannot work.
+function Unavailable() {
+  return (
+    <>
+      <h2 className="mb-space-3xs text-headline-md font-bold text-primary">
+        Accounts are unavailable
+      </h2>
+      <p className="mb-space-lg text-body-sm text-on-surface-variant">{CLERK_MISSING_MESSAGE}</p>
+      <Link
+        to="/contact"
+        className="flex w-full items-center justify-center gap-space-xs rounded-lg bg-secondary py-space-md text-label-md text-on-secondary shadow-sm transition-colors hover:bg-secondary-fixed-dim hover:text-on-secondary-fixed"
+      >
+        Request a free quote instead
+        <Icon name="arrow_forward" className="!text-[18px]" />
+      </Link>
+    </>
+  );
+}
+
+export default function Login() {
+  const { user } = useAuth();
+  const location = useLocation();
 
   // Where to land after a successful login — back where they were headed.
   const destination = location.state?.from || '/reports';
 
   if (user) return <Navigate to={destination} replace />;
-
-  function handleChange(event) {
-    const { name, value } = event.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-  }
-
-  function switchMode(next) {
-    setMode(next);
-    setError('');
-    setNotice('');
-  }
-
-  async function handleSubmit(event) {
-    event.preventDefault();
-    setStatus('submitting');
-    setError('');
-    setNotice('');
-
-    try {
-      if (mode === 'forgot') {
-        const result = await forgotPassword(form.email);
-        setNotice(result.message);
-      } else if (mode === 'signup') {
-        const result = await signup(form.email, form.password);
-
-        // Supabase returns a message instead of tokens when email
-        // confirmation is switched on for the project.
-        if (result.access_token) {
-          navigate(destination, { replace: true });
-        } else {
-          setNotice(result.message || 'Account created. Please confirm your email, then log in.');
-          setMode('login');
-        }
-      } else {
-        await login(form.email, form.password);
-        navigate(destination, { replace: true });
-      }
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setStatus('idle');
-    }
-  }
-
-  const copy = {
-    login: {
-      title: 'Log in to your account',
-      sub: 'Access your uploaded reports and past quote requests.',
-      button: 'Log In',
-    },
-    signup: {
-      title: 'Create your patient account',
-      sub: 'Upload your medical reports securely and track your enquiries.',
-      button: 'Create Account',
-    },
-    forgot: {
-      title: 'Reset your password',
-      sub: "Enter your email and we'll send you a reset link.",
-      button: 'Send Reset Link',
-    },
-  }[mode];
 
   return (
     <div className="flex w-full flex-col">
@@ -148,122 +402,11 @@ export default function Login() {
 
           <div className="lg:col-span-7">
             <div className="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm sm:p-space-xl">
-              {/* Login / signup switch */}
-              {mode !== 'forgot' && (
-                <div className="mb-space-lg grid grid-cols-2 gap-space-xs rounded-lg bg-surface-container-low p-space-3xs">
-                  {[
-                    { key: 'login', label: 'Log In' },
-                    { key: 'signup', label: 'Create Account' },
-                  ].map((tab) => (
-                    <button
-                      key={tab.key}
-                      type="button"
-                      onClick={() => switchMode(tab.key)}
-                      className={`rounded-lg px-space-md py-space-sm text-label-md transition-all ${
-                        mode === tab.key
-                          ? 'bg-surface-container-lowest text-on-surface shadow-sm'
-                          : 'text-on-surface-variant hover:text-on-surface'
-                      }`}
-                    >
-                      {tab.label}
-                    </button>
-                  ))}
-                </div>
-              )}
+              {clerkConfigured ? <EmailCodeForm destination={destination} /> : <Unavailable />}
 
-              <h2 className="mb-space-3xs text-headline-md font-bold text-primary">{copy.title}</h2>
-              <p className="mb-space-lg text-body-sm text-on-surface-variant">{copy.sub}</p>
-
-              <form onSubmit={handleSubmit} className="space-y-space-md">
-                <div>
-                  <label className={labelClasses} htmlFor="email">
-                    Email Address
-                  </label>
-                  <input
-                    id="email"
-                    type="email"
-                    name="email"
-                    autoComplete="email"
-                    placeholder="patient@example.com"
-                    required
-                    value={form.email}
-                    onChange={handleChange}
-                    className={fieldClasses}
-                  />
-                </div>
-
-                {mode !== 'forgot' && (
-                  <div>
-                    <label className={labelClasses} htmlFor="password">
-                      Password
-                    </label>
-                    <input
-                      id="password"
-                      type="password"
-                      name="password"
-                      autoComplete={mode === 'signup' ? 'new-password' : 'current-password'}
-                      placeholder={mode === 'signup' ? 'At least 8 characters' : 'Your password'}
-                      required
-                      minLength={mode === 'signup' ? 8 : undefined}
-                      value={form.password}
-                      onChange={handleChange}
-                      className={fieldClasses}
-                    />
-                    {mode === 'signup' && (
-                      <p className="mt-space-3xs text-body-sm text-on-surface-variant">
-                        Must be at least 8 characters.
-                      </p>
-                    )}
-                  </div>
-                )}
-
-                {error && (
-                  <p className="flex items-start gap-space-xs rounded-lg bg-error-container p-space-sm text-body-sm text-on-error-container">
-                    <Icon name="error" className="!text-[18px] shrink-0" />
-                    {error}
-                  </p>
-                )}
-
-                {notice && (
-                  <p className="flex items-start gap-space-xs rounded-lg bg-tertiary-fixed p-space-sm text-body-sm text-on-tertiary-fixed">
-                    <Icon name="check_circle" className="!text-[18px] shrink-0" />
-                    {notice}
-                  </p>
-                )}
-
-                <button
-                  type="submit"
-                  disabled={status === 'submitting'}
-                  className="flex w-full items-center justify-center gap-space-xs rounded-lg bg-secondary py-space-md text-label-md text-on-secondary shadow-sm transition-colors hover:bg-secondary-fixed-dim hover:text-on-secondary-fixed disabled:cursor-not-allowed disabled:opacity-60"
-                >
-                  {status === 'submitting' ? 'Please wait...' : copy.button}
-                  {status !== 'submitting' && <Icon name="arrow_forward" className="!text-[18px]" />}
-                </button>
-              </form>
-
-              <div className="mt-space-lg flex flex-wrap items-center justify-between gap-space-sm text-body-sm">
-                {mode === 'forgot' ? (
-                  <button
-                    type="button"
-                    onClick={() => switchMode('login')}
-                    className="font-semibold text-secondary hover:underline"
-                  >
-                    Back to log in
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={() => switchMode('forgot')}
-                    className="font-semibold text-secondary hover:underline"
-                  >
-                    Forgot your password?
-                  </button>
-                )}
-
-                <span className="flex items-center gap-space-3xs text-on-surface-variant">
-                  <Icon name="lock" className="!text-[14px]" />
-                  Encrypted connection
-                </span>
+              <div className="mt-space-lg flex items-center justify-end gap-space-3xs text-body-sm text-on-surface-variant">
+                <Icon name="lock" className="!text-[14px]" />
+                Encrypted connection
               </div>
             </div>
           </div>

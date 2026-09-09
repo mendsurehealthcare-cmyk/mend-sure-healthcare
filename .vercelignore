@@ -1,7 +1,13 @@
 Mend-Sure-Backend-Reference.pdf
 server/db
 
-# Logo masters (~2MB). The web-sized assets built from them already live in
-# client/public — these are only needed to re-run `npm run build:logo`.
-images
-scripts
+# Source artwork: the logo masters, and the doctor and hospital photographs as
+# supplied (~18MB). The web-sized assets built from them already live in
+# client/public — these are only needed to re-run `npm run build:logo` and
+# `npm run build:images`.
+#
+# Both patterns are anchored with a leading slash. Unanchored they match at any
+# depth, which would take client/public/images out of the deploy along with
+# every doctor and hospital photograph the cards load.
+/images
+/scripts

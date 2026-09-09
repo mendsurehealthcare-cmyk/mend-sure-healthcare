@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { hospitalImage } from '../lib/directoryImages';
 import CardMedia from './CardMedia';
 import Icon from './Icon';
 
@@ -49,7 +50,7 @@ export default function HospitalWideCard({ hospital }) {
     <div className="grid grid-cols-1 overflow-hidden rounded-xl bg-surface-container-lowest shadow-md transition-all hover:shadow-xl lg:grid-cols-12">
       <div className="relative min-h-[300px] lg:col-span-5 lg:min-h-full">
         <CardMedia
-          image={hospital.image_url}
+          image={hospitalImage(hospital)}
           alt={hospital.name}
           label={hospital.name}
           icon="local_hospital"

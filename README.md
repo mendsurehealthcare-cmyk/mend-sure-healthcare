@@ -179,6 +179,54 @@ iOS composites home-screen icons onto an opaque tile, which is why
 `apple-touch-icon.png` is built from the white-background master — a
 transparent source would come out sitting on black.
 
+## Doctor & hospital photographs
+
+The photographs as supplied live in `images/doctors/` and `images/hospital/` —
+whatever size, shape and format each hospital's own site published them at,
+from a 220px thumbnail to a 6000px camera frame. Like the logo artwork, those
+are **masters, not web assets**. `npm run build:images` normalises them and
+writes the files the cards load into `client/public/images/`:
+
+| Output | Shape | Notes |
+| --- | --- | --- |
+| `images/doctors/<slug>.webp` | 600 × 600 | Square, because these are headshots |
+| `images/hospitals/<slug>.webp` | 1200 × 800 | 3:2, matching the wide facility shots |
+
+The outputs are committed, so neither a deploy nor `sharp` is needed at build
+time. Install `sharp` (`npm install --no-save sharp`) only when re-running the
+script.
+
+**Adding a photograph** is a matter of dropping the file into the folder named
+after the doctor or hospital and re-running the script. It slugifies the
+filename and matches that against each record's slug and its name, so
+`Dr. Ashok Seth.jpg` finds `dr-ashok-seth` on its own. Files that match nothing
+are listed at the end of the run instead of being silently dropped, and so are
+records still without a photograph.
+
+Two treatments, chosen per file:
+
+- **Photographs** are cropped to fill the frame. Portraits crop from the top,
+  because the head is what has to survive — a centred crop on a standing
+  full-length shot lands on the chest.
+- **Cut-outs** — the subject masked out onto a transparent background, ten of
+  the doctor photographs — get a white background put behind them and are
+  fitted whole rather than cropped, since a cut-out puts the head close to the
+  top edge and cropping it square would take the head off. Detection needs a
+  real share of the frame to be transparent: a photograph saved with rounded
+  corners has an alpha channel too, and it wants cropping like any other.
+
+**Where the cards get the path.** The script also writes
+`client/src/data/directory-images.json`, a slug-to-path map, from the files it
+actually wrote — so it cannot drift from what is on disk.
+`client/src/lib/directoryImages.js` reads it. A row's own `image_url` still
+wins whenever it is set, so a photograph loaded into Supabase overrides the
+built file; a record with neither falls back to `CardMedia`'s tinted panel,
+which is by design rather than broken.
+
+Both `/images` and `/scripts` in `.vercelignore` are anchored with a leading
+slash. Unanchored they match at any depth, which would take
+`client/public/images` out of the deploy along with every photograph.
+
 ## City & country autocomplete
 
 The "City in India" field in the hero search and the "Country" field in the
@@ -321,7 +369,10 @@ client/src/
   pages/        One file per route (Home, Treatments, Contact, etc.)
   lib/          Small helpers: API calls, the useApi() fetch hook, formatting,
                 locations.js — autocomplete search, ranking, and name aliases
-  data/         Generated country/city lists (see npm run build:locations)
+  data/         Generated country/city lists (see npm run build:locations) and
+                directory-images.json (see npm run build:images)
+client/public/
+  images/       Built doctor and hospital photographs (see npm run build:images)
 
 server/src/
   routes/       One file per resource (treatments, hospitals, doctors, ...)

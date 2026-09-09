@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { specialtyIcon } from '../lib/specialtyIcons';
+import { doctorImage } from '../lib/directoryImages';
 import CardMedia from './CardMedia';
 import Icon from './Icon';
 
@@ -11,11 +12,14 @@ export default function DoctorCard({ doctor }) {
     >
       <div>
         <div className="mb-space-md">
+          {/* Square rather than the default letterbox: these are headshots,
+              and a wide box crops a portrait down to a band across the face. */}
           <CardMedia
-            image={doctor.image_url}
+            image={doctorImage(doctor)}
             alt={doctor.name}
             label={doctor.specialty}
             icon={specialtyIcon(doctor.specialty)}
+            className="aspect-square"
           >
             {doctor.experience_years && (
               <div className="absolute top-space-sm left-space-sm rounded-full bg-primary/80 px-space-sm py-space-3xs text-label-sm text-on-primary backdrop-blur-md">

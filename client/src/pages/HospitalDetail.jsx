@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import { useApi } from '../lib/useApi';
+import { hospitalImage } from '../lib/directoryImages';
 import Icon from '../components/Icon';
 import PageHero from '../components/PageHero';
 import StateMessage from '../components/StateMessage';
@@ -21,7 +22,7 @@ export default function HospitalDetail() {
         eyebrowIcon="location_on"
         title={hospital.name}
         subtitle={hospital.description}
-        backgroundImage={hospital.image_url}
+        backgroundImage={hospitalImage(hospital)}
         backgroundAlt={hospital.name}
         aside={
           <div className="flex flex-col gap-space-md rounded-xl bg-primary-container/60 p-space-lg backdrop-blur-md">

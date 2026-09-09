@@ -5,6 +5,7 @@
   "description": "Mend Sure — React frontend and Express API, deployed together on Vercel",
   "scripts": {
     "build": "npm install --prefix client && npm run build --prefix client",
+    "build:images": "node scripts/build-directory-images.mjs",
     "build:locations": "node scripts/build-location-data.mjs",
     "build:logo": "node scripts/build-logo-assets.mjs",
     "load:doctors": "node --env-file=server/.env scripts/load-doctors.mjs",

@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import { useApi } from '../lib/useApi';
 import { specialtyIcon } from '../lib/specialtyIcons';
+import { doctorImage } from '../lib/directoryImages';
 import Icon from '../components/Icon';
 import PageHero from '../components/PageHero';
 import StateMessage from '../components/StateMessage';
@@ -21,7 +22,7 @@ export default function DoctorDetail() {
         eyebrowIcon={specialtyIcon(doctor.specialty)}
         title={doctor.name}
         subtitle={[doctor.designation, doctor.department].filter(Boolean).join(' · ') || undefined}
-        backgroundImage={doctor.image_url}
+        backgroundImage={doctorImage(doctor)}
         backgroundAlt={doctor.name}
         aside={
           doctor.experience_years ? (

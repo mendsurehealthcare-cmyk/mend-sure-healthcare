@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { hospitalImage } from '../lib/directoryImages';
 import CardMedia from './CardMedia';
 import Icon from './Icon';
 
@@ -9,7 +10,7 @@ export default function HospitalCard({ hospital }) {
       className="group flex flex-col overflow-hidden rounded-xl bg-surface-container-lowest shadow-sm transition-all duration-300 hover:shadow-xl"
     >
       <CardMedia
-        image={hospital.image_url}
+        image={hospitalImage(hospital)}
         alt={hospital.name}
         label={hospital.name}
         icon="local_hospital"

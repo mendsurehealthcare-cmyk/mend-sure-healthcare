@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Aakash Healthcare Super Speciality Hospital",
+    "slug": "aakash-healthcare",
+    "city": "Delhi"
+  },
+  {
+    "name": "Artemis Hospital",
+    "slug": "artemis-hospital",
+    "city": "Gurgaon"
+  },
+  {
+    "name": "BLK-Max Super Speciality Hospital",
+    "slug": "blk-max-super-speciality-hospital",
+    "city": "Delhi"
+  },
+  {
+    "name": "Fortis Escorts Heart Institute, Okhla",
+    "slug": "fortis-escorts-heart-institute",
+    "city": "Delhi"
+  },
+  {
+    "name": "Fortis Hospital, Noida Sector 62",
+    "slug": "fortis-hospital-noida-sector-62",
+    "city": "Noida"
+  },
+  {
+    "name": "Fortis Memorial Research Institute",
+    "slug": "fortis-memorial-research-institute",
+    "city": "Gurgaon"
+  },
+  {
+    "name": "Indraprastha Apollo Hospital",
+    "slug": "indraprastha-apollo-hospital",
+    "city": "Delhi"
+  },
+  {
+    "name": "Manipal Hospital, Dwarka",
+    "slug": "manipal-hospital-dwarka",
+    "city": "Delhi"
+  },
+  {
+    "name": "Max Super Speciality Hospital, Saket",
+    "slug": "max-super-speciality-saket",
+    "city": "Delhi"
+  },
+  {
+    "name": "Max Super Speciality Hospital, Vaishali",
+    "slug": "max-super-speciality-vaishali",
+    "city": "Delhi"
+  },
+  {
+    "name": "Medanta – The Medicity",
+    "slug": "medanta-the-medicity",
+    "city": "Gurgaon"
+  },
+  {
+    "name": "Paras Hospital",
+    "slug": "paras-hospital",
+    "city": "Gurgaon"
+  }
+]

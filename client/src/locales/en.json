@@ -97,6 +97,16 @@
       "subtitle": "Board-certified surgeons and physicians across our partner hospital network.",
       "cta": "Find a Specialist"
     },
+    "specialDoctors": {
+      "eyebrow": "Renowned Specialists",
+      "title": "Our Special Doctors",
+      "subtitle": "A closer look at a few of the eminent specialists leading care across our partner hospital network."
+    },
+    "ourHospitals": {
+      "eyebrow": "Trusted Care Destinations",
+      "title": "Our Hospitals",
+      "subtitle": "A closer look at some of the accredited hospitals in our partner network."
+    },
     "services": {
       "eyebrow": "Comprehensive Patient Assistance",
       "title": "Our Services Cover Every Need",

@@ -11,11 +11,13 @@ import Button from '../components/Button';
 import Icon from '../components/Icon';
 import SectionHeading from '../components/SectionHeading';
 import FaqAccordion from '../components/FaqAccordion';
-import TreatmentCard from '../components/TreatmentCard';
+import CardMedia from '../components/CardMedia';
 import HospitalCard from '../components/HospitalCard';
+import DoctorCard from '../components/DoctorCard';
 import DoctorCardCompact from '../components/DoctorCardCompact';
-import { HOME_DOCTOR_SLUGS, pickBySlug } from '../lib/priorityDoctors';
+import { HOME_DOCTOR_SLUGS, SPECIAL_DOCTOR_SLUGS, pickBySlug } from '../lib/priorityDoctors';
 import { ALL_GUIDE_SPECIALTIES } from '../data/treatmentCostGuides';
+import { HOME_POPULAR_TREATMENTS } from '../data/homePopularTreatments';
 import TestimonialCard from '../components/TestimonialCard';
 import ConsultationForm from '../components/ConsultationForm';
 
@@ -52,7 +54,6 @@ const faqKeys = ['1', '2', '3', '4'];
 
 export default function Home() {
   const { t } = useTranslation();
-  const { data: treatments } = useApi('/treatments');
   const { data: hospitals } = useApi('/hospitals');
   // pageSize=300 rather than the default 20: the section below shows a fixed
   // set of named doctors (see HOME_DOCTOR_SLUGS), and several of them sort
@@ -80,6 +81,11 @@ export default function Home() {
   }, [hospitals]);
 
   const homeDoctors = useMemo(() => pickBySlug(doctors, HOME_DOCTOR_SLUGS), [doctors]);
+  const specialDoctors = useMemo(() => pickBySlug(doctors, SPECIAL_DOCTOR_SLUGS), [doctors]);
+
+  // A second, larger slice than the 3-hospital "Partner hospitals" section
+  // above uses — this spotlight has room to show more of the network at once.
+  const spotlightHospitals = hospitals?.slice(0, 6) || [];
 
   function handleHeroSearch(event) {
     event.preventDefault();
@@ -189,7 +195,7 @@ export default function Home() {
             subtitle={t('home.specialties.subtitle')}
           />
 
-          <div className="grid grid-cols-1 gap-space-lg sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-space-lg sm:grid-cols-2 lg:grid-cols-3">
             {specialties.map((specialty) => (
               <Link
                 key={specialty}
@@ -212,30 +218,78 @@ export default function Home() {
         </section>
       )}
 
-      {/* 3. Popular treatments */}
-      {treatments?.length > 0 && (
-        <section className="bg-surface-container-low px-space-md py-space-3xl sm:px-space-xl">
-          <div className="mx-auto max-w-7xl">
-            <div className="mb-space-2xl flex flex-col justify-between md:flex-row md:items-end">
-              <div>
-                <span className="mb-space-xs block text-label-sm font-bold tracking-widest text-secondary uppercase">
-                  {t('home.treatments.eyebrow')}
-                </span>
-                <h2 className="text-headline-lg font-bold text-primary">{t('home.treatments.title')}</h2>
-              </div>
-              <Button to="/treatments" variant="outline" className="mt-space-sm md:mt-0">
-                {t('home.treatments.viewAll')}
-              </Button>
+      {/* 3. Popular treatments — real procedures from the nine specialty cost
+          guides, not treatments-table rows (see homePopularTreatments.js for
+          why: those were leftover placeholder seed data with no INR price at
+          all, only a single USD figure). Static and unconditional for the
+          same reason the specialty grid and guide pages are: it must not
+          depend on /api/treatments to appear. */}
+      <section className="bg-surface-container-low px-space-md py-space-3xl sm:px-space-xl">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-space-2xl flex flex-col justify-between md:flex-row md:items-end">
+            <div>
+              <span className="mb-space-xs block text-label-sm font-bold tracking-widest text-secondary uppercase">
+                {t('home.treatments.eyebrow')}
+              </span>
+              <h2 className="text-headline-lg font-bold text-primary">{t('home.treatments.title')}</h2>
             </div>
-
-            <div className="grid grid-cols-1 gap-space-xl md:grid-cols-2 lg:grid-cols-4">
-              {treatments.slice(0, 8).map((treatment) => (
-                <TreatmentCard key={treatment.id} treatment={treatment} />
-              ))}
-            </div>
+            <Button to="/treatments" variant="outline" className="mt-space-sm md:mt-0">
+              {t('home.treatments.viewAll')}
+            </Button>
           </div>
-        </section>
-      )}
+
+          <div className="grid grid-cols-1 gap-space-xl sm:grid-cols-2 lg:grid-cols-3">
+            {HOME_POPULAR_TREATMENTS.map((treatment) => (
+              <Link
+                key={treatment.name}
+                to={`/treatments?specialty=${encodeURIComponent(treatment.specialty)}`}
+                className="group flex flex-col justify-between rounded-xl bg-surface-container-lowest p-space-lg shadow-sm transition-all hover:shadow-xl"
+              >
+                <div>
+                  <div className="mb-space-md">
+                    <CardMedia
+                      image={treatment.image}
+                      alt={treatment.name}
+                      label={treatment.specialty}
+                      icon={specialtyIcon(treatment.specialty)}
+                    />
+                  </div>
+
+                  <div className="mb-space-xs flex items-center gap-space-sm">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary-fixed text-primary">
+                      <Icon name={specialtyIcon(treatment.specialty)} className="!text-[24px]" />
+                    </div>
+                    <div>
+                      <h3 className="text-headline-sm text-on-surface">{treatment.name}</h3>
+                      <p className="text-body-sm text-on-surface-variant">{treatment.specialty}</p>
+                    </div>
+                  </div>
+
+                  <p className="mb-space-md line-clamp-2 text-body-md text-on-surface-variant">
+                    {treatment.description}
+                  </p>
+
+                  <div className="mb-space-lg space-y-space-xs rounded-lg bg-surface-container-low p-space-md">
+                    <div className="flex items-center justify-between text-body-sm">
+                      <span className="font-medium text-on-surface-variant">Cost in India (INR):</span>
+                      <span className="font-semibold text-on-surface">{treatment.inr}</span>
+                    </div>
+                    <div className="flex items-center justify-between text-body-sm">
+                      <span className="font-medium text-on-surface-variant">Cost in India (USD):</span>
+                      <span className="font-semibold text-on-surface">{treatment.usd}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <span className="flex w-full items-center justify-center gap-space-xs rounded-lg bg-secondary px-space-md py-space-sm text-label-md text-on-secondary shadow-sm transition-colors group-hover:bg-secondary-fixed-dim group-hover:text-on-secondary-fixed">
+                  View Treatment &amp; Pricing
+                  <Icon name="arrow_forward" className="!text-[18px]" />
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* 4. Partner hospitals */}
       {hospitals?.length > 0 && (
@@ -256,6 +310,31 @@ export default function Home() {
             {hospitals.slice(0, 3).map((hospital) => (
               <HospitalCard key={hospital.id} hospital={hospital} />
             ))}
+          </div>
+        </section>
+      )}
+
+      {/* 4b. Our Hospitals — a wider spotlight than the 3-card Partner
+          hospitals section above, so more of the network is visible at a
+          glance. */}
+      {spotlightHospitals.length > 0 && (
+        <section className="bg-surface-container-low px-space-md py-space-3xl sm:px-space-xl">
+          <div className="mx-auto max-w-7xl">
+            <SectionHeading
+              eyebrow={t('home.ourHospitals.eyebrow')}
+              title={t('home.ourHospitals.title')}
+              subtitle={t('home.ourHospitals.subtitle')}
+            />
+            <div className="grid grid-cols-1 gap-space-xl md:grid-cols-2 lg:grid-cols-3">
+              {spotlightHospitals.map((hospital) => (
+                <HospitalCard key={hospital.id} hospital={hospital} />
+              ))}
+            </div>
+            <div className="mt-space-2xl text-center">
+              <Button to="/hospitals" variant="secondary">
+                View All Hospitals
+              </Button>
+            </div>
           </div>
         </section>
       )}
@@ -370,6 +449,26 @@ export default function Home() {
             <Button to="/doctors" variant="secondary">
               {t('home.doctors.cta')}
             </Button>
+          </div>
+        </section>
+      )}
+
+      {/* 7b. Our Special Doctors — four named specialists in full DoctorCards,
+          a more prominent spotlight than the compact "Our Doctors" showcase
+          above. See SPECIAL_DOCTOR_SLUGS in priorityDoctors.js. */}
+      {specialDoctors.length > 0 && (
+        <section className="bg-surface-container-low px-space-md py-space-3xl sm:px-space-xl">
+          <div className="mx-auto max-w-7xl">
+            <SectionHeading
+              eyebrow={t('home.specialDoctors.eyebrow')}
+              title={t('home.specialDoctors.title')}
+              subtitle={t('home.specialDoctors.subtitle')}
+            />
+            <div className="grid grid-cols-1 gap-space-lg sm:grid-cols-2 lg:grid-cols-4">
+              {specialDoctors.map((doctor) => (
+                <DoctorCard key={doctor.id} doctor={doctor} />
+              ))}
+            </div>
           </div>
         </section>
       )}

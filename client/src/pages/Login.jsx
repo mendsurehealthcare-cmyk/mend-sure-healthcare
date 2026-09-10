@@ -66,6 +66,32 @@ function isUnknownEmail(error) {
   return error?.errors?.some((item) => item.code === 'form_identifier_not_found');
 }
 
+// New-account sign-up goes through Clerk's bot check (the `clerk-captcha`
+// element below), which silently never resolves if its challenge fails to
+// load — an ad blocker or a strict corporate network stripping third-party
+// scripts is enough. Without this, that leaves the button reading "Sending
+// code..." forever with no way out but a page refresh the patient has no
+// reason to think to try. Racing every Clerk call against a timeout turns
+// that into an error they can actually act on.
+const CLERK_CALL_TIMEOUT_MS = 20000;
+
+function withTimeout(promise) {
+  return Promise.race([
+    promise,
+    new Promise((_, reject) =>
+      setTimeout(
+        () =>
+          reject(
+            new Error(
+              "This is taking longer than expected. Please refresh the page and try again — if it keeps happening, request a free quote instead and we'll set up your account for you."
+            )
+          ),
+        CLERK_CALL_TIMEOUT_MS
+      )
+    ),
+  ]);
+}
+
 /*
   The whole of signing in: one email field, then the six digits Clerk emails
   back. There is no password anywhere, so there is nothing to forget, nothing
@@ -128,7 +154,7 @@ function EmailCodeForm({ destination }) {
     setNotice('');
 
     try {
-      await sendCode();
+      await withTimeout(sendCode());
       setStep('code');
       setNotice(`We've emailed a six-digit code to ${email}.`);
     } catch (err) {
@@ -147,10 +173,11 @@ function EmailCodeForm({ destination }) {
     setNotice('');
 
     try {
-      const result =
+      const result = await withTimeout(
         flow === 'signIn'
-          ? await signIn.attemptFirstFactor({ strategy: 'email_code', code })
-          : await signUp.attemptEmailAddressVerification({ code });
+          ? signIn.attemptFirstFactor({ strategy: 'email_code', code })
+          : signUp.attemptEmailAddressVerification({ code })
+      );
 
       if (result.status !== 'complete') {
         // Clerk needs something more before it will hand over a session —

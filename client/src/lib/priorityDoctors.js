@@ -48,6 +48,18 @@ export const HOME_DOCTOR_SLUGS = [
   'dr-surender-kumar-dabas',
 ];
 
+// A four-doctor spotlight for the home page's "Our Special Doctors" section —
+// a smaller, named-by-request subset of PRIORITY_DOCTOR_SLUGS shown in full
+// DoctorCards rather than the compact cards HOME_DOCTOR_SLUGS uses above.
+// Overlap with HOME_DOCTOR_SLUGS is intentional: these are the same
+// specialists highlighted a second time, more prominently.
+export const SPECIAL_DOCTOR_SLUGS = [
+  'dr-krishna-subramony-iyer',
+  'dr-ashok-seth',
+  'dr-vinod-raina',
+  'dr-ashok-rajgopal',
+];
+
 // Looks up each slug in `doctors` and returns the matches in the order the
 // slugs were given, not the order the doctors happen to arrive in from the
 // API. Slugs with no matching doctor (the API hasn't loaded yet, or a slug

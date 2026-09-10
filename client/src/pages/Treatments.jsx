@@ -6,13 +6,22 @@ import Icon from '../components/Icon';
 import PageHero from '../components/PageHero';
 import TreatmentCard from '../components/TreatmentCard';
 import CardiacSurgeryCostGuide from '../components/CardiacSurgeryCostGuide';
+import CostGuideTable from '../components/CostGuideTable';
+import { TREATMENT_COST_GUIDES } from '../data/treatmentCostGuides';
 import StateMessage from '../components/StateMessage';
 
-// The specialty the cost guide below replaces the usual card grid for. A
-// constant rather than a literal repeated in three places, and matched
+// The specialty Cardiac Surgery's own (differently laid out — it also has the
+// Turkey/Thailand comparison table) cost guide replaces the usual card grid
+// for. A constant rather than a literal repeated in three places, and matched
 // exactly against the `specialty` column on real Cardiac Surgery treatment
 // rows, so any of those get grouped under the same filter chip as the guide.
 const CARDIAC_SURGERY_SPECIALTY = 'Cardiac Surgery';
+
+// Every other specialty with a static cost guide (client/src/data/
+// treatmentCostGuides.js) instead of a card grid. Checked ahead of the
+// treatments-table filtering below, same reasoning as Cardiac Surgery: this
+// is reference content, not bookable catalog rows.
+const STATIC_GUIDE_SPECIALTIES = Object.keys(TREATMENT_COST_GUIDES);
 
 // Maps the triage picker's symptom areas onto the specialty names used in the
 // treatments table, so choosing a symptom filters the grid below.
@@ -34,11 +43,11 @@ export default function Treatments() {
   const specialties = useMemo(() => {
     if (!treatments) return ['All'];
     const fromData = new Set(treatments.map((t) => t.specialty));
-    // Guaranteed even if the treatments table has no Cardiac Surgery rows:
-    // the cost guide below is static content, not backed by treatment
-    // records, so the filter chip that reveals it can't depend on one
-    // existing.
+    // Guaranteed even for a specialty with zero matching treatment rows: its
+    // cost guide is static content, not backed by treatment records, so the
+    // filter chip that reveals it can't depend on one existing.
     fromData.add(CARDIAC_SURGERY_SPECIALTY);
+    STATIC_GUIDE_SPECIALTIES.forEach((item) => fromData.add(item));
     return ['All', ...fromData];
   }, [treatments]);
 
@@ -151,6 +160,12 @@ export default function Treatments() {
             // CardiacSurgeryCostGuide for why this is static content rather
             // than rows in the treatments table.
             <CardiacSurgeryCostGuide />
+          ) : TREATMENT_COST_GUIDES[specialty] && !query.trim() ? (
+            <div className="space-y-space-2xl">
+              {TREATMENT_COST_GUIDES[specialty].map((table) => (
+                <CostGuideTable key={table.title} {...table} />
+              ))}
+            </div>
           ) : filtered.length === 0 ? (
             <StateMessage>No treatments match that search.</StateMessage>
           ) : (

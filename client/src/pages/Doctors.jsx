@@ -1,10 +1,14 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useApi } from '../lib/useApi';
+import { PRIORITY_DOCTOR_SLUGS, pickBySlug } from '../lib/priorityDoctors';
 import Icon from '../components/Icon';
 import PageHero from '../components/PageHero';
 import DoctorCard from '../components/DoctorCard';
+import PaginatedGrid from '../components/PaginatedGrid';
 import StateMessage from '../components/StateMessage';
+
+const PRIORITY_SLUG_SET = new Set(PRIORITY_DOCTOR_SLUGS);
 
 export default function Doctors() {
   const { t } = useTranslation();
@@ -64,6 +68,25 @@ export default function Doctors() {
       return matchesSpecialty && matchesQuery;
     });
   }, [doctors, specialty, query]);
+
+  // The default view (no specialty chosen, no search typed) is split into two
+  // sections instead of one 103-card grid: the priority specialists up front,
+  // the rest paged nine at a time below. The moment a filter narrows the
+  // list, that split stops making sense — a search for one name shouldn't
+  // still be organised around "priority vs. everyone else" — so filtered
+  // results fall back to a single flat grid, same as before this page had a
+  // priority set at all.
+  const isDefaultView = specialty === 'All' && query.trim() === '';
+
+  const priorityDoctors = useMemo(
+    () => pickBySlug(doctors, PRIORITY_DOCTOR_SLUGS),
+    [doctors]
+  );
+
+  const otherDoctors = useMemo(
+    () => (doctors || []).filter((doctor) => !PRIORITY_SLUG_SET.has(doctor.slug)),
+    [doctors]
+  );
 
   return (
     <div className="flex w-full flex-col">
@@ -136,6 +159,38 @@ subtitle={t('pages.doctors.subtitle')}
         <div className="mx-auto w-full max-w-7xl px-space-md py-space-3xl sm:px-space-2xl">
           {filtered.length === 0 ? (
             <StateMessage>{t('pages.doctors.noMatch')}</StateMessage>
+          ) : isDefaultView ? (
+            <>
+              <section className="mb-space-3xl">
+                <div className="mb-space-lg flex items-center gap-space-xs">
+                  <Icon name="star" filled className="!text-[22px] text-secondary" />
+                  <h2 className="text-headline-md font-bold text-primary">
+                    {t('pages.doctors.priorityTitle')}
+                  </h2>
+                </div>
+                <div className="grid grid-cols-1 gap-space-xl md:grid-cols-2 lg:grid-cols-3">
+                  {priorityDoctors.map((doctor) => (
+                    <DoctorCard key={doctor.id} doctor={doctor} />
+                  ))}
+                </div>
+              </section>
+
+              {otherDoctors.length > 0 && (
+                <section>
+                  <h2 className="mb-space-lg text-headline-md font-bold text-primary">
+                    {t('pages.doctors.moreTitle')}
+                  </h2>
+                  <PaginatedGrid
+                    items={otherDoctors}
+                    pageSize={9}
+                    pageLabel={(page, count) => t('pages.doctors.pageOf', { page, count })}
+                    prevLabel={t('pages.doctors.prevPage')}
+                    nextLabel={t('pages.doctors.nextPage')}
+                    renderItem={(doctor) => <DoctorCard key={doctor.id} doctor={doctor} />}
+                  />
+                </section>
+              )}
+            </>
           ) : (
             <div className="grid grid-cols-1 gap-space-xl md:grid-cols-2 lg:grid-cols-3">
               {filtered.map((doctor) => (

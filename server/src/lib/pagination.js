@@ -53,4 +53,56 @@ async function sendPage(res, query) {
   res.json(data);
 }
 
-module.exports = { getPageRange, isRangeBeyondEnd, sendPage };
+/*
+  Runs a ranged query, and follows up with further ranged queries if the
+  platform's own per-request row cap truncated the response short of what was
+  actually asked for.
+
+  Supabase projects carry a "Max Rows" setting (Dashboard -> Settings -> API)
+  that limits how many rows a single PostgREST request returns, independent of
+  the range the caller asked for — a request for rows 0-299 on a project
+  capped at 100 gets rows 0-99 back, silently, with the `count` in the
+  response still correctly reporting the true total. A caller that takes the
+  data at face value drops however many rows sit past the cap; on this
+  project's cap that meant 3 of 103 doctors missing from "the whole directory
+  in one request" with nothing in the response marking it as partial.
+
+  `makeQuery(rangeFrom, rangeTo)` must return an *unexecuted* Supabase query
+  for that sub-range — a query object can only be awaited once, so a fresh one
+  is built for each follow-up call.
+
+  Costs nothing extra for the common case: a request that fits inside the
+  platform's cap in one call (every list this app pages through 20 or so rows
+  at a time, say) returns after that first call exactly as it always did.
+*/
+async function fetchFullRange(makeQuery, from, to) {
+  let rows = [];
+  let count = null;
+  let cursor = from;
+
+  while (cursor <= to) {
+    const requested = to - cursor + 1;
+    const { data, error, count: totalCount } = await makeQuery(cursor, to);
+    if (error) return { data: null, error, count: null };
+
+    count = totalCount ?? count;
+    if (!data || data.length === 0) break;
+
+    rows = rows.concat(data);
+    cursor = from + rows.length;
+
+    // Got everything asked for on this call: either the requested window is
+    // now full (the loop condition ends it next) or nothing was left to cap.
+    if (data.length >= requested) break;
+
+    // Fewer rows came back than requested. Expected once the table's
+    // matching rows genuinely run out — cursor has then reached `count`.
+    // Anything short of that is the platform's cap, not the end of the data,
+    // and cursor already picks up exactly where this call left off.
+    if (count != null && cursor >= count) break;
+  }
+
+  return { data: rows, error: null, count };
+}
+
+module.exports = { getPageRange, isRangeBeyondEnd, sendPage, fetchFullRange };

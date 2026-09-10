@@ -93,7 +93,7 @@
     },
     "doctors": {
       "eyebrow": "Des experts de renommée mondiale",
-      "title": "Rencontrez nos spécialistes",
+      "title": "Nos Médecins",
       "subtitle": "Chirurgiens et médecins certifiés dans tout notre réseau d'hôpitaux partenaires.",
       "cta": "Trouver un spécialiste"
     },
@@ -207,7 +207,12 @@
       "searchPlaceholder": "Rechercher par nom ou par hôpital...",
       "noMatch": "Aucun médecin ne correspond à cette recherche.",
       "loading": "Chargement des médecins...",
-      "error": "Impossible de charger les médecins pour le moment. Merci de réessayer dans un instant."
+      "error": "Impossible de charger les médecins pour le moment. Merci de réessayer dans un instant.",
+      "priorityTitle": "Spécialistes en Vedette",
+      "moreTitle": "Plus de Spécialistes",
+      "pageOf": "Page {{page}} sur {{count}}",
+      "prevPage": "Page précédente",
+      "nextPage": "Page suivante"
     },
     "howItWorks": {
       "eyebrow": "Un accompagnement de bout en bout",

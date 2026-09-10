@@ -93,7 +93,7 @@
     },
     "doctors": {
       "eyebrow": "Leading Global Experts",
-      "title": "Meet Our Specialists",
+      "title": "Our Doctors",
       "subtitle": "Board-certified surgeons and physicians across our partner hospital network.",
       "cta": "Find a Specialist"
     },
@@ -207,7 +207,12 @@
       "searchPlaceholder": "Search by name or hospital...",
       "noMatch": "No doctors match that search.",
       "loading": "Loading doctors...",
-      "error": "Couldn't load doctors right now. Please try again shortly."
+      "error": "Couldn't load doctors right now. Please try again shortly.",
+      "priorityTitle": "Featured Specialists",
+      "moreTitle": "More Specialists",
+      "pageOf": "Page {{page}} of {{count}}",
+      "prevPage": "Previous page",
+      "nextPage": "Next page"
     },
     "howItWorks": {
       "eyebrow": "Seamless End-to-End Support",

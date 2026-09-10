@@ -93,7 +93,7 @@
     },
     "doctors": {
       "eyebrow": "Especialistas de referencia mundial",
-      "title": "Conoce a nuestros especialistas",
+      "title": "Nuestros Médicos",
       "subtitle": "Cirujanos y médicos certificados en toda nuestra red de hospitales asociados.",
       "cta": "Buscar un especialista"
     },
@@ -207,7 +207,12 @@
       "searchPlaceholder": "Buscar por nombre u hospital...",
       "noMatch": "Ningún médico coincide con esa búsqueda.",
       "loading": "Cargando médicos...",
-      "error": "No hemos podido cargar los médicos ahora mismo. Inténtalo de nuevo en unos instantes."
+      "error": "No hemos podido cargar los médicos ahora mismo. Inténtalo de nuevo en unos instantes.",
+      "priorityTitle": "Especialistas Destacados",
+      "moreTitle": "Más Especialistas",
+      "pageOf": "Página {{page}} de {{count}}",
+      "prevPage": "Página anterior",
+      "nextPage": "Página siguiente"
     },
     "howItWorks": {
       "eyebrow": "Acompañamiento completo, de principio a fin",

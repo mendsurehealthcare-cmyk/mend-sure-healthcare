@@ -13,10 +13,10 @@ import SectionHeading from '../components/SectionHeading';
 import FaqAccordion from '../components/FaqAccordion';
 import TreatmentCard from '../components/TreatmentCard';
 import HospitalCard from '../components/HospitalCard';
-import DoctorCard from '../components/DoctorCard';
+import DoctorCardCompact from '../components/DoctorCardCompact';
+import { HOME_DOCTOR_SLUGS, pickBySlug } from '../lib/priorityDoctors';
 import TestimonialCard from '../components/TestimonialCard';
 import ConsultationForm from '../components/ConsultationForm';
-import ScrollRow from '../components/ScrollRow';
 
 const HERO_IMAGE =
   'https://lh3.googleusercontent.com/aida-public/AB6AXuArQC0LyQMK8whY8IexzxlaaZSRBkSlNKlUF7QW5t1TCggVcJwugoLKqHMpdz37cfgSwZbZrL0zpYAudCoT49ZFP-aOltpdMEtZDbMhocUSUqIIORs1zzU5hnhfewV4362MmXgKD7S0zLlNX26iS6wPmRqCeNax0b7VX_5kgExbq_M--zaBI4CwvJ6PpOK36k1BoTBrSOdOQL7HHAeClOkD1V5z7CGvxhkRSsEeGn_Q0LuyLp-KqmKQ';
@@ -53,7 +53,11 @@ export default function Home() {
   const { t } = useTranslation();
   const { data: treatments } = useApi('/treatments');
   const { data: hospitals } = useApi('/hospitals');
-  const { data: doctors } = useApi('/doctors');
+  // pageSize=300 rather than the default 20: the section below shows a fixed
+  // set of named doctors (see HOME_DOCTOR_SLUGS), and several of them sort
+  // well past the 20th row alphabetically, so the default page would silently
+  // drop them from the homepage.
+  const { data: doctors } = useApi('/doctors?pageSize=300');
   const { data: testimonials } = useApi('/testimonials');
   const navigate = useNavigate();
 
@@ -71,6 +75,8 @@ export default function Home() {
     if (!hospitals) return [];
     return [...new Set(hospitals.map((h) => h.city).filter(Boolean))];
   }, [hospitals]);
+
+  const homeDoctors = useMemo(() => pickBySlug(doctors, HOME_DOCTOR_SLUGS), [doctors]);
 
   function handleHeroSearch(event) {
     event.preventDefault();
@@ -342,21 +348,21 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 7. Doctors */}
-      {doctors?.length > 0 && (
+      {/* 7. Our Doctors — a fixed set of named specialists rather than the
+          whole 100+-doctor directory, in small cards sized to show all six at
+          once instead of a scrolling row. See client/src/lib/priorityDoctors.js. */}
+      {homeDoctors.length > 0 && (
         <section className="mx-auto w-full max-w-7xl px-space-md py-space-3xl sm:px-space-xl">
           <SectionHeading
             eyebrow={t('home.doctors.eyebrow')}
             title={t('home.doctors.title')}
             subtitle={t('home.doctors.subtitle')}
           />
-          <ScrollRow>
-            {doctors.map((doctor) => (
-              <div key={doctor.id} className="w-72 shrink-0">
-                <DoctorCard doctor={doctor} />
-              </div>
+          <div className="grid grid-cols-2 gap-space-md sm:grid-cols-3 lg:grid-cols-6">
+            {homeDoctors.map((doctor) => (
+              <DoctorCardCompact key={doctor.id} doctor={doctor} />
             ))}
-          </ScrollRow>
+          </div>
           <div className="mt-space-2xl text-center">
             <Button to="/doctors" variant="secondary">
               {t('home.doctors.cta')}

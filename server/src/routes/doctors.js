@@ -1,6 +1,6 @@
 const asyncRouter = require('../lib/asyncRouter');
 const supabase = require('../supabaseClient');
-const { getPageRange, sendPage } = require('../lib/pagination');
+const { getPageRange, sendPage, fetchFullRange } = require('../lib/pagination');
 
 const router = asyncRouter();
 
@@ -20,12 +20,17 @@ router.get('/', async (req, res) => {
   // `is_priority` only exists once server/db/doctors-schema.sql has been run,
   // so it is applied conditionally: the directory still lists correctly on a
   // database that hasn't had that migration applied yet, just unranked.
-  const buildQuery = (withPriority) => {
+  //
+  // Takes the range as arguments rather than closing over `from`/`to`:
+  // fetchFullRange below needs to build a fresh sub-range query per call,
+  // since a Supabase query object can only be awaited once.
+  const buildQuery = (withPriority) => (rangeFrom, rangeTo) => {
     let q = supabase.from('doctors').select('*, hospitals(id, name, slug, city)', { count: 'exact' });
     if (withPriority) q = q.order('is_priority', { ascending: false });
-    q = q.order(sort, { ascending }).range(from, to);
+    q = q.order(sort, { ascending }).range(rangeFrom, rangeTo);
 
     if (req.query.specialty) q = q.eq('specialty', req.query.specialty);
+    if (hospitalId) q = q.eq('hospital_id', hospitalId);
     return q;
   };
 
@@ -45,18 +50,13 @@ router.get('/', async (req, res) => {
     hospitalId = hospital.id;
   }
 
-  const run = (withPriority) => {
-    const q = buildQuery(withPriority);
-    return hospitalId ? q.eq('hospital_id', hospitalId) : q;
-  };
-
-  let result = await run(true);
+  let result = await fetchFullRange(buildQuery(true), from, to);
 
   if (result.error && /is_priority/.test(result.error.message)) {
     console.warn(
       'doctors.is_priority is missing — run server/db/doctors-schema.sql to enable featured ordering.'
     );
-    result = await run(false);
+    result = await fetchFullRange(buildQuery(false), from, to);
   }
 
   await sendPage(res, result);

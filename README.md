@@ -78,6 +78,38 @@ Every new enquiry can email your team automatically, using
 Until `RESEND_API_KEY` is set, nothing breaks — new enquiries just get
 logged to the server console instead of emailed.
 
+### The doctor directory: designation, department, hospital & experience
+
+`server/db/doctors.json` is the source of truth for the doctor directory —
+`npm run load:doctors` upserts it into Supabase, matched on slug, so editing
+the file and re-running the script is how the directory is corrected.
+
+Running it needs `server/db/doctors-schema.sql` applied first, in the Supabase
+SQL editor — it adds `designation`, `department`, `hospital_name` and
+`is_priority`, none of which exist on a database created from `schema.sql`
+alone. Until that migration runs, `load:doctors` still loads everything else
+(name, specialty, hospital link, bio, experience) and says so plainly; the
+listing works, just without job titles, the hospital-as-text fallback, or
+featured sorting.
+
+**Where the bios and experience figures came from.** The source spreadsheet
+(`images/hospital/Doctors list Top.xlsx`) gives each doctor's name,
+designation, department, hospital and specialty — not their years of
+experience or a biography, which is what a patient actually reads before
+choosing a specialist. Neither can be guessed, so both were researched
+individually against each doctor's own hospital profile page. Seven doctors'
+profile pages state no single experience figure (conflicting figures across
+aggregator sites, or a career history implying a range rather than a number);
+those are left without `experience_years` rather than estimated, and their
+cards simply omit the "+ years" badge.
+
+Two doctors' current online profiles place them at a different hospital than
+the spreadsheet does (Dr. Harit Kumar Chaturvedi — Max Healthcare, not
+Indraprastha Apollo; Dr. Saurabh Pokhriyal — Max Super Speciality Hospital, not
+BLK-Max). The spreadsheet's hospital was kept in both cases, on the view that
+it reflects where they see Mend Sure's patients specifically — worth
+confirming directly if that matters for referrals.
+
 ### Listing filters, sorting & pagination
 
 `GET /api/treatments`, `/api/hospitals`, and `/api/doctors` all accept

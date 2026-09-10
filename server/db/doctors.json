@@ -8,8 +8,9 @@
     "hospital_slug": "fortis-memorial-research-institute",
     "specialty": "Cardiac Care",
     "is_priority": false,
-    "bio": "Principal Director, Interventional Cardiology at Fortis Memorial Research Institute, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. (Col) Manjinder Sandhu is an interventional cardiologist with more than 35 years in practice, and leads cardiology at Fortis Memorial Research Institute, Gurgaon. He served a long career with the Indian Army Medical Corps before moving to civil practice. His work centres on complex angioplasty guided by IVUS and OCT, including rotablation and laser atherectomy, and on structural heart procedures such as TAVR and MitraClip. He has performed more than 20,000 cardiac procedures and has taught interventional cardiology for over two decades.",
+    "is_placeholder": false,
+    "experience_years": 35
   },
   {
     "name": "Dr. Nikhil Kumar",
@@ -20,8 +21,9 @@
     "hospital_slug": "fortis-memorial-research-institute",
     "specialty": "Cardiac Care",
     "is_priority": false,
-    "bio": "Senior Director, Interventional Cardiology at Fortis Memorial Research Institute, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Nikhil Kumar is a cardiologist with over 41 years of experience across interventional, non-invasive, preventive and clinical cardiology, and practises at Fortis Memorial Research Institute, Gurgaon. He completed his MBBS at the University of Pune and his DM in Cardiology at PGIMER, Chandigarh. He previously served as Professor and Head of Cardiology at Army Hospital Research and Referral, New Delhi, and as Director of Cardiology for the Metro group of hospitals. His practice covers complex coronary angioplasty including rotational atherectomy, valvuloplasty, device closure of shunt lesions, pacemaker and AICD implantation, cardiac resynchronisation therapy, and renal, peripheral and carotid stenting.",
+    "is_placeholder": false,
+    "experience_years": 41
   },
   {
     "name": "Dr. Udgeath Dhir",
@@ -32,7 +34,7 @@
     "hospital_slug": "fortis-memorial-research-institute",
     "specialty": "Cardiac Care",
     "is_priority": false,
-    "bio": "Principal Director, Surgical CTVS - Adult at Fortis Memorial Research Institute, Gurgaon.",
+    "bio": "Dr. Udgeath Dhir leads cardiothoracic and vascular surgery at Fortis Memorial Research Institute, Gurgaon. He completed his MBBS at Dr. B.R. Ambedkar University, Agra, his MS in Surgery at King George's Medical University, Lucknow, and his MCh in Cardiac Surgery at Sanjay Gandhi Postgraduate Institute of Medical Sciences, Lucknow. His practice covers adult cardiac surgery including coronary bypass, valve repair and replacement, and surgery for heart failure. He is an international member of the Society of Thoracic Surgeons, the European Association for Cardio-Thoracic Surgery, and the International Society for Minimally Invasive Cardiothoracic Surgery.",
     "is_placeholder": false
   },
   {
@@ -44,8 +46,9 @@
     "hospital_slug": "fortis-escorts-heart-institute",
     "specialty": "Cardiac Care",
     "is_priority": false,
-    "bio": "Director, Paediatric Cardiology at Fortis Escorts Heart Institute, Okhla, New Delhi.",
-    "is_placeholder": false
+    "bio": "Dr. Neeraj Awasthy is a paediatric cardiologist with 20 years of experience and directs paediatric cardiology at Fortis Escorts Heart Institute, New Delhi. He completed his MBBS and MD in Paediatrics at the University of Delhi and his Fellowship of the National Board in Paediatric Cardiology. His practice covers paediatric cardiac intervention including device closure of PDA, ASD, VSD and ruptured sinus of Valsalva, balloon valvoplasty and stenting, neonatal cardiac intervention, foetal cardiology, pulmonary arterial hypertension, and grown-up congenital heart disease. He has more than 120 publications and reviews for several national and international journals.",
+    "is_placeholder": false,
+    "experience_years": 20
   },
   {
     "name": "Dr. Anita Saxena",
@@ -56,8 +59,9 @@
     "hospital_slug": "fortis-escorts-heart-institute",
     "specialty": "Cardiac Care",
     "is_priority": false,
-    "bio": "Executive Director, Paediatric Cardiology at Fortis Escorts Heart Institute, Okhla, New Delhi.",
-    "is_placeholder": false
+    "bio": "Dr. Anita Saxena is a paediatric cardiologist with over 40 years in patient care, teaching and research, and is Executive Director of Paediatric Cardiology at Fortis Escorts Heart Institute, New Delhi. She previously headed the Department of Cardiology and led the Cardiothoracic Sciences Centre at AIIMS, New Delhi. She pioneered foetal cardiac diagnostic services in India and wrote national guidelines for the management of paediatric heart disease. She has published 368 research papers, has mentored more than 40 doctoral students, and was listed among the world's top 2% of scientists in 2023.",
+    "is_placeholder": false,
+    "experience_years": 40
   },
   {
     "name": "Dr. Ashutosh Marwah",
@@ -68,8 +72,9 @@
     "hospital_slug": "fortis-escorts-heart-institute",
     "specialty": "Cardiac Care",
     "is_priority": false,
-    "bio": "Director, Paediatric Cardiology at Fortis Escorts Heart Institute, Okhla, New Delhi.",
-    "is_placeholder": false
+    "bio": "Dr. Ashutosh Marwah is a paediatric cardiologist with more than 20 years of clinical experience and is a Director in paediatric cardiology at Fortis Escorts Heart Institute, New Delhi. He completed his MBBS and MD in Paediatrics at Maulana Azad Medical College, University of Delhi, followed by advanced fellowships in paediatric cardiology at Escorts Heart Institute and at the Royal Children's Hospital, Melbourne. His practice covers cardiac intervention in newborns, interventional closure of ASD, VSD and PDA, balloon dilatation and stenting for coarctation, pulmonary artery stenting, and echocardiographic and foetal imaging of complex cardiac abnormalities. He was previously Senior Consultant in paediatric cardiology at Indraprastha Apollo Hospital, New Delhi.",
+    "is_placeholder": false,
+    "experience_years": 20
   },
   {
     "name": "Dr. Krishna Subramony Iyer",
@@ -80,8 +85,9 @@
     "hospital_slug": "fortis-escorts-heart-institute",
     "specialty": "Cardiac Care",
     "is_priority": true,
-    "bio": "Chairman, Paediatric CTVS - Surgical at Fortis Escorts Heart Institute, Okhla, New Delhi.",
-    "is_placeholder": false
+    "bio": "Dr. Krishna Subramony Iyer has practised paediatric cardiac surgery for more than four decades and chairs paediatric and congenital heart surgery at Fortis Escorts Heart Institute, New Delhi. In 1995 he established northern India's first dedicated paediatric cardiac programme at what was then Escorts Heart Institute and Research Centre. He has operated on more than 14,000 children with congenital heart disease, from across India and from more than 15 other countries, and performed India's first successful rapid two-stage arterial switch and double-switch operations. He is a founder president of the Asia-Pacific Paediatric Cardiac Society and of the Society of Paediatric and Congenital Heart Surgeons, a past president of the Paediatric Cardiac Society of India, and has more than a hundred publications.",
+    "is_placeholder": false,
+    "experience_years": 40
   },
   {
     "name": "Dr. Ashok Seth",
@@ -92,8 +98,9 @@
     "hospital_slug": "fortis-escorts-heart-institute",
     "specialty": "Cardiac Care",
     "is_priority": true,
-    "bio": "Chairman, Interventional Cardiology at Fortis Escorts Heart Institute, Okhla, New Delhi.",
-    "is_placeholder": false
+    "bio": "Dr. Ashok Seth chairs Fortis Escorts Heart Institute, New Delhi, and the Fortis Healthcare Medical Council, and has practised interventional cardiology for around four decades. He has performed more than 60,000 angiographies and 25,000 angioplasties, and was the first in Asia to perform several procedures, among them coronary stenting, drug-eluting stents, angioscopy, Angiojet thrombectomy, Impella support, TAVR and bioresorbable scaffolds. He is an adjunct professor of cardiology at JN Medical College, Aligarh Muslim University, and at the National Board of Examinations. He was awarded the Padma Shri in 2003, the Padma Bhushan in 2015, and the Dr. B.C. Roy National Award in 2017.",
+    "is_placeholder": false,
+    "experience_years": 40
   },
   {
     "name": "Dr. Z S Meharwal",
@@ -104,8 +111,9 @@
     "hospital_slug": "fortis-escorts-heart-institute",
     "specialty": "Cardiac Care",
     "is_priority": true,
-    "bio": "Chairman, Surgical CTVS - Adult at Fortis Escorts Heart Institute, Okhla, New Delhi.",
-    "is_placeholder": false
+    "bio": "Dr. Z S Meharwal has more than 38 years in cardiac surgery and more than 30,000 operations to his credit, and leads adult cardiac surgery, heart transplantation and the ventricular assist device programme at Fortis Escorts Heart Institute, New Delhi. He was part of the founding team of doctors at the institute. He is among the small number of surgeons in India performing heart transplantation and ventricular assist device implantation, and directs the hospital's DNB training programme in cardiothoracic surgery. He entered the Limca Book of Records in 2008 for a coronary bypass on a 94-year-old patient.",
+    "is_placeholder": false,
+    "experience_years": 38
   },
   {
     "name": "Dr. Aparna Jaswal",
@@ -116,8 +124,9 @@
     "hospital_slug": "fortis-escorts-heart-institute",
     "specialty": "Cardiac Care",
     "is_priority": false,
-    "bio": "Director, Electrophysiology and Arrhythmia at Fortis Escorts Heart Institute, Okhla, New Delhi.",
-    "is_placeholder": false
+    "bio": "Dr. Aparna Jaswal is a cardiac electrophysiologist at Fortis Escorts Heart Institute, New Delhi, where she leads electrophysiology and cardiac pacing. Her practice covers radiofrequency catheter ablation of complex arrhythmias, implantable cardioverter defibrillators, and biventricular pacing for heart failure. She trained in cardiac electrophysiology at St. Luke's Medical Center, Milwaukee, and was the first India-based physician to hold the Certified Cardiac Device Specialist credential from the International Board of Heart Rhythm Examiners. She is a fellow of the Heart Rhythm Society and of the American College of Cardiology.",
+    "is_placeholder": false,
+    "experience_years": 30
   },
   {
     "name": "Dr. Anil Saxena",
@@ -128,8 +137,9 @@
     "hospital_slug": "fortis-escorts-heart-institute",
     "specialty": "Cardiac Care",
     "is_priority": false,
-    "bio": "Chairman, Electrophysiology and Arrhythmia at Fortis Escorts Heart Institute, Okhla, New Delhi.",
-    "is_placeholder": false
+    "bio": "Dr. Anil Saxena chairs electrophysiology and cardiac pacing at Fortis Escorts Heart Institute, New Delhi, where he has practised since 1989 and built the electrophysiology department. He is among the pioneers of implantable cardioverter defibrillator and biventricular pacemaker implantation in India, and has performed electrophysiological studies and radiofrequency catheter ablation for complex arrhythmias for over 25 years. He is a founder member of the executive committee of the Indian Heart Rhythm Society and served as its secretary, and is a member of the Asia Pacific Heart Rhythm Society and of the Heart Rhythm Society in the United States.",
+    "is_placeholder": false,
+    "experience_years": 35
   },
   {
     "name": "Dr. Atul Mathur",
@@ -140,8 +150,9 @@
     "hospital_slug": "fortis-escorts-heart-institute",
     "specialty": "Cardiac Care",
     "is_priority": false,
-    "bio": "Chairman, Surgical CTVS - Adult at Fortis Escorts Heart Institute, Okhla, New Delhi.",
-    "is_placeholder": false
+    "bio": "Dr. Atul Mathur has more than 34 years in interventional cardiology and leads the discipline and the catheterisation laboratory at Fortis Escorts Heart Institute, New Delhi. He performed the first carotid stenting in India and holds a United States patent for a carotid stenting device. His practice covers complex coronary intervention, carotid stenting, aortic stent grafting, peripheral and venous intervention, IVC filter placement, and structural heart procedures including balloon valvotomy, closure of acquired ventricular septal defects and left atrial appendage closure. He has performed more than 10,000 angiograms and 3,500 coronary interventions.",
+    "is_placeholder": false,
+    "experience_years": 34
   },
   {
     "name": "Dr. Shiv Kumar Choudhary",
@@ -152,8 +163,9 @@
     "hospital_slug": "fortis-escorts-heart-institute",
     "specialty": "Cardiac Care",
     "is_priority": false,
-    "bio": "Executive Director, Surgical CTVS - Adult at Fortis Escorts Heart Institute, Okhla, New Delhi.",
-    "is_placeholder": false
+    "bio": "Dr. Shiv Kumar Choudhary is former Professor and Head of Cardiothoracic and Vascular Surgery at AIIMS, New Delhi, and now leads adult heart and vascular surgery at Fortis Escorts Heart Institute. He completed his MBBS and MS in General Surgery at GSVM Medical College, Kanpur, and his MCh in Cardiothoracic and Vascular Surgery at AIIMS. He is among the country's most experienced aortic surgeons, and his practice covers complex and minimally invasive valve procedures, redo operations, total arterial and poor-LV bypass grafting, pulmonary thromboendarterectomy, surgery for hypertrophic obstructive cardiomyopathy, and heart failure surgery including transplantation and ventricular assist devices. He has published more than 470 research papers.",
+    "is_placeholder": false,
+    "experience_years": 32
   },
   {
     "name": "Dr. Parvathi Unninayar Iyer",
@@ -164,8 +176,9 @@
     "hospital_slug": "fortis-escorts-heart-institute",
     "specialty": "Cardiac Care",
     "is_priority": false,
-    "bio": "Principal Director, Paediatric Cardiology at Fortis Escorts Heart Institute, Okhla, New Delhi.",
-    "is_placeholder": false
+    "bio": "Dr. Parvathi Unninayar Iyer leads paediatric cardiac intensive care at Fortis Escorts Heart Institute, New Delhi, and has more than 40 years of experience. She graduated from AIIMS, New Delhi, and trained in paediatric and neonatal intensive care at the Royal Children's Hospital, Melbourne, and Royal Prince Alfred Hospital, Sydney. She was the first paediatric cardiac intensivist in India and opened northern India's first dedicated paediatric cardiac intensive care unit at the institute in 1995, as part of the first Indian programme to build an intensivist into the paediatric cardiac team. She has trained more than 30 paediatric cardiac intensivists now working in India and abroad.",
+    "is_placeholder": false,
+    "experience_years": 41
   },
   {
     "name": "Dr. S.S. Bansal",
@@ -176,8 +189,9 @@
     "hospital_slug": null,
     "specialty": "Cardiac Care",
     "is_priority": false,
-    "bio": "Chairman, Interventional Cardiology at SSB Hospital, Faridabad.",
-    "is_placeholder": false
+    "bio": "Dr. S.S. Bansal is an interventional cardiologist with around 30 years in practice and chairs interventional cardiology at SSB Heart and Multispeciality Hospital, Faridabad. He completed his MBBS at Guru Nanak Dev University, Amritsar, his MD in Internal Medicine and DM in Cardiology at B.J. Medical College, Gujarat University, and his DNB in Cardiology in 1994. He was Haryana's first DM-qualified cardiologist, opened the state's first dedicated heart hospital in 2002, and founded SSB Heart and Multispeciality Hospital in 2020. He trained in stress and transoesophageal echocardiography at the Mayo Clinic and in angioplasty in Germany, and is a fellow of the Society for Cardiovascular Angiography and Interventions and of the American College of Cardiology.",
+    "is_placeholder": false,
+    "experience_years": 30
   },
   {
     "name": "Dr. Niti Chadha Negi",
@@ -188,8 +202,9 @@
     "hospital_slug": null,
     "specialty": "Cardiac Care",
     "is_priority": false,
-    "bio": "Senior Consultant, Electrophysiology and Arrhythmia at Metro Hospital, Faridabad.",
-    "is_placeholder": false
+    "bio": "Dr. Niti Chadha Negi is Senior Consultant in Cardiology and heads cardiac electrophysiology at Metro Hospital, Faridabad, with over 17 years in cardiology and more than 12 of them in electrophysiology. She holds an MBBS, an MD in General Medicine and a DM in Cardiology, and is certified by the International Board of Heart Rhythm Examiners as both a Certified Electrophysiology Specialist and a Certified Cardiac Device Specialist. Her practice covers electrophysiology studies, radiofrequency and three-dimensional ablation including for atrial fibrillation, and the implantation and management of pacemakers, defibrillators and cardiac resynchronisation devices. She started the hospital's electrophysiology programme in 2014, which has since performed more than 1,300 device implants and 800 ablations, and was previously a consultant at Fortis Hospital, Delhi.",
+    "is_placeholder": false,
+    "experience_years": 17
   },
   {
     "name": "Dr. Ajay Kaul",
@@ -200,8 +215,9 @@
     "hospital_slug": "fortis-hospital-noida-sector-62",
     "specialty": "Cardiac Care",
     "is_priority": false,
-    "bio": "Chairman, Surgical CTVS - Adult at Fortis Hospital, Noida.",
-    "is_placeholder": false
+    "bio": "Dr. Ajay Kaul chairs cardiac sciences at Fortis Hospital, Noida, and has more than 38 years in cardiothoracic and vascular surgery with over 25,000 operations to his credit. He completed his MBBS, MS in General Surgery and MCh in Cardiothoracic and Vascular Surgery at Bombay University, followed by fellowships in heart and lung transplantation and in minimally invasive cardiac surgery in Germany, and in advanced cardiac surgery in Australia. His practice spans adult and paediatric cardiac surgery, including total arterial coronary bypass, valve repair and replacement, structural heart surgery and advanced heart failure management. He has performed more than 5,000 minimally invasive cardiac procedures.",
+    "is_placeholder": false,
+    "experience_years": 38
   },
   {
     "name": "Dr. Sanjeev Gera",
@@ -212,8 +228,9 @@
     "hospital_slug": "fortis-hospital-noida-sector-62",
     "specialty": "Cardiac Care",
     "is_priority": false,
-    "bio": "Senior Director, Interventional Cardiology at Fortis Hospital, Noida.",
-    "is_placeholder": false
+    "bio": "Dr. Sanjeev Gera has over 22 years in cardiology and heads the department at Fortis Hospital, Noida. He holds an MBBS, an MD in Medicine and a DNB in Cardiology. He has performed more than 20,000 interventional procedures, covering angioplasty including three-dimensional and imaging-guided techniques, rotational and orbital atherectomy, transcatheter aortic valve replacement, MitraClip, and the implantation of pacemakers, defibrillators and cardiac resynchronisation devices.",
+    "is_placeholder": false,
+    "experience_years": 22
   },
   {
     "name": "Dr. Sanjay Gupta",
@@ -224,8 +241,9 @@
     "hospital_slug": null,
     "specialty": "Cardiac Care",
     "is_priority": false,
-    "bio": "Director, Surgical CTVS - Adult at Fortis Flt. Lt. Rajan Dhall Hospital, Vasant Kunj.",
-    "is_placeholder": false
+    "bio": "Dr. Sanjay Gupta has more than three decades in cardiothoracic and vascular surgery and has directed the department at Fortis Flt. Lt. Rajan Dhall Hospital, Vasant Kunj, since 2006. He has performed over 5,000 operations spanning congenital heart surgery, coronary bypass, valve surgery, and vascular and thoracic procedures, and more than half are done without blood transfusion. He is known for operating on high-risk emergency patients and on patients with chronic kidney disease with low in-hospital mortality. Before joining Fortis he was head and chief of cardiac surgery at Narinder Mohan Hospital.",
+    "is_placeholder": false,
+    "experience_years": 30
   },
   {
     "name": "Dr. Dinesh Kumar Mittal",
@@ -236,8 +254,9 @@
     "hospital_slug": null,
     "specialty": "Cardiac Care",
     "is_priority": false,
-    "bio": "Senior Director, Surgical CTVS - Adult at Fortis Hospital, Shalimar Bagh.",
-    "is_placeholder": false
+    "bio": "Dr. Dinesh Kumar Mittal heads cardiothoracic and vascular surgery at Fortis Hospital, Shalimar Bagh, with more than 25 years of clinical experience and over 10,000 adult, paediatric and neonatal cardiac operations. His practice covers coronary bypass on both the beating and arrested heart, aortic and mitral valve repair and replacement, and congenital repairs including ASD and VSD closure. He has a particular focus on aortic surgery, including the Bentall procedure, valve-sparing root replacement, hemiarch and total arch replacement, and thoracoabdominal aneurysm repair. He helped establish a neonatal cardiac surgery programme and one of northern India's more comprehensive aortic intervention programmes.",
+    "is_placeholder": false,
+    "experience_years": 25
   },
   {
     "name": "Dr. Vinayak Agrawal",
@@ -248,8 +267,9 @@
     "hospital_slug": "fortis-memorial-research-institute",
     "specialty": "Cardiac Care",
     "is_priority": false,
-    "bio": "Principal Director, Non-Invasive Cardiology at Fortis Memorial Research Institute, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Vinayak Agrawal leads clinical cardiology and cardiac imaging at Fortis Memorial Research Institute, Gurgaon, with close to 25 years of experience. He runs the institute's heart valve clinic and its cardiology service for liver transplant patients. Before joining Fortis in 2021 he spent over a decade at Medanta – The Medicity as Additional Director of Cardiology, and headed clinical and non-invasive cardiology at PSRI Hospital, New Delhi. His work centres on advanced cardiac imaging, structural heart disease and preventive cardiology, and he is a fellow of the American College of Cardiology, the American Society of Echocardiography and the American Heart Association.",
+    "is_placeholder": false,
+    "experience_years": 25
   },
   {
     "name": "Dr. Balbir Singh",
@@ -260,8 +280,9 @@
     "hospital_slug": "max-super-speciality-saket",
     "specialty": "Cardiac Care",
     "is_priority": false,
-    "bio": "Chairman, Interventional Cardiology & Electrophysiology at Max Super Speciality Hospital, Saket.",
-    "is_placeholder": false
+    "bio": "Dr. Balbir Singh has 35 years in cardiac sciences and is Group Chairman of Cardiac Sciences at Max Healthcare and Chief of Interventional Cardiology and Electrophysiology at Max Super Speciality Hospital, Saket. He was awarded the Padma Shri in 2007. He joined Max in 2019 after a long tenure as Chairman of Interventional Cardiology and Electrophysiology at Medanta. He is among the pioneers of pacemaker implantation and electrophysiology studies in India, and his practice covers complex coronary intervention and catheter-based treatment of heart rhythm disorders.",
+    "is_placeholder": false,
+    "experience_years": 35
   },
   {
     "name": "Dr. Kulbhushan Singh Dagar",
@@ -272,8 +293,9 @@
     "hospital_slug": "max-super-speciality-saket",
     "specialty": "Cardiac Care",
     "is_priority": true,
-    "bio": "Chairman, Paediatric CTVS - Surgical at Max Super Speciality Hospital, Saket.",
-    "is_placeholder": false
+    "bio": "Dr. Kulbhushan Singh Dagar is Chief of Neonatal and Congenital Heart Surgery at Max Super Speciality Hospital, Saket, and has spent over 21 years in cardiac surgery, the last decade and a half devoted entirely to infants and children with congenital heart defects. He completed his MBBS at the University of Delhi and his MS in General Surgery and MCh in Cardiothoracic and Vascular Surgery at AIIMS, New Delhi, and served as a specialist registrar at Great Ormond Street Hospital for Children in London. He operates across the full range of congenital cardiac defects in newborns and children, with a particular interest in complex neonatal defects and valve repair in children.",
+    "is_placeholder": false,
+    "experience_years": 21
   },
   {
     "name": "Dr. Rajesh Sharma",
@@ -284,8 +306,9 @@
     "hospital_slug": null,
     "specialty": "Cardiac Care",
     "is_priority": true,
-    "bio": "Chairman, Paediatric CTVS - Surgical at Marengo Asia Hospitals, Faridabad.",
-    "is_placeholder": false
+    "bio": "Dr. Rajesh Sharma is Clinical Director of Paediatric Cardiac Surgery at Marengo Asia Hospitals, Faridabad, with over 32 years of experience and more than 20,000 paediatric cardiac procedures. He completed his MBBS, MS in General Surgery and MCh in Cardiothoracic and Vascular Surgery at AIIMS, New Delhi, followed by a fellowship in paediatric cardiovascular surgery at Boston Children's Hospital, affiliated with Harvard Medical School. His practice centres on infant and neonatal cardiac surgery, arterial and double-switch operations for transposition of the great arteries, and biventricular repair of complex lesions where a single-ventricle pathway can be avoided. He previously headed paediatric cardiac surgery at Jaypee Hospital, Noida, and at Fortis Escorts Heart Institute, and was Additional Professor at AIIMS.",
+    "is_placeholder": false,
+    "experience_years": 32
   },
   {
     "name": "Dr. Vijay Kumar Chopra",
@@ -296,8 +319,9 @@
     "hospital_slug": "max-super-speciality-saket",
     "specialty": "Cardiac Care",
     "is_priority": false,
-    "bio": "Senior Director, Interventional Cardiology at Max Super Speciality Hospital, Saket.",
-    "is_placeholder": false
+    "bio": "Dr. Vijay Kumar Chopra is Senior Director of Cardiac Sciences at Max Super Speciality Hospital, Saket, and has practised cardiology since 1979. He holds an MBBS from Maulana Azad Medical College, New Delhi, and a DM in Cardiology from PGIMER, Chandigarh. He directed the heart failure programme at Medanta – The Medicity from 2009 to 2019, was Principal Consultant in cardiology at Escorts Heart Institute and Research Centre, and spent more than two decades as a senior consultant at Sir Ganga Ram Hospital, New Delhi. His practice covers heart failure, complex coronary artery disease, valvular intervention and preventive cardiology.",
+    "is_placeholder": false,
+    "experience_years": 44
   },
   {
     "name": "Dr. Rajneesh Malhotra",
@@ -308,8 +332,9 @@
     "hospital_slug": "max-super-speciality-saket",
     "specialty": "Cardiac Care",
     "is_priority": false,
-    "bio": "Chairman, Surgical CTVS - Adult at Max Super Speciality Hospital, Saket.",
-    "is_placeholder": false
+    "bio": "Dr. Rajneesh Malhotra heads cardiothoracic and vascular surgery at Max Super Speciality Hospital, Saket, with over 33 years of surgical experience. He completed his MBBS at King George's Medical College, Lucknow, his MS in General Surgery, and his MCh in Cardiothoracic and Vascular Surgery at the L.P.S. Institute of Cardiology, Kanpur. His practice centres on minimally invasive and robotic cardiac surgery and on advanced heart failure, including ventricular assist devices, ECMO support and heart transplantation. He was previously Director of Cardiac Surgery at Medanta – The Medicity, a senior consultant at Escorts Heart Institute and Research Centre, and chief consultant at Durdans Heart Surgical Centre in Colombo.",
+    "is_placeholder": false,
+    "experience_years": 33
   },
   {
     "name": "Dr. Sanjeev Malhotra",
@@ -320,8 +345,9 @@
     "hospital_slug": "max-super-speciality-saket",
     "specialty": "Cardiac Care",
     "is_priority": false,
-    "bio": "Senior Director, Surgical CTVS - Adult at Max Super Speciality Hospital, Saket.",
-    "is_placeholder": false
+    "bio": "Dr. Sanjeev Malhotra is a cardiothoracic and vascular surgeon at Max Super Speciality Hospital, Saket, and has practised the specialty since completing his DNB in cardiothoracic surgery at Escorts Heart Institute and Research Centre in 2005. He completed his MBBS at Lokmanya Tilak Municipal Medical College, Mumbai, and his MS in General Surgery at Dr. S.N. Medical College, Jodhpur. He has performed more than 2,000 cardiac procedures, including arterial bypass grafting and valve repair, and established the mitral valve repair programme at the hospital. He also served as Director of the Delhi Heart and Lung Institute.",
+    "is_placeholder": false,
+    "experience_years": 20
   },
   {
     "name": "Dr. Ramji Mehrotra",
@@ -332,8 +358,9 @@
     "hospital_slug": "blk-max-super-speciality-hospital",
     "specialty": "Cardiac Care",
     "is_priority": false,
-    "bio": "Chairman, Surgical CTVS - Adult at BLK-Max Super Speciality Hospital, New Delhi.",
-    "is_placeholder": false
+    "bio": "Dr. Ramji Mehrotra leads cardiothoracic and vascular surgery at BLK-Max Super Speciality Hospital, New Delhi, across a career spanning more than 33 years. He trained at Harvard Medical School's Brigham and Women's Hospital and Boston Children's Hospital, and is known for introducing minimally invasive and total arterial bypass techniques in India. His practice covers total arterial and beating-heart coronary bypass, complex bypass with endarterectomy, valve repair and replacement including sutureless valves, aneurysm surgery and the Bentall procedure, congenital heart surgery, heart failure surgery with ECMO and ventricular assist devices, and transcatheter aortic valve implantation. He performed the first total arterial revascularisation using bilateral mammary arteries at Indraprastha Apollo Hospitals and the first successful arterial switch operation in Mumbai.",
+    "is_placeholder": false,
+    "experience_years": 33
   },
   {
     "name": "Dr. Naresh Trehan",
@@ -344,8 +371,9 @@
     "hospital_slug": "medanta-the-medicity",
     "specialty": "Cardiac Care",
     "is_priority": true,
-    "bio": "Chairman & Managing Director, Surgical CTVS - Adult at Medanta – The Medicity, Gurugram.",
-    "is_placeholder": false
+    "bio": "Dr. Naresh Trehan is Chairman and Managing Director of Medanta – The Medicity, Gurugram, and a cardiovascular and cardiothoracic surgeon with more than five decades in practice and over 48,000 open-heart operations to his credit. He completed his MBBS at King George's Medical College, Lucknow, in 1968, and became a diplomate of the American Board of Surgery in 1977 and of the American Board of Thoracic Surgery in 1979. He practised at New York University Medical Center from 1971 to 1988, then returned to India to found Escorts Heart Institute and Research Centre, which he led until 2007, before founding Medanta in 2009. He has been awarded the Padma Shri, the Padma Bhushan and the Dr. B.C. Roy National Award.",
+    "is_placeholder": false,
+    "experience_years": 50
   },
   {
     "name": "Dr. Anil Bhan",
@@ -356,8 +384,9 @@
     "hospital_slug": "medanta-the-medicity",
     "specialty": "Cardiac Care",
     "is_priority": false,
-    "bio": "Chairman, Surgical CTVS - Adult at Medanta – The Medicity, Gurugram.",
-    "is_placeholder": false
+    "bio": "Dr. Anil Bhan chairs cardiac surgery at the Medanta Heart Institute, Gurugram, with more than 35 years in cardiothoracic and vascular surgery and over 15,000 operations to his credit. He studied at Government Medical College, Srinagar, and PGIMER, Chandigarh, and completed his MCh at AIIMS, New Delhi, where he later served as Additional Professor of Cardiothoracic and Vascular Surgery. He was part of the team that performed India's first successful heart transplant in 1994, and holds one of the country's largest experiences in aortic surgery. His work also spans paediatric cardiac surgery, valve repair and peripheral vascular surgery, and he has designed more than 50 instruments for cardiac procedures.",
+    "is_placeholder": false,
+    "experience_years": 35
   },
   {
     "name": "Dr. Aseem R. Srivastava",
@@ -368,8 +397,9 @@
     "hospital_slug": "artemis-hospital",
     "specialty": "Cardiac Care",
     "is_priority": false,
-    "bio": "Chairman, Paediatric CTVS at Artemis Hospital, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Aseem R. Srivastava heads paediatric cardiac surgery at Artemis Hospital, Gurgaon, with over 25 years of clinical experience. He completed his MBBS at GSVM Medical College, Kanpur, his MS in General Surgery at King George's Medical University, and his MCh in Cardiothoracic Surgery at G.B. Pant Hospital, followed by training in paediatric and neonatal cardiac surgery at the Children's Hospital of Philadelphia and the Children's Hospital of Pittsburgh. He has extensive experience in reconstructive surgery in neonates and infants and favours early corrective repair wherever it is possible. He previously practised at the East Carolina Heart Institute, where he worked in minimal-access and robotic cardiac surgery, and is a member of the World Society for Pediatric and Congenital Heart Surgery and the Pediatric Cardiac Society of India.",
+    "is_placeholder": false,
+    "experience_years": 25
   },
   {
     "name": "Dr. D.K. Jhamb",
@@ -380,8 +410,9 @@
     "hospital_slug": "artemis-hospital",
     "specialty": "Cardiac Care",
     "is_priority": false,
-    "bio": "Chief of Cardiology, Interventional Cardiology at Artemis Hospital, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. D.K. Jhamb heads a cardiology unit at Artemis Hospital, Gurgaon, and has spent over thirty years in clinical and interventional cardiology. He has performed more than 25,000 angioplasties and 50,000 coronary angiograms. He completed his MBBS and MD at Maulana Azad Medical College, University of Delhi, and his DM in Cardiology at AIIMS, New Delhi. He held consultant posts at AIIMS, Escorts Heart Institute and the National Heart Institute, and went on to establish or lead the cardiology departments at Rockland Hospital, Paras Hospital and Sanar International Hospital.",
+    "is_placeholder": false,
+    "experience_years": 30
   },
   {
     "name": "Dr. Bhaba Nanda Das",
@@ -392,8 +423,9 @@
     "hospital_slug": "indraprastha-apollo-hospital",
     "specialty": "Cardiac Care",
     "is_priority": false,
-    "bio": "Chairman, Surgical CTVS - Adult at Indraprastha Apollo Hospitals, Delhi.",
-    "is_placeholder": false
+    "bio": "Dr. Bhaba Nanda Das is a cardiothoracic and vascular surgeon at Indraprastha Apollo Hospitals, New Delhi, with over 37 years in practice and more than 20,000 heart operations to his credit. He was a senior consultant in the Department of Cardiothoracic and Vascular Surgery at AIIMS, New Delhi, from 1984 to 1996. His practice covers coronary artery disease, aortic and other valve disease, atrial fibrillation and pulmonary hypertension. He received the Vishisht Chikitsa Ratan Award from the Delhi Medical Association in 2012.",
+    "is_placeholder": false,
+    "experience_years": 37
   },
   {
     "name": "Dr. (Prof.) Narendra Nath Khanna",
@@ -404,8 +436,9 @@
     "hospital_slug": "indraprastha-apollo-hospital",
     "specialty": "Cardiac Care",
     "is_priority": false,
-    "bio": "Chairman, Surgical CTVS - Adult at Indraprastha Apollo Hospitals, Delhi.",
-    "is_placeholder": false
+    "bio": "Dr. (Prof.) Narendra Nath Khanna is Senior Consultant in Cardiology and coordinates vascular services at Indraprastha Apollo Hospitals, New Delhi, and advises the Apollo group. He holds fellowships in cardiology, interventional cardiology, and peripheral vascular and endovascular intervention from the Ochsner Medical Foundation in the United States and from France. His practice covers complex coronary intervention, structural and valvular heart disease, peripheral vascular disease, endovascular treatment of aortic aneurysm, deep vein thrombosis and varicose veins, and pacemaker and defibrillator implantation. He introduced percutaneous mechanical pulmonary thrombectomy, endovenous laser therapy and below-knee intervention in India, and was among the first in the country to run a radial angiography programme and mobile catheterisation laboratories.",
+    "is_placeholder": false,
+    "experience_years": 25
   },
   {
     "name": "Dr. (Prof.) Sanjay Tyagi",
@@ -416,8 +449,9 @@
     "hospital_slug": "indraprastha-apollo-hospital",
     "specialty": "Cardiac Care",
     "is_priority": false,
-    "bio": "Chairman, Interventional Cardiology at Indraprastha Apollo Hospitals, Delhi.",
-    "is_placeholder": false
+    "bio": "Dr. (Prof.) Sanjay Tyagi is Clinical Director of Cardiology for Apollo Hospitals in northern India and Senior Consultant in Cardiology at Indraprastha Apollo Hospitals, New Delhi, with 40 years in the field. He was a faculty member in the Department of Cardiology at G.B. Pant Institute of Postgraduate Medical Education and Research from 1986 to 2022 and served as its head. His practice covers coronary and non-coronary endovascular intervention, peripheral angioplasty, intravascular lithotripsy, shockwave valvuloplasty, and pacemaker, defibrillator and resynchronisation device implantation. He trained in interventional cardiology at the University of Wisconsin, the University Hospital of Alabama and the Thoraxcenter in Rotterdam, is a fellow of the Royal College of Physicians of Edinburgh, the European Society of Cardiology and the American College of Cardiology, and is a Dr. B.C. Roy National Awardee.",
+    "is_placeholder": false,
+    "experience_years": 40
   },
   {
     "name": "Dr. Yugal Kishore Mishra",
@@ -428,8 +462,9 @@
     "hospital_slug": "manipal-hospital-dwarka",
     "specialty": "Cardiac Care",
     "is_priority": true,
-    "bio": "Chairman, Surgical CTVS - Adult at Manipal Hospital, Dwarka, Delhi.",
-    "is_placeholder": false
+    "bio": "Dr. Yugal Kishore Mishra chairs the Manipal Institute of Cardiac Sciences and is Chief of Clinical Services at Manipal Hospital, Dwarka, New Delhi. Across 45 years he has performed more than 19,000 open-heart operations, and he founded the hospital's robotic cardiac surgery programme, where he has carried out over 500 robotic procedures. He completed his MBBS at S.S. Medical College, Rewa, in 1980, his MS in General Surgery in 1984, and a PhD in Cardiovascular Surgery at the Bakulev Institute in Moscow in 1991. He trained in robotic and minimally invasive cardiac surgery in the United States, the Netherlands, France and Sweden, and has performed live operative demonstrations at workshops in Bangladesh, Nepal and Thailand.",
+    "is_placeholder": false,
+    "experience_years": 45
   },
   {
     "name": "Dr. Vinod Raina",
@@ -440,8 +475,9 @@
     "hospital_slug": "fortis-memorial-research-institute",
     "specialty": "Oncology Care",
     "is_priority": true,
-    "bio": "Chairman, Medical Oncology at Fortis Memorial Research Institute, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Vinod Raina is a medical oncologist with more than 40 years in the field and chairs oncosciences for Fortis Healthcare, based at Fortis Memorial Research Institute, Gurgaon. He spent 24 years at AIIMS, New Delhi, as Professor and Head of Medical Oncology, where he was principal investigator on around 50 research projects and mentored close to 70 residents and DM students. He joined Fortis in 2013 to head medical oncology and haematology. His expertise covers breast, lung, gastrointestinal, urological and gynaecological cancers as well as lymphoma and myeloma, and he has personally performed around 400 bone marrow and stem cell transplants. He is a co-founder of the INDOX cancer research network.",
+    "is_placeholder": false,
+    "experience_years": 40
   },
   {
     "name": "Dr. Ankur Bahl",
@@ -452,8 +488,9 @@
     "hospital_slug": "fortis-memorial-research-institute",
     "specialty": "Oncology Care",
     "is_priority": false,
-    "bio": "Principal Director, Medical Oncology at Fortis Memorial Research Institute, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Ankur Bahl leads medical oncology and haematology at Fortis Memorial Research Institute, Gurgaon, with more than 15 years in the field. He completed his MBBS and MD in Medicine at Maulana Azad Medical College, Delhi, and his DM in Medical Oncology at AIIMS, New Delhi, and has studied adverse drug reactions and pharmacovigilance at the University of Oxford. His practice covers breast, lung and gastrointestinal cancers and blood disorders, using chemotherapy, immunotherapy, targeted therapy and precision oncology. He is lead author on the largest real-world Indian dataset on targeted therapy in head and neck cancer, and previously directed medical oncology and haemato-oncology at Max Super Speciality Hospital, Saket.",
+    "is_placeholder": false,
+    "experience_years": 15
   },
   {
     "name": "Dr. Rahul Bhargava",
@@ -464,8 +501,9 @@
     "hospital_slug": "fortis-memorial-research-institute",
     "specialty": "Oncology Care",
     "is_priority": false,
-    "bio": "Principal Director, Bone Marrow Transplant - Adult at Fortis Memorial Research Institute, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Rahul Bhargava leads haematology, paediatric haemato-oncology and bone marrow transplantation at Fortis Memorial Research Institute, Gurgaon, with over 23 years in the field and more than 2,500 stem cell transplants performed. His practice covers leukaemia, lymphoma, aplastic anaemia and multiple myeloma, and spans autologous, allogeneic and haploidentical transplantation. In 2016 he became the first physician in India to perform a stem cell transplant for multiple sclerosis. He has helped establish ten affordably priced bone marrow transplant centres across the country.",
+    "is_placeholder": false,
+    "experience_years": 23
   },
   {
     "name": "Dr. Vikas Dua",
@@ -476,8 +514,9 @@
     "hospital_slug": "fortis-memorial-research-institute",
     "specialty": "Oncology Care",
     "is_priority": false,
-    "bio": "Principal Director, Bone Marrow Transplant - Paediatric at Fortis Memorial Research Institute, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Vikas Dua directs paediatric haematology, oncology and the stem cell transplant programme at Fortis Memorial Research Institute, Gurgaon, with over 20 years of experience; he and his team have performed more than 1,200 transplants. He completed an advanced fellowship in paediatric bone marrow transplantation at the National University Hospital, Singapore, and trained further at St. Jude Children's Research Hospital in Memphis. His practice covers childhood leukaemia, lymphoma, thalassaemia and other blood disorders, with particular experience in matched unrelated and haploidentical transplants. He has treated children referred from India, Afghanistan, Iraq and several African countries.",
+    "is_placeholder": false,
+    "experience_years": 20
   },
   {
     "name": "Dr. Dharma Choudhary",
@@ -488,8 +527,9 @@
     "hospital_slug": "blk-max-super-speciality-hospital",
     "specialty": "Oncology Care",
     "is_priority": true,
-    "bio": "Chairman, Bone Marrow Transplant - Adult at BLK-Max Super Speciality Hospital, New Delhi.",
-    "is_placeholder": false
+    "bio": "Dr. Dharma Choudhary chairs the Centre for Bone Marrow Transplant at BLK-Max Super Speciality Hospital, New Delhi, with 23 years of experience and more than 2,000 transplants performed. He trained in haematology at AIIMS, New Delhi. He was instrumental in setting up the bone marrow transplant centre at BLK-Max and the transplant unit at Sanar International Hospital, Gurgaon. His practice covers leukaemia, lymphoma, aplastic anaemia and thalassaemia, and he is recognised for his work in establishing haploidentical transplantation in India.",
+    "is_placeholder": false,
+    "experience_years": 23
   },
   {
     "name": "Dr. Ishita B. Sen",
@@ -500,8 +540,9 @@
     "hospital_slug": "fortis-memorial-research-institute",
     "specialty": "Oncology Care",
     "is_priority": false,
-    "bio": "Principal Director, Nuclear Medicine, Nuclear Oncology at Fortis Memorial Research Institute, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Ishita B. Sen heads nuclear medicine and molecular imaging at Fortis Memorial Research Institute, Gurgaon, with 24 years in the specialty. She graduated from Lady Hardinge Medical College, New Delhi, in 1993, trained in nuclear medicine at Indraprastha Apollo Hospitals, and was a consultant at Sir Ganga Ram Hospital for a decade before heading nuclear medicine and PET-CT at Artemis Health Institute and joining Fortis in 2011. Her work centres on nuclear oncology, particularly radionuclide therapy including Lu-177 DOTATATE peptide receptor radionuclide therapy and Ac-225 PSMA therapy, alongside PET-guided interventional procedures and infection imaging.",
+    "is_placeholder": false,
+    "experience_years": 24
   },
   {
     "name": "Dr. Rama Joshi",
@@ -512,8 +553,9 @@
     "hospital_slug": "fortis-memorial-research-institute",
     "specialty": "Oncology Care",
     "is_priority": false,
-    "bio": "Chairman, Oncology - Gynaecology Surgical at Fortis Memorial Research Institute, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Rama Joshi heads gynaecologic oncology at Fortis Memorial Research Institute, Gurgaon, with more than 30 years of experience in radical surgery for gynaecological cancer and over a decade of robotic surgical practice. She treats ovarian, cervical, endometrial, vaginal and vulvar cancer, and uses robotic surgery for cervical and uterine cancer, ovarian staging and premalignant conditions. She was a fellow in gynaecologic oncology at Tata Memorial Hospital, Mumbai, and a UICC fellow at Buffalo, New York, with further training at the University of Michigan and the University of Lyon, and robotic training on the da Vinci system in California. She received the Double Helical National Health Award in 2017.",
+    "is_placeholder": false,
+    "experience_years": 30
   },
   {
     "name": "Dr. Vedant Kabra",
@@ -524,7 +566,7 @@
     "hospital_slug": "fortis-memorial-research-institute",
     "specialty": "Oncology Care",
     "is_priority": true,
-    "bio": "Principal Director, Oncology - Surgical - GI at Fortis Memorial Research Institute, Gurgaon.",
+    "bio": "Dr. Vedant Kabra leads surgical oncology at Fortis Memorial Research Institute, Gurgaon, and has performed more than 12,000 cancer operations, including robotic cancer surgery. He trained in surgical oncology at Tata Memorial Hospital, Mumbai, and the National Cancer Centre, Singapore. With his team he treats cancers of the breast, gastrointestinal tract, head and neck, gynaecological and genitourinary systems, skin, soft tissue, bone, lung and mediastinum, with an emphasis on organ conservation through sentinel node biopsy, breast conservation and oncoplasty, minimally invasive and robotic surgery, HIPEC and limb salvage. He has published numerous papers and three book chapters.",
     "is_placeholder": false
   },
   {
@@ -536,8 +578,9 @@
     "hospital_slug": "fortis-memorial-research-institute",
     "specialty": "Oncology Care",
     "is_priority": false,
-    "bio": "Principal Director, Oncology - Surgical - ENT at Fortis Memorial Research Institute, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Biswajyoti Hazarika is a head and neck surgical oncologist with 31 years of experience and leads surgical oncology at Fortis Memorial Research Institute, Gurgaon. His practice covers cancers of the oral cavity, throat, larynx, thyroid and salivary glands, and he combines conventional open resection with endoscopic and robotic techniques. He is known for complex resection and reconstruction, and for a strong emphasis on functional rehabilitation so that recovery preserves speech, swallowing and quality of life alongside cure.",
+    "is_placeholder": false,
+    "experience_years": 31
   },
   {
     "name": "Dr. Amal Roy Chaudhoory",
@@ -548,8 +591,9 @@
     "hospital_slug": "fortis-memorial-research-institute",
     "specialty": "Oncology Care",
     "is_priority": false,
-    "bio": "Senior Director, Radiation Oncology, Oncology - Radiation at Fortis Memorial Research Institute, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Amal Roy Chaudhoory is a radiation oncologist with more than 17 years of experience and is a Director in radiation oncology at Fortis Memorial Research Institute, Gurgaon. He completed his MBBS and MD at Kasturba Medical College, Manipal, and previously worked at Rajiv Gandhi Cancer Institute and at Max Hospital in Saket and Shalimar Bagh. He is trained across the advanced radiotherapy techniques, including intensity-modulated and image-guided radiotherapy, gated and adaptive treatment, stereotactic radiosurgery and stereotactic body radiotherapy. His clinical interests are head and neck cancers, genitourinary and abdominal malignancies, and brain tumours, and he is a member of ESTRO, ASTRO and the Association of Radiation Oncologists of India.",
+    "is_placeholder": false,
+    "experience_years": 17
   },
   {
     "name": "Dr. Anil Kumar Anand",
@@ -560,8 +604,9 @@
     "hospital_slug": "fortis-memorial-research-institute",
     "specialty": "Oncology Care",
     "is_priority": false,
-    "bio": "Principal Director, Oncology - Radiation at Fortis Memorial Research Institute, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Anil Kumar Anand heads radiation oncology at Fortis Memorial Research Institute, Gurgaon, with more than 31 years in the field. He completed his MBBS at Dayanand Medical College, Ludhiana, and his MD in Radiotherapy and Oncology at PGIMER, Chandigarh, with further training in radiation therapy at the New York Hospital Medical Center of Queens and in head and neck radiotherapy at Middlesex Hospital Medical School, London. He joined Fortis from Max Hospital, Saket, where he had led radiation oncology since 2009, and previously worked at Rajiv Gandhi Cancer Institute, Batra Hospital and PGIMER. His recent published work includes stereotactic body radiotherapy for recurrent head and neck cancer, and he advises scientific bodies including ICRO and the World Health Organization.",
+    "is_placeholder": false,
+    "experience_years": 31
   },
   {
     "name": "Dr. Vivek Verma",
@@ -572,8 +617,9 @@
     "hospital_slug": "max-super-speciality-vaishali",
     "specialty": "Oncology Care",
     "is_priority": false,
-    "bio": "Director, Orthopaedic Oncology at Max Super Speciality Hospital, Vaishali.",
-    "is_placeholder": false
+    "bio": "Dr. Vivek Verma is an orthopaedic oncologist and joint reconstruction surgeon with 19 years of experience, and leads musculoskeletal oncology at Max Super Speciality Hospital, Vaishali. His practice covers tumours of bone and soft tissue, paediatric cancers, and complex oncological surgery, with a focus on limb-preservation surgery and advanced bone and joint reconstruction. He studied at B.J. Medical College, Pune, completed a fellowship in orthopaedic oncology at Tata Memorial Centre, Mumbai, and trained further in trauma and arthroplasty at BG Klinik, Tübingen. He established the first dedicated orthopaedic oncology service in Uttarakhand, at Max Super Speciality Hospital, Dehradun.",
+    "is_placeholder": false,
+    "experience_years": 19
   },
   {
     "name": "Dr. Mukesh Patekar",
@@ -584,8 +630,9 @@
     "hospital_slug": "blk-max-super-speciality-hospital",
     "specialty": "Oncology Care",
     "is_priority": false,
-    "bio": "Associate Director, Medical Oncology at BLK-Max Super Speciality Hospital, New Delhi.",
-    "is_placeholder": false
+    "bio": "Dr. Mukesh Patekar is a medical oncologist at BLK-Max Super Speciality Hospital, New Delhi, with around 15 years in medicine. He completed his MBBS at RCSM Government Medical College, Kolhapur, and both his MD in General Medicine and his DM in Medical Oncology at AIIMS, New Delhi. His practice spans breast and lung cancer, gastrointestinal and hepato-pancreato-biliary malignancies, gynaecological and genitourinary cancers, neuro-oncology and sarcoma, and haemato-oncology including lymphoma, leukaemia and stem cell transplantation, alongside precision therapy and pain and palliative care. He is a member of the American Society of Clinical Oncology and the European Society for Medical Oncology.",
+    "is_placeholder": false,
+    "experience_years": 15
   },
   {
     "name": "Dr. Niranjan Naik",
@@ -596,8 +643,9 @@
     "hospital_slug": "paras-hospital",
     "specialty": "Oncology Care",
     "is_priority": true,
-    "bio": "Vice Chairman, Oncology - Surgical - GI at Paras Hospital, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Niranjan Naik is a senior surgical oncologist at Paras Health, Gurugram, with more than 30 years of experience and over 12,000 cancer operations performed. He trained at AIIMS, New Delhi. His practice covers breast surgery including oncoplastic reconstruction, thoracic surgery for lung and oesophageal cancer, gastrointestinal, colorectal and hepatobiliary cancer surgery, and surgery for bone and soft tissue tumours, using open, laparoscopic, thoracoscopic and robotic approaches. He is active in clinical research and academic teaching and contributes to national and international oncology forums.",
+    "is_placeholder": false,
+    "experience_years": 30
   },
   {
     "name": "Dr. Harit Kumar Chaturvedi",
@@ -608,8 +656,9 @@
     "hospital_slug": "indraprastha-apollo-hospital",
     "specialty": "Oncology Care",
     "is_priority": false,
-    "bio": "CEO and Head, Oncology - Surgical - GI at Indraprastha Apollo Hospitals, Delhi.",
-    "is_placeholder": false
+    "bio": "Dr. Harit Kumar Chaturvedi is a surgical oncologist with more than 35 years in cancer care and chairs the Max Institute of Cancer Care, which he built from the ground up after joining Max Healthcare in 2009. His surgical practice covers breast, thoracic and head and neck cancer, including robotic surgery. He has operated at live surgical workshops, presented widely at national and international conferences, and published extensively in peer-reviewed journals. He is a past president of the Indian Society of Oncology and president-elect of the Indian Association of Surgical Oncologists.",
+    "is_placeholder": false,
+    "experience_years": 35
   },
   {
     "name": "Dr. Surender Kumar Dabas",
@@ -620,8 +669,9 @@
     "hospital_slug": "manipal-hospital-dwarka",
     "specialty": "Oncology Care",
     "is_priority": true,
-    "bio": "Chairman, Oncology - Surgical - ENT at Manipal Hospital, Dwarka, Delhi.",
-    "is_placeholder": false
+    "bio": "Dr. Surender Kumar Dabas chairs the Manipal Comprehensive Cancer Centre and onco-robotic surgery for Manipal Hospitals in the Delhi region, with more than 22 years in surgical oncology. He has performed over 30,000 cancer operations, more than 4,000 of them robot-assisted, and introduced transoral robotic surgery to India. He has carried out the largest number of robotic head and neck cancer operations in Asia. His practice also covers robotic surgery for oesophageal, lung, pancreatic, colorectal, prostate, bladder and kidney cancer. He holds an MBBS, an MS in General Surgery and a DNB in Surgical Oncology.",
+    "is_placeholder": false,
+    "experience_years": 22
   },
   {
     "name": "Dr. Deepak Sarin",
@@ -632,8 +682,9 @@
     "hospital_slug": "medanta-the-medicity",
     "specialty": "Oncology Care",
     "is_priority": true,
-    "bio": "Chairman, Oncology - Surgical - ENT at Medanta – The Medicity, Gurugram.",
-    "is_placeholder": false
+    "bio": "Dr. Deepak Sarin directs the head and neck oncology unit at Medanta – The Medicity, Gurugram, with more than 27 years in the field. He trained as a clinical fellow in head and neck ablative and reconstructive surgery at the Sylvester Comprehensive Cancer Center, University of Miami. His practice covers minimally invasive, robotic and laser surgery for head and neck cancer, thyroid and parathyroid surgery, parotid surgery, skull base surgery and tracheal reconstruction. He established head and neck surgery departments at Sir Ganga Ram Hospital in 2005, at Artemis Hospital in 2007 and at Medanta in 2011, and is active in clinical and translational research.",
+    "is_placeholder": false,
+    "experience_years": 27
   },
   {
     "name": "Dr. Subhash Jangid",
@@ -644,8 +695,9 @@
     "hospital_slug": "fortis-memorial-research-institute",
     "specialty": "Orthopaedic Care",
     "is_priority": true,
-    "bio": "Principal Director & Unit Head, Orthopaedics and Joint Replacement at Fortis Memorial Research Institute, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Subhash Jangid leads orthopaedics and joint reconstruction at Fortis Memorial Research Institute, Gurgaon, with more than 22 years in practice and over 20,000 procedures performed. He completed his MS and MCh in Orthopaedics at AIIMS, New Delhi. His work centres on knee, hip and shoulder surgery, particularly joint replacement, and he is among the country's more experienced arthroplasty surgeons. He was the first surgeon in India to introduce NAV3 computer navigation for knee replacement, having trained in the technique in Austria.",
+    "is_placeholder": false,
+    "experience_years": 22
   },
   {
     "name": "Dr. Jayant Arora",
@@ -656,8 +708,9 @@
     "hospital_slug": "fortis-memorial-research-institute",
     "specialty": "Orthopaedic Care",
     "is_priority": false,
-    "bio": "Principal Director & Unit Head, Orthopaedics and Joint Replacement at Fortis Memorial Research Institute, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Jayant Arora leads a joint replacement and orthopaedics unit at Fortis Memorial Research Institute, Gurgaon, with more than 24 years of experience and over 15,000 procedures performed. He holds an MBBS and a DNB in Orthopaedics, and completed a fellowship in joint replacement and arthroscopy in the United Kingdom along with the Certificate of Completion of Basic Surgical Training from the Royal College of Surgeons. His practice covers joint replacement, sports injury and trauma care, and he is known for his work in computer-navigated and robot-assisted knee and hip replacement.",
+    "is_placeholder": false,
+    "experience_years": 24
   },
   {
     "name": "Dr. Ashok Rajgopal",
@@ -668,7 +721,7 @@
     "hospital_slug": "medanta-the-medicity",
     "specialty": "Orthopaedic Care",
     "is_priority": true,
-    "bio": "Group Chairman, Orthopaedics and Joint Replacement at Medanta – The Medicity, Gurugram.",
+    "bio": "Dr. Ashok Rajgopal is Group Chairman of the Medanta Institute of Musculoskeletal Disorders and Orthopaedics, Gurugram, and has performed around 40,000 total knee replacements along with more than 60,000 arthroscopic operations for sports injuries. He performed India's first bilateral total knee replacement, its first minimally invasive joint replacement, its first virtual total knee replacement using patient-specific instrumentation, and was the first in the country to use gender-specific knee implants. He designed and patented instruments for minimally invasive knee replacement that are now used by surgeons internationally. He was awarded the Padma Shri in 2014.",
     "is_placeholder": false
   },
   {
@@ -680,8 +733,9 @@
     "hospital_slug": "medanta-the-medicity",
     "specialty": "Orthopaedic Care",
     "is_priority": false,
-    "bio": "Vice Chairman, Orthopaedics and Joint Replacement at Medanta – The Medicity, Gurugram.",
-    "is_placeholder": false
+    "bio": "Dr. Attique Vasdev is an orthopaedic surgeon with over 33 years in practice and has led the knee unit at Medanta – The Medicity, Gurugram, since the hospital opened in 2009, having played a central part in setting it up. He completed his MBBS at Kasturba Medical College and his MS in Orthopaedics at the Manipal Academy of Higher Education, followed by a trauma fellowship in Israel and a joint replacement fellowship in Germany. His practice covers knee replacement, ligament reconstruction around the knee, knee osteotomy, arthroscopy and sports injury surgery. He teaches through workshops and live surgical demonstrations, and is a member of the Indian Orthopaedic Association and the Indo-German Orthopaedic Foundation.",
+    "is_placeholder": false,
+    "experience_years": 33
   },
   {
     "name": "Dr. Raman Kant Aggarwal",
@@ -692,8 +746,9 @@
     "hospital_slug": "medanta-the-medicity",
     "specialty": "Orthopaedic Care",
     "is_priority": false,
-    "bio": "Vice Chairman, Orthopaedics and Joint Replacement at Medanta – The Medicity, Gurugram.",
-    "is_placeholder": false
+    "bio": "Dr. Raman Kant Aggarwal is a shoulder and elbow specialist at Medanta – The Medicity, Gurugram, with over 37 years of experience in joint problems and sports injuries. He completed his MBBS at PGIMS, Rohtak, and his MS in Orthopaedics at Government Medical College, Patiala, followed by a shoulder and elbow fellowship at the Robert Jones and Agnes Hunt Orthopaedic Hospital in the United Kingdom and certification in orthopaedic reconstruction for complex trauma in Germany. He is among northern India's leading surgeons for reverse and anatomical shoulder replacement, including revision procedures, and also performs total elbow replacement and arthroscopic shoulder and elbow surgery.",
+    "is_placeholder": false,
+    "experience_years": 37
   },
   {
     "name": "Dr. Vipin Chand Tyagi",
@@ -704,7 +759,7 @@
     "hospital_slug": "medanta-the-medicity",
     "specialty": "Orthopaedic Care",
     "is_priority": false,
-    "bio": "Senior Director, Orthopaedics and Joint Replacement at Medanta – The Medicity, Gurugram.",
+    "bio": "Dr. Vipin Chand Tyagi is a Senior Director at the Medanta Institute of Musculoskeletal Disorders and Orthopaedics, Gurugram, specialising in hip and knee replacement. He completed his MBBS at S.N. Medical College, Agra, a diploma in orthopaedics at J.N. Medical College, Aligarh Muslim University, and a fellowship in arthroplasty at the ENDO-Klinik in Germany. His practice covers primary, complex primary and revision knee and hip arthroplasty, including the management of infected joint replacements. He has treated patients referred from more than 25 countries.",
     "is_placeholder": false
   },
   {
@@ -716,8 +771,9 @@
     "hospital_slug": "medanta-the-medicity",
     "specialty": "Orthopaedic Care",
     "is_priority": false,
-    "bio": "Senior Director, Orthopaedics and Joint Replacement at Medanta – The Medicity, Gurugram.",
-    "is_placeholder": false
+    "bio": "Dr. Vivek Dahiya is a Senior Director of Orthopaedics at Medanta – The Medicity, Gurugram, and directs adult lower limb reconstruction, with over 25 years of experience. He holds a DNB in Orthopaedics. His practice centres on the knee, covering arthroscopy, meniscus surgery, cartilage preservation, ligament reconstruction, fracture management, and primary and revision total knee replacement including infected replacements. He is a member of the Indian Society of Hip and Knee Surgeons, the Indian Arthroscopy Society and the Delhi Orthopaedic Association.",
+    "is_placeholder": false,
+    "experience_years": 25
   },
   {
     "name": "Dr. Sanjay Sarup",
@@ -728,8 +784,9 @@
     "hospital_slug": "artemis-hospital",
     "specialty": "Orthopaedic Care",
     "is_priority": false,
-    "bio": "Chairman, Paediatric Orthopaedics and Spine at Artemis Hospital, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Sanjay Sarup heads an orthopaedics unit and leads paediatric orthopaedics and spine surgery at Artemis Hospital, Gurgaon, with over 25 years devoted to musculoskeletal conditions in children. He completed his MBBS at the University of Kashmir, his MS in Orthopaedics at PGIMER, Chandigarh, and an MCh in Orthopaedics at Dundee, and holds the FRCS from Glasgow. His practice covers congenital hip dislocation, clubfoot correction, scoliosis and spinal deformity, and complex limb deformity correction in children. He established the paediatric orthopaedic unit at Sir Ganga Ram Hospital, Delhi, in 2004 and the paediatric orthopaedic and spine division at Medanta in 2009.",
+    "is_placeholder": false,
+    "experience_years": 25
   },
   {
     "name": "Dr. I P S Oberoi",
@@ -740,8 +797,9 @@
     "hospital_slug": "artemis-hospital",
     "specialty": "Orthopaedic Care",
     "is_priority": false,
-    "bio": "Chairperson, Orthopaedics and Joint Replacement at Artemis Hospital, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. I P S Oberoi chairs the orthopaedic surgery programme at Artemis Hospital, Gurgaon, and leads robotic joint replacement and arthroscopy, with 32 years of experience and more than 7,000 joint replacements performed. He operates on the knee, hip, shoulder, elbow and ankle, in both primary and revision replacement, and was among the first surgeons in India to use arthroscopic reconstruction in the elbow, shoulder, hip and ankle. He trained in joint replacement and adult reconstructive trauma surgery at a university hospital in Germany, and in shoulder surgery in Strasbourg, Rheims, Troyes and Cape Town. He is the only Indian to have served as secretary of the Asian Arthroscopy Congress and was twice elected secretary, and later the youngest president, of the Indian Arthroscopy Society.",
+    "is_placeholder": false,
+    "experience_years": 32
   },
   {
     "name": "Dr. Rohit Lamba",
@@ -752,8 +810,9 @@
     "hospital_slug": null,
     "specialty": "Orthopaedic Care",
     "is_priority": false,
-    "bio": "Director, Orthopaedics and Joint Replacement at Fortis Hospital, Manesar, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Rohit Lamba directs orthopaedics and joint replacement at Fortis Hospital, Manesar, with 22 years in the field. He completed his MBBS at Government Medical College, Amritsar, and his MS in Orthopaedics at Christian Medical College, Ludhiana, followed by a fellowship in hip and knee replacement at the Helios ENDO-Klinik in Hamburg, where he trained in single-stage revision for infected replacements, and hip arthroscopy observerships in the United Kingdom and Spain. His practice centres on joint preservation, complex hip and knee replacement, salvage of failed and infected replacements, and knee and shoulder arthroscopy for sports injuries, using robotic and computer-navigated techniques.",
+    "is_placeholder": false,
+    "experience_years": 22
   },
   {
     "name": "Dr. (Prof.) Anil Arora",
@@ -764,8 +823,9 @@
     "hospital_slug": null,
     "specialty": "Orthopaedic Care",
     "is_priority": false,
-    "bio": "Chairman, Orthopaedics and Joint Replacement at Max Super Speciality Hospital, Patparganj.",
-    "is_placeholder": false
+    "bio": "Dr. (Prof.) Anil Arora heads orthopaedics and joint replacement at Max Super Speciality Hospital, Patparganj, New Delhi, with more than 38 years of experience and over 10,000 joint replacements performed. He operates on the knee, hip, shoulder and elbow, and performs robotic total knee and hip replacement. He introduced pinless computer-navigated total knee replacement to northern India, and holds entries in the Guinness Book of World Records and the Limca Book of Records. He has given around 240 lectures and published some 50 research papers and 20 chapters in national textbooks, and was recognised by the Chief Minister of Delhi in 2015 for medical services to senior citizens.",
+    "is_placeholder": false,
+    "experience_years": 38
   },
   {
     "name": "Dr. Aashish Chaudhry",
@@ -776,8 +836,9 @@
     "hospital_slug": "aakash-healthcare",
     "specialty": "Orthopaedic Care",
     "is_priority": true,
-    "bio": "Managing Director, Orthopaedics and Joint Replacement at Aakash Healthcare Super Speciality Hospital, Dwarka.",
-    "is_placeholder": false
+    "bio": "Dr. Aashish Chaudhry is Managing Director of Aakash Healthcare and a practising orthopaedic and joint replacement surgeon at its Dwarka hospital, with over 20 years in the field and more than 18,000 operations performed. He graduated from Maulana Azad Medical College and took his postgraduate degree in orthopaedics at Lady Hardinge Medical College, and holds the MRCS from the Royal College of Physicians and Surgeons of Glasgow. His surgical practice centres on total and partial knee replacement and hip surgery, often using minimally invasive and robotic techniques. He co-chairs the ASSOCHAM National Council on Healthcare.",
+    "is_placeholder": false,
+    "experience_years": 20
   },
   {
     "name": "Dr. Hemant Sharma",
@@ -788,8 +849,9 @@
     "hospital_slug": null,
     "specialty": "Orthopaedic Care",
     "is_priority": false,
-    "bio": "Chairman, Orthopaedics and Joint Replacement at Marengo Asia Hospitals, Gurugram.",
-    "is_placeholder": false
+    "bio": "Dr. Hemant Sharma chairs orthopaedics, joint replacement and spine surgery at Marengo Asia Hospitals, Gurugram, with more than 26 years of experience split between India and England. He holds an MBBS and a DNB in Orthopaedics and is a fellow of the Royal College of Surgeons of England. His practice covers robotic hip and knee surgery, revision trauma and revision arthroplasty, and he has particular interests in the young adult hip, developmental dysplasia of the hip, orthopaedic complications of sickle cell disease, joint preservation surgery of the knee, and sports injuries of the hip and knee.",
+    "is_placeholder": false,
+    "experience_years": 26
   },
   {
     "name": "Dr. Saurabh Pokhriyal",
@@ -800,8 +862,9 @@
     "hospital_slug": "blk-max-super-speciality-hospital",
     "specialty": "Nephrology & Kidney Transplant",
     "is_priority": true,
-    "bio": "Principal Director, Nephrology & Renal Transplant Medicine at BLK-Max Super Speciality Hospital, New Delhi.",
-    "is_placeholder": false
+    "bio": "Dr. Saurabh Pokhriyal is a nephrologist and renal transplant physician with more than 27 years of experience. He graduated from medical college in Kanpur, trained in nephrology at Sanjay Gandhi Postgraduate Institute of Medical Sciences, Lucknow, was Assistant Professor of Nephrology at the Nizam's Institute of Medical Sciences, Hyderabad, and completed a three-year fellowship in nephrology and renal transplantation at the University of Toronto. His practice covers kidney transplantation including ABO-incompatible transplants, primary glomerular disease, chronic kidney disease, dialysis and critical care nephrology. He has set up and headed nephrology units at several hospitals across Delhi NCR.",
+    "is_placeholder": false,
+    "experience_years": 27
   },
   {
     "name": "Dr. Salil Jain",
@@ -812,8 +875,9 @@
     "hospital_slug": "fortis-memorial-research-institute",
     "specialty": "Nephrology & Kidney Transplant",
     "is_priority": false,
-    "bio": "Principal Director, Nephrology & Renal Transplant Medicine at Fortis Memorial Research Institute, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Salil Jain heads nephrology and renal transplantation at Fortis Memorial Research Institute, Gurgaon, with more than 28 years in the specialty. He completed a fellowship in nephrology and renal transplantation at the University of Toronto, and previously worked at St. Stephen's Hospital, Apollo Hospital, Fortis Vasant Kunj and Medanta – The Medicity. His practice covers chronic kidney disease, dialysis, critical care nephrology, and kidney transplantation of every type including live donor, deceased donor and paediatric transplantation. He is a member of the Indian Society of Nephrology, the Indian Society of Organ Transplantation, the American Society of Transplantation and the European Dialysis and Transplant Association.",
+    "is_placeholder": false,
+    "experience_years": 28
   },
   {
     "name": "Dr. Gagan Deep Chhabra",
@@ -824,8 +888,9 @@
     "hospital_slug": "fortis-memorial-research-institute",
     "specialty": "Nephrology & Kidney Transplant",
     "is_priority": false,
-    "bio": "Director, Nephrology & Renal Transplant Medicine at Fortis Memorial Research Institute, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Gagan Deep Chhabra leads a nephrology and kidney transplant unit at Fortis Memorial Research Institute, Gurgaon, with over 23 years of clinical experience and involvement in more than 2,500 kidney transplants. He completed his MBBS at PGIMS, Rohtak, followed by a DNB in Medicine and a DNB in Nephrology. His practice covers ABO-incompatible, highly sensitised and deceased-donor transplantation, interventional nephrology including arteriovenous fistula and shunt creation, peritoneal dialysis, and critical care nephrology including continuous renal replacement therapy and immunoadsorption. He has worked at Max Super Speciality Hospital Saket, Sir Ganga Ram Hospital and BLK Hospital, and was recognised with the AITSE award for his teaching as a DNB co-guide.",
+    "is_placeholder": false,
+    "experience_years": 23
   },
   {
     "name": "Dr. Shafiq Ahmed",
@@ -836,8 +901,9 @@
     "hospital_slug": "blk-max-super-speciality-hospital",
     "specialty": "Nephrology & Kidney Transplant",
     "is_priority": true,
-    "bio": "Senior Director, Urology and Renal Transplant at BLK-Max Super Speciality Hospital, New Delhi.",
-    "is_placeholder": false
+    "bio": "Dr. Shafiq Ahmed leads urology, andrology and renal transplantation at BLK-Max Super Speciality Hospital, New Delhi, with over 18 years of surgical experience and more than 15,000 urological procedures performed, from robotic surgery to endoscopic and laser treatment. He is among the small number of surgeons worldwide actively performing robotic kidney transplantation, in both adults and children, and has set up renal transplant programmes at several hospitals across Delhi NCR. He holds an MBBS, an MS in General Surgery, a DNB in Urology and the MNAMS. He is a life member of the Urological Society of India, the Endourological Society of India, the Kidney Transplant Society of India and the Uro-Oncology Society of India.",
+    "is_placeholder": false,
+    "experience_years": 18
   },
   {
     "name": "Dr. Sanjay Gogoi",
@@ -848,8 +914,9 @@
     "hospital_slug": "medanta-the-medicity",
     "specialty": "Nephrology & Kidney Transplant",
     "is_priority": false,
-    "bio": "Chairman, Urology and Renal Transplant at Medanta – The Medicity, Gurugram.",
-    "is_placeholder": false
+    "bio": "Dr. Sanjay Gogoi chairs urology, kidney transplantation and uro-oncology at the Renal Care Institute at Medanta – The Medicity, Gurugram, with over 25 years in urology and more than 1,000 kidney transplants performed. He is trained in robotic surgery for both benign and malignant disease of the kidney, bladder, prostate and adrenal glands, and his particular interests are Retzius-sparing robotic radical prostatectomy, radical cystectomy with orthotopic neobladder, and robotic kidney transplantation in patients with a high body mass index. He has carried out one of India's largest series of paediatric kidney transplants and is recognised for his work in congenital anomalies of the kidney and urinary tract. He previously headed urology and renal transplantation at Apollo Hospital Colombo, Fortis Memorial Research Institute, Manipal Hospital Delhi and Max Super Speciality Hospital Dwarka.",
+    "is_placeholder": false,
+    "experience_years": 25
   },
   {
     "name": "Dr. Anant Kumar",
@@ -860,8 +927,9 @@
     "hospital_slug": "max-super-speciality-saket",
     "specialty": "Nephrology & Kidney Transplant",
     "is_priority": false,
-    "bio": "Chairman, Urology and Renal Transplant at Max Super Speciality Hospital, Saket.",
-    "is_placeholder": false
+    "bio": "Dr. Anant Kumar chairs urology, renal transplantation, robotics and uro-oncology at Max Super Speciality Hospital, Saket, with 35 years in the field. He has performed more than 3,500 kidney transplants and 500 robotic operations, and has published over 180 papers. He completed his MBBS at King George's Medical College, Lucknow, and his MS in Surgery and MCh in Urology at PGIMER, Chandigarh. He was Professor and Head of Urology and Kidney Transplantation at SGPGIMS, Lucknow, and later directed urology, renal transplantation and robotics at Fortis and Apollo hospitals in Delhi NCR. He is a member of the American Urological Association, the British Association of Urological Surgeons and the Transplantation Society.",
+    "is_placeholder": false,
+    "experience_years": 35
   },
   {
     "name": "Dr. Anil Mandhani",
@@ -872,7 +940,7 @@
     "hospital_slug": "fortis-memorial-research-institute",
     "specialty": "Nephrology & Kidney Transplant",
     "is_priority": false,
-    "bio": "Chairman, Urology, Organ Transplant & Kidney Transplant at Fortis Memorial Research Institute, Gurgaon.",
+    "bio": "Dr. Anil Mandhani is a urologist and uro-oncological surgeon leading kidney and urology services at Fortis Memorial Research Institute, Gurgaon. He has performed more than 1,000 kidney transplants and over 550 robotic operations, and is known for managing complex problems arising from surgery done elsewhere. He spent much of his career at SGPGIMS, Lucknow, where he helped train more than 100 MCh residents, and completed a clinical fellowship in robotic uro-oncology at New York-Presbyterian Hospital in 2006. His practice uses robotic and laparoscopic techniques for both donor and recipient surgery in kidney transplantation.",
     "is_placeholder": false
   },
   {
@@ -884,8 +952,9 @@
     "hospital_slug": "fortis-memorial-research-institute",
     "specialty": "Nephrology & Kidney Transplant",
     "is_priority": false,
-    "bio": "Senior Director, Urology, Organ Transplant & Kidney Transplant at Fortis Memorial Research Institute, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Pradeep Kumar Bansal leads a urology, uro-oncology, robotics and renal transplant unit at Fortis Memorial Research Institute, Gurgaon, with more than 20 years of experience and over 300 kidney transplants in adults and children. He completed his MBBS at King George's Medical College, Lucknow, and his MCh in Urology at SGPGIMS, Lucknow. His practice covers endourology, reconstructive urology and robotic surgery. He previously worked at Artemis Hospital and Max Hospital.",
+    "is_placeholder": false,
+    "experience_years": 20
   },
   {
     "name": "Dr. Rana Patir",
@@ -896,8 +965,9 @@
     "hospital_slug": "fortis-memorial-research-institute",
     "specialty": "Neuro and Spine Surgery",
     "is_priority": true,
-    "bio": "Chairman, Neuro and Spine Surgery at Fortis Memorial Research Institute, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Rana Patir chairs neurosurgery at Fortis Memorial Research Institute, Gurgaon, with more than 32 years in the field and over 10,000 neurosurgical procedures performed. He holds an MS in General Surgery, an MCh in Neurosurgery and a neurosurgical fellowship from the United Kingdom. He has been teaching faculty at AIIMS and Sir Ganga Ram Hospital, New Delhi, and was a professor at Guwahati Medical College. His practice covers minimally invasive brain and spine surgery, skull base surgery, neurovascular surgery including extracranial-to-intracranial bypass, paediatric neurosurgery and epilepsy surgery.",
+    "is_placeholder": false,
+    "experience_years": 32
   },
   {
     "name": "Dr. Sandeep Vaishya",
@@ -908,8 +978,9 @@
     "hospital_slug": "fortis-memorial-research-institute",
     "specialty": "Neuro and Spine Surgery",
     "is_priority": true,
-    "bio": "Executive Director, Neuro and Spine Surgery at Fortis Memorial Research Institute, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Sandeep Vaishya heads neurosurgery at Fortis Memorial Research Institute, Gurgaon, with more than 30 years of experience. He completed his MBBS and MS in General Surgery at G.R. Medical College, Gwalior, and his MCh in Neurosurgery at AIIMS, New Delhi, in 1996, followed by the Sundt Fellowship in Neurosurgery at the Mayo Clinic. His practice covers minimally invasive and image-guided neurosurgery, intracranial and skull base tumour surgery, functional neurosurgery, spinal surgery and peripheral nerve surgery. He is among the world's leading surgeons for brachial plexus injury and among South Asia's most experienced in Gamma Knife radiosurgery, and is an awardee of the Herbert Krause Medal.",
+    "is_placeholder": false,
+    "experience_years": 30
   },
   {
     "name": "Dr. Vijay Kant Dixit",
@@ -920,8 +991,9 @@
     "hospital_slug": "fortis-memorial-research-institute",
     "specialty": "Neuro and Spine Surgery",
     "is_priority": false,
-    "bio": "Director, Interventional Neuroradiology, Neurointerventional Radiology at Fortis Memorial Research Institute, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Vijay Kant Dixit directs interventional neuroradiology at Fortis Memorial Research Institute, Gurgaon, with more than 22 years in the subspecialty. He completed his MBBS and MD in Radiology at J.N. Medical College, Aligarh Muslim University, was a senior resident at AIIMS, and took clinical attachments at Oxford and Newcastle. He has performed more than 10,000 cerebral and spinal angiograms and around 2,000 neuro-interventions, including some 1,400 aneurysm coiling procedures, and has published widely.",
+    "is_placeholder": false,
+    "experience_years": 22
   },
   {
     "name": "Dr. Aditya Gupta",
@@ -932,8 +1004,9 @@
     "hospital_slug": "artemis-hospital",
     "specialty": "Neuro and Spine Surgery",
     "is_priority": false,
-    "bio": "Chairperson, CNS Radiosurgery, Neuro-oncology & Neurosurgery at Artemis Hospital, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Aditya Gupta chairs neurosurgery and central nervous system radiosurgery at Artemis Hospital, Gurgaon, and co-leads its CyberKnife centre, with over 32 years of experience. He has performed more than 10,000 brain tumour operations and over 6,000 radiosurgery procedures using CyberKnife, Gamma Knife and LINAC systems. He graduated from AIIMS, New Delhi, and was Associate Professor of Neurosurgery there until 2009. He trained further at the University of Amsterdam, Hôpital Pitié-Salpêtrière in Paris, the University of Marseille, Wake Forest University, the University of Kiel, and on fellowship at CJW Medical Center in Richmond, Virginia. His practice also covers spine disorders and movement disorders.",
+    "is_placeholder": false,
+    "experience_years": 32
   },
   {
     "name": "Dr. Sudhir Dubey",
@@ -944,8 +1017,9 @@
     "hospital_slug": "medanta-the-medicity",
     "specialty": "Neuro and Spine Surgery",
     "is_priority": false,
-    "bio": "Director, Neuro and Spine Surgery at Medanta – The Medicity, Gurugram.",
-    "is_placeholder": false
+    "bio": "Dr. Sudhir Dubey chairs neurosurgery and neurosciences at Medanta – The Medicity, Gurugram, with over 30 years of experience and more than 10,000 neurosurgical operations to his credit. He completed his MCh in Neurosurgery at NIMHANS, Bengaluru, followed by a fellowship in endoscopic skull base surgery at the University of Pittsburgh Medical Center. He is among the small number of surgeons in India to have mastered endoscopic neurosurgery, and is recognised for his work in endoportal brain surgery, endoscopic endonasal skull base surgery and minimally invasive spine procedures.",
+    "is_placeholder": false,
+    "experience_years": 30
   },
   {
     "name": "Dr. Harnarayan Singh",
@@ -956,8 +1030,9 @@
     "hospital_slug": null,
     "specialty": "Neuro and Spine Surgery",
     "is_priority": false,
-    "bio": "Director, Neuro and Spine Surgery at Sanar International Hospital.",
-    "is_placeholder": false
+    "bio": "Dr. Harnarayan Singh heads neurosurgery and spine surgery at Sanar International Hospitals, Gurgaon, and has performed over 3,500 procedures. He completed his MBBS at University College of Medical Sciences, New Delhi, in 2005, and his MS in General Surgery and MCh in Neurosurgery at PGIMER, Chandigarh, in 2009 and 2013. His practice covers functional neurosurgery, neuro-oncology, spinal instrumentation and neurotrauma, with a focus on minimally invasive keyhole approaches to the brain and spine. He is a member of the Neurological Surgeons' Society of India and the Indian Society for Neuromodulation, and received the Young Asian Neurosurgeon award at the Japanese Congress for Brain Tumor Surgery.",
+    "is_placeholder": false,
+    "experience_years": 13
   },
   {
     "name": "Dr. Rohit Bansil",
@@ -968,8 +1043,9 @@
     "hospital_slug": "blk-max-super-speciality-hospital",
     "specialty": "Neuro and Spine Surgery",
     "is_priority": false,
-    "bio": "Senior Director, Neuro Surgery & Neuro Spine at BLK-Max Super Speciality Hospital, New Delhi.",
-    "is_placeholder": false
+    "bio": "Dr. Rohit Bansil is Senior Director of Neurosurgery at BLK-Max Super Speciality Hospital, New Delhi, with over 14 years of experience in neurosurgery and spine surgery. He completed his MBBS and DNB in Neurosurgery through the National Board of Examinations, New Delhi, followed by a fellowship in advanced spine surgery in Japan and a fellowship in brachial plexus and peripheral nerve surgery at AIIMS, New Delhi. His practice covers advanced spine surgery, neuro-endoscopy, brain and spine tumours, paediatric neurosurgery, neurotrauma and functional neurosurgery.",
+    "is_placeholder": false,
+    "experience_years": 14
   },
   {
     "name": "Dr. Tariq Matin",
@@ -980,8 +1056,9 @@
     "hospital_slug": "artemis-hospital",
     "specialty": "Neuro and Spine Surgery",
     "is_priority": false,
-    "bio": "Director & Chief, Neurointerventional Surgery at Artemis Hospital, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Tariq Matin directs neuro-intervention at Artemis Hospital, Gurgaon, with over 15 years in the field and more than 1,000 neurovascular procedures performed. He trained at AIIMS, New Delhi, and completed a fellowship at Foch Hospital, Suresnes, France, under Dr. Georges Rodesch. His practice spans mechanical thrombectomy for acute stroke, aneurysm coiling and embolisation, intracranial and carotid angioplasty, cerebral arteriovenous malformation and dural fistula embolisation, and transcranial Doppler monitoring for vasospasm. He leads development of the hospital's comprehensive stroke centre.",
+    "is_placeholder": false,
+    "experience_years": 15
   },
   {
     "name": "Dr. Hitesh Garg",
@@ -992,8 +1069,9 @@
     "hospital_slug": "artemis-hospital",
     "specialty": "Spine Surgery",
     "is_priority": true,
-    "bio": "Head, Scoliosis Surgery and Spine Surgery at Artemis Hospital, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Hitesh Garg heads orthopaedic spine surgery at Artemis Hospital, Gurgaon, with over 15 years of experience and more than 7,000 spine operations performed, including some 1,200 deformity corrections for scoliosis and kyphosis. He studied at AIIMS, New Delhi, and KEM Hospital, Mumbai, and completed fellowships at Yale University and Shriners Hospitals for Children in the United States. His practice covers minimally invasive and motion-preserving spine surgery, craniovertebral and cervical spine surgery, and deformity correction, and he has treated patients from more than 50 countries.",
+    "is_placeholder": false,
+    "experience_years": 15
   },
   {
     "name": "Dr. Hamza Shaikh",
@@ -1004,8 +1082,9 @@
     "hospital_slug": "manipal-hospital-dwarka",
     "specialty": "Spine Surgery",
     "is_priority": true,
-    "bio": "Consultant, Scoliosis Surgery and Spine Surgery at Manipal Hospital, Dwarka, Delhi.",
-    "is_placeholder": false
+    "bio": "Dr. Hamza Shaikh is a spine surgeon at Manipal Hospital, Dwarka, with over 15 years of clinical experience. He holds an MBBS, a Diploma in Orthopaedics, a DNB in Orthopaedics and a Fellowship of the National Board in Spine Surgery, and trained for two years exclusively in spine surgery at Manipal Hospital, Bangalore. His practice covers disc prolapse, degenerative spine disease, spinal trauma and infection, and deformity correction for scoliosis and kyphosis in both children and older adults, using microscopic and endoscopic discectomy, posterior and transforaminal lumbar interbody fusion, artificial disc replacement and robotic keyhole techniques.",
+    "is_placeholder": false,
+    "experience_years": 15
   },
   {
     "name": "Dr. Vipul Nanda",
@@ -1016,8 +1095,9 @@
     "hospital_slug": "fortis-memorial-research-institute",
     "specialty": "Cosmetic Care",
     "is_priority": false,
-    "bio": "Director, Plastic Surgery, Plastic and Reconstructive Surgery at Fortis Memorial Research Institute, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Vipul Nanda directs plastic and cosmetic surgery at Fortis Hospital, Gurgaon, with more than 35 years in aesthetic and reconstructive surgery. He trained at AIIMS, New Delhi, and completed further training in the United Kingdom, Spain, Japan and the United States. His practice covers rhinoplasty, body contouring, facelift, eyelid surgery and breast surgery. He is an International Scholar of the American Society of Plastic Surgeons and a Fellow of the British Association of Plastic Surgeons.",
+    "is_placeholder": false,
+    "experience_years": 35
   },
   {
     "name": "Dr. Avinash",
@@ -1028,8 +1108,9 @@
     "hospital_slug": "fortis-memorial-research-institute",
     "specialty": "Cosmetic Care",
     "is_priority": false,
-    "bio": "Senior Consultant, Plastic Surgery, Plastic and Reconstructive Surgery at Fortis Memorial Research Institute, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Avinash Agarwal is a Senior Consultant in cosmetic and plastic surgery at Fortis Memorial Research Institute, Gurugram, with 22 years of clinical experience. He holds an MCh in Plastic Surgery and a DNB in General Surgery from Dayanand Medical College and Hospital, Ludhiana. His practice covers reconstructive surgery, trauma and burn surgery, maxillofacial surgery, microvascular nerve and vessel repair, complex reconstructive flap surgery and burn intensive care, alongside cosmetic surgical procedures.",
+    "is_placeholder": false,
+    "experience_years": 22
   },
   {
     "name": "Dr. Vivek Vij",
@@ -1040,8 +1121,9 @@
     "hospital_slug": "fortis-memorial-research-institute",
     "specialty": "Liver Transplant",
     "is_priority": false,
-    "bio": "Chairman, Liver Transplant, Liver Transplant and Hepatobiliary Sciences at Fortis Memorial Research Institute, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Vivek Vij chairs liver transplant and hepatobiliary sciences at Fortis Memorial Research Institute, Gurgaon, and across Fortis's Delhi NCR hospitals, with over 25 years of surgical experience. His team has performed more than 2,500 liver transplants, with a reported 95 to 97 percent patient success rate and a full safety record for living donors. He was among the first surgeons on the Indian subcontinent to publish a series on laparoscopic donor hepatectomy in the journal Liver Transplantation, and is credited with developing and standardising safety protocols for living-donor liver surgery in India. He received a special honour from the International Liver Transplant Society in 2015.",
+    "is_placeholder": false,
+    "experience_years": 25
   },
   {
     "name": "Dr. Giriraj Bora",
@@ -1052,8 +1134,9 @@
     "hospital_slug": "artemis-hospital",
     "specialty": "Liver Transplant",
     "is_priority": false,
-    "bio": "Chairperson, Liver and Biliary Sciences, Organ Transplant at Artemis Hospital, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Giriraj Bora is joint director of liver transplantation and a senior consultant in gastrointestinal surgery at Artemis Hospital, Gurgaon, with over 18 years of surgical experience and more than 2,000 liver transplants performed from living and deceased donors. He completed his MBBS and MS at the University of Rajasthan, his MCh at G.B. Pant Hospital, Delhi, and a fellowship in liver transplantation at Indraprastha Apollo Hospital. He performed Rajasthan's first liver transplant, and under his direction Artemis became the first programme in India to perform both pure laparoscopic and pure robotic donor liver procedures. His practice also covers liver transplantation for liver cancer and portal vein reconstruction in Whipple's operation for pancreatic cancer.",
+    "is_placeholder": false,
+    "experience_years": 18
   },
   {
     "name": "Dr. Abhideep Chaudhary",
@@ -1064,8 +1147,9 @@
     "hospital_slug": "blk-max-super-speciality-hospital",
     "specialty": "Liver Transplant",
     "is_priority": false,
-    "bio": "Chairman & HOD, HPB Surgery & Liver Transplantation at BLK-Max Super Speciality Hospital, New Delhi.",
-    "is_placeholder": false
+    "bio": "Dr. Abhideep Chaudhary chairs HPB surgery and liver transplantation at BLK-Max Super Speciality Hospital, New Delhi, with over 20 years of experience and more than 2,000 liver transplant and hepato-pancreato-biliary operations performed. He completed a fellowship in multi-organ transplant surgery at the Thomas E. Starzl Transplantation Institute, University of Pittsburgh Medical Center. His practice covers living-donor liver transplantation, robotic donor surgery, paediatric transplantation, pancreatic resection, bile duct surgery and complex HPB cancer surgery. He previously worked at Jaypee Hospital, Sir Ganga Ram Hospital and Indraprastha Apollo Hospitals, and serves as treasurer of the Liver Transplant Society of India.",
+    "is_placeholder": false,
+    "experience_years": 20
   },
   {
     "name": "Dr. Gourdas Choudhuri",
@@ -1076,8 +1160,9 @@
     "hospital_slug": "fortis-memorial-research-institute",
     "specialty": "Gastroenterology",
     "is_priority": false,
-    "bio": "Chairman, Gastroenterology, Gastroenterology and Hepatobiliary Sciences at Fortis Memorial Research Institute, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Gourdas Choudhuri directs gastroenterology and hepatobiliary sciences at Fortis Memorial Research Institute, Gurugram, with more than 40 years in the field, 25 of them on the faculty of SGPGIMS, Lucknow. He completed his MBBS at JIPMER, Pondicherry, his MD in Medicine in 1982, and his DM in Gastroenterology at AIIMS, New Delhi, in 1984. He introduced endoscopic ultrasound and extracorporeal shockwave lithotripsy for bile duct stones to India, has more than 200 scientific publications, and is a past president of the Indian Society of Gastroenterology. He is a fellow of the American College of Gastroenterology and of the Royal College of Physicians of Ireland.",
+    "is_placeholder": false,
+    "experience_years": 40
   },
   {
     "name": "Dr. Rinkesh Kumar Bansal",
@@ -1088,8 +1173,9 @@
     "hospital_slug": "fortis-memorial-research-institute",
     "specialty": "Gastroenterology",
     "is_priority": false,
-    "bio": "Director, Gastroenterology, Gastroenterology and Hepatobiliary Sciences at Fortis Memorial Research Institute, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Rinkesh Kumar Bansal is an Additional Director in gastroenterology and hepatobiliary sciences at Fortis Memorial Research Institute, Gurugram, with 17 years of clinical experience. He completed his MBBS at Gauhati Medical College, his MD in General Medicine at SMS Medical College, Jaipur, and his DNB in Gastroenterology at Sir Ganga Ram Hospital, Delhi. Before joining Fortis in 2017 he practised transplant hepatology and interventional gastroenterology at Medanta – The Medicity. His practice covers transplant hepatology, endoscopic ultrasound and diagnostic and therapeutic endoscopy, and he has more than 40 publications.",
+    "is_placeholder": false,
+    "experience_years": 17
   },
   {
     "name": "Dr. Ajay Kumar Kriplani",
@@ -1100,8 +1186,9 @@
     "hospital_slug": "fortis-memorial-research-institute",
     "specialty": "General Surgery",
     "is_priority": false,
-    "bio": "Chairman, GI Surgery, General Surgery, General and Minimal Access at Fortis Memorial Research Institute, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Ajay Kumar Kriplani heads minimal access, bariatric and gastrointestinal surgery at Fortis Memorial Research Institute, Gurgaon, with more than 40 years of experience and among the first surgeons to introduce laparoscopic surgery to India. He performed the country's first laparoscopic adrenalectomy and laparoscopic splenectomy, and North India's first laparoscopic Whipple pancreatico-duodenectomy. He is a past president of the Indian Association of Gastrointestinal Endosurgeons and introduced its fellowship programme. He has held posts at Safdarjung Hospital, AIIMS, Indraprastha Apollo Hospital and the Sitaram Bhartia Institute, all in New Delhi.",
+    "is_placeholder": false,
+    "experience_years": 40
   },
   {
     "name": "Dr. Rashmi Pyasi",
@@ -1112,8 +1199,9 @@
     "hospital_slug": "fortis-memorial-research-institute",
     "specialty": "General Surgery",
     "is_priority": false,
-    "bio": "Director, GI, Minimal Access & Bariatric Surgery, General Surgery, General and Minimal Access at Fortis Memorial Research Institute, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Rashmi Pyasi is Additional Director of minimal access, bariatric and gastrointestinal surgery at Fortis Memorial Research Institute, Gurgaon, with more than 26 years of surgical experience. Her practice covers laparoscopic sleeve gastrectomy, gastric bypass and metabolic surgery for diabetes and obesity, alongside scarless single-incision gallbladder surgery. She has pioneered minimally invasive procedures in coloproctology, having performed more than 1,600 minimally invasive procedures for haemorrhoids, and also treats surgical disorders specific to women, including laparoscopic hernia repair and breast conditions.",
+    "is_placeholder": false,
+    "experience_years": 26
   },
   {
     "name": "Dr. Atul Kumar Mittal",
@@ -1124,8 +1212,9 @@
     "hospital_slug": "fortis-memorial-research-institute",
     "specialty": "ENT Care",
     "is_priority": false,
-    "bio": "Chairman, ENT at Fortis Memorial Research Institute, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Atul Kumar Mittal leads ENT at Fortis Memorial Research Institute, Gurugram, with more than 33 years of experience in advanced ear, nose and throat care, performing over 800 operations a year. He completed his MBBS at University College of Medical Sciences, Delhi, and his MS in Otorhinolaryngology at Safdarjung Hospital, New Delhi. His practice covers minimal-access endoscopic sinus and skull base surgery, balloon sinuplasty, sleep surgery, cochlear implantation, and thyroid and laryngeal surgery, along with endoscopic adenoidectomy and immunotherapy for allergic respiratory disease.",
+    "is_placeholder": false,
+    "experience_years": 33
   },
   {
     "name": "Dr. Anand Sinha",
@@ -1136,8 +1225,9 @@
     "hospital_slug": "fortis-memorial-research-institute",
     "specialty": "Paediatric Care",
     "is_priority": false,
-    "bio": "Senior Director, Paediatrics, Paediatrics and Paediatric Surgery at Fortis Memorial Research Institute, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Anand Sinha has headed paediatric surgery at Fortis Memorial Research Institute, Gurgaon, for eight years and has 17 years of surgical experience, with more than 10,000 procedures performed. He completed an MCh in Paediatric Surgery at AIIMS, New Delhi, and a fellowship in paediatric robotic urology at the University of Chicago. He was among the first paediatric surgeons in India to perform robotic surgery in children and remains among the few who still do. His practice covers neonatal surgery, paediatric gastrointestinal and thoracic surgery, paediatric urology, and paediatric solid tumours, using minimally invasive, thoracoscopic and robotic techniques.",
+    "is_placeholder": false,
+    "experience_years": 17
   },
   {
     "name": "Dr. Manoj Kumar Goel",
@@ -1148,8 +1238,9 @@
     "hospital_slug": "fortis-memorial-research-institute",
     "specialty": "Lung Care",
     "is_priority": false,
-    "bio": "Principal Director & Unit Head, Pulmonology & Sleep Medicine at Fortis Memorial Research Institute, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Manoj Kumar Goel leads pulmonology, critical care and sleep medicine at Fortis Memorial Research Institute, Gurugram, with more than 32 years of experience. He completed his MBBS and MD at King George's Medical College, Lucknow, and trained further in interventional pulmonology at the University of Lille, France, in critical care at Erasme University Hospital, Brussels, in sleep medicine at Royal Prince Alfred Hospital, Sydney, and in EBUS bronchoscopy at Royal Brisbane and Women's Hospital. He is a pioneer in India of pulmonary intervention, video bronchoscopy, sleep medicine, non-invasive ventilation and medical thoracoscopy, and has received a national research award from the National College of Chest Physicians.",
+    "is_placeholder": false,
+    "experience_years": 32
   },
   {
     "name": "Dr. Naval Mendiratta",
@@ -1160,8 +1251,9 @@
     "hospital_slug": "fortis-memorial-research-institute",
     "specialty": "Rheumatology",
     "is_priority": false,
-    "bio": "Additional Director, Rheumatology at Fortis Memorial Research Institute, Gurgaon.",
-    "is_placeholder": false
+    "bio": "Dr. Naval Mendiratta is a Senior Consultant in rheumatology and immunology at Fortis Memorial Research Institute, Gurugram, with over 12 years of experience. He completed his MBBS at Sri Ramachandra University, Chennai, in 2007, his MD in Medicine at Bharati Vidyapeeth University, Pune, in 2011, and a fellowship in rheumatology and immunology at Tan Tock Seng Hospital, Singapore, in 2013. His practice covers vasculitis, systemic lupus erythematosus and spondyloarthropathy, and he has served as a co-investigator on drug trials for biosimilars, JAK inhibitors and ANCA-associated vasculitis. He is a member of the Indian Rheumatology Association and the British Society for Rheumatology.",
+    "is_placeholder": false,
+    "experience_years": 12
   },
   {
     "name": "Dr. Arvind Kumar",
@@ -1172,7 +1264,7 @@
     "hospital_slug": "medanta-the-medicity",
     "specialty": "Lung Care",
     "is_priority": false,
-    "bio": "Chairman, Lung Transplant at Medanta – The Medicity, Gurugram.",
+    "bio": "Dr. Arvind Kumar chairs the Institute of Chest Surgery, Thoracic Oncology Surgery and Lung Transplantation at Medanta – The Medicity, Gurugram. He was Professor of Surgery and head of thoracic and robotic surgery at AIIMS, New Delhi, from 1988 to 2012, then chaired the Centre for Chest Surgery and directed robotic surgery at Sir Ganga Ram Hospital until 2020. He has performed more than 15,000 thoracic operations, over 8,000 of them by minimally invasive or robotic technique, and led North India's first double lung transplant, at Medanta in November 2022. He received the Dr. B.C. Roy Award in 2014 and founded the Lung Care Foundation.",
     "is_placeholder": false
   },
   {
@@ -1184,8 +1276,9 @@
     "hospital_slug": "medanta-the-medicity",
     "specialty": "Lung Care",
     "is_priority": false,
-    "bio": "Director, Lung Transplant at Medanta – The Medicity, Gurugram.",
-    "is_placeholder": false
+    "bio": "Dr. Belal Bin Asaf directs the Institute of Chest Surgery, Chest Onco-Surgery and Lung Transplantation at Medanta – The Medicity, Gurugram, and at Medanta, Noida, with more than 20 years of thoracic surgery experience and over 4,000 minimally invasive chest operations performed. He is a pioneer of robotic thoracic surgery in India and leads what is described as the country's largest chest surgery programme. His practice covers surgery of the lungs, mediastinum, trachea, oesophagus and diaphragm, including video-assisted and robotic operations for lung cancer, thymoma, oesophageal cancer and carcinoid tumours.",
+    "is_placeholder": false,
+    "experience_years": 20
   },
   {
     "name": "Dr. K. K. Handa",
@@ -1196,8 +1289,9 @@
     "hospital_slug": "medanta-the-medicity",
     "specialty": "ENT Care",
     "is_priority": false,
-    "bio": "Chairman, ENT - Head and Neck Surgery at Medanta – The Medicity, Gurugram.",
-    "is_placeholder": false
+    "bio": "Dr. K.K. Handa chairs ENT and head and neck surgery at Medanta – The Medicity, Gurugram, a department he has led since the hospital opened in 2009, with more than 36 years in the specialty. He was previously Associate Professor of ENT at AIIMS, New Delhi, for 13 years, and a senior resident at PGIMER, Chandigarh. He is regarded as one of India's foremost voice and laser surgeons, and introduced laryngeal framework surgery, transoral robotic surgery and botulinum toxin injection for spasmodic dysphonia to the country. His practice also covers cochlear implantation and endoscopic sinus surgery, and he is a former president of the Association of Phonosurgeons of India, which he also founded as secretary.",
+    "is_placeholder": false,
+    "experience_years": 36
   },
   {
     "name": "Dr. Sabhyata Gupta",
@@ -1208,8 +1302,9 @@
     "hospital_slug": "medanta-the-medicity",
     "specialty": "Gynaecology",
     "is_priority": false,
-    "bio": "Chairman, Gynaecology and Gynae Oncology at Medanta – The Medicity, Gurugram.",
-    "is_placeholder": false
+    "bio": "Dr. Sabhyata Gupta chairs the division of gynaecology and gynaecologic oncology at Medanta – The Medicity, Gurugram, with more than 30 years in obstetrics, gynaecology and gynaecologic oncology. She completed her MBBS at Government Medical College, Jammu, in 1987, her MD in 1991, and a diploma in gynaecological endoscopic surgery in Kiel, Germany. She was the first gynaecologist in India to perform robotic gynaecological surgery for both cancerous and benign conditions, and has trained many gynaecologists in laparoscopic and robotic technique. Her practice also covers advanced gynaecological laparoscopy, hysteroscopy and colposcopy. She is a member of the International Gynaecologic Cancer Society and the European Society of Gynaecological Oncology.",
+    "is_placeholder": false,
+    "experience_years": 30
   },
   {
     "name": "Dr. Rajiv Parakh",
@@ -1220,7 +1315,7 @@
     "hospital_slug": "medanta-the-medicity",
     "specialty": "Peripheral Vascular",
     "is_priority": false,
-    "bio": "Chairman, Peripheral Vascular and Endovascular Sciences at Medanta – The Medicity, Gurugram.",
+    "bio": "Dr. Rajiv Parakh chairs peripheral vascular and endovascular sciences at Medanta – The Medicity, Gurugram. He completed his vascular surgery training and a fellowship of the Royal College of Surgeons in the United Kingdom in 1986, and in 1990 established one of India's first independent departments of vascular surgery at a city hospital. His practice centres on carotid surgery and endovascular intervention, and he introduced endovascular aneurysm repair and carotid artery stenting to India. He is a founder member of the Vascular Society of India and of the Endovascular Intervention Society of India, and served as secretary of the International Society for Vascular Surgery in New York in 2007.",
     "is_placeholder": false
   },
   {
@@ -1232,7 +1327,8 @@
     "hospital_slug": "medanta-the-medicity",
     "specialty": "Peripheral Vascular",
     "is_priority": false,
-    "bio": "Senior Director, Peripheral Vascular and Endovascular Sciences at Medanta – The Medicity, Gurugram.",
-    "is_placeholder": false
+    "bio": "Dr. Tarun Grover is Senior Director in the division of vascular and endovascular sciences at Medanta – The Medicity, Gurugram, with 23 years of experience. He has performed around 12,000 vascular, 7,500 endovascular and more than 8,000 endovenous laser ablation procedures, and carries out about 1,000 peripheral artery duplex scans a year. His interests are endovascular repair of abdominal aortic aneurysm, carotid angioplasty, and recanalisation of chronic iliac occlusion. He is president of the Asian Society for Vascular Surgery, the Indian councillor of the Asian Vascular Society, a fellow of the American College of Surgeons, and a recognised DNB teacher and thesis guide.",
+    "is_placeholder": false,
+    "experience_years": 23
   }
 ]

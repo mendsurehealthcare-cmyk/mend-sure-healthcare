@@ -5,7 +5,14 @@ import Button from '../components/Button';
 import Icon from '../components/Icon';
 import PageHero from '../components/PageHero';
 import TreatmentCard from '../components/TreatmentCard';
+import CardiacSurgeryCostGuide from '../components/CardiacSurgeryCostGuide';
 import StateMessage from '../components/StateMessage';
+
+// The specialty the cost guide below replaces the usual card grid for. A
+// constant rather than a literal repeated in three places, and matched
+// exactly against the `specialty` column on real Cardiac Surgery treatment
+// rows, so any of those get grouped under the same filter chip as the guide.
+const CARDIAC_SURGERY_SPECIALTY = 'Cardiac Surgery';
 
 // Maps the triage picker's symptom areas onto the specialty names used in the
 // treatments table, so choosing a symptom filters the grid below.
@@ -26,7 +33,13 @@ export default function Treatments() {
 
   const specialties = useMemo(() => {
     if (!treatments) return ['All'];
-    return ['All', ...new Set(treatments.map((t) => t.specialty))];
+    const fromData = new Set(treatments.map((t) => t.specialty));
+    // Guaranteed even if the treatments table has no Cardiac Surgery rows:
+    // the cost guide below is static content, not backed by treatment
+    // records, so the filter chip that reveals it can't depend on one
+    // existing.
+    fromData.add(CARDIAC_SURGERY_SPECIALTY);
+    return ['All', ...fromData];
   }, [treatments]);
 
   const filtered = useMemo(() => {
@@ -127,14 +140,21 @@ export default function Treatments() {
       )}
 
       {treatments && (
-        <div className="mx-auto w-full max-w-7xl px-space-md py-space-3xl sm:px-space-2xl">
-          {filtered.length === 0 ? (
+        <div
+          id="treatments-grid"
+          className="mx-auto w-full max-w-7xl scroll-mt-[160px] px-space-md py-space-3xl sm:px-space-2xl"
+        >
+          {specialty === CARDIAC_SURGERY_SPECIALTY && !query.trim() ? (
+            // A price table, not the card grid: seventeen procedures as cards
+            // would be seventeen tiles to scan one at a time to compare two
+            // numbers, where a table puts all of them in view together. See
+            // CardiacSurgeryCostGuide for why this is static content rather
+            // than rows in the treatments table.
+            <CardiacSurgeryCostGuide />
+          ) : filtered.length === 0 ? (
             <StateMessage>No treatments match that search.</StateMessage>
           ) : (
-            <div
-              id="treatments-grid"
-              className="grid scroll-mt-[160px] grid-cols-1 gap-space-xl md:grid-cols-2 lg:grid-cols-3"
-            >
+            <div className="grid grid-cols-1 gap-space-xl md:grid-cols-2 lg:grid-cols-3">
               {filtered.map((treatment) => (
                 <TreatmentCard key={treatment.id} treatment={treatment} />
               ))}

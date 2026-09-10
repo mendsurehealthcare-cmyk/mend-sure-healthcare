@@ -3,6 +3,14 @@ export function formatUSD(amount) {
   return `$${Number(amount).toLocaleString('en-US')}`;
 }
 
+// en-IN groups digits in the Indian style (lakh/crore: "20,00,000" rather
+// than "2,000,000"), which is what a patient comparing Indian hospital
+// quotes actually expects to read.
+export function formatINR(amount) {
+  if (amount === null || amount === undefined) return '—';
+  return `₹${Number(amount).toLocaleString('en-IN')}`;
+}
+
 export function priceRange(min, max) {
   if (!min && !max) return 'Price on request';
   if (min && max) return `${formatUSD(min)} – ${formatUSD(max)}`;

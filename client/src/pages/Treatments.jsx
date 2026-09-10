@@ -7,15 +7,8 @@ import PageHero from '../components/PageHero';
 import TreatmentCard from '../components/TreatmentCard';
 import CardiacSurgeryCostGuide from '../components/CardiacSurgeryCostGuide';
 import CostGuideTable from '../components/CostGuideTable';
-import { TREATMENT_COST_GUIDES } from '../data/treatmentCostGuides';
+import { CARDIAC_SURGERY_SPECIALTY, TREATMENT_COST_GUIDES } from '../data/treatmentCostGuides';
 import StateMessage from '../components/StateMessage';
-
-// The specialty Cardiac Surgery's own (differently laid out — it also has the
-// Turkey/Thailand comparison table) cost guide replaces the usual card grid
-// for. A constant rather than a literal repeated in three places, and matched
-// exactly against the `specialty` column on real Cardiac Surgery treatment
-// rows, so any of those get grouped under the same filter chip as the guide.
-const CARDIAC_SURGERY_SPECIALTY = 'Cardiac Surgery';
 
 // Every other specialty with a static cost guide (client/src/data/
 // treatmentCostGuides.js) instead of a card grid. Checked ahead of the

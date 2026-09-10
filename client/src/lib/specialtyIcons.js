@@ -13,6 +13,8 @@ const SPECIALTY_ICONS = {
   'Bariatric Surgery': 'monitor_weight',
   Fertility: 'child_care',
   'IVF & Fertility': 'child_care',
+  IVF: 'child_care',
+  'Bone Marrow': 'bloodtype',
   Dental: 'dentistry',
   Gynecology: 'female',
   'Cosmetic Surgery': 'face',

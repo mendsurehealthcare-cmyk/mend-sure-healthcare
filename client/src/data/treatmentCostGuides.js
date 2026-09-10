@@ -24,6 +24,14 @@
   their `title` here is invented to match the naming pattern of the other
   seven ("Average Cost of ... in India") rather than quoted from a source.
 */
+// Cardiac Surgery's guide is its own component (CardiacSurgeryCostGuide.jsx)
+// rather than an entry here, because it carries a second table — the
+// Turkey/Thailand comparison — this shared shape has no room for. Exported
+// from here anyway so anything that needs the full set of specialties with a
+// static guide (the Treatments page's filter chips, the home page's
+// specialty grid) has one list to import instead of two.
+export const CARDIAC_SURGERY_SPECIALTY = 'Cardiac Surgery';
+
 export const TREATMENT_COST_GUIDES = {
   Oncology: [
     {
@@ -155,3 +163,11 @@ export const TREATMENT_COST_GUIDES = {
     },
   ],
 };
+
+// Cardiac Surgery first (it was the first of these built, and is the one
+// with the extra comparison table), then the rest in the order they were
+// added above.
+export const ALL_GUIDE_SPECIALTIES = [
+  CARDIAC_SURGERY_SPECIALTY,
+  ...Object.keys(TREATMENT_COST_GUIDES),
+];

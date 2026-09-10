@@ -15,6 +15,7 @@ import TreatmentCard from '../components/TreatmentCard';
 import HospitalCard from '../components/HospitalCard';
 import DoctorCardCompact from '../components/DoctorCardCompact';
 import { HOME_DOCTOR_SLUGS, pickBySlug } from '../lib/priorityDoctors';
+import { ALL_GUIDE_SPECIALTIES } from '../data/treatmentCostGuides';
 import TestimonialCard from '../components/TestimonialCard';
 import ConsultationForm from '../components/ConsultationForm';
 
@@ -64,10 +65,12 @@ export default function Home() {
   const [specialtySearch, setSpecialtySearch] = useState('');
   const [locationSearch, setLocationSearch] = useState('');
 
-  const specialties = useMemo(() => {
-    if (!treatments) return [];
-    return [...new Set(treatments.map((item) => item.specialty))];
-  }, [treatments]);
+  // The specialty grid below shows the nine specialties with a real cost
+  // guide (client/src/data/treatmentCostGuides.js) rather than whatever
+  // happens to have a treatments-table row — the three that used to appear
+  // here (Bariatric Surgery, Dental, Transplant) were leftover placeholder
+  // rows, not a considered list of the site's core specialties.
+  const specialties = ALL_GUIDE_SPECIALTIES;
 
   // Derived from live data rather than hardcoded: the API filters city with an
   // exact match, so a chip for a city we have no hospitals in would dead-end.

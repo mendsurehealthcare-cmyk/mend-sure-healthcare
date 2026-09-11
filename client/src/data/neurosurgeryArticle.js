@@ -120,9 +120,3 @@ export const NEUROSURGERY_FAQS = [
     a: 'This is extremely unlikely, as various techniques are used to prevent this. However, you should discuss this risk with your neurosurgeon individually, since the risks vary depending on the type of operation and its location.',
   },
 ];
-
-// Shown once, below the FAQ, rather than folded into any one answer — it's a
-// disclaimer about the guide as a whole, not a response to a specific
-// question.
-export const NEUROSURGERY_DISCLAIMER =
-  'This information is provided for informational purposes only and does not replace a professional medical opinion. If you have any health problems or are considering surgery, be sure to consult a neurologist or neurosurgeon.';

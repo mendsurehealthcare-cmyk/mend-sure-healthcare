@@ -17,13 +17,11 @@ import {
 } from '../data/treatmentCostGuides';
 import {
   ONCOLOGY_ARTICLE_SECTIONS,
-  ONCOLOGY_DISCLAIMER,
   ONCOLOGY_FAQS,
   ONCOLOGY_INTRO,
 } from '../data/oncologyArticle';
 import {
   NEUROSURGERY_ARTICLE_SECTIONS,
-  NEUROSURGERY_DISCLAIMER,
   NEUROSURGERY_FAQS,
   NEUROSURGERY_INTRO,
 } from '../data/neurosurgeryArticle';
@@ -37,7 +35,7 @@ import {
   SPINE_SURGERY_FAQS,
   SPINE_SURGERY_INTRO,
 } from '../data/spineSurgeryArticle';
-import { IVF_ARTICLE_SECTIONS, IVF_DISCLAIMER, IVF_FAQS, IVF_INTRO } from '../data/ivfArticle';
+import { IVF_ARTICLE_SECTIONS, IVF_FAQS, IVF_INTRO } from '../data/ivfArticle';
 import {
   GYNAECOLOGY_ARTICLE_SECTIONS,
   GYNAECOLOGY_FAQS,
@@ -77,7 +75,6 @@ const ARTICLE_GUIDES = {
     hospitalsHeading: 'Hospitals for Cancer Care',
     articleSections: ONCOLOGY_ARTICLE_SECTIONS,
     faqs: ONCOLOGY_FAQS,
-    disclaimer: ONCOLOGY_DISCLAIMER,
   },
   Neurosurgery: {
     title: 'Neurosurgery & Brain and Spine Care',
@@ -92,7 +89,6 @@ const ARTICLE_GUIDES = {
     hospitalsHeading: 'Hospitals for Neurosurgery',
     articleSections: NEUROSURGERY_ARTICLE_SECTIONS,
     faqs: NEUROSURGERY_FAQS,
-    disclaimer: NEUROSURGERY_DISCLAIMER,
   },
   Orthopedics: {
     title: 'Orthopaedic Surgery & Joint Care',
@@ -141,7 +137,6 @@ const ARTICLE_GUIDES = {
     hospitalsHeading: 'Hospitals for IVF & Fertility Treatment',
     articleSections: IVF_ARTICLE_SECTIONS,
     faqs: IVF_FAQS,
-    disclaimer: IVF_DISCLAIMER,
   },
   Gynaecology: {
     title: 'Gynaecological Surgery & Women’s Health',

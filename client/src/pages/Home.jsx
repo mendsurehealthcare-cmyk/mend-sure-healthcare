@@ -87,6 +87,16 @@ export default function Home() {
   // above uses — this spotlight has room to show more of the network at once.
   const spotlightHospitals = hospitals?.slice(0, 6) || [];
 
+  // The seed data ships three rows explicitly named "Sample Patient" with
+  // placeholder quote text (see server/db/seed.sql) — a stand-in for real,
+  // consented patient stories, not content to publish. is_placeholder marks
+  // exactly those rows, so this section simply doesn't render until real
+  // ones replace them.
+  const realTestimonials = useMemo(
+    () => (testimonials || []).filter((item) => !item.is_placeholder),
+    [testimonials]
+  );
+
   function handleHeroSearch(event) {
     event.preventDefault();
     if (specialtySearch.trim()) {
@@ -532,7 +542,7 @@ export default function Home() {
       )}
 
       {/* 10. Testimonials */}
-      {testimonials?.length > 0 && (
+      {realTestimonials.length > 0 && (
         <section className="bg-surface-container-low px-space-md py-space-3xl sm:px-space-xl">
           <div className="mx-auto max-w-7xl">
             <SectionHeading
@@ -541,7 +551,7 @@ export default function Home() {
               subtitle={t('home.testimonials.subtitle')}
             />
             <div className="grid grid-cols-1 gap-space-xl md:grid-cols-3">
-              {testimonials.slice(0, 3).map((testimonial) => (
+              {realTestimonials.slice(0, 3).map((testimonial) => (
                 <TestimonialCard key={testimonial.id} testimonial={testimonial} />
               ))}
             </div>

@@ -8,22 +8,26 @@ import LanguageSwitcher from './LanguageSwitcher';
 // labelKey rather than a literal: the label is resolved at render time so it
 // re-renders in the new language the moment the switcher changes it.
 const links = [
+  // `end` so this pill is only active on the home route itself — without it,
+  // NavLink treats every path as "starting with /" and lights this one up
+  // everywhere.
+  { to: '/', labelKey: 'nav.home', end: true },
   { to: '/treatments', labelKey: 'nav.treatments' },
   { to: '/hospitals', labelKey: 'nav.hospitals' },
   { to: '/doctors', labelKey: 'nav.doctors' },
   { to: '/how-it-works', labelKey: 'nav.howItWorks' },
-  { to: '/testimonials', labelKey: 'nav.patientStories' },
   { to: '/about', labelKey: 'nav.about' },
 ];
 
 // Nav links render as pills: the active route gets a solid navy pill, the rest
 // stay quiet until hovered.
-function NavItem({ to, labelKey, label, onClick }) {
+function NavItem({ to, labelKey, label, onClick, end }) {
   const { t } = useTranslation();
 
   return (
     <NavLink
       to={to}
+      end={end}
       onClick={onClick}
       className={({ isActive }) =>
         `rounded-lg px-space-sm py-space-xs text-body-md whitespace-nowrap transition-colors ${

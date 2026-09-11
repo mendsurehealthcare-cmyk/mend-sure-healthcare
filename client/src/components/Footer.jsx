@@ -11,7 +11,7 @@ export default function Footer() {
 
   return (
     <footer className="w-full border-t border-outline-variant/20 bg-surface-container-low py-space-2xl">
-      <div className="mx-auto mb-space-xl grid max-w-7xl grid-cols-1 gap-space-xl px-space-md sm:grid-cols-2 sm:px-space-xl lg:grid-cols-4">
+      <div className="mx-auto mb-space-xl grid max-w-7xl grid-cols-1 gap-space-xl px-space-md sm:grid-cols-2 sm:px-space-xl lg:grid-cols-3">
         <div>
           {/* The footer sits on a light surface, so the full stacked lockup —
               navy wordmark and all — is legible here as-is. */}
@@ -117,13 +117,6 @@ export default function Footer() {
               </a>
             </div>
           </address>
-        </div>
-
-        <div>
-          <h4 className="mb-space-md text-label-md font-bold text-on-surface">{t('footer.disclaimerTitle')}</h4>
-          <p className="text-body-sm leading-relaxed text-on-surface-variant">
-            {t('footer.disclaimer')}
-          </p>
         </div>
       </div>
 

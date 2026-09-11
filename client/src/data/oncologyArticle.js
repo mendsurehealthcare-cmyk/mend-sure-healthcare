@@ -124,9 +124,3 @@ export const ONCOLOGY_FAQS = [
     a: 'Cancer is much easier to treat when it is caught at an early stage, so it is critical to seek medical attention as soon as possible after suspecting it. Early detection enables much more treatment options and leads to better outcomes overall.',
   },
 ];
-
-// Shown once, below the FAQ, rather than folded into any one answer — it's a
-// disclaimer about the guide as a whole, not a response to a specific
-// question.
-export const ONCOLOGY_DISCLAIMER =
-  'This guide is for informational purposes only and should not be used in place of actual medical consultation. If you suspect that you have cancer, or if you have any other concerns, do not hesitate to consult an oncologist. If you or someone you know is diagnosed with cancer, remember that help and support are always available.';

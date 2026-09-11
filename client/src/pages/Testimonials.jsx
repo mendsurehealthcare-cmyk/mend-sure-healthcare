@@ -5,7 +5,11 @@ import TestimonialCard from '../components/TestimonialCard';
 import StateMessage from '../components/StateMessage';
 
 export default function Testimonials() {
-  const { data: testimonials, loading, error } = useApi('/testimonials');
+  const { data: rawTestimonials, loading, error } = useApi('/testimonials');
+  // Same reasoning as the home page's testimonials section: the seed data's
+  // three "Sample Patient" rows are placeholder text, not real stories, and
+  // is_placeholder marks exactly those.
+  const testimonials = rawTestimonials?.filter((item) => !item.is_placeholder);
 
   return (
     <div className="flex w-full flex-col">

@@ -11,35 +11,24 @@
   rather than a per-procedure detail page, since these procedures don't have
   one — they're reference content, same reasoning as the guides themselves.
 
-  Each `image` is a real photograph from Wikimedia Commons, not a stock
-  illustration or a photo of this site's own doctors/hospitals — no photo of
-  an actual Mend Sure procedure exists to use instead.
+  Each `image` (besides Gynaecology, see below) is one Mend Sure supplied
+  directly — branded title-card graphics dropped in images/treatments/ and
+  run through the same resize-to-webp step as the doctor and hospital photos
+  (see scripts/build-directory-images.mjs for that pattern; these aren't
+  slug-matched the same way since there's no "treatments" table row backing
+  them, so the resize happened as a one-off instead — the originals stay in
+  images/treatments/ for the next time a card here changes).
 
-  The first version of this list used photos of the procedures themselves —
-  open-chest cardiac surgery, a scalpel mid-incision, a blood-transfusion bag
-  — and was replaced after feedback that seeing the operation itself on a
-  home page a prospective patient is still deciding to trust reads as
-  frightening rather than reassuring. Every image below was deliberately
-  picked to show the reassuring side of the same care instead: a calm
-  consultation, an exam, a scan being explained, a rehab session — never an
-  open incision, blood, or an instrument mid-cut. All nine are still U.S.
-  federal government works (military or NIH/NCI) and so are public domain,
-  chosen deliberately over several Creative-Commons alternatives found during
-  the same search specifically to avoid an attribution obligation this card
-  design has no byline slot for. None depicts the specific procedure named on
-  its card — a genuinely calming, on-topic photo for "spinal fusion" or
-  "bone marrow transplant" specifically doesn't exist in the public-domain
-  supply, so each stands in for the broader reassurance of its specialty
-  instead. Source pages, for the record:
-    - Cardiac Surgery: commons.wikimedia.org/wiki/File:Nurse_takes_a_patient's_blood_pressure.jpg (NCI, Bill Branson, 1988)
-    - Oncology: commons.wikimedia.org/wiki/File:Doctor_advises_patient.jpg (NCI, Bill Branson, 1992)
-    - Neurosurgery: commons.wikimedia.org/wiki/File:Doctor_explains_x-ray_to_patient.jpg (NIH, Rhoda Baer, 2008 — an x-ray, not an MRI, but the same "a doctor is walking you through your scan" moment)
-    - Spine Surgery: commons.wikimedia.org/wiki/File:US_Navy_081610-A-6522B-002_..._gives_Army_Sgt._Charlie_McCall_a_physical_therapy_trea.jpg (U.S. Army/Navy, Landstuhl, 2008 — a physical-therapy session)
-    - Orthopedics: commons.wikimedia.org/wiki/File:Flickr_-_Official_U.S._Navy_Imagery_-_An_Officer_assists_a_physical_therapy_patient..jpg (U.S. Navy, Guatemala, 2012)
-    - IVF: commons.wikimedia.org/wiki/File:Doctor_consults_with_patient_(7).jpg (NCI, Bill Branson, 1990)
-    - Gynaecology: commons.wikimedia.org/wiki/File:Doctor_talking_with_a_patient.jpg (NIH/NCI, 2006)
-    - Liver Transplant: commons.wikimedia.org/wiki/File:Doctor_examines_patient.jpg (NCI, 2005)
-    - Bone Marrow: commons.wikimedia.org/wiki/File:Doctor_consults_with_patient_(4).jpg (NCI, 2005)
+  Two earlier passes used Wikimedia Commons media instead — first photos of
+  the procedures themselves (open-chest surgery, a blood-transfusion bag),
+  then clinical scans and anatomical plates. Both were replaced once Mend
+  Sure had its own branded artwork to use, which fits the site's own visual
+  identity in a way stock/public-domain media couldn't.
+
+  Gynaecology is the one exception: no branded image was supplied for it, so
+  it still uses the v3 Wikimedia pick — a CDC/HHS public-domain reproductive-
+  system diagram (commons.wikimedia.org/wiki/File:Scheme_female_reproductive_system-en.svg)
+  — until one is.
 */
 import { CARDIAC_SURGERY_SPECIALTY, TREATMENT_COST_GUIDES } from './treatmentCostGuides';
 
@@ -59,7 +48,7 @@ export const HOME_POPULAR_TREATMENTS = [
     name: 'Heart Bypass Surgery',
     specialty: CARDIAC_SURGERY_SPECIALTY,
     description: 'Coronary artery bypass grafting to restore blood flow to a blocked or narrowed heart artery.',
-    image: "https://upload.wikimedia.org/wikipedia/commons/8/8d/Nurse_takes_a_patient%27s_blood_pressure.jpg",
+    image: '/images/treatments/heart-bypass-surgery.webp',
     // Sourced from INDIA_COSTS in CardiacSurgeryCostGuide.jsx — not exported
     // from there, so reproduced here as the one figure this list needs.
     inr: '₹2,80,000',
@@ -69,58 +58,56 @@ export const HOME_POPULAR_TREATMENTS = [
     name: 'Breast Cancer',
     specialty: 'Oncology',
     description: 'Multidisciplinary cancer treatment combining surgery, chemotherapy, and radiation as needed.',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/7/76/Doctor_advises_patient.jpg',
+    image: '/images/treatments/breast-cancer.webp',
     ...findRow('Oncology', 'Breast Cancer'),
   },
   {
     name: 'Brain Tumour Resection',
     specialty: 'Neurosurgery',
     description: 'Surgical removal of a brain tumour to relieve pressure and halt disease progression.',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/1/13/Doctor_explains_x-ray_to_patient.jpg',
+    image: '/images/treatments/brain-tumour-resection.webp',
     ...findRow('Neurosurgery', 'Brain Tumour Resection'),
   },
   {
     name: 'Spinal Fusion',
     specialty: 'Spine Surgery',
     description: 'Permanently joins two or more vertebrae to stabilise the spine and relieve chronic pain.',
-    image:
-      'https://upload.wikimedia.org/wikipedia/commons/6/69/US_Navy_081610-A-6522B-002_Physical_therapist_Lt._Cmdr._Mitchel_Ideue%2C_Officer_in_Charge_of_Inpatient_Services_at_Landstuhl_Regional_Medical_Center%2C_in_Landstuhl%2C_Germany%2C_gives_Army_Sgt._Charlie_McCall_a_physical_therapy_trea.jpg',
+    image: '/images/treatments/spinal-fusion.webp',
     ...findRow('Spine Surgery', 'Spinal Fusion'),
   },
   {
     name: 'Unilateral Total Knee Replacement',
     specialty: 'Orthopedics',
     description: 'Replaces a single worn or damaged knee joint with a prosthetic implant.',
-    image:
-      'https://upload.wikimedia.org/wikipedia/commons/7/7c/Flickr_-_Official_U.S._Navy_Imagery_-_An_Officer_assists_a_physical_therapy_patient..jpg',
+    image: '/images/treatments/knee-replacement.webp',
     ...findRow('Orthopedics', 'Unilateral Total Knee Replacement'),
   },
   {
     name: 'IVF with ICSI',
     specialty: 'IVF',
     description: 'In-vitro fertilisation with intracytoplasmic sperm injection for assisted conception.',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/b/bb/Doctor_consults_with_patient_%287%29.jpg',
+    image: '/images/treatments/ivf-icsi.webp',
     ...findRow('IVF', 'IVF with Intracytoplasmic Sperm Injection (ICSI)'),
   },
   {
     name: 'Total Laparoscopic Hysterectomy',
     specialty: 'Gynaecology',
     description: 'Minimally invasive keyhole removal of the uterus for fibroids, prolapse, or other conditions.',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/0/0c/Doctor_talking_with_a_patient.jpg',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/6/68/Scheme_female_reproductive_system-en.svg',
     ...findRow('Gynaecology', 'Total Laparoscopic Hysterectomy (TLH)'),
   },
   {
     name: 'Living Donor Liver Transplant',
     specialty: 'Liver Transplant',
     description: 'Replaces a failing liver with a healthy portion donated by a living, matched relative.',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/6/6b/Doctor_examines_patient.jpg',
+    image: '/images/treatments/liver-transplant.webp',
     ...findRow('Liver Transplant', 'Living Donor Transplant'),
   },
   {
     name: 'Autologous Bone Marrow Transplant',
     specialty: 'Bone Marrow',
     description: "Uses a patient's own stem cells to restore healthy marrow after high-dose treatment.",
-    image: 'https://upload.wikimedia.org/wikipedia/commons/6/64/Doctor_consults_with_patient_%284%29.jpg',
+    image: '/images/treatments/bone-marrow-transplant.webp',
     ...findRow('Bone Marrow', 'Autologous BMT'),
   },
 ];

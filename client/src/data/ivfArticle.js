@@ -115,9 +115,3 @@ export const IVF_FAQS = [
     a: 'The cycle can always be repeated, and your specialist will be able to advise you on what to expect if this should happen.',
   },
 ];
-
-// Shown once, below the FAQ, rather than folded into any one answer — it's a
-// disclaimer about the guide as a whole, not a response to a specific
-// question.
-export const IVF_DISCLAIMER =
-  'This information is provided for informational purposes and is not a substitute for medical advice. Anyone considering undergoing a fertility treatment should consult with a qualified fertility specialist about their individual circumstances. Facing infertility can be an emotionally taxing experience, and professional counsel is an option that should be considered.';

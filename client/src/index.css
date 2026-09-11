@@ -18,26 +18,33 @@
 @theme {
   --font-sans: "Inter", sans-serif;
 
-  /* Primary — deep clinical navy. Headers, primary CTAs, dark sections. */
-  --color-primary: #00173b;
+  /* Primary — deep navy, per the requested palette (was #00173b). The other
+     tonal steps in this ramp aren't in that palette; they're recomputed at
+     this hue instead of left at the old navy's, so a hover or container
+     shade next to the new primary reads as one family, not two blues. */
+  --color-primary: #0b2a4a;
   --color-on-primary: #ffffff;
-  --color-primary-container: #0f2c59;
-  --color-on-primary-container: #7c94c8;
-  --color-inverse-primary: #aec7fd;
-  --color-primary-fixed: #d8e2ff;
-  --color-primary-fixed-dim: #aec7fd;
-  --color-on-primary-fixed: #001a41;
-  --color-on-primary-fixed-variant: #2d4674;
+  --color-primary-container: #0d335b;
+  --color-on-primary-container: #5da1e7;
+  --color-inverse-primary: #b7d5f4;
+  /* "Light accent" from the requested palette — the pale-cyan fill behind
+     every icon badge site-wide (specialty cards, doctor cards, feature
+     lists). */
+  --color-primary-fixed: #ddf4f5;
+  --color-primary-fixed-dim: #b7d5f4;
+  --color-on-primary-fixed: #082039;
+  --color-on-primary-fixed-variant: #15508c;
 
-  /* Secondary — medical teal. Accent CTAs, active states, highlights. */
-  --color-secondary: #00677d;
+  /* Secondary — "Teal CTA" from the requested palette (was #00677d). Same
+     recompute-the-ramp approach as primary above. */
+  --color-secondary: #087f8c;
   --color-on-secondary: #ffffff;
-  --color-secondary-container: #50d9fe;
-  --color-on-secondary-container: #005c70;
-  --color-secondary-fixed: #b3ebff;
-  --color-secondary-fixed-dim: #4cd6fb;
-  --color-on-secondary-fixed: #001f27;
-  --color-on-secondary-fixed-variant: #004e5f;
+  --color-secondary-container: #59e6f5;
+  --color-on-secondary-container: #06606a;
+  --color-secondary-fixed: #b7f4fb;
+  --color-secondary-fixed-dim: #52e5f5;
+  --color-on-secondary-fixed: #022125;
+  --color-on-secondary-fixed-variant: #05525a;
 
   /* Tertiary — accent green. Accreditation badges, positive confirmations. */
   --color-tertiary: #001e11;
@@ -55,23 +62,27 @@
   --color-error-container: #ffdad6;
   --color-on-error-container: #93000a;
 
-  /* Surfaces — the tonal layering that replaces hard borders/shadows. */
-  --color-surface: #f7f9fb;
-  --color-surface-dim: #d8dadc;
-  --color-surface-bright: #f7f9fb;
+  /* Surfaces — the tonal layering that replaces hard borders/shadows.
+     "Main background" and "Alternate section" below are exact hexes from the
+     requested palette; the container/high/highest/dim steps between and
+     below them aren't in that palette, so they're interpolated in the same
+     blue rather than left at the old neutral gray. */
+  --color-surface: #f4f8fc;
+  --color-surface-dim: #c3ddf1;
+  --color-surface-bright: #f4f8fc;
   --color-surface-container-lowest: #ffffff;
-  --color-surface-container-low: #f2f4f6;
-  --color-surface-container: #eceef0;
-  --color-surface-container-high: #e6e8ea;
-  --color-surface-container-highest: #e0e3e5;
-  --color-surface-variant: #e0e3e5;
+  --color-surface-container-low: #eaf3fa;
+  --color-surface-container: #e4eff8;
+  --color-surface-container-high: #daeaf6;
+  --color-surface-container-highest: #d1e5f4;
+  --color-surface-variant: #d1e5f4;
   --color-surface-tint: #465e8e;
-  --color-on-surface: #191c1e;
-  --color-on-surface-variant: #44474f;
+  --color-on-surface: #243b53;
+  --color-on-surface-variant: #627d98;
   --color-inverse-surface: #2d3133;
   --color-inverse-on-surface: #eff1f3;
-  --color-background: #f7f9fb;
-  --color-on-background: #191c1e;
+  --color-background: #f4f8fc;
+  --color-on-background: #243b53;
 
   /* Outlines */
   --color-outline: #747780;

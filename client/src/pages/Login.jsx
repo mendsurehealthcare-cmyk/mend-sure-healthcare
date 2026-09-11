@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useSignIn, useSignUp } from '@clerk/clerk-react';
 import { useAuth } from '../context/useAuth';
@@ -66,6 +66,24 @@ function isUnknownEmail(error) {
   return error?.errors?.some((item) => item.code === 'form_identifier_not_found');
 }
 
+// Clerk answers with this when the six digits were already redeemed by an
+// earlier attempt — which almost always means the *first* submission already
+// succeeded and this is a second, redundant one arriving late (a browser's
+// one-time-code autofill can both fill the field and submit the form, right
+// as a patient also presses the button themselves; a slow network can make a
+// patient press it twice before it visibly disables). The code itself isn't
+// wrong, so this shouldn't read as a failure to the patient — see
+// handleCodeSubmit, which checks whether the account actually did finish
+// verifying and signs them in if so, rather than showing this raw message.
+function isAlreadyVerified(error) {
+  const first = error?.errors?.[0];
+  if (!first) return false;
+  return (
+    first.code === 'verification_already_verified' ||
+    /already been verified/i.test(first.longMessage || first.message || '')
+  );
+}
+
 // New-account sign-up goes through Clerk's bot check (the `clerk-captcha`
 // element below), which silently never resolves if its challenge fails to
 // load — an ad blocker or a strict corporate network stripping third-party
@@ -112,6 +130,14 @@ function EmailCodeForm({ destination }) {
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
 
+  // A second guard alongside `busy`: `busy` only blocks the *next* render's
+  // disabled button, so two submits fired in the same tick (a one-time-code
+  // autofill submitting the form at the same moment a patient also presses
+  // the button) both read the old, not-yet-busy state and both go through.
+  // This ref is checked synchronously before either one starts, so the
+  // second is dropped regardless of render timing.
+  const submittingRef = useRef(false);
+
   const ready = signInLoaded && signUpLoaded;
 
   async function startSignUp() {
@@ -147,7 +173,8 @@ function EmailCodeForm({ destination }) {
 
   async function handleEmailSubmit(event) {
     event.preventDefault();
-    if (!ready) return;
+    if (!ready || submittingRef.current) return;
+    submittingRef.current = true;
 
     setBusy(true);
     setError('');
@@ -161,12 +188,14 @@ function EmailCodeForm({ destination }) {
       setError(readableError(err));
     } finally {
       setBusy(false);
+      submittingRef.current = false;
     }
   }
 
   async function handleCodeSubmit(event) {
     event.preventDefault();
-    if (!ready) return;
+    if (!ready || submittingRef.current) return;
+    submittingRef.current = true;
 
     setBusy(true);
     setError('');
@@ -191,9 +220,23 @@ function EmailCodeForm({ destination }) {
       await setActive({ session: result.createdSessionId });
       navigate(destination, { replace: true });
     } catch (err) {
+      // The code wasn't wrong — it was already redeemed, almost certainly by
+      // an earlier submission of this same form that actually succeeded (see
+      // isAlreadyVerified above). If that attempt did finish, Clerk's local
+      // resource already reflects it complete with a session ready to
+      // activate, so finish signing the patient in instead of telling them
+      // the code — which worked — didn't.
+      const resource = flow === 'signIn' ? signIn : signUp;
+      if (isAlreadyVerified(err) && resource?.status === 'complete' && resource.createdSessionId) {
+        await setActive({ session: resource.createdSessionId });
+        navigate(destination, { replace: true });
+        return;
+      }
+
       setError(readableError(err));
     } finally {
       setBusy(false);
+      submittingRef.current = false;
     }
   }
 

@@ -1,6 +1,8 @@
+import { useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useApi } from '../lib/useApi';
 import { hospitalImage } from '../lib/directoryImages';
+import { specialtyIcon } from '../lib/specialtyIcons';
 import Icon from '../components/Icon';
 import PageHero from '../components/PageHero';
 import StateMessage from '../components/StateMessage';
@@ -9,11 +11,23 @@ import ConsultationForm from '../components/ConsultationForm';
 export default function HospitalDetail() {
   const { slug } = useParams();
   const { data: hospital, loading, error } = useApi(`/hospitals/${slug}`);
+  // The doctors already linked to this hospital, rather than a separately
+  // maintained "specialties available" list — so it can never say something
+  // the doctor directory itself doesn't back up.
+  const { data: hospitalDoctors } = useApi(`/doctors?hospital=${slug}&pageSize=300`);
+
+  const specialtiesHere = useMemo(() => {
+    if (!hospitalDoctors) return [];
+    return [...new Set(hospitalDoctors.map((doctor) => doctor.specialty).filter(Boolean))].sort();
+  }, [hospitalDoctors]);
 
   if (loading) return <StateMessage>Loading hospital details...</StateMessage>;
   if (error || !hospital) return <StateMessage>We couldn't find that hospital.</StateMessage>;
 
   const treatmentLinks = hospital.hospital_treatments || [];
+  const yearsOpen = hospital.established_year
+    ? new Date().getFullYear() - hospital.established_year
+    : null;
 
   return (
     <div className="flex w-full flex-col">
@@ -44,6 +58,15 @@ export default function HospitalDetail() {
               </div>
             )}
 
+            {yearsOpen !== null && (
+              <div className="flex items-center justify-between gap-space-lg border-t border-primary-fixed-dim/20 pt-space-md text-body-sm">
+                <span className="text-primary-fixed-dim">Serving Patients Since</span>
+                <span className="font-bold text-secondary-container">
+                  {hospital.established_year} ({yearsOpen}+ years)
+                </span>
+              </div>
+            )}
+
             {hospital.bed_count && (
               <div className="flex items-center justify-between gap-space-lg border-t border-primary-fixed-dim/20 pt-space-md text-body-sm">
                 <span className="text-primary-fixed-dim">Capacity</span>
@@ -66,6 +89,76 @@ export default function HospitalDetail() {
       <div className="mx-auto w-full max-w-7xl px-space-md py-space-3xl sm:px-space-xl">
         <div className="grid grid-cols-1 gap-space-2xl lg:grid-cols-3">
           <div className="space-y-space-2xl lg:col-span-2">
+            {(hospital.address || yearsOpen !== null || hospital.timings) && (
+              <section>
+                <h2 className="mb-space-md text-headline-md font-bold text-primary">At a Glance</h2>
+                <div className="grid gap-space-md rounded-xl bg-surface-container-lowest p-space-lg shadow-sm sm:grid-cols-2">
+                  {hospital.address && (
+                    <div className="flex items-start gap-space-sm">
+                      <Icon name="location_on" className="mt-0.5 shrink-0 text-secondary" />
+                      <div>
+                        <p className="text-label-sm font-semibold text-on-surface">Address</p>
+                        <p className="text-body-sm text-on-surface-variant">{hospital.address}</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {yearsOpen !== null && (
+                    <div className="flex items-start gap-space-sm">
+                      <Icon name="calendar_month" className="mt-0.5 shrink-0 text-secondary" />
+                      <div>
+                        <p className="text-label-sm font-semibold text-on-surface">Established</p>
+                        <p className="text-body-sm text-on-surface-variant">
+                          {hospital.established_year} — {yearsOpen}+ years serving patients
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {hospital.timings && (
+                    <div className="flex items-start gap-space-sm">
+                      <Icon name="schedule" className="mt-0.5 shrink-0 text-secondary" />
+                      <div>
+                        <p className="text-label-sm font-semibold text-on-surface">Hours</p>
+                        <p className="text-body-sm text-on-surface-variant">{hospital.timings}</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {hospital.bed_count && (
+                    <div className="flex items-start gap-space-sm">
+                      <Icon name="bed" className="mt-0.5 shrink-0 text-secondary" />
+                      <div>
+                        <p className="text-label-sm font-semibold text-on-surface">Capacity</p>
+                        <p className="text-body-sm text-on-surface-variant">{hospital.bed_count} beds</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </section>
+            )}
+
+            {specialtiesHere.length > 0 && (
+              <section>
+                <h2 className="mb-space-md text-headline-md font-bold text-primary">
+                  Specialties Available Here
+                </h2>
+                <div className="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm">
+                  <ul className="grid gap-space-md sm:grid-cols-2">
+                    {specialtiesHere.map((item) => (
+                      <li
+                        key={item}
+                        className="flex items-center gap-space-sm text-body-md text-on-surface"
+                      >
+                        <Icon name={specialtyIcon(item)} className="shrink-0 text-secondary" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </section>
+            )}
+
             {hospital.departments?.length > 0 && (
               <section>
                 <h2 className="mb-space-md text-headline-md font-bold text-primary">Departments</h2>

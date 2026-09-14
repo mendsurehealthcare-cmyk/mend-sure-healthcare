@@ -60,6 +60,7 @@ export default function Footer() {
             <li><Link to="/contact" className={linkClasses}>{t('footer.freeQuote')}</Link></li>
             <li><Link to="/reports" className={linkClasses}>{t('nav.myReports')}</Link></li>
             <li><Link to="/login" className={linkClasses}>{t('footer.patientLogin')}</Link></li>
+            <li><Link to="/privacy-policy" className={linkClasses}>{t('footer.privacyPolicy')}</Link></li>
           </ul>
         </div>
 
@@ -89,13 +90,6 @@ export default function Footer() {
                   </a>
                 ))}
               </span>
-            </div>
-
-            <div className="flex items-start gap-space-xs">
-              <Icon name="call" className="mt-0.5 !text-[18px] shrink-0 text-secondary" />
-              <a href={COMPANY.landline.href} className={linkClasses}>
-                {COMPANY.landline.label}
-              </a>
             </div>
 
             <div className="flex items-start gap-space-xs">

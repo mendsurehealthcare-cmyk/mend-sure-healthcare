@@ -30,8 +30,8 @@
   "home": {
     "hero": {
       "badge": "RED SANITARIA GLOBAL ACREDITADA",
-      "titleLead": "Cirugía de primer nivel, al",
-      "titleHighlight": "menor coste garantizado",
+      "titleLead": "Atención de confianza, a tu lado en cada paso,",
+      "titleHighlight": "para que nunca te sientas solo",
       "subtitle": "Mend Sure conecta a pacientes de Estados Unidos, Reino Unido y otros países con hospitales acreditados en India: la misma calidad asistencial, por una fracción del coste.",
       "searchSpecialty": "Busca un tratamiento o especialidad",
       "searchCity": "Ciudad en India (opcional)",
@@ -100,7 +100,7 @@
     },
     "services": {
       "eyebrow": "Asistencia integral al paciente",
-      "title": "Nuestros servicios cubren todo lo que necesitas",
+      "title": "Cada Paso de tu Viaje, Personalmente Cuidado",
       "subtitle": "Desde tu primera opinión médica hasta la enfermería privada durante la recuperación, organizamos cada parte de tu proceso.",
       "cta": "Habla con un gestor de cuidados",
       "opinionTitle": "Opinión médica y estimación de costes",
@@ -181,6 +181,7 @@
     "aboutUs": "Sobre nosotros",
     "freeQuote": "Solicitar presupuesto gratuito",
     "patientLogin": "Acceso de pacientes",
+    "privacyPolicy": "Política de privacidad",
     "contact": "Contacto",
     "disclaimerTitle": "Aviso médico",
     "disclaimer": "El contenido de Mend Sure tiene únicamente fines informativos y no sustituye el consejo, el diagnóstico ni el tratamiento de un profesional médico. Consulta siempre a tu médico.",

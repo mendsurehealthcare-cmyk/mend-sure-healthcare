@@ -30,8 +30,8 @@
   "home": {
     "hero": {
       "badge": "ACCREDITED GLOBAL HEALTHCARE NETWORK",
-      "titleLead": "World-class surgery, at the",
-      "titleHighlight": "lowest guaranteed cost",
+      "titleLead": "Trusted care, guided every step of the way,",
+      "titleHighlight": "so you're never alone in this",
       "subtitle": "Mend Sure connects patients from the US, UK, and beyond with accredited hospitals in India — the same quality of care, at a fraction of the cost.",
       "searchSpecialty": "Find a treatment or specialty",
       "searchCity": "City in India (optional)",
@@ -110,7 +110,7 @@
     },
     "services": {
       "eyebrow": "Comprehensive Patient Assistance",
-      "title": "Our Services Cover Every Need",
+      "title": "Every Step of Your Journey, Personally Looked After",
       "subtitle": "From your first medical opinion to private nursing during recovery, every part of your treatment journey is arranged for you.",
       "cta": "Talk to a Care Manager",
       "opinionTitle": "Medical Opinion & Cost Estimations",
@@ -191,6 +191,7 @@
     "aboutUs": "About Us",
     "freeQuote": "Get a Free Quote",
     "patientLogin": "Patient Login",
+    "privacyPolicy": "Privacy Policy",
     "contact": "Contact Us",
     "disclaimerTitle": "Medical Disclaimer",
     "disclaimer": "The content provided on Mend Sure is for informational purposes only and does not substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician.",

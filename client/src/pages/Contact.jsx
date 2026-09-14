@@ -1,6 +1,7 @@
 import ConsultationForm from '../components/ConsultationForm';
 import Icon from '../components/Icon';
 import PageHero from '../components/PageHero';
+import { COMPANY } from '../lib/company';
 
 const reassurances = [
   {
@@ -66,11 +67,11 @@ export default function Contact() {
               <ul className="space-y-space-xs text-body-sm text-on-surface-variant">
                 <li className="flex items-center gap-space-xs">
                   <Icon name="mail" className="!text-[18px] text-secondary" />
-                  hello@mendsure.com
+                  {COMPANY.email}
                 </li>
                 <li className="flex items-center gap-space-xs">
                   <Icon name="call" className="!text-[18px] text-secondary" />
-                  +91 00000 00000
+                  {COMPANY.phones[0].label}
                 </li>
               </ul>
             </div>

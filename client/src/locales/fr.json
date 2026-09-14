@@ -30,8 +30,8 @@
   "home": {
     "hero": {
       "badge": "RÉSEAU DE SANTÉ MONDIAL ACCRÉDITÉ",
-      "titleLead": "Une chirurgie d'excellence, au",
-      "titleHighlight": "coût garanti le plus bas",
+      "titleLead": "Des soins de confiance, à vos côtés à chaque étape,",
+      "titleHighlight": "pour que vous ne soyez jamais seul",
       "subtitle": "Mend Sure met en relation des patients des États-Unis, du Royaume-Uni et d'ailleurs avec des hôpitaux accrédités en Inde : la même qualité de soins, pour une fraction du prix.",
       "searchSpecialty": "Trouver un traitement ou une spécialité",
       "searchCity": "Ville en Inde (facultatif)",
@@ -100,7 +100,7 @@
     },
     "services": {
       "eyebrow": "Une assistance complète aux patients",
-      "title": "Nos services couvrent tous vos besoins",
+      "title": "Chaque Étape de Votre Parcours, Prise en Charge Personnellement",
       "subtitle": "De votre premier avis médical aux soins infirmiers privés pendant la convalescence, chaque étape de votre parcours est organisée pour vous.",
       "cta": "Parler à un coordinateur de soins",
       "opinionTitle": "Avis médical et estimation des coûts",
@@ -181,6 +181,7 @@
     "aboutUs": "À propos de nous",
     "freeQuote": "Obtenir un devis gratuit",
     "patientLogin": "Espace patient",
+    "privacyPolicy": "Politique de confidentialité",
     "contact": "Nous contacter",
     "disclaimerTitle": "Avertissement médical",
     "disclaimer": "Le contenu de Mend Sure est fourni à titre informatif uniquement et ne remplace ni un avis médical professionnel, ni un diagnostic, ni un traitement. Demandez toujours conseil à votre médecin.",

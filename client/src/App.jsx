@@ -14,6 +14,7 @@ import HowItWorks from './pages/HowItWorks';
 import About from './pages/About';
 import Testimonials from './pages/Testimonials';
 import Contact from './pages/Contact';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 import Login from './pages/Login';
 import Account from './pages/Account';
 import Reports from './pages/Reports';
@@ -39,6 +40,7 @@ export default function App() {
             <Route path="/about" element={<About />} />
             <Route path="/testimonials" element={<Testimonials />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             {/* Log in, create an account, and confirm the emailed code all
                 happen on this one page. Clerk emails a six-digit code rather
                 than a link, so there is no callback route to land on. */}

@@ -201,7 +201,7 @@
     },
     "doctors": {
       "eyebrow": "Des experts de renommée mondiale",
-      "title": "Nos médecins",
+      "title": "Des soins médicaux de qualité, personnalisés pour vous.",
       "subtitle": "Des spécialistes expérimentés et certifiés dans nos hôpitaux partenaires accrédités en Inde.",
       "specialists": "Spécialistes",
       "specialties": "Spécialités",
@@ -222,9 +222,9 @@
       "subtitle": "De votre premier message à votre vol de retour, voici toutes les étapes que nous prenons en charge."
     },
     "about": {
-      "eyebrow": "Qui nous sommes",
-      "title": "À propos de MENDSURE",
-      "subtitle": "Votre partenaire de confiance pour des soins d'excellence en Inde"
+      "eyebrow": "Votre partenaire de santé mondial de confiance",
+      "title": "Des soins de classe mondiale en Inde, en toute simplicité",
+      "subtitle": "Nous mettons en relation les patients internationaux avec des hôpitaux de confiance, des spécialistes expérimentés, des technologies médicales avancées et des soins personnalisés en Inde."
     },
     "testimonials": {
       "eyebrow": "Des parcours de patients bien réels",

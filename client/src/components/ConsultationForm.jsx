@@ -19,7 +19,7 @@ const fieldClasses =
 
 const labelClasses = 'mb-space-3xs block text-label-sm font-semibold text-on-surface-variant';
 
-export default function ConsultationForm({ sourcePage }) {
+export default function ConsultationForm({ sourcePage, bare = false }) {
   const { t } = useTranslation();
   const [form, setForm] = useState(initialForm);
   const [status, setStatus] = useState('idle'); // idle | submitting | success | error
@@ -63,7 +63,7 @@ export default function ConsultationForm({ sourcePage }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-space-md rounded-xl bg-surface-container-lowest p-space-lg shadow-sm"
+      className={`space-y-space-md ${bare ? '' : 'rounded-xl bg-surface-container-lowest p-space-lg shadow-sm'}`}
     >
       {/* Honeypot field: hidden from real visitors, bots tend to fill every input */}
       <input

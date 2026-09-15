@@ -6,6 +6,7 @@ import Icon from '../components/Icon';
 import StatBadge from '../components/StatBadge';
 import HospitalWideCard from '../components/HospitalWideCard';
 import StateMessage from '../components/StateMessage';
+import PaginatedGrid from '../components/PaginatedGrid';
 
 const HERO_IMAGE =
   'https://lh3.googleusercontent.com/aida-public/AB6AXuDE9idZWJ-5x6_Pndnsxh1wogzVY63HxhLQFj2BydHPNnrWaqlZusK4QJhI9pBfKyzy9cPC8wB0Ay_lyxbP5WalF9EKhv-VhkAewwS52nmgjCXv7afEtpuo8ozqgftcQDvdxZ1g_1o9KLI5Ey0opcgd7SaNBccDwHJLOkclb6BWORsBvvJvUVz4NNeggALJAalvMKwAUBuQkE8g5R1Wwk5j-Luj5aILjK9OdWnoOkMqhwkZsKhyuiSY';
@@ -41,7 +42,11 @@ export default function Hospitals() {
     data: hospitals,
     loading,
     error,
-  } = useApi(cityParam ? `/hospitals?city=${encodeURIComponent(cityParam)}` : '/hospitals');
+  } = useApi(
+    cityParam
+      ? `/hospitals?city=${encodeURIComponent(cityParam)}&pageSize=300`
+      : '/hospitals?pageSize=300'
+  );
 
   const [query, setQuery] = useState('');
   const [city, setCity] = useState('all');
@@ -121,7 +126,7 @@ export default function Hospitals() {
             </div>
 
             <h1 className="mb-space-md text-headline-xl text-on-primary">
-              World-Class Partner Hospitals &amp; Advanced Medical Facilities
+              Connecting Patients Worldwide With Trusted Healthcare
             </h1>
             <p className="mb-space-xl max-w-2xl text-body-lg leading-relaxed text-inverse-on-surface">
               Access internationally accredited institutions across India, with dedicated
@@ -257,11 +262,12 @@ export default function Hospitals() {
         )}
 
         {filtered.length > 0 && (
-          <div className="flex flex-col gap-space-xl">
-            {filtered.map((hospital) => (
-              <HospitalWideCard key={hospital.id} hospital={hospital} />
-            ))}
-          </div>
+          <PaginatedGrid
+            items={filtered}
+            pageSize={7}
+            gridClassName="flex flex-col gap-space-xl"
+            renderItem={(hospital) => <HospitalWideCard key={hospital.id} hospital={hospital} />}
+          />
         )}
 
         {/* Patient experience band */}

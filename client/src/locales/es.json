@@ -201,7 +201,7 @@
     },
     "doctors": {
       "eyebrow": "Especialistas de referencia mundial",
-      "title": "Nuestros médicos",
+      "title": "Atención médica de calidad, personalizada para ti.",
       "subtitle": "Especialistas certificados y con experiencia en nuestros hospitales asociados acreditados de India.",
       "specialists": "Especialistas",
       "specialties": "Especialidades",
@@ -222,9 +222,9 @@
       "subtitle": "Desde tu primer mensaje hasta tu vuelo de vuelta, estos son todos los pasos de los que nos ocupamos."
     },
     "about": {
-      "eyebrow": "Quiénes somos",
-      "title": "Sobre MENDSURE",
-      "subtitle": "Tu socio de confianza para una atención sanitaria de primer nivel en India"
+      "eyebrow": "Tu socio de confianza en salud global",
+      "title": "Atención sanitaria de primer nivel en India, sin complicaciones",
+      "subtitle": "Conectamos a pacientes internacionales con hospitales de confianza, especialistas experimentados, tecnología médica avanzada y una atención personalizada en India."
     },
     "testimonials": {
       "eyebrow": "Casos reales de pacientes",

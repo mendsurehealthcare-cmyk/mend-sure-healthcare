@@ -26,27 +26,61 @@ const hospitalGroups = [
   {
     city: 'Gurgaon',
     hospitals: [
-      'Fortis Memorial Research Institute',
-      'Medanta – The Medicity',
       'Artemis Hospital',
+      'CK Birla Hospital',
+      'Fortis Hospital, Manesar',
+      'Fortis Memorial Research Institute',
+      'Marengo Asia Hospitals, Gurgaon',
+      'Max Super Speciality Hospital, Gurgaon',
+      'Medanta – The Medicity',
       'Paras Hospital',
+      'Shalby Sanar International Hospital',
     ],
   },
   {
     city: 'Delhi',
     hospitals: [
-      'Max Super Speciality Hospital, Saket',
-      'Fortis Escorts Heart Institute, Okhla',
-      'BLK-Max Super Speciality Hospital',
-      'Indraprastha Apollo Hospital',
-      'Max Super Speciality Hospital, Vaishali',
-      'Manipal Hospital, Dwarka',
       'Aakash Healthcare Super Speciality Hospital',
+      'BLK-Max Super Speciality Hospital',
+      'Delhi Heart and Lung Institute',
+      'Fortis Escorts Heart Institute, Okhla',
+      'Fortis Hospital, Shalimar Bagh',
+      'Fortis Hospital, Vasant Kunj',
+      'IBS Institute of Brain and Spine',
+      'Indian Spinal Injuries Centre',
+      'Indraprastha Apollo Hospital',
+      'Institute of Liver and Biliary Sciences',
+      'Manipal Hospital, Dwarka',
+      'Max Smart Super Speciality Hospital, Saket',
+      'Max Super Speciality Hospital, Panchsheel Park',
+      'Max Super Speciality Hospital, Patparganj',
+      'Max Super Speciality Hospital, Saket',
+      'Max Super Speciality Hospital, Shalimar Bagh',
+      'Max Super Speciality Hospital, Vaishali',
+      'National Heart Institute',
+      'Primus Super Speciality Hospital',
+      'Venkateshwar Hospital',
+      'Vimhans Nayati Super Specialty Hospital',
+    ],
+  },
+  {
+    city: 'Faridabad',
+    hospitals: [
+      'Asian Institute of Medical Sciences',
+      'Fortis Escorts Hospital, Faridabad',
+      'Marengo Asia Hospitals, Faridabad',
+      'Metro Hospital, Faridabad',
+      'Sarvodaya Hospital',
+      'SSB Heart and Multispecialty Hospital',
     ],
   },
   {
     city: 'Noida',
-    hospitals: ['Fortis Hospital, Sector 62'],
+    hospitals: [
+      'Fortis Hospital, Noida Sector 62',
+      'Max Super Speciality Hospital, Sector 128',
+      'Yashoda Hospital & Research Centre, Ghaziabad',
+    ],
   },
 ];
 
@@ -58,6 +92,34 @@ const assistance = [
   { icon: 'flight_takeoff', text: 'Assistance with travel, airport transfers, and accommodation' },
   { icon: 'translate', text: 'Translating and interpreter services' },
   { icon: 'local_pharmacy', text: 'Pharmacy and nursing support services' },
+];
+
+const values = [
+  {
+    icon: 'favorite',
+    title: 'The patient comes first',
+    text: 'Every decision starts with one question: what is best for the person in our care? Comfort, clarity, and dignity are never optional extras.',
+  },
+  {
+    icon: 'fact_check',
+    title: 'Honesty in everything',
+    text: 'Clear estimates, realistic expectations, and no hidden surprises. We would rather tell you the hard truth than an easy half-answer.',
+  },
+  {
+    icon: 'support_agent',
+    title: 'Care beyond the clinic',
+    text: 'Healing is more than a procedure. We look after the travel, the family, the language, and the in-between moments that matter.',
+  },
+  {
+    icon: 'workspace_premium',
+    title: 'Excellence you can trust',
+    text: 'We partner only with accredited hospitals and experienced specialists, so world-class medicine sits behind every recommendation we make.',
+  },
+  {
+    icon: 'public',
+    title: 'Compassion without borders',
+    text: 'Wherever you come from, whatever language you speak, you are welcome here — and you will never feel like a stranger in our care.',
+  },
 ];
 
 const reasons = [
@@ -128,7 +190,7 @@ function AboutImageCard() {
                 {totalHospitals} partner hospitals
               </p>
               <p className="text-body-sm text-primary-fixed-dim">
-                Across Delhi, Gurgaon &amp; Noida
+                Across Delhi, Gurgaon, Faridabad &amp; Noida
               </p>
             </div>
           </div>
@@ -177,20 +239,99 @@ export default function About() {
 
             <div className="space-y-space-md text-body-lg leading-relaxed text-on-surface-variant">
               <p>
-                MENDSURE is a healthcare and medical travel assistance service that connects
-                patients from across the globe with some of India's most respected hospitals and
-                specialist doctors. We have done the hard work of building trusted relationships
-                with these acclaimed healthcare providers — so from the moment you contact us, you
-                are in the right hands.
+                At Mendsure Healthcare Services, we connect international patients with trusted
+                hospitals, experienced specialists, advanced medical technology, and personalised
+                healthcare in India.
               </p>
               <p>
-                We are here to ensure you are given the best possible options when looking for a
-                doctor, a hospital, or treatment abroad.
+                From your first medical inquiry to treatment, travel, accommodation, and follow-up
+                care, our team helps make your healthcare journey trusted, transparent, affordable,
+                and stress-free.
               </p>
             </div>
           </div>
 
           <AboutImageCard />
+        </div>
+      </section>
+
+      {/* Vision, mission, and the values behind every patient interaction. */}
+      <section className="bg-surface-container-low px-space-md py-space-3xl sm:px-space-xl">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeading
+            eyebrow="Care That Travels With You"
+            title="Our Vision & Mission"
+            subtitle="We help patients from around the world reach world-class treatment in India — and we walk beside them at every step, because healing should never feel like a journey taken alone."
+          />
+
+          <div className="grid grid-cols-1 gap-space-xl lg:grid-cols-2">
+            <div className="flex h-full flex-col rounded-xl bg-surface-container-lowest p-space-lg shadow-sm sm:p-space-xl">
+              <div className="mb-space-md flex h-12 w-12 items-center justify-center rounded-lg bg-primary-fixed text-primary">
+                <Icon name="visibility" className="!text-[24px]" />
+              </div>
+              <h3 className="mb-space-sm text-headline-md font-bold text-balance text-primary">
+                Our Vision
+              </h3>
+              <p className="mb-space-md border-l-2 border-secondary pl-space-md text-body-md leading-relaxed font-medium text-on-surface">
+                To be the trusted bridge that brings patients from every corner of the world to
+                exceptional, affordable care in India — treating each person not as a case, but as
+                someone's parent, partner, or child who deserves to be looked after with warmth and
+                dignity.
+              </p>
+              <p className="text-body-md leading-relaxed text-on-surface-variant">
+                For many families, life-changing treatment feels out of reach — priced beyond what
+                they can afford at home. Our vision is a world where that distance disappears: where
+                a diagnosis is met not with fear about cost, but with a clear, caring hand guiding
+                the way to skilled doctors and real recovery.
+              </p>
+            </div>
+
+            <div className="flex h-full flex-col rounded-xl bg-surface-container-lowest p-space-lg shadow-sm sm:p-space-xl">
+              <div className="mb-space-md flex h-12 w-12 items-center justify-center rounded-lg bg-primary-fixed text-primary">
+                <Icon name="flag" className="!text-[24px]" />
+              </div>
+              <h3 className="mb-space-sm text-headline-md font-bold text-balance text-primary">
+                Our Mission
+              </h3>
+              <p className="mb-space-md text-body-md leading-relaxed text-on-surface-variant">
+                Every day, we work to make the path to treatment simple, safe, and human. We connect
+                international patients with India's leading hospitals and specialists, and take
+                care of everything around the medicine — the questions, the paperwork, the travel,
+                the language, and the small worries that keep a family up at night.
+              </p>
+              <p className="mt-auto border-l-2 border-secondary pl-space-md text-body-md leading-relaxed text-on-surface">
+                Our promise is straightforward: quality care, honest guidance, and a person you can
+                count on from the first message to the flight home. We measure our success not in
+                numbers, but in patients who arrive anxious and leave healed — and heard.
+              </p>
+            </div>
+          </div>
+
+          <p className="mx-auto mt-space-xl max-w-3xl text-center text-headline-sm leading-relaxed text-balance text-primary">
+            We believe no one should have to choose between the care they need and the cost of
+            getting it.
+          </p>
+
+          <h3 className="mt-space-2xl mb-space-lg text-center text-headline-md font-bold text-on-surface">
+            Our Core Values
+          </h3>
+
+          <ul className="grid grid-cols-1 gap-space-md md:grid-cols-2 lg:grid-cols-3">
+            {values.map((value) => (
+              <li
+                key={value.title}
+                className="flex items-start gap-space-md rounded-xl bg-surface-container-lowest p-space-md shadow-sm"
+              >
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-secondary-container text-on-secondary-container">
+                  <Icon name={value.icon} className="!text-[20px]" />
+                </div>
+                <div>
+                  <h4 className="text-label-md font-semibold text-on-surface">{value.title}</h4>
+                  <p className="text-body-sm text-on-surface-variant">{value.text}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
@@ -203,11 +344,11 @@ export default function About() {
             subtitle="The success of any treatment starts with the hospitals and doctors providing it. We partner with world-class multi-speciality and super-speciality hospitals across Delhi NCR, known for excellent patient care, advanced technology, and international-standard facilities."
           />
 
-          <div className="grid grid-cols-1 gap-space-lg lg:grid-cols-3">
+          <div className="grid grid-cols-1 items-start gap-space-lg sm:grid-cols-2 lg:grid-cols-4">
             {hospitalGroups.map((group) => (
               <div
                 key={group.city}
-                className="flex h-full flex-col rounded-xl bg-surface-container-lowest p-space-lg shadow-sm"
+                className="flex flex-col rounded-xl bg-surface-container-lowest p-space-lg shadow-sm"
               >
                 <div className="mb-space-md flex items-center gap-space-sm border-b border-outline-variant/20 pb-space-sm">
                   <Icon name="location_on" className="!text-[20px] text-secondary" />

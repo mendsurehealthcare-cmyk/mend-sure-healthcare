@@ -10,8 +10,23 @@
     "city": "Gurgaon"
   },
   {
+    "name": "Asian Institute of Medical Sciences",
+    "slug": "asian-institute-of-medical-sciences",
+    "city": "Faridabad"
+  },
+  {
     "name": "BLK-Max Super Speciality Hospital",
     "slug": "blk-max-super-speciality-hospital",
+    "city": "Delhi"
+  },
+  {
+    "name": "CK Birla Hospital",
+    "slug": "ck-birla-hospital",
+    "city": "Gurgaon"
+  },
+  {
+    "name": "Delhi Heart and Lung Institute",
+    "slug": "delhi-heart-and-lung-institute",
     "city": "Delhi"
   },
   {
@@ -20,9 +35,29 @@
     "city": "Delhi"
   },
   {
+    "name": "Fortis Escorts Hospital, Faridabad",
+    "slug": "fortis-escorts-hospital-faridabad",
+    "city": "Faridabad"
+  },
+  {
+    "name": "Fortis Hospital, Manesar",
+    "slug": "fortis-hospital-manesar",
+    "city": "Gurgaon"
+  },
+  {
     "name": "Fortis Hospital, Noida Sector 62",
     "slug": "fortis-hospital-noida-sector-62",
     "city": "Noida"
+  },
+  {
+    "name": "Fortis Hospital, Shalimar Bagh",
+    "slug": "fortis-hospital-shalimar-bagh",
+    "city": "Delhi"
+  },
+  {
+    "name": "Fortis Hospital, Vasant Kunj",
+    "slug": "fortis-hospital-vasant-kunj",
+    "city": "Delhi"
   },
   {
     "name": "Fortis Memorial Research Institute",
@@ -30,8 +65,23 @@
     "city": "Gurgaon"
   },
   {
+    "name": "IBS Institute of Brain and Spine",
+    "slug": "ibs-institute-of-brain-and-spine",
+    "city": "Delhi"
+  },
+  {
+    "name": "Indian Spinal Injuries Centre",
+    "slug": "indian-spinal-injuries-centre",
+    "city": "Delhi"
+  },
+  {
     "name": "Indraprastha Apollo Hospital",
     "slug": "indraprastha-apollo-hospital",
+    "city": "Delhi"
+  },
+  {
+    "name": "Institute of Liver and Biliary Sciences",
+    "slug": "institute-of-liver-and-biliary-sciences",
     "city": "Delhi"
   },
   {
@@ -40,8 +90,48 @@
     "city": "Delhi"
   },
   {
+    "name": "Marengo Asia Hospitals, Faridabad",
+    "slug": "marengo-asia-hospitals-faridabad",
+    "city": "Faridabad"
+  },
+  {
+    "name": "Marengo Asia Hospitals, Gurgaon",
+    "slug": "marengo-asia-hospitals-gurgaon",
+    "city": "Gurgaon"
+  },
+  {
+    "name": "Max Smart Super Speciality Hospital, Saket",
+    "slug": "max-smart-super-speciality-saket",
+    "city": "Delhi"
+  },
+  {
+    "name": "Max Super Speciality Hospital, Gurgaon",
+    "slug": "max-super-speciality-gurgaon",
+    "city": "Gurgaon"
+  },
+  {
+    "name": "Max Super Speciality Hospital, Panchsheel Park",
+    "slug": "max-super-speciality-panchsheel-park",
+    "city": "Delhi"
+  },
+  {
+    "name": "Max Super Speciality Hospital, Patparganj",
+    "slug": "max-super-speciality-patparganj",
+    "city": "Delhi"
+  },
+  {
     "name": "Max Super Speciality Hospital, Saket",
     "slug": "max-super-speciality-saket",
+    "city": "Delhi"
+  },
+  {
+    "name": "Max Super Speciality Hospital, Sector 128",
+    "slug": "max-super-speciality-sector-128",
+    "city": "Noida"
+  },
+  {
+    "name": "Max Super Speciality Hospital, Shalimar Bagh",
+    "slug": "max-super-speciality-shalimar-bagh",
     "city": "Delhi"
   },
   {
@@ -55,8 +145,53 @@
     "city": "Gurgaon"
   },
   {
+    "name": "Metro Hospital, Faridabad",
+    "slug": "metro-hospital-faridabad",
+    "city": "Faridabad"
+  },
+  {
+    "name": "National Heart Institute",
+    "slug": "national-heart-institute",
+    "city": "Delhi"
+  },
+  {
     "name": "Paras Hospital",
     "slug": "paras-hospital",
     "city": "Gurgaon"
+  },
+  {
+    "name": "Primus Super Speciality Hospital",
+    "slug": "primus-super-speciality-hospital",
+    "city": "Delhi"
+  },
+  {
+    "name": "Sarvodaya Hospital",
+    "slug": "sarvodaya-hospital",
+    "city": "Faridabad"
+  },
+  {
+    "name": "Shalby Sanar International Hospital",
+    "slug": "shalby-sanar-international-hospital",
+    "city": "Gurgaon"
+  },
+  {
+    "name": "SSB Heart and Multispecialty Hospital",
+    "slug": "ssb-heart-and-multispecialty-hospital",
+    "city": "Faridabad"
+  },
+  {
+    "name": "Venkateshwar Hospital",
+    "slug": "venkateshwar-hospital",
+    "city": "Delhi"
+  },
+  {
+    "name": "Vimhans Nayati Super Specialty Hospital",
+    "slug": "vimhans-nayati-super-specialty-hospital",
+    "city": "Delhi"
+  },
+  {
+    "name": "Yashoda Hospital & Research Centre, Ghaziabad",
+    "slug": "yashoda-hospital-research-centre",
+    "city": "Noida"
   }
 ]

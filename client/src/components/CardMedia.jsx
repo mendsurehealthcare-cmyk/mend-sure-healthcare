@@ -16,11 +16,12 @@ export default function CardMedia({
   return (
     <div className={`relative overflow-hidden rounded-lg ${className}`}>
       {image ? (
-        <div
-          className="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
-          style={{ backgroundImage: `url('${image}')` }}
-          role="img"
-          aria-label={alt || label}
+        <img
+          src={image}
+          alt={alt || label || ''}
+          loading="lazy"
+          decoding="async"
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
       ) : (
         <div className="flex h-full w-full flex-col items-center justify-center gap-space-xs bg-primary-fixed text-primary">

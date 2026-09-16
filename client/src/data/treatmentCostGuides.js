@@ -109,6 +109,30 @@ export const TREATMENT_COST_GUIDES = {
     },
   ],
 
+  'Liver Transplant': [
+    {
+      title: 'Average Cost of Liver Transplant in India',
+      columns: ['Donor Type', 'Cost in India (INR)', 'Cost in India (USD)'],
+      rows: [
+        ['Living Donor Transplant', '₹16,00,000 – 18,00,000', '$25,000 – 32,000'],
+        ['Deceased Donor Transplant', '₹20,00,000 – 22,00,000', '$33,000 – 36,000'],
+      ],
+    },
+  ],
+
+  'Bone Marrow': [
+    {
+      title: 'What Affects the Cost of a Bone Marrow Transplant in India?',
+      subtitle:
+        'BMT pricing in India varies mainly with the type of transplant, the donor source, the facility, and any complications. The most common factor is the type of transplant itself — autologous, allogeneic, or umbilical cord blood.',
+      columns: ['Type of BMT', 'Cost in India (INR)', 'Cost in India (USD)'],
+      rows: [
+        ['Autologous BMT', '₹8,15,000 – 10,00,000', '$15,000 – 18,000'],
+        ['Allogeneic BMT', '₹14,00,000 – 14,50,000', '$25,000 – 26,000'],
+      ],
+    },
+  ],
+
   IVF: [
     {
       title: 'Average Cost of IVF Treatments in India',
@@ -135,30 +159,6 @@ export const TREATMENT_COST_GUIDES = {
         ['Laparoscopic Polypectomy', '₹65,000', '$1,100'],
         ['Laparoscopic Oophorectomy', '₹1,75,000', '$3,100'],
         ['Laparoscopic Cystectomy', '₹1,50,000', '$2,700'],
-      ],
-    },
-  ],
-
-  'Liver Transplant': [
-    {
-      title: 'Average Cost of Liver Transplant in India',
-      columns: ['Donor Type', 'Cost in India (INR)', 'Cost in India (USD)'],
-      rows: [
-        ['Living Donor Transplant', '₹16,00,000 – 18,00,000', '$25,000 – 32,000'],
-        ['Deceased Donor Transplant', '₹20,00,000 – 22,00,000', '$33,000 – 36,000'],
-      ],
-    },
-  ],
-
-  'Bone Marrow': [
-    {
-      title: 'What Affects the Cost of a Bone Marrow Transplant in India?',
-      subtitle:
-        'BMT pricing in India varies mainly with the type of transplant, the donor source, the facility, and any complications. The most common factor is the type of transplant itself — autologous, allogeneic, or umbilical cord blood.',
-      columns: ['Type of BMT', 'Cost in India (INR)', 'Cost in India (USD)'],
-      rows: [
-        ['Autologous BMT', '₹8,15,000 – 10,00,000', '$15,000 – 18,000'],
-        ['Allogeneic BMT', '₹14,00,000 – 14,50,000', '$25,000 – 26,000'],
       ],
     },
   ],

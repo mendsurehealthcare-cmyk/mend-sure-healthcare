@@ -6,6 +6,16 @@ const router = asyncRouter();
 
 const SORTABLE_COLUMNS = new Set(['name', 'experience_years']);
 
+// Listing cards (Home, Doctors, a hospital's doctor list) show only name,
+// photo, specialty, designation/department, hospital and years — never the
+// bio, education, awards, career history or publications that the profile
+// page needs. Selecting those columns here too meant every listing request
+// carried the full text of all three, which on a 100+ doctor directory added
+// up to a six-figure payload for data no listing view renders. The detail
+// route below still selects '*' since a single profile does need everything.
+const LIST_COLUMNS =
+  'id, name, slug, specialty, designation, department, hospital_id, hospital_name, experience_years, image_url, is_placeholder, is_priority';
+
 // GET /api/doctors?hospital=some-hospital-slug&specialty=Cardiac Surgery&sort=name&order=asc&page=1&pageSize=20
 router.get('/', async (req, res) => {
   const sort = SORTABLE_COLUMNS.has(req.query.sort) ? req.query.sort : 'name';
@@ -25,7 +35,9 @@ router.get('/', async (req, res) => {
   // fetchFullRange below needs to build a fresh sub-range query per call,
   // since a Supabase query object can only be awaited once.
   const buildQuery = (withPriority) => (rangeFrom, rangeTo) => {
-    let q = supabase.from('doctors').select('*, hospitals(id, name, slug, city)', { count: 'exact' });
+    let q = supabase
+      .from('doctors')
+      .select(`${LIST_COLUMNS}, hospitals(id, name, slug, city)`, { count: 'exact' });
     if (withPriority) q = q.order('is_priority', { ascending: false });
     q = q.order(sort, { ascending }).range(rangeFrom, rangeTo);
 

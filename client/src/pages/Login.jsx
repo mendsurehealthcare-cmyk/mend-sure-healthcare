@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { useSignIn, useSignUp } from '@clerk/clerk-react';
+import { useAuth as useClerkAuth, useSignIn, useSignUp } from '@clerk/clerk-react';
 import { useAuth } from '../context/useAuth';
 import { clerkConfigured, CLERK_MISSING_MESSAGE } from '../lib/clerk';
 import Icon from '../components/Icon';
@@ -59,11 +59,17 @@ function readableError(error) {
   }
 }
 
-// Clerk answers with this when the address has never been seen, which is how
-// an unknown email is told apart from a real failure — it is the signal to
-// create the account rather than sign in to one.
+// Clerk answers with this when the address has never been seen — the log-in
+// tab uses it to point the patient at "Create Account" instead of guessing
+// which one they meant.
 function isUnknownEmail(error) {
   return error?.errors?.some((item) => item.code === 'form_identifier_not_found');
+}
+
+// Clerk answers with this from signUp.create when the address already has an
+// account — the create-account tab uses it to point back at "Log In".
+function isEmailTaken(error) {
+  return error?.errors?.some((item) => item.code === 'form_identifier_exists');
 }
 
 // Clerk answers with this when the six digits were already redeemed by an
@@ -110,265 +116,6 @@ function withTimeout(promise) {
   ]);
 }
 
-/*
-  The whole of signing in: one email field, then the six digits Clerk emails
-  back. There is no password anywhere, so there is nothing to forget, nothing
-  to reset, and no separate "create account" path — an address we have never
-  seen simply gets an account instead of a session, which is why the button
-  says "Continue" rather than either.
-*/
-function EmailCodeForm({ destination }) {
-  const navigate = useNavigate();
-  const { isLoaded: signInLoaded, signIn, setActive } = useSignIn();
-  const { isLoaded: signUpLoaded, signUp } = useSignUp();
-
-  const [step, setStep] = useState('email'); // email | code
-  const [flow, setFlow] = useState('signIn'); // signIn | signUp
-  const [email, setEmail] = useState('');
-  const [code, setCode] = useState('');
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState('');
-  const [notice, setNotice] = useState('');
-
-  // A second guard alongside `busy`: `busy` only blocks the *next* render's
-  // disabled button, so two submits fired in the same tick (a one-time-code
-  // autofill submitting the form at the same moment a patient also presses
-  // the button) both read the old, not-yet-busy state and both go through.
-  // This ref is checked synchronously before either one starts, so the
-  // second is dropped regardless of render timing.
-  const submittingRef = useRef(false);
-
-  const ready = signInLoaded && signUpLoaded;
-
-  async function startSignUp() {
-    await signUp.create({ emailAddress: email });
-    await signUp.prepareEmailAddressVerification({ strategy: 'email_code' });
-    setFlow('signUp');
-  }
-
-  async function sendCode() {
-    try {
-      const attempt = await signIn.create({ identifier: email });
-
-      // Which of the account's addresses to mail. Passwordless instances
-      // return one email_code factor per verified address.
-      const factor = attempt.supportedFirstFactors?.find(
-        (item) => item.strategy === 'email_code'
-      );
-
-      if (!factor) {
-        throw new Error('This account cannot be signed in to by email code.');
-      }
-
-      await signIn.prepareFirstFactor({
-        strategy: 'email_code',
-        emailAddressId: factor.emailAddressId,
-      });
-      setFlow('signIn');
-    } catch (err) {
-      if (!isUnknownEmail(err)) throw err;
-      await startSignUp();
-    }
-  }
-
-  async function handleEmailSubmit(event) {
-    event.preventDefault();
-    if (!ready || submittingRef.current) return;
-    submittingRef.current = true;
-
-    setBusy(true);
-    setError('');
-    setNotice('');
-
-    try {
-      await withTimeout(sendCode());
-      setStep('code');
-      setNotice(`We've emailed a six-digit code to ${email}.`);
-    } catch (err) {
-      setError(readableError(err));
-    } finally {
-      setBusy(false);
-      submittingRef.current = false;
-    }
-  }
-
-  async function handleCodeSubmit(event) {
-    event.preventDefault();
-    if (!ready || submittingRef.current) return;
-    submittingRef.current = true;
-
-    setBusy(true);
-    setError('');
-    setNotice('');
-
-    try {
-      const result = await withTimeout(
-        flow === 'signIn'
-          ? signIn.attemptFirstFactor({ strategy: 'email_code', code })
-          : signUp.attemptEmailAddressVerification({ code })
-      );
-
-      if (result.status !== 'complete') {
-        // Clerk needs something more before it will hand over a session —
-        // another factor, or a field the instance requires at signup. Nothing
-        // in this flow asks for either, so it means the Clerk instance is
-        // configured differently from what this page implements.
-        setError('We need a little more to finish signing you in. Please contact us for help.');
-        return;
-      }
-
-      await setActive({ session: result.createdSessionId });
-      navigate(destination, { replace: true });
-    } catch (err) {
-      // The code wasn't wrong — it was already redeemed, almost certainly by
-      // an earlier submission of this same form that actually succeeded (see
-      // isAlreadyVerified above). If that attempt did finish, Clerk's local
-      // resource already reflects it complete with a session ready to
-      // activate, so finish signing the patient in instead of telling them
-      // the code — which worked — didn't.
-      const resource = flow === 'signIn' ? signIn : signUp;
-      if (isAlreadyVerified(err) && resource?.status === 'complete' && resource.createdSessionId) {
-        await setActive({ session: resource.createdSessionId });
-        navigate(destination, { replace: true });
-        return;
-      }
-
-      setError(readableError(err));
-    } finally {
-      setBusy(false);
-      submittingRef.current = false;
-    }
-  }
-
-  async function handleResend() {
-    setBusy(true);
-    setError('');
-    setNotice('');
-
-    try {
-      if (flow === 'signUp') {
-        await signUp.prepareEmailAddressVerification({ strategy: 'email_code' });
-      } else {
-        const factor = signIn.supportedFirstFactors?.find(
-          (item) => item.strategy === 'email_code'
-        );
-        await signIn.prepareFirstFactor({
-          strategy: 'email_code',
-          emailAddressId: factor?.emailAddressId,
-        });
-      }
-      setNotice(`We've sent another code to ${email}.`);
-    } catch (err) {
-      setError(readableError(err));
-    } finally {
-      setBusy(false);
-    }
-  }
-
-  function startOver() {
-    setStep('email');
-    setCode('');
-    setError('');
-    setNotice('');
-  }
-
-  return (
-    <>
-      <h2 className="mb-space-3xs text-headline-md font-bold text-primary">
-        {step === 'email' ? 'Log in or create your account' : 'Enter your code'}
-      </h2>
-      <p className="mb-space-lg text-body-sm text-on-surface-variant">
-        {step === 'email'
-          ? "Enter your email and we'll send you a six-digit code. No password to remember."
-          : `We've sent six digits to ${email}. The code is good for ten minutes.`}
-      </p>
-
-      {step === 'email' ? (
-        <form onSubmit={handleEmailSubmit} className="space-y-space-md">
-          <div>
-            <label className={labelClasses} htmlFor="email">
-              Email Address
-            </label>
-            <input
-              id="email"
-              type="email"
-              name="email"
-              autoComplete="email"
-              placeholder="patient@example.com"
-              required
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              className={fieldClasses}
-            />
-          </div>
-
-          {error && <FormError>{error}</FormError>}
-
-          {/* Clerk mounts its bot check here when the instance has one turned
-              on. Without the element, signing up is rejected outright. */}
-          <div id="clerk-captcha" />
-
-          <SubmitButton busy={busy || !ready} label="Continue" busyLabel="Sending code..." />
-        </form>
-      ) : (
-        <form onSubmit={handleCodeSubmit} className="space-y-space-md">
-          <div>
-            <label className={labelClasses} htmlFor="code">
-              Six-Digit Code
-            </label>
-            <input
-              id="code"
-              // `type="text"` with a numeric inputMode: a number input lets a
-              // phone keyboard through but also brings spinners, scroll-wheel
-              // changes, and silent stripping of a leading zero.
-              type="text"
-              inputMode="numeric"
-              autoComplete="one-time-code"
-              pattern="[0-9]*"
-              maxLength={6}
-              placeholder="123456"
-              required
-              autoFocus
-              value={code}
-              onChange={(event) => setCode(event.target.value.replace(/\D/g, ''))}
-              className={`${fieldClasses} text-center text-headline-sm tracking-[0.4em]`}
-            />
-          </div>
-
-          {error && <FormError>{error}</FormError>}
-          {notice && <FormNotice>{notice}</FormNotice>}
-
-          <SubmitButton
-            busy={busy || !ready}
-            label={flow === 'signUp' ? 'Create Account' : 'Log In'}
-            busyLabel="Checking..."
-          />
-
-          <div className="flex flex-wrap items-center justify-between gap-space-sm text-body-sm">
-            <button
-              type="button"
-              onClick={handleResend}
-              disabled={busy}
-              className="font-semibold text-secondary hover:underline disabled:opacity-60"
-            >
-              Send a new code
-            </button>
-            <button
-              type="button"
-              onClick={startOver}
-              className="font-semibold text-secondary hover:underline"
-            >
-              Use a different email
-            </button>
-          </div>
-        </form>
-      )}
-
-      {step === 'email' && notice && <div className="mt-space-md"><FormNotice>{notice}</FormNotice></div>}
-    </>
-  );
-}
-
 function FormError({ children }) {
   return (
     <p className="flex items-start gap-space-xs rounded-lg bg-error-container p-space-sm text-body-sm text-on-error-container">
@@ -397,6 +144,499 @@ function SubmitButton({ busy, label, busyLabel }) {
       {busy ? busyLabel : label}
       {!busy && <Icon name="arrow_forward" className="!text-[18px]" />}
     </button>
+  );
+}
+
+// Six-digit code entry, shared by both tabs — everything above this step
+// (email only vs. full details) differs, but confirming the emailed code
+// works identically either way.
+function CodeStep({ email, code, setCode, busy, error, notice, onSubmit, onResend, onStartOver, submitLabel }) {
+  return (
+    <form onSubmit={onSubmit} className="space-y-space-md">
+      <p className="text-body-sm text-on-surface-variant">
+        We've sent six digits to {email}. The code is good for ten minutes.
+      </p>
+
+      <div>
+        <label className={labelClasses} htmlFor="code">
+          Six-Digit Code
+        </label>
+        <input
+          id="code"
+          type="text"
+          inputMode="numeric"
+          autoComplete="one-time-code"
+          pattern="[0-9]*"
+          maxLength={6}
+          placeholder="123456"
+          required
+          autoFocus
+          value={code}
+          onChange={(event) => setCode(event.target.value.replace(/\D/g, ''))}
+          className={`${fieldClasses} text-center text-headline-sm tracking-[0.4em]`}
+        />
+      </div>
+
+      {error && <FormError>{error}</FormError>}
+      {notice && <FormNotice>{notice}</FormNotice>}
+
+      <SubmitButton busy={busy} label={submitLabel} busyLabel="Checking..." />
+
+      <div className="flex flex-wrap items-center justify-between gap-space-sm text-body-sm">
+        <button
+          type="button"
+          onClick={onResend}
+          disabled={busy}
+          className="font-semibold text-secondary hover:underline disabled:opacity-60"
+        >
+          Send a new code
+        </button>
+        <button type="button" onClick={onStartOver} className="font-semibold text-secondary hover:underline">
+          Start over
+        </button>
+      </div>
+    </form>
+  );
+}
+
+/*
+  Log in only. An email that has never signed up is told to use Create
+  Account instead, rather than this tab silently creating one — that
+  ambiguity was the whole reason log-in and sign-up used to be one form.
+*/
+function LoginForm({ destination, initialEmail, onNeedsAccount }) {
+  const navigate = useNavigate();
+  const { isLoaded, signIn, setActive } = useSignIn();
+
+  const [step, setStep] = useState('email'); // email | code
+  const [email, setEmail] = useState(initialEmail || '');
+  const [code, setCode] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
+  const [notice, setNotice] = useState('');
+  const submittingRef = useRef(false);
+
+  async function handleEmailSubmit(event) {
+    event.preventDefault();
+    if (!isLoaded || submittingRef.current) return;
+    submittingRef.current = true;
+    setBusy(true);
+    setError('');
+    setNotice('');
+
+    try {
+      const attempt = await withTimeout(signIn.create({ identifier: email }));
+      const factor = attempt.supportedFirstFactors?.find((item) => item.strategy === 'email_code');
+      if (!factor) throw new Error('This account cannot be signed in to by email code.');
+
+      await withTimeout(
+        signIn.prepareFirstFactor({ strategy: 'email_code', emailAddressId: factor.emailAddressId })
+      );
+      setStep('code');
+      setNotice(`We've emailed a six-digit code to ${email}.`);
+    } catch (err) {
+      if (isUnknownEmail(err)) {
+        setError('');
+        onNeedsAccount(email);
+      } else {
+        setError(readableError(err));
+      }
+    } finally {
+      setBusy(false);
+      submittingRef.current = false;
+    }
+  }
+
+  async function handleCodeSubmit(event) {
+    event.preventDefault();
+    if (!isLoaded || submittingRef.current) return;
+    submittingRef.current = true;
+    setBusy(true);
+    setError('');
+
+    try {
+      const result = await withTimeout(signIn.attemptFirstFactor({ strategy: 'email_code', code }));
+
+      if (result.status !== 'complete') {
+        setError('We need a little more to finish signing you in. Please contact us for help.');
+        return;
+      }
+
+      await setActive({ session: result.createdSessionId });
+      navigate(destination, { replace: true });
+    } catch (err) {
+      if (isAlreadyVerified(err) && signIn?.status === 'complete' && signIn.createdSessionId) {
+        await setActive({ session: signIn.createdSessionId });
+        navigate(destination, { replace: true });
+        return;
+      }
+      setError(readableError(err));
+    } finally {
+      setBusy(false);
+      submittingRef.current = false;
+    }
+  }
+
+  async function handleResend() {
+    setBusy(true);
+    setError('');
+    setNotice('');
+    try {
+      const factor = signIn.supportedFirstFactors?.find((item) => item.strategy === 'email_code');
+      await signIn.prepareFirstFactor({ strategy: 'email_code', emailAddressId: factor?.emailAddressId });
+      setNotice(`We've sent another code to ${email}.`);
+    } catch (err) {
+      setError(readableError(err));
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  function startOver() {
+    setStep('email');
+    setCode('');
+    setError('');
+    setNotice('');
+  }
+
+  if (step === 'code') {
+    return (
+      <CodeStep
+        email={email}
+        code={code}
+        setCode={setCode}
+        busy={busy || !isLoaded}
+        error={error}
+        notice={notice}
+        onSubmit={handleCodeSubmit}
+        onResend={handleResend}
+        onStartOver={startOver}
+        submitLabel="Log In"
+      />
+    );
+  }
+
+  return (
+    <form onSubmit={handleEmailSubmit} className="space-y-space-md">
+      <div>
+        <label className={labelClasses} htmlFor="login-email">
+          Email Address
+        </label>
+        <input
+          id="login-email"
+          type="email"
+          name="email"
+          autoComplete="email"
+          placeholder="patient@example.com"
+          required
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          className={fieldClasses}
+        />
+      </div>
+
+      {error && <FormError>{error}</FormError>}
+      <div id="clerk-captcha" />
+      <SubmitButton busy={busy || !isLoaded} label="Send Code" busyLabel="Sending code..." />
+    </form>
+  );
+}
+
+/*
+  Create account: name, phone, country and email are all collected here,
+  before the code is even sent — not left for the patient to fill in later on
+  the Account page, which most people never go back and do.
+*/
+function SignUpForm({ destination, initialEmail, onHasAccount }) {
+  const navigate = useNavigate();
+  const { isLoaded, signUp, setActive } = useSignUp();
+  const { getToken } = useClerkAuth();
+
+  const [step, setStep] = useState('details'); // details | code
+  const [fullName, setFullName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [country, setCountry] = useState('');
+  const [email, setEmail] = useState(initialEmail || '');
+  const [code, setCode] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
+  const [notice, setNotice] = useState('');
+  const submittingRef = useRef(false);
+
+  async function handleDetailsSubmit(event) {
+    event.preventDefault();
+    if (!isLoaded || submittingRef.current) return;
+    submittingRef.current = true;
+    setBusy(true);
+    setError('');
+    setNotice('');
+
+    try {
+      await withTimeout(signUp.create({ emailAddress: email }));
+      await withTimeout(signUp.prepareEmailAddressVerification({ strategy: 'email_code' }));
+      setStep('code');
+      setNotice(`We've emailed a six-digit code to ${email}.`);
+    } catch (err) {
+      if (isEmailTaken(err)) {
+        setError('');
+        onHasAccount(email);
+      } else {
+        setError(readableError(err));
+      }
+    } finally {
+      setBusy(false);
+      submittingRef.current = false;
+    }
+  }
+
+  // Best-effort: saves straight to the profile with a token pulled directly
+  // from this just-activated session, rather than going through the app-wide
+  // authFetch helper, whose token source is registered by AuthProvider a
+  // render or two after setActive resolves — calling it immediately here
+  // would race that registration. If this write fails for some reason, the
+  // account itself is still created and signed in; the patient can fill
+  // these back in from the Account page.
+  async function saveDetails() {
+    try {
+      const token = await getToken();
+      if (!token) return;
+      await fetch('/api/auth/me', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ fullName, phone, country, email }),
+      });
+    } catch {
+      // Non-fatal — see comment above.
+    }
+  }
+
+  async function handleCodeSubmit(event) {
+    event.preventDefault();
+    if (!isLoaded || submittingRef.current) return;
+    submittingRef.current = true;
+    setBusy(true);
+    setError('');
+
+    try {
+      const result = await withTimeout(signUp.attemptEmailAddressVerification({ code }));
+
+      if (result.status !== 'complete') {
+        setError('We need a little more to finish creating your account. Please contact us for help.');
+        return;
+      }
+
+      await setActive({ session: result.createdSessionId });
+      await saveDetails();
+      navigate(destination, { replace: true });
+    } catch (err) {
+      if (isAlreadyVerified(err) && signUp?.status === 'complete' && signUp.createdSessionId) {
+        await setActive({ session: signUp.createdSessionId });
+        await saveDetails();
+        navigate(destination, { replace: true });
+        return;
+      }
+      setError(readableError(err));
+    } finally {
+      setBusy(false);
+      submittingRef.current = false;
+    }
+  }
+
+  async function handleResend() {
+    setBusy(true);
+    setError('');
+    setNotice('');
+    try {
+      await signUp.prepareEmailAddressVerification({ strategy: 'email_code' });
+      setNotice(`We've sent another code to ${email}.`);
+    } catch (err) {
+      setError(readableError(err));
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  function startOver() {
+    setStep('details');
+    setCode('');
+    setError('');
+    setNotice('');
+  }
+
+  if (step === 'code') {
+    return (
+      <CodeStep
+        email={email}
+        code={code}
+        setCode={setCode}
+        busy={busy || !isLoaded}
+        error={error}
+        notice={notice}
+        onSubmit={handleCodeSubmit}
+        onResend={handleResend}
+        onStartOver={startOver}
+        submitLabel="Create Account"
+      />
+    );
+  }
+
+  return (
+    <form onSubmit={handleDetailsSubmit} className="space-y-space-md">
+      <div>
+        <label className={labelClasses} htmlFor="signup-name">
+          Full Name
+        </label>
+        <input
+          id="signup-name"
+          type="text"
+          autoComplete="name"
+          placeholder="Your full name"
+          required
+          value={fullName}
+          onChange={(event) => setFullName(event.target.value)}
+          className={fieldClasses}
+        />
+      </div>
+
+      <div>
+        <label className={labelClasses} htmlFor="signup-email">
+          Email Address
+        </label>
+        <input
+          id="signup-email"
+          type="email"
+          autoComplete="email"
+          placeholder="patient@example.com"
+          required
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          className={fieldClasses}
+        />
+      </div>
+
+      <div className="grid grid-cols-1 gap-space-md sm:grid-cols-2">
+        <div>
+          <label className={labelClasses} htmlFor="signup-phone">
+            Phone / WhatsApp
+          </label>
+          <input
+            id="signup-phone"
+            type="tel"
+            autoComplete="tel"
+            placeholder="+1 (555) 000-0000"
+            value={phone}
+            onChange={(event) => setPhone(event.target.value)}
+            className={fieldClasses}
+          />
+        </div>
+
+        <div>
+          <label className={labelClasses} htmlFor="signup-country">
+            Country
+          </label>
+          <input
+            id="signup-country"
+            type="text"
+            autoComplete="country-name"
+            placeholder="Country you're calling from"
+            value={country}
+            onChange={(event) => setCountry(event.target.value)}
+            className={fieldClasses}
+          />
+        </div>
+      </div>
+
+      {error && <FormError>{error}</FormError>}
+      <div id="clerk-captcha" />
+      <SubmitButton busy={busy || !isLoaded} label="Send Code" busyLabel="Sending code..." />
+    </form>
+  );
+}
+
+function AuthTabs({ destination }) {
+  const [mode, setMode] = useState('login'); // login | signup
+  const [prefillEmail, setPrefillEmail] = useState('');
+
+  function switchTo(nextMode, email) {
+    setMode(nextMode);
+    if (email) setPrefillEmail(email);
+  }
+
+  return (
+    <>
+      <div className="mb-space-lg grid grid-cols-2 gap-space-2xs rounded-lg bg-surface-container-low p-space-3xs">
+        <button
+          type="button"
+          onClick={() => setMode('login')}
+          aria-pressed={mode === 'login'}
+          className={`rounded-md py-space-sm text-label-md transition-colors ${
+            mode === 'login'
+              ? 'bg-surface-container-lowest text-primary shadow-sm'
+              : 'text-on-surface-variant hover:text-on-surface'
+          }`}
+        >
+          Log In
+        </button>
+        <button
+          type="button"
+          onClick={() => setMode('signup')}
+          aria-pressed={mode === 'signup'}
+          className={`rounded-md py-space-sm text-label-md transition-colors ${
+            mode === 'signup'
+              ? 'bg-surface-container-lowest text-primary shadow-sm'
+              : 'text-on-surface-variant hover:text-on-surface'
+          }`}
+        >
+          Create Account
+        </button>
+      </div>
+
+      {mode === 'login' ? (
+        <>
+          <h2 className="mb-space-3xs text-headline-md font-bold text-primary">Log in</h2>
+          <p className="mb-space-lg text-body-sm text-on-surface-variant">
+            Enter your email and we'll send you a six-digit code. No password to remember.
+          </p>
+          <LoginForm
+            destination={destination}
+            initialEmail={prefillEmail}
+            onNeedsAccount={(email) => switchTo('signup', email)}
+          />
+          <p className="mt-space-lg text-center text-body-sm text-on-surface-variant">
+            No account for that email.{' '}
+            <button
+              type="button"
+              onClick={() => switchTo('signup')}
+              className="font-semibold text-secondary hover:underline"
+            >
+              Create one instead
+            </button>
+          </p>
+        </>
+      ) : (
+        <>
+          <h2 className="mb-space-3xs text-headline-md font-bold text-primary">Create your account</h2>
+          <p className="mb-space-lg text-body-sm text-on-surface-variant">
+            Tell us a little about yourself, then confirm your email with a six-digit code.
+          </p>
+          <SignUpForm
+            destination={destination}
+            initialEmail={prefillEmail}
+            onHasAccount={(email) => switchTo('login', email)}
+          />
+          <p className="mt-space-lg text-center text-body-sm text-on-surface-variant">
+            Already have an account?{' '}
+            <button
+              type="button"
+              onClick={() => switchTo('login')}
+              className="font-semibold text-secondary hover:underline"
+            >
+              Log in instead
+            </button>
+          </p>
+        </>
+      )}
+    </>
   );
 }
 
@@ -472,7 +712,7 @@ export default function Login() {
 
           <div className="lg:col-span-7">
             <div className="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm sm:p-space-xl">
-              {clerkConfigured ? <EmailCodeForm destination={destination} /> : <Unavailable />}
+              {clerkConfigured ? <AuthTabs destination={destination} /> : <Unavailable />}
 
               <div className="mt-space-lg flex items-center justify-end gap-space-3xs text-body-sm text-on-surface-variant">
                 <Icon name="lock" className="!text-[14px]" />

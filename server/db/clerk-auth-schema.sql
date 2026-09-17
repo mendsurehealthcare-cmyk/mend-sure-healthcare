@@ -25,29 +25,14 @@ drop trigger if exists on_auth_user_created on auth.users;
 drop function if exists public.handle_new_user();
 
 -- ---------------------------------------------------------------------------
--- 2. Re-key the three patient-owned tables to Clerk user ids
+-- 2. Replace the row-level security policies
 -- ---------------------------------------------------------------------------
--- The foreign keys go first: a uuid column cannot be widened to text while it
--- still references auth.users(id).
-alter table profiles  drop constraint if exists profiles_id_fkey;
-alter table reports   drop constraint if exists reports_user_id_fkey;
-alter table inquiries drop constraint if exists inquiries_user_id_fkey;
-
--- `using id::text` keeps any existing rows readable rather than discarding
--- them. They belong to Supabase accounts that can no longer sign in, so they
--- are unreachable either way — the cast just means the migration never fails
--- on a non-empty table.
-alter table profiles  alter column id      type text using id::text;
-alter table reports   alter column user_id type text using user_id::text;
-alter table inquiries alter column user_id type text using user_id::text;
-
--- reports and inquiries are filtered by owner on every read.
-create index if not exists reports_user_idx   on reports (user_id);
-create index if not exists inquiries_user_idx on inquiries (user_id);
-
--- ---------------------------------------------------------------------------
--- 3. Replace the row-level security policies
--- ---------------------------------------------------------------------------
+-- This has to happen BEFORE the column type changes below: Postgres refuses
+-- to alter a column's type while a policy's USING/WITH CHECK expression still
+-- references it ("cannot alter type of a column used in a policy
+-- definition"), which is exactly what step 3 hits if run against a database
+-- that still has these original auth.uid()-based policies in place.
+--
 -- The old policies compared each row against auth.uid(). That function reads
 -- the Supabase JWT, and there is no longer a Supabase JWT — under Clerk it
 -- returns null for everyone, so each policy would deny every row while
@@ -74,6 +59,27 @@ alter table reports  enable row level security;
 drop policy if exists "Users can upload their own reports"    on storage.objects;
 drop policy if exists "Users can view their own report files" on storage.objects;
 drop policy if exists "Users can delete their own report files" on storage.objects;
+
+-- ---------------------------------------------------------------------------
+-- 3. Re-key the three patient-owned tables to Clerk user ids
+-- ---------------------------------------------------------------------------
+-- The foreign keys go first: a uuid column cannot be widened to text while it
+-- still references auth.users(id).
+alter table profiles  drop constraint if exists profiles_id_fkey;
+alter table reports   drop constraint if exists reports_user_id_fkey;
+alter table inquiries drop constraint if exists inquiries_user_id_fkey;
+
+-- `using id::text` keeps any existing rows readable rather than discarding
+-- them. They belong to Supabase accounts that can no longer sign in, so they
+-- are unreachable either way — the cast just means the migration never fails
+-- on a non-empty table.
+alter table profiles  alter column id      type text using id::text;
+alter table reports   alter column user_id type text using user_id::text;
+alter table inquiries alter column user_id type text using user_id::text;
+
+-- reports and inquiries are filtered by owner on every read.
+create index if not exists reports_user_idx   on reports (user_id);
+create index if not exists inquiries_user_idx on inquiries (user_id);
 
 -- ---------------------------------------------------------------------------
 -- 4. Clearing out the Supabase-era accounts

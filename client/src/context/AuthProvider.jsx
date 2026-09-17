@@ -14,9 +14,9 @@ import { clerkConfigured } from '../lib/clerk';
   Navbar, ProtectedRoute, Account and Reports did not have to change when the
   identity provider did.
 
-  The email always comes from Clerk rather than from a copy in our database.
-  A stored copy goes stale the moment someone changes their address, and the
-  browser already has the live one.
+  Displayed email always comes from Clerk, live, never from the copy synced
+  into Supabase — that copy exists purely so a profile row is identifiable by
+  email when browsing the database directly, not as a second source of truth.
 */
 function ClerkAuthProvider({ children }) {
   const { isLoaded, isSignedIn, user: clerkUser } = useUser();
@@ -32,6 +32,8 @@ function ClerkAuthProvider({ children }) {
     return () => registerTokenSource(null);
   }, [isSignedIn, getToken]);
 
+  const email = clerkUser?.primaryEmailAddress?.emailAddress || '';
+
   const loadProfile = useCallback(async () => {
     if (!isSignedIn) {
       setProfile(null);
@@ -40,9 +42,12 @@ function ClerkAuthProvider({ children }) {
 
     setProfileLoading(true);
     try {
-      // The API creates the row on first sight, so a brand-new account gets a
-      // profile back rather than a 404.
-      const loaded = await authFetch('/auth/me');
+      // Passing the email lets the API keep its own copy of it in sync (it's
+      // a display/lookup convenience in Supabase, not where identity is
+      // checked) — see loadOrCreateProfile in server/src/routes/auth.js. The
+      // API also creates the row on first sight, so a brand-new account gets
+      // a profile back rather than a 404.
+      const loaded = await authFetch(`/auth/me${email ? `?email=${encodeURIComponent(email)}` : ''}`);
       setProfile(loaded);
       return loaded;
     } catch {
@@ -55,16 +60,19 @@ function ClerkAuthProvider({ children }) {
     } finally {
       setProfileLoading(false);
     }
-  }, [isSignedIn]);
+  }, [isSignedIn, email]);
 
   useEffect(() => {
     if (isLoaded) loadProfile();
   }, [isLoaded, loadProfile]);
 
-  const email = clerkUser?.primaryEmailAddress?.emailAddress || '';
-
   const value = useMemo(() => {
-    const user = isSignedIn && profile ? { email, ...profile } : null;
+    // `email` last: it must always win over `profile.email`, which is just a
+    // synced-for-convenience copy in Supabase (see loadOrCreateProfile in
+    // server/src/routes/auth.js) — before that migration has run, or if a
+    // sync write ever fails, `profile.email` can be null and must not blank
+    // out the real, live address the rest of the app displays.
+    const user = isSignedIn && profile ? { ...profile, email } : null;
 
     return {
       user,

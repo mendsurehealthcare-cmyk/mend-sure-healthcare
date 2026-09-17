@@ -10,6 +10,7 @@ const testimonialsRouter = require('./routes/testimonials');
 const inquiriesRouter = require('./routes/inquiries');
 const authRouter = require('./routes/auth');
 const reportsRouter = require('./routes/reports');
+const adminRouter = require('./routes/admin');
 
 const app = express();
 
@@ -86,6 +87,7 @@ app.use('/api/testimonials', testimonialsRouter);
 app.use('/api/inquiries', inquiriesRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/reports', reportsRouter);
+app.use('/api/admin', adminRouter);
 
 // Anything else under /api is a genuinely unknown endpoint. Answer in JSON so
 // the client's `response.json()` doesn't choke on an HTML error page.

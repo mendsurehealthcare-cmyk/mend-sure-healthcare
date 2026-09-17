@@ -4,6 +4,7 @@ import { AuthProvider } from './context/AuthProvider';
 import ErrorBoundary from './components/ErrorBoundary';
 import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
+import AdminRoute from './components/AdminRoute';
 import StateMessage from './components/StateMessage';
 
 // Lazy-loaded rather than imported up front: with 15 pages in one bundle,
@@ -26,6 +27,13 @@ const Login = lazy(() => import('./pages/Login'));
 const Account = lazy(() => import('./pages/Account'));
 const Reports = lazy(() => import('./pages/Reports'));
 const NotFound = lazy(() => import('./pages/NotFound'));
+
+const AdminLayout = lazy(() => import('./pages/admin/AdminLayout'));
+const AdminOverview = lazy(() => import('./pages/admin/AdminOverview'));
+const AdminDoctorsList = lazy(() => import('./pages/admin/AdminDoctorsList'));
+const AdminDoctorForm = lazy(() => import('./pages/admin/AdminDoctorForm'));
+const AdminHospitalsList = lazy(() => import('./pages/admin/AdminHospitalsList'));
+const AdminHospitalForm = lazy(() => import('./pages/admin/AdminHospitalForm'));
 
 export default function App() {
   return (
@@ -72,6 +80,26 @@ export default function App() {
                     </ProtectedRoute>
                   }
                 />
+
+                {/* Admin dashboard — AdminRoute bounces anyone who isn't a
+                    logged-in admin, but the real access control lives in the
+                    /api/admin/* routes themselves. */}
+                <Route
+                  path="/admin"
+                  element={
+                    <AdminRoute>
+                      <AdminLayout />
+                    </AdminRoute>
+                  }
+                >
+                  <Route index element={<AdminOverview />} />
+                  <Route path="doctors" element={<AdminDoctorsList />} />
+                  <Route path="doctors/new" element={<AdminDoctorForm />} />
+                  <Route path="doctors/:id" element={<AdminDoctorForm />} />
+                  <Route path="hospitals" element={<AdminHospitalsList />} />
+                  <Route path="hospitals/new" element={<AdminHospitalForm />} />
+                  <Route path="hospitals/:id" element={<AdminHospitalForm />} />
+                </Route>
 
                 <Route path="*" element={<NotFound />} />
               </Routes>

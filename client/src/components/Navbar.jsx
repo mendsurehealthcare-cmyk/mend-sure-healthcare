@@ -110,6 +110,17 @@ function AccountMenu({ user, onLogout }) {
             {t('nav.myAccount')}
           </NavLink>
 
+          {user.role === 'admin' && (
+            <NavLink
+              to="/admin"
+              role="menuitem"
+              className="flex items-center gap-space-sm px-space-md py-space-sm text-body-md text-on-surface transition-colors hover:bg-surface-container"
+            >
+              <Icon name="admin_panel_settings" className="!text-[20px] text-secondary" />
+              Admin Dashboard
+            </NavLink>
+          )}
+
           <button
             type="button"
             role="menuitem"
@@ -240,6 +251,9 @@ export default function Navbar() {
               <>
                 <NavItem to="/reports" labelKey="nav.myReports" onClick={() => setMenuOpen(false)} />
                 <NavItem to="/account" labelKey="nav.myAccount" onClick={() => setMenuOpen(false)} />
+                {user.role === 'admin' && (
+                  <NavItem to="/admin" label="Admin Dashboard" onClick={() => setMenuOpen(false)} />
+                )}
                 <button
                   type="button"
                   onClick={() => {

@@ -17,7 +17,14 @@ const requireAuth = require('../middleware/requireAuth');
 
 const router = asyncRouter();
 
-const PROFILE_FIELDS = 'full_name, phone, country, created_at';
+const PROFILE_FIELDS = 'full_name, phone, country, created_at, role';
+
+// `role` only exists once server/db/admin-schema.sql has been run. Until
+// then, every profile query below falls back to the columns that have always
+// existed so patient login and Account keep working unaffected — with role
+// defaulted to 'patient' in the response, since that's what the migration's
+// default will be anyway.
+const isMissingRoleColumn = (error) => /column .*role.* does not exist/i.test(error?.message || '');
 
 /*
   Returns the caller's profile, creating it on first sight.
@@ -29,20 +36,38 @@ const PROFILE_FIELDS = 'full_name, phone, country, created_at';
   one, because the app loads the profile as soon as a patient is known.
 */
 async function loadOrCreateProfile(userId) {
-  const { data, error } = await supabase
+  let { data, error } = await supabase
     .from('profiles')
     .select(PROFILE_FIELDS)
     .eq('id', userId)
     .maybeSingle();
 
+  if (error && isMissingRoleColumn(error)) {
+    ({ data, error } = await supabase
+      .from('profiles')
+      .select('full_name, phone, country, created_at')
+      .eq('id', userId)
+      .maybeSingle());
+    if (data) data = { ...data, role: 'patient' };
+  }
+
   if (error) throw new Error(error.message);
   if (data) return data;
 
-  const { data: created, error: insertError } = await supabase
+  let { data: created, error: insertError } = await supabase
     .from('profiles')
     .insert({ id: userId })
     .select(PROFILE_FIELDS)
     .single();
+
+  if (insertError && isMissingRoleColumn(insertError)) {
+    ({ data: created, error: insertError } = await supabase
+      .from('profiles')
+      .insert({ id: userId })
+      .select('full_name, phone, country, created_at')
+      .single());
+    if (created) created = { ...created, role: 'patient' };
+  }
 
   if (insertError) throw new Error(insertError.message);
   return created;
@@ -60,7 +85,7 @@ router.patch('/me', requireAuth, async (req, res) => {
   // Upsert rather than update: a patient who edits their details before
   // anything else has read their profile would otherwise update nothing and
   // be told it saved.
-  const { data, error } = await supabase
+  let { data, error } = await supabase
     .from('profiles')
     .upsert(
       { id: req.userId, full_name: fullName, phone, country },
@@ -68,6 +93,18 @@ router.patch('/me', requireAuth, async (req, res) => {
     )
     .select(PROFILE_FIELDS)
     .single();
+
+  if (error && isMissingRoleColumn(error)) {
+    ({ data, error } = await supabase
+      .from('profiles')
+      .upsert(
+        { id: req.userId, full_name: fullName, phone, country },
+        { onConflict: 'id' }
+      )
+      .select('full_name, phone, country, created_at')
+      .single());
+    if (data) data = { ...data, role: 'patient' };
+  }
 
   if (error) {
     return res.status(500).json({ error: error.message });

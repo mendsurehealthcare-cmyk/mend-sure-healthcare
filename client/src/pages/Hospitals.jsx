@@ -278,7 +278,7 @@ export default function Hospitals() {
             <span className="text-label-sm font-semibold tracking-widest text-secondary-fixed uppercase">
               Uncompromising Standards
             </span>
-            <h2 className="text-headline-lg text-on-primary">The Mend Sure Patient Journey</h2>
+            <h2 className="text-headline-lg text-on-primary">The Mendsure Patient Journey</h2>
             <p className="text-body-lg leading-relaxed text-inverse-on-surface">
               From the moment you request an evaluation to your recovery back home, our care team
               manages every logistical and clinical detail.

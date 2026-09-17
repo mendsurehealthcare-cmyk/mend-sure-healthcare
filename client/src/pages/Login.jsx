@@ -657,7 +657,7 @@ export default function Login() {
         gradient
         eyebrow="Patient Portal"
         eyebrowIcon="account_circle"
-        title="Your Mend Sure Account"
+        title="Your Mendsure Account"
         subtitle="One secure place for your medical reports, treatment quotes, and consultation history."
       />
 

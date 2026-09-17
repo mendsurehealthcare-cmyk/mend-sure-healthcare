@@ -17,7 +17,7 @@ export default function Footer() {
               navy wordmark and all — is legible here as-is. */}
           <img
             src="/logo-lockup.png"
-            alt="Mend Sure Healthcare Services"
+            alt="Mendsure Healthcare Services"
             width="720"
             height="572"
             className="mb-space-md h-auto w-40"

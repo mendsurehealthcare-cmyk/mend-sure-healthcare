@@ -32,7 +32,7 @@
       "badge": "RED SANITARIA GLOBAL ACREDITADA",
       "titleLead": "Atención de confianza, a tu lado en cada paso,",
       "titleHighlight": "para que nunca te sientas solo",
-      "subtitle": "Mend Sure conecta a pacientes de Estados Unidos, Reino Unido y otros países con hospitales acreditados en India: la misma calidad asistencial, por una fracción del coste.",
+      "subtitle": "Mendsure camina junto a cada paciente que siente que afronta esto en soledad, desde tu primera pregunta hasta tu recuperación completa.",
       "searchSpecialty": "Busca un tratamiento o especialidad",
       "searchCity": "Ciudad en India (opcional)",
       "searchCityLabel": "Ciudad en India",
@@ -76,7 +76,7 @@
     },
     "journey": {
       "eyebrow": "Acompañamiento completo, de principio a fin",
-      "title": "Tu proceso de atención en 4 pasos con Mend Sure",
+      "title": "Tu proceso de atención en 4 pasos con Mendsure",
       "subtitle": "Nos ocupamos de cada detalle clínico y logístico para que puedas centrarte por completo en tu recuperación.",
       "cta": "Ver el proceso completo",
       "step1Title": "Revisión por expertos",
@@ -130,7 +130,7 @@
     "testimonials": {
       "eyebrow": "Casos reales de pacientes",
       "title": "Pacientes satisfechos, servicio del que nos enorgullecemos",
-      "subtitle": "Escucha a personas que recuperaron su salud y su vida gracias a Mend Sure."
+      "subtitle": "Escucha a personas que recuperaron su salud y su vida gracias a Mendsure."
     },
     "faq": {
       "eyebrow": "¿Tienes dudas?",
@@ -184,9 +184,9 @@
     "privacyPolicy": "Política de privacidad",
     "contact": "Contacto",
     "disclaimerTitle": "Aviso médico",
-    "disclaimer": "El contenido de Mend Sure tiene únicamente fines informativos y no sustituye el consejo, el diagnóstico ni el tratamiento de un profesional médico. Consulta siempre a tu médico.",
+    "disclaimer": "El contenido de Mendsure tiene únicamente fines informativos y no sustituye el consejo, el diagnóstico ni el tratamiento de un profesional médico. Consulta siempre a tu médico.",
     "rights": "Todos los derechos reservados.",
-    "socialLabel": "Mend Sure en {{network}}"
+    "socialLabel": "Mendsure en {{network}}"
   },
   "pages": {
     "treatments": {
@@ -218,7 +218,7 @@
     },
     "howItWorks": {
       "eyebrow": "Acompañamiento completo, de principio a fin",
-      "title": "Cómo funciona Mend Sure",
+      "title": "Cómo funciona Mendsure",
       "subtitle": "Desde tu primer mensaje hasta tu vuelo de vuelta, estos son todos los pasos de los que nos ocupamos."
     },
     "about": {
@@ -229,7 +229,7 @@
     "testimonials": {
       "eyebrow": "Casos reales de pacientes",
       "title": "Historias de pacientes",
-      "subtitle": "Escucha a personas que transformaron su salud con Mend Sure."
+      "subtitle": "Escucha a personas que transformaron su salud con Mendsure."
     },
     "contact": {
       "eyebrow": "Habla con nosotros",
@@ -237,7 +237,7 @@
       "subtitle": "Cuéntanos tu caso y nuestro equipo te responderá en menos de 24 horas."
     },
     "login": {
-      "title": "Tu cuenta de Mend Sure"
+      "title": "Tu cuenta de Mendsure"
     }
   },
   "errors": {

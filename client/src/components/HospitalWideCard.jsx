@@ -100,7 +100,7 @@ export default function HospitalWideCard({ hospital }) {
         <div className="flex flex-wrap items-center justify-between gap-space-md border-t border-surface-container pt-space-lg">
           <div className="flex items-center gap-space-xs text-body-sm text-on-surface-variant">
             <Icon name="verified_user" className="!text-[18px] text-secondary" />
-            <span>Vetted by the Mend Sure clinical team</span>
+            <span>Vetted by the Mendsure clinical team</span>
           </div>
           <Link
             to={`/hospitals/${hospital.slug}`}

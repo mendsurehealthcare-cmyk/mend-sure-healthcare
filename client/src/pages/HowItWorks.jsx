@@ -125,7 +125,7 @@ const faqs = [
   },
   {
     q: 'Who accompanies me during my trip?',
-    a: 'From the moment you land, a dedicated Mend Sure coordinator meets you, manages hospital admission, and stays with you through your recovery.',
+    a: 'From the moment you land, a dedicated Mendsure coordinator meets you, manages hospital admission, and stays with you through your recovery.',
   },
   {
     q: 'What happens if a complication arises after I return home?',

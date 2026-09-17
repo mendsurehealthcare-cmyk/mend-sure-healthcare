@@ -32,7 +32,7 @@
       "badge": "ACCREDITED GLOBAL HEALTHCARE NETWORK",
       "titleLead": "Trusted care, guided every step of the way,",
       "titleHighlight": "so you're never alone in this",
-      "subtitle": "Mend Sure connects patients from the US, UK, and beyond with accredited hospitals in India — the same quality of care, at a fraction of the cost.",
+      "subtitle": "Mendsure stands beside every patient who feels they're facing this alone — from your first question to full recovery.",
       "searchSpecialty": "Find a treatment or specialty",
       "searchCity": "City in India (optional)",
       "searchCityLabel": "City in India",
@@ -76,7 +76,7 @@
     },
     "journey": {
       "eyebrow": "Seamless End-to-End Support",
-      "title": "Your 4-Step Care Journey with Mend Sure",
+      "title": "Your 4-Step Care Journey with Mendsure",
       "subtitle": "We handle every clinical and logistical detail so you can focus entirely on healing and recovery.",
       "cta": "See the Full Process",
       "step1Title": "Expert Review",
@@ -140,7 +140,7 @@
     "testimonials": {
       "eyebrow": "Real Patient Success Stories",
       "title": "Satisfied Patients, Proud Service",
-      "subtitle": "Hear from people who transformed their health and reclaimed their lives through Mend Sure."
+      "subtitle": "Hear from people who transformed their health and reclaimed their lives through Mendsure."
     },
     "faq": {
       "eyebrow": "Got Questions?",
@@ -194,9 +194,9 @@
     "privacyPolicy": "Privacy Policy",
     "contact": "Contact Us",
     "disclaimerTitle": "Medical Disclaimer",
-    "disclaimer": "The content provided on Mend Sure is for informational purposes only and does not substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician.",
+    "disclaimer": "The content provided on Mendsure is for informational purposes only and does not substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician.",
     "rights": "All rights reserved.",
-    "socialLabel": "Mend Sure on {{network}}"
+    "socialLabel": "Mendsure on {{network}}"
   },
   "pages": {
     "treatments": {
@@ -228,7 +228,7 @@
     },
     "howItWorks": {
       "eyebrow": "Seamless End-to-End Support",
-      "title": "How Mend Sure Works",
+      "title": "How Mendsure Works",
       "subtitle": "From your first message to your flight home, here is every step we handle for you."
     },
     "about": {
@@ -239,7 +239,7 @@
     "testimonials": {
       "eyebrow": "Real Patient Success Stories",
       "title": "Patient Stories",
-      "subtitle": "Hear from people who transformed their health through Mend Sure."
+      "subtitle": "Hear from people who transformed their health through Mendsure."
     },
     "contact": {
       "eyebrow": "Talk To Us",
@@ -247,7 +247,7 @@
       "subtitle": "Tell us about your condition and our care team will respond within 24 hours."
     },
     "login": {
-      "title": "Your Mend Sure Account"
+      "title": "Your Mendsure Account"
     }
   },
   "errors": {

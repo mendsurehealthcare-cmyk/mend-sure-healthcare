@@ -32,7 +32,7 @@
       "badge": "RÉSEAU DE SANTÉ MONDIAL ACCRÉDITÉ",
       "titleLead": "Des soins de confiance, à vos côtés à chaque étape,",
       "titleHighlight": "pour que vous ne soyez jamais seul",
-      "subtitle": "Mend Sure met en relation des patients des États-Unis, du Royaume-Uni et d'ailleurs avec des hôpitaux accrédités en Inde : la même qualité de soins, pour une fraction du prix.",
+      "subtitle": "Mendsure se tient aux côtés de chaque patient qui se sent seul face à cette épreuve — de votre première question jusqu'à votre rétablissement complet.",
       "searchSpecialty": "Trouver un traitement ou une spécialité",
       "searchCity": "Ville en Inde (facultatif)",
       "searchCityLabel": "Ville en Inde",
@@ -76,7 +76,7 @@
     },
     "journey": {
       "eyebrow": "Un accompagnement de bout en bout",
-      "title": "Votre parcours de soins en 4 étapes avec Mend Sure",
+      "title": "Votre parcours de soins en 4 étapes avec Mendsure",
       "subtitle": "Nous gérons chaque détail clinique et logistique pour que vous puissiez vous consacrer entièrement à votre rétablissement.",
       "cta": "Voir le processus complet",
       "step1Title": "Analyse par nos experts",
@@ -130,7 +130,7 @@
     "testimonials": {
       "eyebrow": "Des parcours de patients bien réels",
       "title": "Des patients satisfaits, un service dont nous sommes fiers",
-      "subtitle": "Découvrez le témoignage de personnes qui ont retrouvé leur santé et leur vie grâce à Mend Sure."
+      "subtitle": "Découvrez le témoignage de personnes qui ont retrouvé leur santé et leur vie grâce à Mendsure."
     },
     "faq": {
       "eyebrow": "Des questions ?",
@@ -184,9 +184,9 @@
     "privacyPolicy": "Politique de confidentialité",
     "contact": "Nous contacter",
     "disclaimerTitle": "Avertissement médical",
-    "disclaimer": "Le contenu de Mend Sure est fourni à titre informatif uniquement et ne remplace ni un avis médical professionnel, ni un diagnostic, ni un traitement. Demandez toujours conseil à votre médecin.",
+    "disclaimer": "Le contenu de Mendsure est fourni à titre informatif uniquement et ne remplace ni un avis médical professionnel, ni un diagnostic, ni un traitement. Demandez toujours conseil à votre médecin.",
     "rights": "Tous droits réservés.",
-    "socialLabel": "Mend Sure sur {{network}}"
+    "socialLabel": "Mendsure sur {{network}}"
   },
   "pages": {
     "treatments": {
@@ -218,7 +218,7 @@
     },
     "howItWorks": {
       "eyebrow": "Un accompagnement de bout en bout",
-      "title": "Comment fonctionne Mend Sure",
+      "title": "Comment fonctionne Mendsure",
       "subtitle": "De votre premier message à votre vol de retour, voici toutes les étapes que nous prenons en charge."
     },
     "about": {
@@ -229,7 +229,7 @@
     "testimonials": {
       "eyebrow": "Des parcours de patients bien réels",
       "title": "Témoignages de patients",
-      "subtitle": "Découvrez ceux qui ont retrouvé la santé grâce à Mend Sure."
+      "subtitle": "Découvrez ceux qui ont retrouvé la santé grâce à Mendsure."
     },
     "contact": {
       "eyebrow": "Parlez-nous",
@@ -237,7 +237,7 @@
       "subtitle": "Décrivez-nous votre situation : notre équipe vous répondra sous 24 heures."
     },
     "login": {
-      "title": "Votre compte Mend Sure"
+      "title": "Votre compte Mendsure"
     }
   },
   "errors": {

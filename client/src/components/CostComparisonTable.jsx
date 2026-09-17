@@ -16,7 +16,7 @@ export default function CostComparisonTable({ treatment }) {
           <tbody className="divide-y divide-outline-variant/20">
             <tr>
               <td className="px-space-lg py-space-md font-medium text-on-surface">
-                With Mend Sure (India)
+                With Mendsure (India)
               </td>
               <td className="px-space-lg py-space-md font-semibold text-on-tertiary-fixed-variant">
                 {formatUSD(treatment.price_min_usd)} – {formatUSD(treatment.price_max_usd)}

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const DEFAULT_TITLE = 'Mend Sure — Affordable World-Class Treatment in India';
+const DEFAULT_TITLE = 'Mendsure — Affordable World-Class Treatment in India';
 
 /*
   Sets the page title and meta description for a single route.

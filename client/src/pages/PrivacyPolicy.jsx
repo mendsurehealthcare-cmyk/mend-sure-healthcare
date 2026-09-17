@@ -12,7 +12,7 @@ import { COMPANY as SITE } from '../lib/company';
 // ─────────────────────────────────────────────────────────────
 
 const LEGAL_NAME = SITE.legalName;
-const BRAND = 'Mend Sure';
+const BRAND = 'Mendsure';
 const WEBSITE = SITE.website.label;
 const EMAIL = SITE.email;
 const PHONE = SITE.phones[0].label;
@@ -42,8 +42,8 @@ export default function PrivacyPolicy() {
   const [active, setActive] = useState('intro');
 
   useDocumentMeta({
-    title: 'Privacy Policy — Mend Sure',
-    description: 'How Mend Sure collects, uses, shares, and protects your personal and medical information.',
+    title: 'Privacy Policy — Mendsure',
+    description: 'How Mendsure collects, uses, shares, and protects your personal and medical information.',
   });
 
   useEffect(() => {

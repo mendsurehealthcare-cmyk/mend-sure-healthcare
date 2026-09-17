@@ -29,7 +29,7 @@ async function notifyNewInquiry(inquiry) {
 
   try {
     const { error } = await resend.emails.send({
-      from: process.env.NOTIFY_FROM_EMAIL || 'Mend Sure <onboarding@resend.dev>',
+      from: process.env.NOTIFY_FROM_EMAIL || 'Mendsure <onboarding@resend.dev>',
       to: process.env.NOTIFY_TO_EMAIL,
       subject: `New enquiry: ${String(inquiry.full_name || '').slice(0, 80)}`,
       html: `

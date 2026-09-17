@@ -171,7 +171,7 @@ function AboutImageCard() {
         ) : (
           <img
             src={ABOUT_IMAGE}
-            alt="A Mend Sure care coordinator supporting an international patient"
+            alt="A Mendsure care coordinator supporting an international patient"
             loading="lazy"
             onError={() => setFailed(true)}
             className="h-full w-full object-cover"

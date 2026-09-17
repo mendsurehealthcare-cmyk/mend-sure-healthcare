@@ -1,8 +1,9 @@
 import { useRef, useState } from 'react';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { useAuth as useClerkAuth, useSignIn, useSignUp } from '@clerk/clerk-react';
+import { useSignIn, useSignUp } from '@clerk/clerk-react';
 import { useAuth } from '../context/useAuth';
 import { clerkConfigured, CLERK_MISSING_MESSAGE } from '../lib/clerk';
+import { stashPendingProfileDetails } from '../lib/pendingProfile';
 import Icon from '../components/Icon';
 import PageHero from '../components/PageHero';
 
@@ -350,7 +351,6 @@ function LoginForm({ destination, initialEmail, onNeedsAccount }) {
 function SignUpForm({ destination, initialEmail, onHasAccount }) {
   const navigate = useNavigate();
   const { isLoaded, signUp, setActive } = useSignUp();
-  const { getToken } = useClerkAuth();
 
   const [step, setStep] = useState('details'); // details | code
   const [fullName, setFullName] = useState('');
@@ -389,27 +389,6 @@ function SignUpForm({ destination, initialEmail, onHasAccount }) {
     }
   }
 
-  // Best-effort: saves straight to the profile with a token pulled directly
-  // from this just-activated session, rather than going through the app-wide
-  // authFetch helper, whose token source is registered by AuthProvider a
-  // render or two after setActive resolves — calling it immediately here
-  // would race that registration. If this write fails for some reason, the
-  // account itself is still created and signed in; the patient can fill
-  // these back in from the Account page.
-  async function saveDetails() {
-    try {
-      const token = await getToken();
-      if (!token) return;
-      await fetch('/api/auth/me', {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ fullName, phone, country, email }),
-      });
-    } catch {
-      // Non-fatal — see comment above.
-    }
-  }
-
   async function handleCodeSubmit(event) {
     event.preventDefault();
     if (!isLoaded || submittingRef.current) return;
@@ -425,13 +404,16 @@ function SignUpForm({ destination, initialEmail, onHasAccount }) {
         return;
       }
 
+      // Picked up by AuthProvider once it loads this brand-new profile for
+      // the first time — see stashPendingProfileDetails' own comment for why
+      // it isn't saved directly from here.
+      stashPendingProfileDetails({ fullName, phone, country });
       await setActive({ session: result.createdSessionId });
-      await saveDetails();
       navigate(destination, { replace: true });
     } catch (err) {
       if (isAlreadyVerified(err) && signUp?.status === 'complete' && signUp.createdSessionId) {
+        stashPendingProfileDetails({ fullName, phone, country });
         await setActive({ session: signUp.createdSessionId });
-        await saveDetails();
         navigate(destination, { replace: true });
         return;
       }

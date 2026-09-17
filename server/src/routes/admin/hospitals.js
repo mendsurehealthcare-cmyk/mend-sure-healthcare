@@ -10,8 +10,11 @@ const EDITABLE_FIELDS = [
   'city',
   'address',
   'description',
+  'hospital_type',
+  'ownership',
   'established_year',
   'bed_count',
+  'icu_beds',
   'timings',
   'accreditations',
   'departments',
@@ -21,7 +24,7 @@ const EDITABLE_FIELDS = [
 ];
 
 const ARRAY_FIELDS = new Set(['accreditations', 'departments', 'gallery_urls']);
-const NUMBER_FIELDS = new Set(['established_year', 'bed_count']);
+const NUMBER_FIELDS = new Set(['established_year', 'bed_count', 'icu_beds']);
 const BOOLEAN_FIELDS = new Set(['is_placeholder']);
 
 function normalizeValue(field, value) {

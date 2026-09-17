@@ -4,7 +4,8 @@ import { useApi } from '../lib/useApi';
 import { hospitalImage } from '../lib/directoryImages';
 import { specialtyIcon } from '../lib/specialtyIcons';
 import Icon from '../components/Icon';
-import PageHero from '../components/PageHero';
+import CardMedia from '../components/CardMedia';
+import StatBadge from '../components/StatBadge';
 import StateMessage from '../components/StateMessage';
 import ConsultationForm from '../components/ConsultationForm';
 
@@ -31,20 +32,43 @@ export default function HospitalDetail() {
 
   return (
     <div className="flex w-full flex-col">
-      <PageHero
-        eyebrow={hospital.city}
-        eyebrowIcon="location_on"
-        title={hospital.name}
-        subtitle={hospital.description}
-        backgroundImage={hospitalImage(hospital)}
-        backgroundAlt={hospital.name}
-        aside={
-          <div className="flex flex-col gap-space-md rounded-xl bg-primary-container/60 p-space-lg backdrop-blur-md">
-            {hospital.accreditations?.length > 0 && (
-              <div>
-                <div className="mb-space-xs text-label-sm tracking-wider text-primary-fixed-dim uppercase">
-                  Accreditations
+      <div className="mx-auto w-full max-w-7xl px-space-md pt-space-xl sm:px-space-xl">
+        {/* Profile header: an actual, visible photo — not a faint tinted
+            background — plus the name and the facts that build trust
+            fastest: what kind of facility this is, who runs it, how big it
+            is, and its accreditations. */}
+        <div className="overflow-hidden rounded-xl bg-surface-container-lowest shadow-sm">
+          <CardMedia
+            image={hospitalImage(hospital)}
+            alt={hospital.name}
+            label={hospital.name}
+            icon="local_hospital"
+            className="h-56 sm:h-72"
+          />
+
+          <div className="p-space-lg sm:p-space-xl">
+            <div className="flex flex-wrap items-start justify-between gap-space-lg">
+              <div className="min-w-0">
+                <div className="flex items-center gap-space-2xs text-body-sm text-on-surface-variant">
+                  <Icon name="location_on" className="!text-[16px] text-secondary" />
+                  {hospital.city}
                 </div>
+                <h1 className="mt-space-3xs text-headline-lg font-bold text-on-surface">
+                  {hospital.name}
+                </h1>
+                {hospital.hospital_type && (
+                  <p className="mt-space-2xs text-body-md text-on-surface-variant">
+                    {hospital.hospital_type}
+                  </p>
+                )}
+                {hospital.ownership && (
+                  <p className="mt-space-3xs text-body-sm text-on-surface-variant">
+                    {hospital.ownership}
+                  </p>
+                )}
+              </div>
+
+              {hospital.accreditations?.length > 0 && (
                 <div className="flex flex-wrap gap-space-xs">
                   {hospital.accreditations.map((item) => (
                     <span
@@ -55,41 +79,43 @@ export default function HospitalDetail() {
                     </span>
                   ))}
                 </div>
-              </div>
-            )}
+              )}
+            </div>
 
-            {yearsOpen !== null && (
-              <div className="flex items-center justify-between gap-space-lg border-t border-primary-fixed-dim/20 pt-space-md text-body-sm">
-                <span className="text-primary-fixed-dim">Serving Patients Since</span>
-                <span className="font-bold text-secondary-container">
-                  {hospital.established_year} ({yearsOpen}+ years)
-                </span>
-              </div>
-            )}
-
-            {hospital.bed_count && (
-              <div className="flex items-center justify-between gap-space-lg border-t border-primary-fixed-dim/20 pt-space-md text-body-sm">
-                <span className="text-primary-fixed-dim">Capacity</span>
-                <span className="font-bold text-secondary-container">{hospital.bed_count} beds</span>
-              </div>
-            )}
-
-            {hospital.departments?.length > 0 && (
-              <div className="flex items-center justify-between gap-space-lg border-t border-primary-fixed-dim/20 pt-space-md text-body-sm">
-                <span className="text-primary-fixed-dim">Departments</span>
-                <span className="font-bold text-secondary-container">
-                  {hospital.departments.length}
-                </span>
+            {(yearsOpen !== null || hospital.bed_count || hospital.icu_beds) && (
+              <div className="mt-space-lg grid grid-cols-2 gap-space-lg border-t border-outline-variant/20 pt-space-lg sm:grid-cols-3">
+                {yearsOpen !== null && (
+                  <StatBadge
+                    tone="plain"
+                    value={hospital.established_year}
+                    label={`Established — ${yearsOpen}+ yrs`}
+                  />
+                )}
+                {hospital.bed_count && (
+                  <StatBadge tone="plain" value={hospital.bed_count} label="Beds" />
+                )}
+                {hospital.icu_beds && (
+                  <StatBadge tone="plain" value={hospital.icu_beds} label="ICU / critical beds" />
+                )}
               </div>
             )}
           </div>
-        }
-      />
+        </div>
+      </div>
 
       <div className="mx-auto w-full max-w-7xl px-space-md py-space-3xl sm:px-space-xl">
         <div className="grid grid-cols-1 gap-space-2xl lg:grid-cols-3">
           <div className="space-y-space-2xl lg:col-span-2">
-            {(hospital.address || yearsOpen !== null || hospital.timings) && (
+            {hospital.description && (
+              <section>
+                <h2 className="mb-space-md text-headline-md font-bold text-primary">About</h2>
+                <p className="rounded-xl bg-surface-container-lowest p-space-lg text-body-md leading-relaxed text-on-surface-variant shadow-sm">
+                  {hospital.description}
+                </p>
+              </section>
+            )}
+
+            {(hospital.address || hospital.timings) && (
               <section>
                 <h2 className="mb-space-md text-headline-md font-bold text-primary">At a Glance</h2>
                 <div className="grid gap-space-md rounded-xl bg-surface-container-lowest p-space-lg shadow-sm sm:grid-cols-2">
@@ -103,34 +129,12 @@ export default function HospitalDetail() {
                     </div>
                   )}
 
-                  {yearsOpen !== null && (
-                    <div className="flex items-start gap-space-sm">
-                      <Icon name="calendar_month" className="mt-0.5 shrink-0 text-secondary" />
-                      <div>
-                        <p className="text-label-sm font-semibold text-on-surface">Established</p>
-                        <p className="text-body-sm text-on-surface-variant">
-                          {hospital.established_year} — {yearsOpen}+ years serving patients
-                        </p>
-                      </div>
-                    </div>
-                  )}
-
                   {hospital.timings && (
                     <div className="flex items-start gap-space-sm">
                       <Icon name="schedule" className="mt-0.5 shrink-0 text-secondary" />
                       <div>
                         <p className="text-label-sm font-semibold text-on-surface">Hours</p>
                         <p className="text-body-sm text-on-surface-variant">{hospital.timings}</p>
-                      </div>
-                    </div>
-                  )}
-
-                  {hospital.bed_count && (
-                    <div className="flex items-start gap-space-sm">
-                      <Icon name="bed" className="mt-0.5 shrink-0 text-secondary" />
-                      <div>
-                        <p className="text-label-sm font-semibold text-on-surface">Capacity</p>
-                        <p className="text-body-sm text-on-surface-variant">{hospital.bed_count} beds</p>
                       </div>
                     </div>
                   )}

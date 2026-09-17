@@ -11,8 +11,11 @@ const EMPTY_FORM = {
   city: '',
   address: '',
   description: '',
+  hospital_type: '',
+  ownership: '',
   established_year: '',
   bed_count: '',
+  icu_beds: '',
   timings: '',
   accreditations: '',
   departments: '',
@@ -59,8 +62,11 @@ export default function AdminHospitalForm() {
           city: hospital.city || '',
           address: hospital.address || '',
           description: hospital.description || '',
+          hospital_type: hospital.hospital_type || '',
+          ownership: hospital.ownership || '',
           established_year: hospital.established_year ?? '',
           bed_count: hospital.bed_count ?? '',
+          icu_beds: hospital.icu_beds ?? '',
           timings: hospital.timings || '',
           accreditations: arrayToLines(hospital.accreditations),
           departments: arrayToLines(hospital.departments),
@@ -199,6 +205,26 @@ export default function AdminHospitalForm() {
             />
           </Field>
 
+          <Field label="Hospital type" htmlFor="hospital_type" hint="e.g. Multi-super-specialty / Quaternary care">
+            <input
+              id="hospital_type"
+              name="hospital_type"
+              className={fieldClasses}
+              value={form.hospital_type}
+              onChange={handleChange}
+            />
+          </Field>
+
+          <Field label="Ownership / group" htmlFor="ownership" hint="e.g. Fortis Healthcare (part of IHH Healthcare Berhad)">
+            <input
+              id="ownership"
+              name="ownership"
+              className={fieldClasses}
+              value={form.ownership}
+              onChange={handleChange}
+            />
+          </Field>
+
           <Field label="Established year" htmlFor="established_year">
             <input
               id="established_year"
@@ -220,6 +246,18 @@ export default function AdminHospitalForm() {
               min="0"
               className={fieldClasses}
               value={form.bed_count}
+              onChange={handleChange}
+            />
+          </Field>
+
+          <Field label="ICU / critical beds" htmlFor="icu_beds">
+            <input
+              id="icu_beds"
+              name="icu_beds"
+              type="number"
+              min="0"
+              className={fieldClasses}
+              value={form.icu_beds}
               onChange={handleChange}
             />
           </Field>

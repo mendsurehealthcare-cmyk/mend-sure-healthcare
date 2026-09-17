@@ -3,6 +3,7 @@ import { useAuth as useClerkAuth, useUser } from '@clerk/clerk-react';
 import { AuthContext } from './authContext';
 import { authFetch, registerTokenSource } from '../lib/auth';
 import { clerkConfigured } from '../lib/clerk';
+import { takePendingProfileDetails } from '../lib/pendingProfile';
 
 /*
   Holds the logged-in patient for the whole app.
@@ -48,6 +49,27 @@ function ClerkAuthProvider({ children }) {
       // API also creates the row on first sight, so a brand-new account gets
       // a profile back rather than a 404.
       const loaded = await authFetch(`/auth/me${email ? `?email=${encodeURIComponent(email)}` : ''}`);
+
+      // Applies the name/phone/country collected during sign-up (see
+      // Login.jsx's SignUpForm), now that a token source is definitely
+      // registered above and this profile definitely exists. Only for a
+      // still-empty profile, so a stray leftover entry can never overwrite an
+      // existing patient's real details on some later, unrelated login.
+      const pending = takePendingProfileDetails();
+      if (pending && !loaded.full_name && !loaded.phone && !loaded.country) {
+        try {
+          const updated = await authFetch('/auth/me', {
+            method: 'PATCH',
+            body: JSON.stringify({ ...pending, email }),
+          });
+          setProfile(updated);
+          return updated;
+        } catch {
+          // The account still exists and is signed in either way — the
+          // patient can fill these back in from the Account page.
+        }
+      }
+
       setProfile(loaded);
       return loaded;
     } catch {

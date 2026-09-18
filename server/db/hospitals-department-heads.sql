@@ -1,0 +1,12 @@
+-- Mend Sure — named department heads / HODs per hospital
+-- Run this in the Supabase SQL editor (Dashboard -> SQL Editor -> New query).
+-- Safe to run more than once.
+--
+-- `departments` (existing column) is just a flat list of names. This adds a
+-- richer structure for hospitals where the actual head-of-department names
+-- are known and worth showing patients — one entry per department, each
+-- with the named doctor(s) and their title, or a short note when no named
+-- head is publicly listed.
+--
+-- Shape: [{ "department": "Cardiology", "heads": [{ "name": "Dr. X", "title": "HOD, Cardiology" }], "note": "optional, when heads is empty" }, ...]
+alter table hospitals add column if not exists department_heads jsonb not null default '[]'::jsonb;

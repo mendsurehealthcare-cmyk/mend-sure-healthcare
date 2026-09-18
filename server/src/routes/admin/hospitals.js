@@ -18,6 +18,7 @@ const EDITABLE_FIELDS = [
   'timings',
   'accreditations',
   'departments',
+  'department_heads',
   'gallery_urls',
   'image_url',
   'is_placeholder',
@@ -26,11 +27,19 @@ const EDITABLE_FIELDS = [
 const ARRAY_FIELDS = new Set(['accreditations', 'departments', 'gallery_urls']);
 const NUMBER_FIELDS = new Set(['established_year', 'bed_count', 'icu_beds']);
 const BOOLEAN_FIELDS = new Set(['is_placeholder']);
+const JSON_ARRAY_FIELDS = new Set(['department_heads']);
 
 function normalizeValue(field, value) {
   if (ARRAY_FIELDS.has(field)) {
     if (Array.isArray(value)) return value.map((item) => String(item).trim()).filter(Boolean);
     return [];
+  }
+
+  // Structured data (department name + named heads), unlike the plain
+  // string lists above — passed through as-is rather than trimmed to
+  // strings, since each entry is an object.
+  if (JSON_ARRAY_FIELDS.has(field)) {
+    return Array.isArray(value) ? value : [];
   }
 
   if (NUMBER_FIELDS.has(field)) {

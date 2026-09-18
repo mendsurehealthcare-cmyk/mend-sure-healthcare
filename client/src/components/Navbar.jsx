@@ -15,6 +15,7 @@ const links = [
   { to: '/treatments', labelKey: 'nav.treatments' },
   { to: '/hospitals', labelKey: 'nav.hospitals' },
   { to: '/doctors', labelKey: 'nav.doctors' },
+  { to: '/our-specialists', labelKey: 'nav.ourSpecialists' },
   { to: '/how-it-works', labelKey: 'nav.howItWorks' },
   { to: '/about', labelKey: 'nav.about' },
 ];

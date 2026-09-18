@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { authFetch } from '../../lib/auth';
 import { slugify, linesToArray, arrayToLines } from '../../lib/slug';
+import { departmentHeadsToText, textToDepartmentHeads } from '../../lib/departmentHeads';
 import Icon from '../../components/Icon';
 import StateMessage from '../../components/StateMessage';
 
@@ -19,6 +20,7 @@ const EMPTY_FORM = {
   timings: '',
   accreditations: '',
   departments: '',
+  department_heads: '',
   gallery_urls: '',
   image_url: '',
   is_placeholder: false,
@@ -70,6 +72,7 @@ export default function AdminHospitalForm() {
           timings: hospital.timings || '',
           accreditations: arrayToLines(hospital.accreditations),
           departments: arrayToLines(hospital.departments),
+          department_heads: departmentHeadsToText(hospital.department_heads),
           gallery_urls: arrayToLines(hospital.gallery_urls),
           image_url: hospital.image_url || '',
           is_placeholder: Boolean(hospital.is_placeholder),
@@ -107,6 +110,7 @@ export default function AdminHospitalForm() {
       ...form,
       accreditations: linesToArray(form.accreditations),
       departments: linesToArray(form.departments),
+      department_heads: textToDepartmentHeads(form.department_heads),
       gallery_urls: linesToArray(form.gallery_urls),
     };
 
@@ -329,6 +333,22 @@ export default function AdminHospitalForm() {
             />
           </Field>
         </div>
+
+        <Field
+          label="Department heads / HODs"
+          htmlFor="department_heads"
+          hint={'One department per block, separated by a blank line. First line is the department name; below it, one "Doctor Name — Title" per line (add " | https://photo-url" at the end to show their photo). If no named head is known, write "Note: ..." instead.'}
+        >
+          <textarea
+            id="department_heads"
+            name="department_heads"
+            rows={10}
+            className={`${fieldClasses} font-mono text-body-sm`}
+            value={form.department_heads}
+            onChange={handleChange}
+            placeholder={'Cardiology\nDr. Jane Doe — Director & HOD, Cardiology | https://example.com/photo.jpg\n\nGeneral Surgery\nNote: No named head published — confirm with the hospital.'}
+          />
+        </Field>
 
         <label className="flex items-center gap-space-xs text-body-md text-on-surface">
           <input

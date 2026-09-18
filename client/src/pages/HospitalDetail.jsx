@@ -221,6 +221,84 @@ export default function HospitalDetail() {
             </div>
           </div>
         </div>
+
+        {hospital.department_heads?.length > 0 && (
+          <section className="mt-space-2xl">
+            <div className="mb-space-md flex flex-wrap items-end justify-between gap-space-sm">
+              <h2 className="text-headline-md font-bold text-primary">
+                Department Heads &amp; Specialists
+              </h2>
+              <Link
+                to="/our-specialists"
+                className="flex shrink-0 items-center gap-space-2xs text-label-md font-semibold text-secondary hover:underline"
+              >
+                See all specialists
+                <Icon name="arrow_forward" className="!text-[18px]" />
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 gap-space-md sm:grid-cols-2 lg:grid-cols-3">
+              {hospital.department_heads.map((dept) => {
+                const count = dept.heads?.length || 0;
+                return (
+                  <div
+                    key={dept.department}
+                    className="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm"
+                  >
+                    <div className="mb-space-md flex items-start justify-between gap-space-sm">
+                      <div className="flex items-center gap-space-xs">
+                        <Icon name="stethoscope" className="!text-[18px] shrink-0 text-secondary" />
+                        <h3 className="text-label-md font-semibold text-on-surface">
+                          {dept.department}
+                        </h3>
+                      </div>
+                      {count > 0 && (
+                        <span className="shrink-0 rounded-full bg-surface-container-high px-space-xs py-space-3xs text-label-sm text-on-surface-variant">
+                          {count === 1 ? 'Head of Department' : `${count} Specialists`}
+                        </span>
+                      )}
+                    </div>
+
+                    {dept.note && (
+                      <p className="mb-space-md flex items-start gap-space-xs rounded-lg bg-surface-container-low p-space-sm text-body-sm text-on-surface-variant italic">
+                        <Icon name="info" className="mt-0.5 !text-[16px] shrink-0" />
+                        {dept.note}
+                      </p>
+                    )}
+
+                    {count > 0 && (
+                      <ul className="space-y-space-md">
+                        {dept.heads.map((head) => (
+                          <li key={head.name} className="flex items-center gap-space-sm">
+                            <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full bg-primary-fixed text-primary">
+                              {head.image_url ? (
+                                <img
+                                  src={head.image_url}
+                                  alt={head.name}
+                                  loading="lazy"
+                                  className="h-full w-full object-cover"
+                                />
+                              ) : (
+                                <Icon name="person" className="!text-[22px]" />
+                              )}
+                            </div>
+                            <div className="min-w-0">
+                              <p className="truncate text-body-md font-semibold text-on-surface">
+                                {head.name}
+                              </p>
+                              {head.title && (
+                                <p className="text-body-sm text-on-surface-variant">{head.title}</p>
+                              )}
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+        )}
       </div>
     </div>
   );

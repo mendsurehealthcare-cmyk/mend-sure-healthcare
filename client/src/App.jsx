@@ -18,6 +18,7 @@ const Hospitals = lazy(() => import('./pages/Hospitals'));
 const HospitalDetail = lazy(() => import('./pages/HospitalDetail'));
 const Doctors = lazy(() => import('./pages/Doctors'));
 const DoctorDetail = lazy(() => import('./pages/DoctorDetail'));
+const OurSpecialists = lazy(() => import('./pages/OurSpecialists'));
 const HowItWorks = lazy(() => import('./pages/HowItWorks'));
 const About = lazy(() => import('./pages/About'));
 const Testimonials = lazy(() => import('./pages/Testimonials'));
@@ -52,6 +53,7 @@ export default function App() {
                 <Route path="/hospitals/:slug" element={<HospitalDetail />} />
                 <Route path="/doctors" element={<Doctors />} />
                 <Route path="/doctors/:slug" element={<DoctorDetail />} />
+                <Route path="/our-specialists" element={<OurSpecialists />} />
                 <Route path="/how-it-works" element={<HowItWorks />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/testimonials" element={<Testimonials />} />

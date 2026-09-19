@@ -202,6 +202,13 @@ function AboutImageCard() {
 
 export default function About() {
   const { t } = useTranslation();
+  // Which city's hospitals show in the network section below. A single
+  // active city rather than four side-by-side lists — Delhi alone has more
+  // than twice as many hospitals as the other three cities combined, so
+  // showing every city as its own column left three short cards dwarfed by
+  // one towering one instead of a balanced grid.
+  const [selectedCity, setSelectedCity] = useState(hospitalGroups[0].city);
+  const activeGroup = hospitalGroups.find((group) => group.city === selectedCity) ?? hospitalGroups[0];
 
   useDocumentMeta({
     title: 'About MENDSURE — Trusted Medical Travel and Healthcare Support in India',
@@ -344,31 +351,48 @@ export default function About() {
             subtitle="The success of any treatment starts with the hospitals and doctors providing it. We partner with world-class multi-speciality and super-speciality hospitals across Delhi NCR, known for excellent patient care, advanced technology, and international-standard facilities."
           />
 
-          <div className="grid grid-cols-1 items-start gap-space-lg sm:grid-cols-2 lg:grid-cols-4">
-            {hospitalGroups.map((group) => (
-              <div
-                key={group.city}
-                className="flex flex-col rounded-xl bg-surface-container-lowest p-space-lg shadow-sm"
-              >
-                <div className="mb-space-md flex items-center gap-space-sm border-b border-outline-variant/20 pb-space-sm">
-                  <Icon name="location_on" className="!text-[20px] text-secondary" />
-                  <h3 className="text-headline-sm font-bold text-primary">{group.city}</h3>
-                  <span className="ml-auto text-label-sm text-on-surface-variant">
+          {/* One city active at a time, chosen with a pill row — same
+              pattern as the hospital selector on Our Specialists. */}
+          <div className="mb-space-xl flex flex-wrap justify-center gap-space-sm">
+            {hospitalGroups.map((group) => {
+              const active = group.city === selectedCity;
+              return (
+                <button
+                  key={group.city}
+                  type="button"
+                  onClick={() => setSelectedCity(group.city)}
+                  className={`flex items-center gap-space-xs rounded-full px-space-lg py-space-sm text-label-md font-semibold transition-colors ${
+                    active
+                      ? 'bg-primary text-on-primary shadow-sm'
+                      : 'bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container'
+                  }`}
+                >
+                  <Icon name="location_on" className="!text-[18px]" />
+                  {group.city}
+                  <span
+                    className={`rounded-full px-space-xs py-space-3xs text-label-sm ${
+                      active
+                        ? 'bg-on-primary/20 text-on-primary'
+                        : 'bg-surface-container-high text-on-surface-variant'
+                    }`}
+                  >
                     {group.hospitals.length}
                   </span>
-                </div>
+                </button>
+              );
+            })}
+          </div>
 
-                <ul className="space-y-space-sm">
-                  {group.hospitals.map((hospital) => (
-                    <li key={hospital} className="flex items-start gap-space-sm">
-                      <Icon
-                        name="local_hospital"
-                        className="mt-0.5 !text-[18px] shrink-0 text-secondary"
-                      />
-                      <span className="text-body-md text-on-surface">{hospital}</span>
-                    </li>
-                  ))}
-                </ul>
+          <div className="grid grid-cols-1 gap-space-md sm:grid-cols-2 lg:grid-cols-3">
+            {activeGroup.hospitals.map((hospital) => (
+              <div
+                key={hospital}
+                className="flex items-center gap-space-sm rounded-xl bg-surface-container-lowest p-space-md shadow-sm transition-shadow hover:shadow-md"
+              >
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary-fixed text-primary">
+                  <Icon name="local_hospital" className="!text-[20px]" />
+                </div>
+                <span className="text-body-md font-medium text-on-surface">{hospital}</span>
               </div>
             ))}
           </div>

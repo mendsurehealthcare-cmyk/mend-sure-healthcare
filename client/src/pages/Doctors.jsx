@@ -1,5 +1,6 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSearchParams } from 'react-router-dom';
 import { useApi } from '../lib/useApi';
 import { PRIORITY_DOCTOR_SLUGS, pickBySlug } from '../lib/priorityDoctors';
 import Icon from '../components/Icon';
@@ -15,8 +16,36 @@ export default function Doctors() {
   // The whole directory in one request: filtering and searching happen in the
   // browser, so a paginated response would silently hide most of the roster.
   const { data: doctors, loading, error } = useApi('/doctors?pageSize=300');
-  const [specialty, setSpecialty] = useState('All');
-  const [query, setQuery] = useState('');
+
+  // The specialty chip and the search box both live in the URL rather than
+  // component state: clicking through to a doctor's profile and pressing
+  // Back remounts this page, and state that isn't in the URL doesn't
+  // survive that — the filter would otherwise silently reset every time.
+  const [searchParams, setSearchParams] = useSearchParams();
+  const specialty = searchParams.get('specialty') || 'All';
+  const query = searchParams.get('q') || '';
+
+  const setSpecialty = (value) =>
+    setSearchParams(
+      (prev) => {
+        const next = new URLSearchParams(prev);
+        if (value && value !== 'All') next.set('specialty', value);
+        else next.delete('specialty');
+        return next;
+      },
+      { replace: true }
+    );
+
+  const setQuery = (value) =>
+    setSearchParams(
+      (prev) => {
+        const next = new URLSearchParams(prev);
+        if (value) next.set('q', value);
+        else next.delete('q');
+        return next;
+      },
+      { replace: true }
+    );
 
   // Ordered by how many doctors each covers, so the biggest departments come
   // first rather than whatever order the rows happened to arrive in.

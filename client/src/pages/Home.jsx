@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useApi } from '../lib/useApi';
 import { specialtyIcon } from '../lib/specialtyIcons';
 import { INDIA_CITY_INDEX } from '../lib/locations';
+import { TREATMENT_INDEX } from '../lib/treatmentSearch';
 import { COMPANY } from '../lib/company';
 import Autocomplete from '../components/Autocomplete';
 import SocialIcon from '../components/SocialIcon';
@@ -52,6 +53,16 @@ const patientServices = [
 
 const faqKeys = ['1', '2', '3', '4'];
 
+// Four of the twelve real patient stories, chosen to spread across hospitals
+// and treatments rather than clustering, for the home page's compact
+// showcase — the rest are on /testimonials.
+const HOME_TESTIMONIAL_NAMES = [
+  'Mr. Mansoor Ismael Ibrahim',
+  'Mrs. Ban Abed Ahmed',
+  'Mr. Hazber Abdulrahman Khaleel',
+  'Mr. Muthanna Mohammed Abbas Al Ghburi',
+];
+
 export default function Home() {
   const { t } = useTranslation();
   const { data: hospitals } = useApi('/hospitals');
@@ -97,6 +108,15 @@ export default function Home() {
     [testimonials]
   );
 
+  // Four named patients for the home page's compact showcase, chosen rather
+  // than just taking the first four the API returns — the full set lives on
+  // /testimonials. Matched by name since testimonials have no slug; a name
+  // with no match (API hasn't loaded yet) is silently skipped.
+  const featuredTestimonials = useMemo(() => {
+    const byName = new Map(realTestimonials.map((item) => [item.patient_name, item]));
+    return HOME_TESTIMONIAL_NAMES.map((name) => byName.get(name)).filter(Boolean);
+  }, [realTestimonials]);
+
   function handleHeroSearch(event) {
     event.preventDefault();
     if (specialtySearch.trim()) {
@@ -138,17 +158,18 @@ export default function Home() {
             </p>
 
             <form onSubmit={handleHeroSearch} className="flex flex-col gap-space-sm sm:flex-row">
-              <div className="relative flex-1">
-                <Icon
-                  name="person_search"
-                  className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 !text-[20px] text-outline"
-                />
-                <input
-                  type="text"
+              <div className="flex-1">
+                <Autocomplete
+                  index={TREATMENT_INDEX}
                   value={specialtySearch}
-                  onChange={(e) => setSpecialtySearch(e.target.value)}
+                  onChange={setSpecialtySearch}
+                  priority={specialties}
+                  priorityLabel={t('home.hero.guideAvailable')}
+                  icon="person_search"
+                  suggestionIcon="stethoscope"
                   placeholder={t('home.hero.searchSpecialty')}
-                  className="w-full rounded-lg bg-surface-container-lowest py-space-sm pr-space-md pl-10 text-body-md text-on-surface focus:ring-2 focus:ring-secondary focus:outline-none"
+                  aria-label={t('home.hero.searchSpecialtyLabel')}
+                  inputClassName="w-full rounded-lg bg-surface-container-lowest py-space-sm pr-space-md text-body-md text-on-surface focus:ring-2 focus:ring-secondary focus:outline-none"
                 />
               </div>
               <div className="flex-1">
@@ -542,7 +563,7 @@ export default function Home() {
       )}
 
       {/* 10. Testimonials */}
-      {realTestimonials.length > 0 && (
+      {featuredTestimonials.length > 0 && (
         <section className="bg-surface-container-low px-space-md py-space-3xl sm:px-space-xl">
           <div className="mx-auto max-w-7xl">
             <SectionHeading
@@ -550,11 +571,22 @@ export default function Home() {
               title={t('home.testimonials.title')}
               subtitle={t('home.testimonials.subtitle')}
             />
-            <div className="grid grid-cols-1 gap-space-xl md:grid-cols-3">
-              {realTestimonials.slice(0, 3).map((testimonial) => (
+            <div className="grid grid-cols-1 gap-space-xl sm:grid-cols-2 lg:grid-cols-4">
+              {featuredTestimonials.map((testimonial) => (
                 <TestimonialCard key={testimonial.id} testimonial={testimonial} />
               ))}
             </div>
+            {realTestimonials.length > featuredTestimonials.length && (
+              <div className="mt-space-xl text-center">
+                <Link
+                  to="/testimonials"
+                  className="inline-flex items-center gap-space-2xs text-label-md font-semibold text-secondary hover:underline"
+                >
+                  {t('home.testimonials.viewAll')}
+                  <Icon name="arrow_forward" className="!text-[18px]" />
+                </Link>
+              </div>
+            )}
           </div>
         </section>
       )}

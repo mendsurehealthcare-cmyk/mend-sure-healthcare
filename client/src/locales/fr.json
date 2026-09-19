@@ -35,10 +35,12 @@
       "titleHighlight": "pour que vous ne soyez jamais seul",
       "subtitle": "Mendsure se tient aux côtés de chaque patient qui se sent seul face à cette épreuve — de votre première question jusqu'à votre rétablissement complet.",
       "searchSpecialty": "Trouver un traitement ou une spécialité",
+      "searchSpecialtyLabel": "Traitement ou spécialité",
       "searchCity": "Ville en Inde (facultatif)",
       "searchCityLabel": "Ville en Inde",
       "searchButton": "Rechercher",
       "partnerHospitals": "Hôpitaux partenaires",
+      "guideAvailable": "Guide des tarifs disponible",
       "highlight1": "Jusqu'à 80 % d'économies en moyenne",
       "highlight2": "Deuxième avis médical gratuit",
       "highlight3": "Coordinateur de soins dédié",
@@ -131,7 +133,8 @@
     "testimonials": {
       "eyebrow": "Des parcours de patients bien réels",
       "title": "Des patients satisfaits, un service dont nous sommes fiers",
-      "subtitle": "Découvrez le témoignage de personnes qui ont retrouvé leur santé et leur vie grâce à Mendsure."
+      "subtitle": "Découvrez le témoignage de personnes qui ont retrouvé leur santé et leur vie grâce à Mendsure.",
+      "viewAll": "Voir tous les témoignages de patients"
     },
     "faq": {
       "eyebrow": "Des questions ?",

@@ -14,6 +14,11 @@ export default function Autocomplete({
   onSelect,
   priority = [],
   icon,
+  // The icon shown beside a suggestion that has no flag of its own — a
+  // location pin by default, since this started as a places-only picker,
+  // but callers searching something else (treatments, specialties) pass
+  // their own so the list doesn't show a map pin next to "Knee Replacement".
+  suggestionIcon = 'location_on',
   inputClassName = '',
   priorityLabel,
   ...inputProps
@@ -166,7 +171,7 @@ export default function Autocomplete({
                 <span className="text-body-lg leading-none">{suggestion.flag}</span>
               ) : (
                 <Icon
-                  name="location_on"
+                  name={suggestionIcon}
                   className="!text-[18px] shrink-0 text-outline"
                 />
               )}

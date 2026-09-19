@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useMemo } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useApi } from '../lib/useApi';
 import Icon from '../components/Icon';
 import PageHero from '../components/PageHero';
@@ -14,8 +14,13 @@ export default function OurSpecialists() {
 
   // Which hospital's specialists are on screen. Only one at a time — with
   // dozens of hospitals now on file, rendering every specialist from every
-  // hospital in one long scroll was the problem being fixed here.
-  const [selectedSlug, setSelectedSlug] = useState(null);
+  // hospital in one long scroll was the problem being fixed here. Kept in
+  // the URL rather than component state: this page gets reached mainly by
+  // clicking through to a hospital or a doctor and then pressing Back, and
+  // component state doesn't survive that remount — the selection would
+  // silently reset to the first hospital every time. The URL does survive it.
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedSlug = searchParams.get('hospital');
 
   // One entry per hospital that actually has named department heads on file.
   // Heads without a name (a department with only a "no named HOD published"
@@ -105,7 +110,7 @@ export default function OurSpecialists() {
                       <button
                         key={hospital.slug}
                         type="button"
-                        onClick={() => setSelectedSlug(hospital.slug)}
+                        onClick={() => setSearchParams({ hospital: hospital.slug }, { replace: true })}
                         className={`flex items-center justify-between gap-space-sm rounded-lg px-space-sm py-space-xs text-left text-body-sm transition-colors ${
                           active
                             ? 'bg-primary font-semibold text-on-primary'

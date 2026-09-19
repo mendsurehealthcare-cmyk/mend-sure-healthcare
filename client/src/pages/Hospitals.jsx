@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useApi } from '../lib/useApi';
 import Button from '../components/Button';
@@ -36,7 +36,7 @@ const journey = [
 ];
 
 export default function Hospitals() {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const cityParam = searchParams.get('city');
   const {
     data: hospitals,
@@ -48,9 +48,49 @@ export default function Hospitals() {
       : '/hospitals?pageSize=300'
   );
 
-  const [query, setQuery] = useState('');
-  const [city, setCity] = useState('all');
-  const [sort, setSort] = useState('name-asc');
+  // Search text, the city dropdown, and sort order all live in the URL
+  // (as q/filterCity/sort) rather than component state — this page is a
+  // common stop on the way to a hospital's detail page, and state that
+  // isn't in the URL doesn't survive the remount when the Back button
+  // returns here, so a typed search or chosen filter would otherwise
+  // silently vanish. Distinct from `cityParam` above, which pre-filters the
+  // API request itself for a deep link like "view hospitals in Delhi".
+  const query = searchParams.get('q') || '';
+  const city = searchParams.get('filterCity') || 'all';
+  const sort = searchParams.get('sort') || 'name-asc';
+
+  const setQuery = (value) =>
+    setSearchParams(
+      (prev) => {
+        const next = new URLSearchParams(prev);
+        if (value) next.set('q', value);
+        else next.delete('q');
+        return next;
+      },
+      { replace: true }
+    );
+
+  const setCity = (value) =>
+    setSearchParams(
+      (prev) => {
+        const next = new URLSearchParams(prev);
+        if (value && value !== 'all') next.set('filterCity', value);
+        else next.delete('filterCity');
+        return next;
+      },
+      { replace: true }
+    );
+
+  const setSort = (value) =>
+    setSearchParams(
+      (prev) => {
+        const next = new URLSearchParams(prev);
+        if (value && value !== 'name-asc') next.set('sort', value);
+        else next.delete('sort');
+        return next;
+      },
+      { replace: true }
+    );
 
   // Cities are derived from the data rather than hardcoded, so adding a
   // hospital in a new city puts it in the filter automatically.

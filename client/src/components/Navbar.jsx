@@ -7,10 +7,11 @@ import LanguageSwitcher from './LanguageSwitcher';
 
 // labelKey rather than a literal: the label is resolved at render time so it
 // re-renders in the new language the moment the switcher changes it.
+//
+// `end` so the Home pill is only active on the home route itself — without
+// it, NavLink treats every path as "starting with /" and lights this one up
+// everywhere.
 const links = [
-  // `end` so this pill is only active on the home route itself — without it,
-  // NavLink treats every path as "starting with /" and lights this one up
-  // everywhere.
   { to: '/', labelKey: 'nav.home', end: true },
   { to: '/treatments', labelKey: 'nav.treatments' },
   { to: '/hospitals', labelKey: 'nav.hospitals' },
@@ -19,6 +20,13 @@ const links = [
   { to: '/how-it-works', labelKey: 'nav.howItWorks' },
   { to: '/about', labelKey: 'nav.about' },
 ];
+
+// The desktop bar only ever shows this shorter set, in this order — How It
+// Works and About stay reachable through the hamburger menu (which lists
+// every link above, `links`, in full) rather than crowding the front row.
+const PRIMARY_ORDER = ['/', '/treatments', '/hospitals', '/doctors', '/our-specialists'];
+const byPath = new Map(links.map((link) => [link.to, link]));
+const primaryLinks = PRIMARY_ORDER.map((path) => byPath.get(path)).filter(Boolean);
 
 // Nav links render as pills: the active route gets a solid navy pill, the rest
 // stay quiet until hovered.
@@ -176,7 +184,7 @@ export default function Navbar() {
             wordmark is set in type rather than used as an image. */}
         <NavLink to="/" className="flex shrink-0 items-center gap-space-sm">
           <img src="/logo-mark.png" alt="" className="h-10 w-10 shrink-0" />
-          <span className="flex flex-col justify-center leading-none">
+          <span className="flex flex-col items-center justify-center leading-none">
             <span className="text-headline-sm font-extrabold tracking-tight whitespace-nowrap text-primary">
               MENDSURE
             </span>
@@ -186,14 +194,26 @@ export default function Navbar() {
           </span>
         </NavLink>
 
-        <nav className="hidden items-center gap-space-2xs xl:flex">
-          {links.map((link) => (
+        {/* The full desktop treatment (nav links, book-consultation, login/
+            language) needs real estate none of the default Tailwind
+            breakpoints happen to guarantee — xl (1280px) and even 2xl
+            (1536px) aren't consistently wide enough for the logo, the nav
+            row, and the right-hand cluster to sit on one line, which is
+            what was pushing the language switcher half off-screen and
+            crushing the gap next to the logo. This custom, wider threshold
+            (and the matching one below on the mobile-menu toggle) is sized
+            with enough margin that the row has room to breathe rather than
+            just barely fitting. Below it, the hamburger menu's dropdown
+            carries every link (`links`, not just the front row's
+            `primaryLinks`) plus the same actions, so nothing is lost. */}
+        <nav className="hidden items-center gap-space-2xs min-[1400px]:flex">
+          {primaryLinks.map((link) => (
             <NavItem key={link.to} {...link} />
           ))}
         </nav>
 
         <div className="flex shrink-0 items-center gap-space-sm">
-          <form onSubmit={handleSearch} className="relative hidden 2xl:block">
+          <form onSubmit={handleSearch} className="relative hidden min-[1800px]:block">
             <Icon
               name="search"
               className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 !text-[20px] text-outline"
@@ -209,7 +229,7 @@ export default function Navbar() {
 
           <NavLink
             to="/contact"
-            className="hidden shrink-0 rounded-lg bg-secondary px-space-md py-space-xs text-label-md whitespace-nowrap text-on-secondary shadow-sm transition-colors hover:bg-secondary-fixed-dim hover:text-on-secondary-fixed xl:inline-flex"
+            className="hidden shrink-0 rounded-lg bg-secondary px-space-md py-space-xs text-label-md whitespace-nowrap text-on-secondary shadow-sm transition-colors hover:bg-secondary-fixed-dim hover:text-on-secondary-fixed min-[1400px]:inline-flex"
           >
             {t('nav.bookConsultation')}
           </NavLink>
@@ -219,20 +239,21 @@ export default function Navbar() {
           ) : (
             <NavLink
               to="/login"
-              className="hidden shrink-0 items-center gap-space-3xs rounded-lg px-space-sm py-space-xs text-label-md whitespace-nowrap text-on-surface-variant transition-colors hover:bg-surface-container hover:text-on-surface xl:inline-flex"
+              className="hidden shrink-0 items-center gap-space-3xs rounded-lg px-space-sm py-space-xs text-label-md whitespace-nowrap text-on-surface-variant transition-colors hover:bg-surface-container hover:text-on-surface min-[1400px]:inline-flex"
             >
               <Icon name="login" className="!text-[18px]" />
               {t('nav.logIn')}
             </NavLink>
           )}
 
-          {/* Hidden below xl alongside the rest of the desktop controls — the
-              mobile menu carries its own copy so the bar stays uncluttered. */}
-          <LanguageSwitcher className="hidden xl:block" />
+          {/* Hidden below the same threshold as the rest of the desktop
+              controls — the mobile menu carries its own copy so the bar
+              stays uncluttered. */}
+          <LanguageSwitcher className="hidden min-[1400px]:block" />
 
           <button
             type="button"
-            className="text-primary xl:hidden"
+            className="text-primary min-[1400px]:hidden"
             aria-label={t('nav.toggleMenu')}
             onClick={() => setMenuOpen((open) => !open)}
           >
@@ -242,7 +263,7 @@ export default function Navbar() {
       </div>
 
       {menuOpen && (
-        <nav className="flex flex-col gap-space-xs border-t border-outline-variant/20 bg-surface px-space-md py-space-md xl:hidden">
+        <nav className="flex flex-col gap-space-xs border-t border-outline-variant/20 bg-surface px-space-md py-space-md min-[1400px]:hidden">
           {links.map((link) => (
             <NavItem key={link.to} {...link} onClick={() => setMenuOpen(false)} />
           ))}

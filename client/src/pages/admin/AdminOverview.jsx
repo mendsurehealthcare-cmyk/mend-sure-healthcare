@@ -64,7 +64,7 @@ export default function AdminOverview() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    authFetch('/admin/overview')
+    authFetch('/admin/overview', { cache: 'no-store' })
       .then(setOverview)
       .catch((err) => setError(err.message));
   }, []);

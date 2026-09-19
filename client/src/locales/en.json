@@ -35,10 +35,12 @@
       "titleHighlight": "so you're never alone in this",
       "subtitle": "Mendsure stands beside every patient who feels they're facing this alone — from your first question to full recovery.",
       "searchSpecialty": "Find a treatment or specialty",
+      "searchSpecialtyLabel": "Treatment or specialty",
       "searchCity": "City in India (optional)",
       "searchCityLabel": "City in India",
       "searchButton": "Search",
       "partnerHospitals": "Partner hospitals",
+      "guideAvailable": "Cost guide available",
       "highlight1": "Up to 80% Average Savings",
       "highlight2": "Free 2nd Medical Opinion",
       "highlight3": "Dedicated Care Manager",
@@ -141,7 +143,8 @@
     "testimonials": {
       "eyebrow": "Real Patient Success Stories",
       "title": "Satisfied Patients, Proud Service",
-      "subtitle": "Hear from people who transformed their health and reclaimed their lives through Mendsure."
+      "subtitle": "Hear from people who transformed their health and reclaimed their lives through Mendsure.",
+      "viewAll": "View all patient stories"
     },
     "faq": {
       "eyebrow": "Got Questions?",

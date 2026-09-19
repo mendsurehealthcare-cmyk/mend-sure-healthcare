@@ -61,8 +61,9 @@ function normalize(text) {
 }
 
 // Builds the searchable form of each entry once, rather than re-normalising
-// four thousand strings on every keystroke.
-function buildIndex(entries, aliases) {
+// four thousand strings on every keystroke. Exported: it's generic over any
+// string list, not just locations — see lib/treatmentSearch.js.
+export function buildIndex(entries, aliases) {
   return entries.map((entry) => {
     const name = typeof entry === 'string' ? entry : entry.name;
     const alternates = aliases[name] || [];

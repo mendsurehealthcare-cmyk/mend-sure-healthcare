@@ -5,16 +5,16 @@ import Icon from './Icon';
 
 /*
   Same visual design as DoctorCard — square headshot, title line, hospital
-  badge, full-width CTA — for the hospitals' named department heads, who
-  aren't in the main doctors directory and so have no /doctors/:slug page of
-  their own. The card links to the hospital instead, where their full title
-  and department context already live (see the "Department Heads &
-  Specialists" section on HospitalDetail).
+  badge, full-width CTA — for the hospitals' named department heads. Every
+  one is linked to a real /doctors/:slug page: an existing profile when the
+  person is already in the main directory, otherwise a bare placeholder
+  profile created for them (see scripts/link-department-heads-to-doctors.mjs)
+  so there's always somewhere for the card to send a patient.
 */
 export default function SpecialistCard({ specialist }) {
   return (
     <Link
-      to={`/hospitals/${specialist.hospitalSlug}`}
+      to={`/doctors/${specialist.doctorSlug}`}
       className="group flex h-full flex-col justify-between rounded-xl bg-surface-container-lowest p-space-lg shadow-sm transition-all hover:shadow-xl"
     >
       <div>
@@ -50,7 +50,7 @@ export default function SpecialistCard({ specialist }) {
       </div>
 
       <span className="flex w-full items-center justify-center gap-space-xs rounded-lg bg-secondary px-space-md py-space-sm text-label-md text-on-secondary shadow-sm transition-colors group-hover:bg-secondary-fixed-dim group-hover:text-on-secondary-fixed">
-        View Hospital
+        View Profile
         <Icon name="arrow_forward" className="!text-[18px]" />
       </span>
     </Link>

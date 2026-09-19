@@ -29,6 +29,101 @@ const NUMBER_FIELDS = new Set(['established_year', 'bed_count', 'icu_beds']);
 const BOOLEAN_FIELDS = new Set(['is_placeholder']);
 const JSON_ARRAY_FIELDS = new Set(['department_heads']);
 
+// Every named department head is a real person and gets a real
+// /doctors/:slug page — matched to their existing profile when one exists,
+// otherwise a bare placeholder created for them on the spot (the client
+// fills in the rest of that profile later, same as any other placeholder
+// doctor). Runs on every save of department_heads, not just the initial
+// import, so an admin typing a brand-new name into the CMS gets it linked
+// automatically instead of the link silently going nowhere.
+function norm(name) {
+  return name
+    .toLowerCase()
+    .replace(/\([^)]*\)/g, ' ')
+    .replace(/[.,]/g, ' ')
+    .replace(/^\s*(dr|prof)\s+/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+// A couple of known cases where department-head text shortens a name
+// relative to how the same real person is spelled in the main doctors table
+// (a dropped "Kumar", an abbreviated middle name).
+const NAME_ALIASES = new Map(
+  [
+    ['Dr. Pradeep Bansal', 'Dr. Pradeep Kumar Bansal'],
+    ['Dr. Manoj K. Goel', 'Dr. Manoj Kumar Goel'],
+  ].map(([short, full]) => [norm(short), norm(full)])
+);
+
+function slugify(value) {
+  return value
+    .normalize('NFKD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+async function linkDepartmentHeads(hospitalId, departmentHeads) {
+  if (!Array.isArray(departmentHeads) || departmentHeads.length === 0) return departmentHeads;
+  const anyNamed = departmentHeads.some((dept) => (dept.heads || []).some((h) => h?.name));
+  if (!anyNamed) return departmentHeads;
+
+  const { data: doctors, error } = await supabase.from('doctors').select('name, slug');
+  if (error) throw error;
+
+  const byNorm = new Map();
+  for (const doctor of doctors || []) {
+    const key = norm(doctor.name);
+    if (!byNorm.has(key)) byNorm.set(key, doctor.slug);
+  }
+  const takenSlugs = new Set((doctors || []).map((d) => d.slug));
+  const newDoctors = [];
+
+  const linked = departmentHeads.map((dept) => ({
+    ...dept,
+    heads: (dept.heads || []).map((head) => {
+      if (!head?.name) return head;
+
+      const key = norm(head.name);
+      const existingSlug = byNorm.get(NAME_ALIASES.get(key) ?? key);
+      if (existingSlug) return { ...head, doctorSlug: existingSlug };
+
+      const base = head.image_url
+        ? head.image_url.split('/').pop().replace(/\.[a-z0-9]+$/i, '')
+        : slugify(head.name.replace(/\([^)]*\)/g, ' ').replace(/[.,]/g, ''));
+      let slug = base;
+      let n = 2;
+      while (takenSlugs.has(slug)) {
+        slug = `${base}-${n}`;
+        n += 1;
+      }
+      takenSlugs.add(slug);
+      byNorm.set(key, slug);
+
+      newDoctors.push({
+        name: head.name,
+        slug,
+        specialty: dept.department,
+        designation: head.title || null,
+        hospital_id: hospitalId,
+        image_url: head.image_url || null,
+        is_placeholder: true,
+      });
+
+      return { ...head, doctorSlug: slug };
+    }),
+  }));
+
+  if (newDoctors.length > 0) {
+    const { error: insertError } = await supabase.from('doctors').insert(newDoctors);
+    if (insertError) throw insertError;
+  }
+
+  return linked;
+}
+
 function normalizeValue(field, value) {
   if (ARRAY_FIELDS.has(field)) {
     if (Array.isArray(value)) return value.map((item) => String(item).trim()).filter(Boolean);
@@ -131,6 +226,17 @@ router.post('/', async (req, res) => {
     return res.status(400).json({ error: message });
   }
 
+  if (Array.isArray(payload.department_heads) && payload.department_heads.length > 0) {
+    const linked = await linkDepartmentHeads(data.id, payload.department_heads);
+    const { data: relinked, error: relinkError } = await supabase
+      .from('hospitals')
+      .update({ department_heads: linked })
+      .eq('id', data.id)
+      .select('*')
+      .single();
+    if (!relinkError) return res.status(201).json(relinked);
+  }
+
   res.status(201).json(data);
 });
 
@@ -140,6 +246,10 @@ router.patch('/:id', async (req, res) => {
   const validationError = validate(payload, true);
   if (validationError) {
     return res.status(400).json({ error: validationError });
+  }
+
+  if (Array.isArray(payload.department_heads)) {
+    payload.department_heads = await linkDepartmentHeads(req.params.id, payload.department_heads);
   }
 
   const { data, error } = await supabase

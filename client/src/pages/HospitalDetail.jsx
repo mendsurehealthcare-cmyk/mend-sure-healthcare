@@ -268,27 +268,34 @@ export default function HospitalDetail() {
                     {count > 0 && (
                       <ul className="space-y-space-md">
                         {dept.heads.map((head) => (
-                          <li key={head.name} className="flex items-center gap-space-sm">
-                            <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full bg-primary-fixed text-primary">
-                              {head.image_url ? (
-                                <img
-                                  src={head.image_url}
-                                  alt={head.name}
-                                  loading="lazy"
-                                  className="h-full w-full object-cover"
-                                />
-                              ) : (
-                                <Icon name="person" className="!text-[22px]" />
-                              )}
-                            </div>
-                            <div className="min-w-0">
-                              <p className="truncate text-body-md font-semibold text-on-surface">
-                                {head.name}
-                              </p>
-                              {head.title && (
-                                <p className="text-body-sm text-on-surface-variant">{head.title}</p>
-                              )}
-                            </div>
+                          <li key={head.name}>
+                            <Link
+                              to={head.doctorSlug ? `/doctors/${head.doctorSlug}` : '#'}
+                              className={`flex items-center gap-space-sm rounded-lg ${
+                                head.doctorSlug ? '-m-space-2xs p-space-2xs hover:bg-surface-container' : ''
+                              }`}
+                            >
+                              <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full bg-primary-fixed text-primary">
+                                {head.image_url ? (
+                                  <img
+                                    src={head.image_url}
+                                    alt={head.name}
+                                    loading="lazy"
+                                    className="h-full w-full object-cover"
+                                  />
+                                ) : (
+                                  <Icon name="person" className="!text-[22px]" />
+                                )}
+                              </div>
+                              <div className="min-w-0">
+                                <p className="truncate text-body-md font-semibold text-on-surface">
+                                  {head.name}
+                                </p>
+                                {head.title && (
+                                  <p className="text-body-sm text-on-surface-variant">{head.title}</p>
+                                )}
+                              </div>
+                            </Link>
                           </li>
                         ))}
                       </ul>

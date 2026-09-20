@@ -184,12 +184,19 @@ export default function Navbar() {
             wordmark is set in type rather than used as an image. */}
         <NavLink to="/" className="flex shrink-0 items-center gap-space-sm">
           <img src="/logo-mark.png" alt="" className="h-10 w-10 shrink-0" />
-          <span className="flex flex-col items-center justify-center leading-none">
+          {/* "MENDSURE" sets the natural width of this stack (it's the one
+              line that can't stretch or shrink). The subtitle is split into
+              its two words and laid out with justify-between rather than
+              given a fixed tracking value, so it's stretched to exactly that
+              same width by the browser — not just close via a hand-tuned
+              letter-spacing guess. */}
+          <span className="inline-flex flex-col justify-center leading-none">
             <span className="text-headline-sm font-extrabold tracking-tight whitespace-nowrap text-primary">
               MENDSURE
             </span>
-            <span className="mt-space-3xs text-[9px] font-semibold tracking-[0.16em] whitespace-nowrap text-secondary">
-              HEALTHCARE SERVICES
+            <span className="mt-space-3xs flex justify-between text-[9px] font-semibold text-secondary">
+              <span>HEALTHCARE</span>
+              <span>SERVICES</span>
             </span>
           </span>
         </NavLink>

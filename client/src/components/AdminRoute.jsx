@@ -18,7 +18,7 @@ import StateMessage from './StateMessage';
   account (or granting this one the role in profiles.role).
 */
 export default function AdminRoute({ children }) {
-  const { user, loading, logout } = useAuth();
+  const { user, loading, logout, refreshUser } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -26,6 +26,43 @@ export default function AdminRoute({ children }) {
 
   if (!user) {
     return <Navigate to="/login" replace state={{ from: location.pathname }} />;
+  }
+
+  // No role at all means the profile request itself failed (AuthProvider
+  // falls back to an empty profile), not that this is a patient account —
+  // say so, rather than wrongly telling an admin they lack access.
+  if (!user.role) {
+    return (
+      <div className="mx-auto flex max-w-lg flex-col items-center px-space-md py-space-3xl text-center">
+        <Icon name="sync_problem" className="!text-[48px] text-outline" />
+        <h1 className="mt-space-md text-headline-md text-on-surface">
+          We couldn't check your access
+        </h1>
+        <p className="mt-space-sm text-body-md text-on-surface-variant">
+          Your account details didn't load. Please try again — if this keeps happening, log out and
+          log back in.
+        </p>
+        <div className="mt-space-lg flex flex-wrap justify-center gap-space-sm">
+          <button
+            type="button"
+            onClick={() => refreshUser()}
+            className="rounded-lg bg-primary px-space-lg py-space-sm text-label-md text-on-primary transition-colors hover:bg-primary-container"
+          >
+            Try again
+          </button>
+          <button
+            type="button"
+            onClick={async () => {
+              await logout();
+              navigate('/login', { replace: true, state: { from: location.pathname } });
+            }}
+            className="rounded-lg bg-surface-container px-space-lg py-space-sm text-label-md text-on-surface transition-colors hover:bg-surface-container-high"
+          >
+            Log out and log in again
+          </button>
+        </div>
+      </div>
+    );
   }
 
   if (user.role !== 'admin') {

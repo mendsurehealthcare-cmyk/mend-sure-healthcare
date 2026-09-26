@@ -19,7 +19,7 @@
     />
 
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Mendsure Healthcare Services" />
+    <meta property="og:site_name" content="Mendsure" />
     <meta property="og:title" content="Mendsure — Affordable World-Class Treatment in India" />
     <meta
       property="og:description"
@@ -28,6 +28,47 @@
     <meta property="og:image" content="/og-image.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="/og-image.jpg" />
+    <!-- Tells Google the brand's exact name. Without it Google guesses a
+         "site name" for search results, and split the domain
+         mendsurehealthcare.com into "Mend Sure Healthcare". The WebSite
+         `name` is what Google uses for that label; the Organization block
+         backs it up with the logo and contact details. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://www.mendsurehealthcare.com/#website",
+            "name": "Mendsure",
+            "alternateName": ["Mendsure Healthcare", "Mendsure Healthcare Services"],
+            "url": "https://www.mendsurehealthcare.com/",
+            "publisher": { "@id": "https://www.mendsurehealthcare.com/#organization" }
+          },
+          {
+            "@type": "MedicalOrganization",
+            "@id": "https://www.mendsurehealthcare.com/#organization",
+            "name": "Mendsure",
+            "legalName": "Mendsure Healthcare Services Private Limited",
+            "url": "https://www.mendsurehealthcare.com/",
+            "logo": "https://www.mendsurehealthcare.com/logo-lockup.png",
+            "email": "hello@mendsurehealthcare.com",
+            "telephone": "+91-9990857860",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Shaheen Bagh, Abul Fazal Enclave-II",
+              "addressLocality": "New Delhi",
+              "postalCode": "110025",
+              "addressCountry": "IN"
+            },
+            "sameAs": [
+              "https://www.facebook.com/profile.php?id=61591701211196",
+              "https://www.instagram.com/mendsure24/"
+            ]
+          }
+        ]
+      }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

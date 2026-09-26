@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /account
+Disallow: /reports
+
+Sitemap: https://www.mendsurehealthcare.com/sitemap.xml

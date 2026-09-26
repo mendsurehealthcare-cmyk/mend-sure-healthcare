@@ -32,6 +32,30 @@
 // specialty grid) has one list to import instead of two.
 export const CARDIAC_SURGERY_SPECIALTY = 'Cardiac Surgery';
 
+// Cardiac Surgery's India price list. Kept here (as numbers, formatted by
+// formatINR / formatUSD at render time) so the Cost page and the cardiac
+// guide read the same figures.
+export const CARDIAC_INDIA_COSTS = [
+  { procedure: 'Heart bypass surgery', inr: 280000, usd: 5000 },
+  { procedure: 'Valve repair or replacement', inr: 425000, usd: 9500 },
+  { procedure: 'TAVI', inr: 2000000, usd: 36500 },
+  { procedure: 'TMVI', inr: 2000000, usd: 36500 },
+  { procedure: 'Angioplasty', inr: 250000, usd: 5250 },
+  { procedure: 'Pacemaker', inr: 350000, usd: 6750 },
+  { procedure: 'ICD implantation', inr: 700000, usd: 12000 },
+  { procedure: 'EPS/RFA', inr: 300000, usd: 5500 },
+  { procedure: 'Glenn procedure', inr: 350000, usd: 5750 },
+  { procedure: 'Fontan procedure', inr: 400000, usd: 7000 },
+  { procedure: 'ASD', inr: 250000, usd: 5000 },
+  { procedure: 'VSD', inr: 250000, usd: 5000 },
+  { procedure: 'Cardiac tumour removal surgery', inr: 700000, usd: 11500 },
+  { procedure: 'Pericardiectomy', inr: 475000, usd: 9000 },
+  { procedure: 'Pulmonary thromboendarterectomy', inr: 500000, usd: 9500 },
+  { procedure: 'Coronary endarterectomy', inr: 650000, usd: 7250 },
+  { procedure: 'Bentall surgery', inr: 1800000, usd: 32500 },
+  { procedure: 'Heart transplant surgery', inr: 2250000, usd: 40000 },
+];
+
 export const TREATMENT_COST_GUIDES = {
   Oncology: [
     {

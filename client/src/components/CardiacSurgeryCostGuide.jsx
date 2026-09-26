@@ -1,6 +1,7 @@
 import { useApi } from '../lib/useApi';
 import { formatINR, formatUSD } from '../lib/format';
 import { CARDIAC_ARTICLE_SECTIONS, CARDIAC_FAQS, CARDIAC_INTRO } from '../data/cardiacSurgeryArticle';
+import { CARDIAC_INDIA_COSTS } from '../data/treatmentCostGuides';
 import DoctorCard from './DoctorCard';
 import HospitalCard from './HospitalCard';
 import ScrollRow from './ScrollRow';
@@ -25,26 +26,9 @@ const CARDIAC_DOCTOR_SPECIALTY = 'Cardiac Care';
   patient has to scan one at a time to compare two numbers, where a table
   puts all of them in view at once.
 */
-const INDIA_COSTS = [
-  { procedure: 'Heart bypass surgery', inr: 280000, usd: 5000 },
-  { procedure: 'Valve repair or replacement', inr: 425000, usd: 9500 },
-  { procedure: 'TAVI', inr: 2000000, usd: 36500 },
-  { procedure: 'TMVI', inr: 2000000, usd: 36500 },
-  { procedure: 'Angioplasty', inr: 250000, usd: 5250 },
-  { procedure: 'Pacemaker', inr: 350000, usd: 6750 },
-  { procedure: 'ICD implantation', inr: 700000, usd: 12000 },
-  { procedure: 'EPS/RFA', inr: 300000, usd: 5500 },
-  { procedure: 'Glenn procedure', inr: 350000, usd: 5750 },
-  { procedure: 'Fontan procedure', inr: 400000, usd: 7000 },
-  { procedure: 'ASD', inr: 250000, usd: 5000 },
-  { procedure: 'VSD', inr: 250000, usd: 5000 },
-  { procedure: 'Cardiac tumour removal surgery', inr: 700000, usd: 11500 },
-  { procedure: 'Pericardiectomy', inr: 475000, usd: 9000 },
-  { procedure: 'Pulmonary thromboendarterectomy', inr: 500000, usd: 9500 },
-  { procedure: 'Coronary endarterectomy', inr: 650000, usd: 7250 },
-  { procedure: 'Bentall surgery', inr: 1800000, usd: 32500 },
-  { procedure: 'Heart transplant surgery', inr: 2250000, usd: 40000 },
-];
+// The list itself lives in treatmentCostGuides.js so the Cost page shows the
+// same figures.
+const INDIA_COSTS = CARDIAC_INDIA_COSTS;
 
 // Only these five procedures have a published Turkey/Thailand figure to
 // compare against — the rest of INDIA_COSTS has no equivalent source, so
@@ -77,7 +61,7 @@ export default function CardiacSurgeryCostGuide() {
   const { data: doctors } = useApi(
     `/doctors?specialty=${encodeURIComponent(CARDIAC_DOCTOR_SPECIALTY)}&pageSize=300`
   );
-  const { data: hospitals } = useApi('/hospitals');
+  const { data: hospitals } = useApi('/hospitals?pageSize=300');
 
   // Hospitals aren't tagged with a specialty of their own, so "hospitals that
   // treat cardiac patients" is derived from which hospitals the cardiac

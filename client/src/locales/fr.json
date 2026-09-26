@@ -5,6 +5,7 @@
     "hospitals": "Hôpitaux",
     "doctors": "Médecins",
     "ourSpecialists": "Nos Spécialistes",
+    "cost": "Tarifs",
     "howItWorks": "Comment ça marche",
     "patientStories": "Témoignages",
     "about": "À propos",
@@ -219,6 +220,21 @@
       "pageOf": "Page {{page}} sur {{count}}",
       "prevPage": "Page précédente",
       "nextPage": "Page suivante"
+    },
+    "cost": {
+      "eyebrow": "Des prix transparents, tout compris",
+      "title": "Coût des traitements en Inde",
+      "subtitle": "Coûts moyens de chaque intervention que nous organisons, regroupés par spécialité, en roupies indiennes et en dollars américains.",
+      "procedures": "Interventions",
+      "specialties": "Spécialités",
+      "savings": "Moins cher",
+      "searchPlaceholder": "Rechercher une intervention...",
+      "noMatch": "Aucune intervention ne correspond à cette recherche.",
+      "fullGuide": "Guide complet du traitement",
+      "disclaimer": "Les coûts sont des moyennes approximatives et peuvent varier selon l'hôpital, la ville, la catégorie de chambre et votre état de santé. Votre équipe de soins vous enverra un devis détaillé pour votre cas.",
+      "ctaTitle": "Vous voulez un devis exact pour votre cas ?",
+      "ctaBody": "Partagez vos rapports médicaux et notre équipe de soins vous enverra une estimation personnalisée tout compris sous 48 heures.",
+      "ctaButton": "Obtenir mon devis gratuit"
     },
     "howItWorks": {
       "eyebrow": "Un accompagnement de bout en bout",

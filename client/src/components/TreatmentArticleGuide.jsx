@@ -23,10 +23,7 @@ import FaqAccordion from './FaqAccordion';
   hand.
 
   `doctorSpecialty` takes either one specialty string or an array of them —
-  Spine Surgery needs both "Spine Surgery" and "Neuro and Spine Surgery",
-  since the article itself says spine conditions are treated by both
-  orthopaedic spine surgeons and neurosurgeons, and the doctor directory
-  splits those into two specialty values. Fetching the full directory once
+  a guide can draw on more than one directory category. Fetching the full directory once
   and filtering client-side (rather than a separate request per specialty)
   keeps this a fixed number of hooks regardless of how many values are
   passed, which the rules of hooks require.
@@ -64,7 +61,7 @@ export default function TreatmentArticleGuide({
     (doctor) => doctorSpecialties.includes(doctor.specialty) || doctorSlugs?.includes(doctor.slug)
   );
 
-  const { data: hospitals } = useApi('/hospitals');
+  const { data: hospitals } = useApi('/hospitals?pageSize=300');
 
   const relatedHospitals = (() => {
     if (!doctors || !hospitals) return [];

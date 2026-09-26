@@ -5,6 +5,7 @@
     "hospitals": "Hospitales",
     "doctors": "Médicos",
     "ourSpecialists": "Nuestros Especialistas",
+    "cost": "Costos",
     "howItWorks": "Cómo funciona",
     "patientStories": "Historias de pacientes",
     "about": "Nosotros",
@@ -219,6 +220,21 @@
       "pageOf": "Página {{page}} de {{count}}",
       "prevPage": "Página anterior",
       "nextPage": "Página siguiente"
+    },
+    "cost": {
+      "eyebrow": "Precios transparentes y todo incluido",
+      "title": "Costos de tratamiento en India",
+      "subtitle": "Costos promedio de cada procedimiento que organizamos, agrupados por especialidad, en rupias indias y dólares estadounidenses.",
+      "procedures": "Procedimientos",
+      "specialties": "Especialidades",
+      "savings": "Menor costo",
+      "searchPlaceholder": "Buscar un procedimiento...",
+      "noMatch": "Ningún procedimiento coincide con esa búsqueda.",
+      "fullGuide": "Guía completa del tratamiento",
+      "disclaimer": "Los costos son promedios aproximados y pueden variar según el hospital, la ciudad, el tipo de habitación y su condición médica específica. Su equipo de atención le enviará un presupuesto detallado para su caso.",
+      "ctaTitle": "¿Quiere un presupuesto exacto para su caso?",
+      "ctaBody": "Comparta sus informes médicos y nuestro equipo de atención le enviará una estimación personalizada y con todo incluido en 48 horas.",
+      "ctaButton": "Obtener mi presupuesto gratis"
     },
     "howItWorks": {
       "eyebrow": "Acompañamiento completo, de principio a fin",

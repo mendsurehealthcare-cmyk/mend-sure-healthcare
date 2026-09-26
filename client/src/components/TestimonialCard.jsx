@@ -15,21 +15,33 @@ export default function TestimonialCard({ testimonial }) {
 
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-xl bg-surface-container-lowest shadow-sm transition-all duration-300 hover:shadow-xl">
-      <div className="relative">
-        <CardMedia
-          image={image_url}
-          alt={patient_name}
-          label={patient_name}
-          icon="person"
-          className="aspect-[2.35/1] rounded-none"
-        />
-        {verified && (
-          <span className="absolute top-space-sm left-space-sm flex items-center gap-space-3xs rounded-full bg-surface-container-lowest/90 px-space-sm py-space-3xs text-label-sm font-semibold text-primary shadow-sm backdrop-blur-sm">
-            <Icon name="verified" filled className="!text-[14px] text-secondary" />
-            Verified Patient Story
-          </span>
-        )}
-      </div>
+      {/* These are real group photos of the patient with their doctors, in
+          every shape from wide to tall selfies. The whole photo is shown
+          (object-contain) rather than cropped to fill the frame — cropping cut
+          people off at the edges — in a square frame, the best fit for that
+          mix. A blurred copy of the same photo fills the leftover space
+          instead of plain bars. */}
+      {image_url ? (
+        <div className="relative aspect-square overflow-hidden bg-surface-container">
+          <img
+            src={image_url}
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
+            className="absolute inset-0 h-full w-full scale-110 object-cover opacity-50 blur-xl"
+          />
+          <img
+            src={image_url}
+            alt={patient_name}
+            loading="lazy"
+            decoding="async"
+            className="relative h-full w-full object-contain"
+          />
+        </div>
+      ) : (
+        <CardMedia label={patient_name} icon="person" className="aspect-square rounded-none" />
+      )}
 
       <div className="flex flex-1 flex-col gap-space-sm p-space-lg">
         <div>
@@ -58,6 +70,13 @@ export default function TestimonialCard({ testimonial }) {
               {hospital_name && <span className="font-medium text-on-surface">{hospital_name}</span>}
             </span>
           </div>
+        )}
+
+        {verified && (
+          <span className="flex w-fit items-center gap-space-3xs rounded-full bg-tertiary-fixed px-space-sm py-space-3xs text-label-sm font-semibold text-on-tertiary-fixed">
+            <Icon name="verified" filled className="!text-[14px]" />
+            Verified Patient Story
+          </span>
         )}
       </div>
     </div>

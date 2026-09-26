@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
+import { COMPANY } from '../lib/company';
 import { hospitalImage } from '../lib/directoryImages';
 import CardMedia from './CardMedia';
 import Icon from './Icon';
+import SocialIcon from './SocialIcon';
 
 // Feature blocks under the description. Each only renders when the hospital
 // row actually carries that data.
@@ -21,8 +23,12 @@ function Feature({ icon, title, text }) {
   The full-width hospital card used on the Hospitals listing page — image on
   the left, detail on the right. (HospitalCard is the compact vertical variant
   used in grids elsewhere.)
+
+  `contactActions` adds Book Appointment and WhatsApp buttons beside View
+  Facility, so a patient can act without opening the profile first — used on
+  the per-treatment hospital list.
 */
-export default function HospitalWideCard({ hospital }) {
+export default function HospitalWideCard({ hospital, contactActions = false }) {
   const features = [
     hospital.accreditations?.length > 0 && {
       icon: 'verified_user',
@@ -78,7 +84,11 @@ export default function HospitalWideCard({ hospital }) {
             )}
           </div>
 
-          <h3 className="mb-space-sm text-headline-md text-on-surface">{hospital.name}</h3>
+          <h3 className="mb-space-sm text-headline-md text-on-surface">
+            <Link to={`/hospitals/${hospital.slug}`} className="transition-colors hover:text-primary">
+              {hospital.name}
+            </Link>
+          </h3>
 
           {/* Rendered only when there is something to say. An always-present
               paragraph leaves an empty block of margin on hospitals whose
@@ -102,12 +112,33 @@ export default function HospitalWideCard({ hospital }) {
             <Icon name="verified_user" className="!text-[18px] text-secondary" />
             <span>Vetted by the Mendsure clinical team</span>
           </div>
-          <Link
-            to={`/hospitals/${hospital.slug}`}
-            className="rounded-lg bg-primary px-space-lg py-space-sm text-label-md text-on-primary transition-colors hover:bg-primary-container"
-          >
-            View Facility
-          </Link>
+          <div className="flex flex-wrap items-center gap-space-sm">
+            {contactActions && (
+              <>
+                <Link
+                  to="/contact"
+                  className="rounded-lg bg-secondary px-space-lg py-space-sm text-label-md text-on-secondary transition-colors hover:bg-secondary-fixed-dim hover:text-on-secondary-fixed"
+                >
+                  Book Appointment
+                </Link>
+                <a
+                  href={COMPANY.whatsapp.href}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="flex items-center gap-space-xs rounded-lg bg-[#25D366] px-space-lg py-space-sm text-label-md text-white transition-opacity hover:opacity-90"
+                >
+                  <SocialIcon name="whatsapp" className="h-4 w-4" />
+                  WhatsApp Us
+                </a>
+              </>
+            )}
+            <Link
+              to={`/hospitals/${hospital.slug}`}
+              className="rounded-lg bg-primary px-space-lg py-space-sm text-label-md text-on-primary transition-colors hover:bg-primary-container"
+            >
+              View Facility
+            </Link>
+          </div>
         </div>
       </div>
     </div>

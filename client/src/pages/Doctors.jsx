@@ -23,14 +23,28 @@ export default function Doctors() {
   // survive that — the filter would otherwise silently reset every time.
   const [searchParams, setSearchParams] = useSearchParams();
   const specialty = searchParams.get('specialty') || 'All';
+  const department = searchParams.get('department') || 'All';
   const query = searchParams.get('q') || '';
 
+  // A department belongs to one specialty, so switching specialty clears it.
   const setSpecialty = (value) =>
     setSearchParams(
       (prev) => {
         const next = new URLSearchParams(prev);
         if (value && value !== 'All') next.set('specialty', value);
         else next.delete('specialty');
+        next.delete('department');
+        return next;
+      },
+      { replace: true }
+    );
+
+  const setDepartment = (value) =>
+    setSearchParams(
+      (prev) => {
+        const next = new URLSearchParams(prev);
+        if (value && value !== 'All') next.set('department', value);
+        else next.delete('department');
         return next;
       },
       { replace: true }
@@ -71,12 +85,28 @@ export default function Doctors() {
     return counts;
   }, [doctors]);
 
+  // The chosen specialty's departments (from the "Department" column of
+  // MendSure_Departments_Doctors_Hospitals.xlsx), biggest first, with counts.
+  // Doctors with no department still count toward the specialty's "All"
+  // button, so nobody drops out of the listing.
+  const departments = useMemo(() => {
+    if (!doctors || specialty === 'All') return [];
+    const counts = new Map();
+    for (const doctor of doctors) {
+      if (doctor.specialty === specialty && doctor.department) {
+        counts.set(doctor.department, (counts.get(doctor.department) || 0) + 1);
+      }
+    }
+    return [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+  }, [doctors, specialty]);
+
   const filtered = useMemo(() => {
     if (!doctors) return [];
     const q = query.trim().toLowerCase();
 
     return doctors.filter((doctor) => {
       const matchesSpecialty = specialty === 'All' || doctor.specialty === specialty;
+      const matchesDepartment = department === 'All' || doctor.department === department;
       // Searching the department and job title too: patients look for
       // "cardiology" or "transplant", which are department words, and referrers
       // look for "Chairman".
@@ -94,9 +124,9 @@ export default function Doctors() {
           .join(' ')
           .toLowerCase()
           .includes(q);
-      return matchesSpecialty && matchesQuery;
+      return matchesSpecialty && matchesDepartment && matchesQuery;
     });
-  }, [doctors, specialty, query]);
+  }, [doctors, specialty, department, query]);
 
   // The default view (no specialty chosen, no search typed) is split into two
   // sections instead of one 103-card grid: the priority specialists up front,
@@ -162,6 +192,30 @@ subtitle={t('pages.doctors.subtitle')}
               </button>
             ))}
           </div>
+
+          {departments.length > 0 && (
+            <div className="w-full">
+              <p className="mb-space-2xs text-label-sm font-semibold tracking-wide text-on-surface-variant uppercase">
+                {specialty} departments
+              </p>
+              <div className="no-scrollbar flex items-center gap-space-xs overflow-x-auto py-space-2xs">
+                {[['All', specialtyCounts.get(specialty) ?? 0], ...departments].map(([item, count]) => (
+                  <button
+                    key={item}
+                    type="button"
+                    onClick={() => setDepartment(item)}
+                    className={`rounded-full border px-space-md py-space-2xs text-label-sm whitespace-nowrap transition-all ${
+                      department === item
+                        ? 'border-secondary bg-secondary text-on-secondary'
+                        : 'border-outline-variant/40 bg-surface-container-lowest text-on-surface hover:border-secondary'
+                    }`}
+                  >
+                    {item === 'All' ? `All ${specialty}` : item} ({count})
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
 
           <div className="relative w-full md:w-72">
             <Icon

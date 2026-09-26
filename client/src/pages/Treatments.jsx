@@ -38,6 +38,7 @@ import {
 import { IVF_ARTICLE_SECTIONS, IVF_FAQS, IVF_INTRO } from '../data/ivfArticle';
 import {
   GYNAECOLOGY_ARTICLE_SECTIONS,
+  GYNAECOLOGY_DOCTOR_SLUGS,
   GYNAECOLOGY_FAQS,
   GYNAECOLOGY_INTRO,
 } from '../data/gynaecologyArticle';
@@ -80,11 +81,7 @@ const ARTICLE_GUIDES = {
     title: 'Neurosurgery & Brain and Spine Care',
     intro: NEUROSURGERY_INTRO,
     priceTables: TREATMENT_COST_GUIDES.Neurosurgery,
-    // The doctors table doesn't carry a bare "Neurosurgery" specialty of its
-    // own — doctors.json groups neurosurgeons together with most spine
-    // surgeons under this broader label, and splits out only two dedicated
-    // spine specialists under "Spine Surgery" instead.
-    doctorSpecialty: 'Neuro and Spine Surgery',
+    doctorSpecialty: 'Neurosurgery',
     doctorsHeading: 'Meet Our Neurosurgery Specialists',
     hospitalsHeading: 'Hospitals for Neurosurgery',
     articleSections: NEUROSURGERY_ARTICLE_SECTIONS,
@@ -107,13 +104,7 @@ const ARTICLE_GUIDES = {
     title: 'Spine Surgery & Back Care',
     intro: SPINE_SURGERY_INTRO,
     priceTables: TREATMENT_COST_GUIDES['Spine Surgery'],
-    // Spine conditions are treated by both orthopaedic spine surgeons and
-    // neurosurgeons — the article itself says so — and the doctor directory
-    // splits them across two specialty values, so both are included here.
-    // The eight "Neuro and Spine Surgery" doctors also appear on the
-    // Neurosurgery page; that overlap is real, not a bug, since the same
-    // neurosurgeons treat both.
-    doctorSpecialty: ['Spine Surgery', 'Neuro and Spine Surgery'],
+    doctorSpecialty: 'Spine Surgery',
     doctorsHeading: 'Meet Our Spine Specialists',
     hospitalsHeading: 'Hospitals for Spine Surgery',
     articleSections: SPINE_SURGERY_ARTICLE_SECTIONS,
@@ -142,7 +133,9 @@ const ARTICLE_GUIDES = {
     title: 'Gynaecological Surgery & Women’s Health',
     intro: GYNAECOLOGY_INTRO,
     priceTables: TREATMENT_COST_GUIDES.Gynaecology,
-    doctorSpecialty: 'Gynaecology',
+    // No Gynaecology category in the doctor directory — see
+    // GYNAECOLOGY_DOCTOR_SLUGS.
+    doctorSlugs: GYNAECOLOGY_DOCTOR_SLUGS,
     doctorsHeading: 'Meet Our Gynaecology Specialists',
     hospitalsHeading: 'Hospitals for Gynaecological Care',
     articleSections: GYNAECOLOGY_ARTICLE_SECTIONS,
@@ -204,7 +197,19 @@ export default function Treatments() {
   const { t } = useTranslation();
   const { data: treatments, loading, error } = useApi('/treatments');
   const [searchParams] = useSearchParams();
-  const [specialty, setSpecialty] = useState(searchParams.get('specialty') || 'All');
+  const specialtyParam = searchParams.get('specialty') || 'All';
+  const [specialty, setSpecialty] = useState(specialtyParam);
+
+  // The navbar's Hospitals menu links here with ?specialty=..., and picking a
+  // second one while already on this page only changes the query string — it
+  // doesn't remount the page. Adopting the new value during render (React's
+  // "adjust state on prop change" pattern) keeps the chips in step with it,
+  // while the chips themselves stay free to change `specialty` locally.
+  const [lastSpecialtyParam, setLastSpecialtyParam] = useState(specialtyParam);
+  if (specialtyParam !== lastSpecialtyParam) {
+    setLastSpecialtyParam(specialtyParam);
+    setSpecialty(specialtyParam);
+  }
   const [query, setQuery] = useState('');
   const [symptom, setSymptom] = useState('heart');
 

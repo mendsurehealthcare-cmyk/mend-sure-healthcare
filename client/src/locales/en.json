@@ -5,6 +5,7 @@
     "hospitals": "Hospitals",
     "doctors": "Doctors",
     "ourSpecialists": "Our Specialists",
+    "cost": "Cost",
     "howItWorks": "How It Works",
     "patientStories": "Patient Stories",
     "about": "About",
@@ -229,6 +230,21 @@
       "pageOf": "Page {{page}} of {{count}}",
       "prevPage": "Previous page",
       "nextPage": "Next page"
+    },
+    "cost": {
+      "eyebrow": "Transparent, All-In Pricing",
+      "title": "Treatment Costs in India",
+      "subtitle": "Average costs for every procedure we arrange, grouped by specialty, in Indian rupees and US dollars.",
+      "procedures": "Procedures",
+      "specialties": "Specialties",
+      "savings": "Lower Cost",
+      "searchPlaceholder": "Search a procedure...",
+      "noMatch": "No procedures match that search.",
+      "fullGuide": "Full treatment guide",
+      "disclaimer": "Costs are approximate averages and can vary with the hospital, city, room category, and your specific medical condition. Your care team will share an itemized quote for your case.",
+      "ctaTitle": "Want an exact quote for your case?",
+      "ctaBody": "Share your medical reports and our care team will send a personalized, all-in cost estimate within 48 hours.",
+      "ctaButton": "Get My Free Quote"
     },
     "howItWorks": {
       "eyebrow": "Seamless End-to-End Support",

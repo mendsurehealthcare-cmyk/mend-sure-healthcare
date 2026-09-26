@@ -3,18 +3,24 @@ import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
 import en from './locales/en.json';
-import hi from './locales/hi.json';
 import es from './locales/es.json';
 import fr from './locales/fr.json';
+import ar from './locales/ar.json';
+import pt from './locales/pt.json';
+import ru from './locales/ru.json';
+import uz from './locales/uz.json';
 
 // Exported so the language switcher and the <html lang> sync below stay in
 // step with the resources registered here — adding a language means adding it
 // in one place.
 export const LANGUAGES = [
   { code: 'en', label: 'English' },
-  { code: 'hi', label: 'हिंदी' },
   { code: 'es', label: 'Español' },
   { code: 'fr', label: 'Français' },
+  { code: 'ar', label: 'العربية', dir: 'rtl' },
+  { code: 'pt', label: 'Português' },
+  { code: 'ru', label: 'Русский' },
+  { code: 'uz', label: 'O‘zbekcha' },
 ];
 
 i18n
@@ -23,12 +29,15 @@ i18n
   .init({
     resources: {
       en: { translation: en },
-      hi: { translation: hi },
       es: { translation: es },
       fr: { translation: fr },
+      ar: { translation: ar },
+      pt: { translation: pt },
+      ru: { translation: ru },
+      uz: { translation: uz },
     },
     fallbackLng: 'en',
-    // Without this, a browser reporting "en-GB" or "hi-IN" finds no exact
+    // Without this, a browser reporting "en-GB" or "pt-BR" finds no exact
     // match and silently falls back to English. Stripping the region maps
     // those onto the base language we actually ship.
     load: 'languageOnly',
@@ -40,11 +49,14 @@ i18n
     },
   });
 
-// Keep the document's language attribute honest. Screen readers pick their
-// pronunciation rules from it, and it's what `lang`-scoped CSS keys off — so a
-// page reading as Hindi while <html> still claims English is announced wrong.
+// Keep the document's language and direction attributes honest. Screen
+// readers pick their pronunciation rules from `lang`, and `dir` flips the
+// layout for right-to-left scripts like Arabic.
 function syncDocumentLanguage(language) {
-  document.documentElement.lang = language;
+  const code = i18n.resolvedLanguage || language;
+  document.documentElement.lang = code;
+  document.documentElement.dir =
+    LANGUAGES.find((item) => item.code === code)?.dir || 'ltr';
 }
 
 syncDocumentLanguage(i18n.resolvedLanguage || 'en');

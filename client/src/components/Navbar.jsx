@@ -1,9 +1,50 @@
 import { useEffect, useRef, useState } from 'react';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/useAuth';
+import { ALL_GUIDE_SPECIALTIES } from '../data/treatmentCostGuides';
+import { slugify } from '../lib/slug';
+import { specialtyIcon } from '../lib/specialtyIcons';
 import Icon from './Icon';
 import LanguageSwitcher from './LanguageSwitcher';
+
+// Hospitals, Doctors and Cost all drop down every treatment specialty the site has
+// a guide for (ALL_GUIDE_SPECIALTIES); each link's `menuLink` decides where a
+// picked treatment goes.
+//
+// Hospitals: the list of hospitals offering that treatment.
+const hospitalsLink = (specialty) => `/hospitals/treatment/${slugify(specialty)}`;
+
+// A treatment's guide page — the fallback for Doctors (see below).
+const treatmentLink = (specialty) => `/treatments?specialty=${encodeURIComponent(specialty)}`;
+
+// Doctors: the doctor directory files doctors under its own care categories,
+// not the treatment names — the same mapping the treatment guides use (see
+// ARTICLE_GUIDES in Treatments.jsx).
+//
+// Bone Marrow, Gynaecology and IVF have no category of their own in the
+// directory (BMT doctors and gynaecologists are filed under Oncology Care and
+// picked out by slug; there's no fertility specialist yet), so those fall
+// back to their treatment guide, whose doctors section is built for that.
+const DOCTOR_SPECIALTY_FOR_TREATMENT = {
+  'Cardiac Surgery': 'Cardiac Care',
+  Oncology: 'Oncology Care',
+  Neurosurgery: 'Neurosurgery',
+  'Spine Surgery': 'Spine Surgery',
+  Orthopedics: 'Orthopaedic Care',
+  'Liver Transplant': 'Liver Transplant',
+};
+
+// Cost: jumps to that specialty's price tables on the Cost page — the ids are
+// the ones Cost.jsx gives each section.
+const costLink = (specialty) => `/cost#cost-${slugify(specialty)}`;
+
+function doctorsLink(specialty) {
+  const doctorSpecialty = DOCTOR_SPECIALTY_FOR_TREATMENT[specialty];
+  return doctorSpecialty
+    ? `/doctors?specialty=${encodeURIComponent(doctorSpecialty)}`
+    : treatmentLink(specialty);
+}
 
 // labelKey rather than a literal: the label is resolved at render time so it
 // re-renders in the new language the moment the switcher changes it.
@@ -13,10 +54,10 @@ import LanguageSwitcher from './LanguageSwitcher';
 // everywhere.
 const links = [
   { to: '/', labelKey: 'nav.home', end: true },
-  { to: '/treatments', labelKey: 'nav.treatments' },
-  { to: '/hospitals', labelKey: 'nav.hospitals' },
-  { to: '/doctors', labelKey: 'nav.doctors' },
-  { to: '/our-specialists', labelKey: 'nav.ourSpecialists' },
+  { to: '/hospitals', labelKey: 'nav.hospitals', menuLink: hospitalsLink },
+  { to: '/doctors', labelKey: 'nav.doctors', menuLink: doctorsLink },
+  { to: '/cost', labelKey: 'nav.cost', menuLink: costLink },
+  { to: '/testimonials', labelKey: 'nav.patientStories' },
   { to: '/how-it-works', labelKey: 'nav.howItWorks' },
   { to: '/about', labelKey: 'nav.about' },
 ];
@@ -24,7 +65,7 @@ const links = [
 // The desktop bar only ever shows this shorter set, in this order — How It
 // Works and About stay reachable through the hamburger menu (which lists
 // every link above, `links`, in full) rather than crowding the front row.
-const PRIMARY_ORDER = ['/', '/treatments', '/hospitals', '/doctors', '/our-specialists'];
+const PRIMARY_ORDER = ['/', '/hospitals', '/doctors', '/cost', '/testimonials'];
 const byPath = new Map(links.map((link) => [link.to, link]));
 const primaryLinks = PRIMARY_ORDER.map((path) => byPath.get(path)).filter(Boolean);
 
@@ -48,6 +89,44 @@ function NavItem({ to, labelKey, label, onClick, end }) {
     >
       {labelKey ? t(labelKey) : label}
     </NavLink>
+  );
+}
+
+// Desktop nav link with a hover dropdown listing every treatment (Hospitals,
+// Doctors, Cost). Opens on hover and on keyboard focus (focus-within), so it's
+// reachable without a mouse. Clicking an item blurs it so the menu doesn't
+// stay pinned open by focus after navigating.
+function TreatmentsMenuItem({ menuLink, ...props }) {
+  return (
+    <div className="group relative">
+      <div className="flex items-center">
+        <NavItem {...props} />
+        <Icon
+          name="expand_more"
+          className="-ml-space-2xs !text-[18px] text-on-surface-variant transition-transform group-focus-within:rotate-180 group-hover:rotate-180"
+        />
+      </div>
+
+      <div className="invisible absolute top-full left-0 z-50 pt-space-xs opacity-0 transition-opacity group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
+        <ul className="w-72 overflow-hidden rounded-xl bg-surface-container-lowest py-space-xs shadow-xl">
+          {ALL_GUIDE_SPECIALTIES.map((specialty) => (
+            <li key={specialty}>
+              <Link
+                to={menuLink(specialty)}
+                onClick={(event) => event.currentTarget.blur()}
+                className="flex items-center justify-between gap-space-sm px-space-md py-space-sm text-body-md text-on-surface transition-colors hover:bg-surface-container hover:text-primary focus:bg-surface-container focus:outline-none"
+              >
+                <span className="flex items-center gap-space-sm">
+                  <Icon name={specialtyIcon(specialty)} className="!text-[20px] text-secondary" />
+                  {specialty}
+                </span>
+                <Icon name="chevron_right" className="!text-[18px] text-on-surface-variant" />
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 }
 
@@ -214,9 +293,13 @@ export default function Navbar() {
             carries every link (`links`, not just the front row's
             `primaryLinks`) plus the same actions, so nothing is lost. */}
         <nav className="hidden items-center gap-space-2xs min-[1400px]:flex">
-          {primaryLinks.map((link) => (
-            <NavItem key={link.to} {...link} />
-          ))}
+          {primaryLinks.map((link) =>
+            link.menuLink ? (
+              <TreatmentsMenuItem key={link.to} {...link} />
+            ) : (
+              <NavItem key={link.to} {...link} />
+            )
+          )}
         </nav>
 
         <div className="flex shrink-0 items-center gap-space-sm">
@@ -271,8 +354,27 @@ export default function Navbar() {
 
       {menuOpen && (
         <nav className="flex flex-col gap-space-xs border-t border-outline-variant/20 bg-surface px-space-md py-space-md min-[1400px]:hidden">
-          {links.map((link) => (
-            <NavItem key={link.to} {...link} onClick={() => setMenuOpen(false)} />
+          {/* Phones have no hover, so the treatments list sits indented
+              under Hospitals, Doctors and Cost instead of in a dropdown. */}
+          {links.map(({ menuLink, ...link }) => (
+            <div key={link.to} className="flex flex-col gap-space-2xs">
+              <NavItem {...link} onClick={() => setMenuOpen(false)} />
+              {menuLink && (
+                <div className="ml-space-md flex flex-col border-l border-outline-variant/30 pl-space-sm">
+                  {ALL_GUIDE_SPECIALTIES.map((specialty) => (
+                    <Link
+                      key={specialty}
+                      to={menuLink(specialty)}
+                      onClick={() => setMenuOpen(false)}
+                      className="flex items-center gap-space-sm rounded-lg px-space-sm py-space-2xs text-body-sm text-on-surface-variant transition-colors hover:text-on-surface"
+                    >
+                      <Icon name={specialtyIcon(specialty)} className="!text-[18px] text-secondary" />
+                      {specialty}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
           ))}
 
           <div className="mt-space-xs flex flex-col gap-space-xs border-t border-outline-variant/20 pt-space-md">

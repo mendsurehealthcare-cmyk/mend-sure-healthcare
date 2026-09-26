@@ -6,6 +6,7 @@ import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminRoute from './components/AdminRoute';
 import StateMessage from './components/StateMessage';
+import ScrollToTop from './components/ScrollToTop';
 
 // Lazy-loaded rather than imported up front: with 15 pages in one bundle,
 // visiting any single page — including a doctor's profile reached via a
@@ -16,9 +17,11 @@ const Treatments = lazy(() => import('./pages/Treatments'));
 const TreatmentDetail = lazy(() => import('./pages/TreatmentDetail'));
 const Hospitals = lazy(() => import('./pages/Hospitals'));
 const HospitalDetail = lazy(() => import('./pages/HospitalDetail'));
+const HospitalsByTreatment = lazy(() => import('./pages/HospitalsByTreatment'));
 const Doctors = lazy(() => import('./pages/Doctors'));
 const DoctorDetail = lazy(() => import('./pages/DoctorDetail'));
 const OurSpecialists = lazy(() => import('./pages/OurSpecialists'));
+const Cost = lazy(() => import('./pages/Cost'));
 const HowItWorks = lazy(() => import('./pages/HowItWorks'));
 const About = lazy(() => import('./pages/About'));
 const Testimonials = lazy(() => import('./pages/Testimonials'));
@@ -39,6 +42,7 @@ const AdminHospitalForm = lazy(() => import('./pages/admin/AdminHospitalForm'));
 export default function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <AuthProvider>
         <Layout>
           {/* Inside Layout so a page-level crash keeps the header, nav, and
@@ -51,9 +55,11 @@ export default function App() {
                 <Route path="/treatments/:slug" element={<TreatmentDetail />} />
                 <Route path="/hospitals" element={<Hospitals />} />
                 <Route path="/hospitals/:slug" element={<HospitalDetail />} />
+                <Route path="/hospitals/treatment/:treatmentSlug" element={<HospitalsByTreatment />} />
                 <Route path="/doctors" element={<Doctors />} />
                 <Route path="/doctors/:slug" element={<DoctorDetail />} />
                 <Route path="/our-specialists" element={<OurSpecialists />} />
+                <Route path="/cost" element={<Cost />} />
                 <Route path="/how-it-works" element={<HowItWorks />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/testimonials" element={<Testimonials />} />

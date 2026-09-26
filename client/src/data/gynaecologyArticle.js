@@ -120,3 +120,9 @@ export const GYNAECOLOGY_FAQS = [
     a: 'Gynaecological surgery procedures are generally considered quite safe, although they carry some of the same risks as any other surgical procedures. The surgeon will go over the potential risks in detail.',
   },
 ];
+
+// The doctor directory has no Gynaecology category — following the
+// MendSure_Departments_Doctors_Hospitals.xlsx categories, its gynaecologists
+// are the gynae-oncologists filed under Oncology Care — so they're named by
+// slug, the same way Bone Marrow's are.
+export const GYNAECOLOGY_DOCTOR_SLUGS = ['dr-sabhyata-gupta', 'dr-rama-joshi'];

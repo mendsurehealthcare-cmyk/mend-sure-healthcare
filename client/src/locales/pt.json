@@ -1,0 +1,280 @@
+{
+  "nav": {
+    "home": "Início",
+    "treatments": "Tratamentos",
+    "hospitals": "Hospitais",
+    "doctors": "Médicos",
+    "ourSpecialists": "Nossos Especialistas",
+    "cost": "Custos",
+    "howItWorks": "Como funciona",
+    "patientStories": "Histórias de pacientes",
+    "about": "Sobre nós",
+    "bookConsultation": "Agendar consulta",
+    "logIn": "Entrar",
+    "logInCreate": "Entrar / Criar conta",
+    "logOut": "Sair",
+    "myReports": "Meus relatórios médicos",
+    "myAccount": "Minha conta",
+    "yourAccount": "Sua conta",
+    "searchPlaceholder": "Pesquisar uma especialidade...",
+    "language": "Escolher idioma",
+    "toggleMenu": "Abrir menu",
+    "accountMenu": "Menu da conta",
+    "hotline": "Linha de emergência: suporte 24/7",
+    "verifiedNetwork": "Rede clínica verificada"
+  },
+  "common": {
+    "loading": "Carregando...",
+    "exploreTreatments": "Explorar tratamentos",
+    "viewProfile": "Ver perfil",
+    "viewFacility": "Ver instalação"
+  },
+  "home": {
+    "hero": {
+      "badge": "REDE GLOBAL DE SAÚDE CREDENCIADA",
+      "titleLead": "Cuidado confiável, com orientação em cada etapa,",
+      "titleHighlight": "para que você nunca esteja sozinho",
+      "subtitle": "A Mendsure está ao lado de cada paciente que sente que está enfrentando tudo sozinho — da sua primeira pergunta até a recuperação completa.",
+      "searchSpecialty": "Encontre um tratamento ou especialidade",
+      "searchSpecialtyLabel": "Tratamento ou especialidade",
+      "searchCity": "Cidade na Índia (opcional)",
+      "searchCityLabel": "Cidade na Índia",
+      "searchButton": "Pesquisar",
+      "partnerHospitals": "Hospitais parceiros",
+      "guideAvailable": "Guia de custos disponível",
+      "highlight1": "Até 80% de economia média",
+      "highlight2": "Segunda opinião médica gratuita",
+      "highlight3": "Gerente de cuidados dedicado",
+      "formTitle": "Solicite uma opinião especializada gratuita",
+      "formSubtitle": "Receba um retorno e uma estimativa de custo em até 48 horas."
+    },
+    "specialties": {
+      "eyebrow": "Excelência clínica abrangente",
+      "title": "Explore nossas {{count}} principais especialidades médicas",
+      "subtitle": "Lideradas por especialistas de renome mundial, com tecnologia médica de ponta e planos de tratamento personalizados.",
+      "cardText": "Centros credenciados e cirurgiões experientes em toda a nossa rede de parceiros."
+    },
+    "treatments": {
+      "eyebrow": "Preços transparentes e com tudo incluído",
+      "title": "Tratamentos populares",
+      "viewAll": "Ver todos os tratamentos"
+    },
+    "hospitals": {
+      "eyebrow": "Instalações parceiras de nível mundial",
+      "title": "Hospitais de excelência credenciados",
+      "subtitle": "Parceria exclusiva com centros médicos credenciados, com centros cirúrgicos de última geração e alas para pacientes internacionais."
+    },
+    "pricing": {
+      "eyebrow": "Transparência financeira absoluta",
+      "title": "Menores orçamentos garantidos com garantia de preço 100%",
+      "body": "Eliminamos taxas hospitalares ocultas e comissões de intermediários. Economize diretamente na cirurgia em comparação com os preços praticados nos EUA e no Reino Unido, com nossa garantia de igualar preços.",
+      "stat1Value": "Até 80%",
+      "stat1Label": "Economia média dos pacientes",
+      "stat2Value": "0%",
+      "stat2Label": "Taxas de reserva ocultas",
+      "stat3Value": "100%",
+      "stat3Label": "Política de igualar preços",
+      "cardTitle": "Compare e economize hoje",
+      "cardBody": "Envie-nos o orçamento do seu hospital e nossa equipe irá verificá-lo ou oferecer um melhor.",
+      "cardButton": "Enviar seu orçamento"
+    },
+    "journey": {
+      "eyebrow": "Suporte completo de ponta a ponta",
+      "title": "Sua jornada de cuidados em 4 etapas com a Mendsure",
+      "subtitle": "Cuidamos de todos os detalhes clínicos e logísticos para que você possa se concentrar apenas na cura e na recuperação.",
+      "cta": "Ver o processo completo",
+      "step1Title": "Avaliação especializada",
+      "step1Text": "Compartilhe seus exames com segurança. Nossos especialistas parceiros analisam seu caso e enviam um plano de tratamento e uma segunda opinião.",
+      "step1Meta": "Duração: 24 horas",
+      "step2Title": "Escolha do hospital",
+      "step2Text": "Escolha entre hospitais credenciados selecionados de acordo com sua condição, orçamento e cidade de preferência.",
+      "step2Meta": "Orçamentos transparentes",
+      "step3Title": "Viagem e internação",
+      "step3Text": "Cuidamos das cartas-convite para visto médico, do traslado do aeroporto, da hospedagem para recuperação e da internação prioritária.",
+      "step3Meta": "Concierge dedicado",
+      "step4Title": "Recuperação pós-operatória",
+      "step4Text": "Acompanhamento contínuo, coordenação de fisioterapia e contato regular depois que você voltar em segurança ao seu país.",
+      "step4Meta": "Suporte para toda a vida"
+    },
+    "doctors": {
+      "eyebrow": "Especialistas líderes mundiais",
+      "title": "Nossos médicos",
+      "subtitle": "Cirurgiões e médicos certificados em toda a nossa rede de hospitais parceiros.",
+      "cta": "Encontrar um especialista"
+    },
+    "specialDoctors": {
+      "eyebrow": "Especialistas renomados",
+      "title": "Nossos médicos em destaque",
+      "subtitle": "Um olhar mais próximo sobre alguns dos eminentes especialistas que lideram o atendimento em nossa rede de hospitais parceiros."
+    },
+    "ourHospitals": {
+      "eyebrow": "Destinos de cuidado confiáveis",
+      "title": "Nossos hospitais",
+      "subtitle": "Um olhar mais próximo sobre alguns dos hospitais credenciados da nossa rede de parceiros."
+    },
+    "services": {
+      "eyebrow": "Assistência completa ao paciente",
+      "title": "Cada etapa da sua jornada, cuidada pessoalmente",
+      "subtitle": "Da sua primeira opinião médica à enfermagem particular durante a recuperação, cada parte da sua jornada de tratamento é organizada para você.",
+      "cta": "Fale com um gerente de cuidados",
+      "opinionTitle": "Opinião médica e estimativa de custos",
+      "opinionText": "Compartilhe seus exames e receba uma segunda opinião verificada dos nossos especialistas, com preços detalhados e com tudo incluído antes de qualquer compromisso.",
+      "preTravelTitle": "Consultas antes da viagem",
+      "preTravelText": "Converse por vídeo com o médico responsável antes de viajar, para definir antecipadamente o plano de tratamento, o cronograma e a aptidão para viajar.",
+      "visaTitle": "Assistência com visto",
+      "visaText": "Cartas-convite para visto médico, listas de documentos e contato com a embaixada para você e seu acompanhante.",
+      "moneyTitle": "Câmbio",
+      "moneyText": "Orientação sobre câmbio autorizado e canais de pagamento seguros, para você obter taxas justas sem carregar dinheiro desnecessário.",
+      "interpreterTitle": "Intérpretes e tradutores",
+      "interpreterText": "Apoio linguístico no consultório e na enfermaria, além da tradução de prontuários e resumos de alta.",
+      "transportTitle": "Assistência com transporte",
+      "transportText": "Traslado de ida e volta ao aeroporto, transferências hospitalares e deslocamentos locais organizados conforme sua agenda de consultas e tratamento.",
+      "stayTitle": "Opções de hospedagem",
+      "stayText": "Hospedagens verificadas perto do seu hospital para todos os orçamentos — pousadas, apartamentos com serviços e hotéis para você e sua família.",
+      "admissionTitle": "Internação, consultas e cuidados farmacêuticos",
+      "admissionText": "Internação prioritária, agendamento com seu médico e ajuda para obter os medicamentos prescritos durante e após sua estadia.",
+      "nursingTitle": "Enfermagem particular",
+      "nursingText": "Acompanhantes e enfermeiros treinados para cuidados no hospital ou na sua hospedagem durante todo o período de recuperação."
+    },
+    "cities": {
+      "eyebrow": "Nossa rede em toda a Índia",
+      "title": "Onde tratamos você na Índia",
+      "subtitle": "Nossos hospitais parceiros estão nos principais polos médicos da Índia."
+    },
+    "testimonials": {
+      "eyebrow": "Histórias reais de sucesso",
+      "title": "Pacientes satisfeitos, serviço de orgulho",
+      "subtitle": "Ouça pessoas que transformaram sua saúde e recuperaram suas vidas com a Mendsure.",
+      "viewAll": "Ver todas as histórias de pacientes"
+    },
+    "faq": {
+      "eyebrow": "Tem dúvidas?",
+      "title": "Perguntas frequentes",
+      "subtitle": "Tudo o que você precisa saber sobre turismo médico, custos, segurança e segundas opiniões.",
+      "q1": "Como começo?",
+      "a1": "Preencha o formulário de consulta nesta página com sua condição e os exames que tiver. Nossa equipe analisa e envia um plano de tratamento com preços claros e com tudo incluído — geralmente em até 48 horas.",
+      "q2": "Vocês aceitam seguro internacional?",
+      "a2": "A cobertura varia conforme a seguradora e o hospital. Depois que você compartilhar os detalhes da sua apólice com nossa equipe, confirmaremos o que está coberto antes de qualquer compromisso.",
+      "q3": "Que suporte vocês oferecem a pacientes que viajam?",
+      "a3": "Assistência com visto médico, opções de hospedagem, traslados do aeroporto e serviços de intérprete — tudo coordenado para que sua viagem seja tão tranquila quanto o próprio tratamento.",
+      "q4": "Posso obter uma estimativa de custo antes de viajar?",
+      "a4": "Sim — esse é justamente o objetivo do orçamento gratuito. Você verá preços detalhados e com tudo incluído para o seu caso antes de reservar qualquer voo."
+    },
+    "cta": {
+      "eyebrow": "Comece hoje sua jornada de cura",
+      "title": "Pronto para uma saúde de nível mundial com custo menor?",
+      "body": "Fale agora com um consultor sênior para uma consulta gratuita e uma estimativa de custo personalizada.",
+      "book": "Agendar consulta gratuita",
+      "talk": "Falar com nossa equipe"
+    }
+  },
+  "form": {
+    "fullName": "Nome completo",
+    "fullNamePlaceholder": "Digite seu nome completo",
+    "email": "E-mail",
+    "emailPlaceholder": "patient@example.com",
+    "phone": "Telefone / WhatsApp",
+    "phonePlaceholder": "+1 (555) 000-0000",
+    "country": "País",
+    "countryPlaceholder": "País de onde você está entrando em contato",
+    "treatment": "Tratamento de interesse",
+    "treatmentPlaceholder": "Opcional",
+    "message": "Breve resumo clínico / sintomas",
+    "messagePlaceholder": "Conte-nos um pouco sobre sua condição (opcional)",
+    "submit": "Receber meu orçamento gratuito",
+    "submitting": "Enviando...",
+    "successTitle": "Obrigado! Recebemos sua solicitação.",
+    "successBody": "Nossa equipe entrará em contato em até 24 horas.",
+    "confidential": "100% confidencial — seus dados médicos nunca são compartilhados."
+  },
+  "footer": {
+    "tagline": "Ajudamos pacientes a receber tratamento de nível mundial na Índia por uma fração dos preços dos EUA e do Reino Unido.",
+    "quickLinks": "Links rápidos",
+    "partnerHospitals": "Hospitais parceiros",
+    "ourDoctors": "Nossos médicos",
+    "support": "Suporte e segurança",
+    "aboutUs": "Sobre nós",
+    "freeQuote": "Obter orçamento gratuito",
+    "patientLogin": "Área do paciente",
+    "privacyPolicy": "Política de privacidade",
+    "contact": "Fale conosco",
+    "disclaimerTitle": "Aviso médico",
+    "disclaimer": "O conteúdo da Mendsure é apenas informativo e não substitui aconselhamento, diagnóstico ou tratamento médico profissional. Sempre consulte seu médico.",
+    "rights": "Todos os direitos reservados.",
+    "socialLabel": "Mendsure no {{network}}"
+  },
+  "pages": {
+    "treatments": {
+      "eyebrow": "Preços transparentes e com tudo incluído",
+      "title": "Tratamentos e procedimentos",
+      "subtitle": "Compare hospitais credenciados e custos totais para o procedimento de que você precisa."
+    },
+    "hospitals": {
+      "eyebrow": "Rede de hospitais credenciados",
+      "title": "Hospitais parceiros de nível mundial e instalações médicas avançadas",
+      "subtitle": "Acesse instituições com credenciamento internacional em toda a Índia, com alas dedicadas a pacientes internacionais e suporte completo na recuperação."
+    },
+    "doctors": {
+      "eyebrow": "Especialistas líderes mundiais",
+      "title": "Cuidado médico de qualidade, personalizado para você.",
+      "subtitle": "Especialistas experientes e certificados em nossos hospitais parceiros credenciados na Índia.",
+      "specialists": "Especialistas",
+      "specialties": "Especialidades",
+      "allSpecialists": "Todos os especialistas",
+      "searchPlaceholder": "Pesquisar por nome ou hospital...",
+      "noMatch": "Nenhum médico corresponde a essa pesquisa.",
+      "loading": "Carregando médicos...",
+      "error": "Não foi possível carregar os médicos agora. Tente novamente em breve.",
+      "priorityTitle": "Especialistas em destaque",
+      "moreTitle": "Mais especialistas",
+      "pageOf": "Página {{page}} de {{count}}",
+      "prevPage": "Página anterior",
+      "nextPage": "Próxima página"
+    },
+    "cost": {
+      "eyebrow": "Preços transparentes e com tudo incluído",
+      "title": "Custos de tratamento na Índia",
+      "subtitle": "Custos médios de cada procedimento que organizamos, agrupados por especialidade, em rúpias indianas e dólares americanos.",
+      "procedures": "Procedimentos",
+      "specialties": "Especialidades",
+      "savings": "Custo menor",
+      "searchPlaceholder": "Pesquisar um procedimento...",
+      "noMatch": "Nenhum procedimento corresponde a essa pesquisa.",
+      "fullGuide": "Guia completo do tratamento",
+      "disclaimer": "Os custos são médias aproximadas e podem variar conforme o hospital, a cidade, a categoria do quarto e sua condição médica. Sua equipe de cuidados enviará um orçamento detalhado para o seu caso.",
+      "ctaTitle": "Quer um orçamento exato para o seu caso?",
+      "ctaBody": "Compartilhe seus exames e nossa equipe enviará uma estimativa personalizada e com tudo incluído em até 48 horas.",
+      "ctaButton": "Receber meu orçamento gratuito"
+    },
+    "howItWorks": {
+      "eyebrow": "Suporte completo de ponta a ponta",
+      "title": "Como a Mendsure funciona",
+      "subtitle": "Da sua primeira mensagem ao voo de volta para casa, aqui está cada etapa que cuidamos para você."
+    },
+    "about": {
+      "eyebrow": "Seu parceiro global de saúde confiável",
+      "title": "Saúde de nível mundial na Índia, de forma simples",
+      "subtitle": "Conectamos pacientes internacionais a hospitais confiáveis, especialistas experientes, tecnologia médica avançada e cuidados personalizados na Índia."
+    },
+    "testimonials": {
+      "eyebrow": "Histórias reais de sucesso",
+      "title": "Histórias de pacientes",
+      "subtitle": "Ouça pessoas que transformaram sua saúde com a Mendsure."
+    },
+    "contact": {
+      "eyebrow": "Fale conosco",
+      "title": "Obtenha um orçamento gratuito",
+      "subtitle": "Conte-nos sobre sua condição e nossa equipe responderá em até 24 horas."
+    },
+    "login": {
+      "title": "Sua conta Mendsure"
+    }
+  },
+  "errors": {
+    "pageTitle": "Algo deu errado nesta página",
+    "pageBody": "Desculpe — esta página não carregou corretamente. Recarregar geralmente resolve. Se precisar de ajuda agora, nossa equipe pode ser contatada diretamente.",
+    "reload": "Recarregar a página",
+    "goHome": "Ir para a página inicial",
+    "callUs": "Ou ligue para"
+  }
+}

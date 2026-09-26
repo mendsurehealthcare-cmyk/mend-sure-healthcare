@@ -1,0 +1,280 @@
+{
+  "nav": {
+    "home": "Bosh sahifa",
+    "treatments": "Davolash",
+    "hospitals": "Shifoxonalar",
+    "doctors": "Shifokorlar",
+    "ourSpecialists": "Mutaxassislarimiz",
+    "cost": "Narxlar",
+    "howItWorks": "Qanday ishlaydi",
+    "patientStories": "Bemorlar hikoyalari",
+    "about": "Biz haqimizda",
+    "bookConsultation": "Konsultatsiyaga yozilish",
+    "logIn": "Kirish",
+    "logInCreate": "Kirish / Hisob yaratish",
+    "logOut": "Chiqish",
+    "myReports": "Tibbiy hujjatlarim",
+    "myAccount": "Mening hisobim",
+    "yourAccount": "Sizning hisobingiz",
+    "searchPlaceholder": "Yo‘nalishni qidiring...",
+    "language": "Tilni tanlang",
+    "toggleMenu": "Menyuni ochish",
+    "accountMenu": "Hisob menyusi",
+    "hotline": "Favqulodda liniya: 24/7 yordam",
+    "verifiedNetwork": "Tasdiqlangan klinik tarmoq"
+  },
+  "common": {
+    "loading": "Yuklanmoqda...",
+    "exploreTreatments": "Davolash turlarini ko‘rish",
+    "viewProfile": "Profilni ko‘rish",
+    "viewFacility": "Shifoxonani ko‘rish"
+  },
+  "home": {
+    "hero": {
+      "badge": "AKKREDITATSIYADAN O‘TGAN XALQARO TIBBIYOT TARMOG‘I",
+      "titleLead": "Ishonchli yordam, har bir qadamda yoningizda,",
+      "titleHighlight": "hech qachon yolg‘iz qolmasligingiz uchun",
+      "subtitle": "Mendsure muammosi bilan yolg‘iz qolgandek his qilgan har bir bemorning yonida — birinchi savolingizdan to to‘liq tuzalishingizgacha.",
+      "searchSpecialty": "Davolash yoki yo‘nalishni toping",
+      "searchSpecialtyLabel": "Davolash yoki yo‘nalish",
+      "searchCity": "Hindistondagi shahar (ixtiyoriy)",
+      "searchCityLabel": "Hindistondagi shahar",
+      "searchButton": "Qidirish",
+      "partnerHospitals": "Hamkor shifoxonalar",
+      "guideAvailable": "Narxlar qo‘llanmasi mavjud",
+      "highlight1": "O‘rtacha 80% gacha tejash",
+      "highlight2": "Bepul ikkinchi tibbiy xulosa",
+      "highlight3": "Shaxsiy koordinator",
+      "formTitle": "Bepul mutaxassis xulosasini so‘rang",
+      "formSubtitle": "48 soat ichida qo‘ng‘iroq va narx hisob-kitobini oling."
+    },
+    "specialties": {
+      "eyebrow": "Keng qamrovli klinik mukammallik",
+      "title": "{{count}} ta asosiy tibbiy yo‘nalishimiz bilan tanishing",
+      "subtitle": "Dunyoga mashhur mutaxassislar rahbarligida, zamonaviy tibbiy texnologiyalar va shaxsiy davolash rejalari bilan.",
+      "cardText": "Hamkorlar tarmog‘imizdagi akkreditatsiyadan o‘tgan markazlar va tajribali jarrohlar."
+    },
+    "treatments": {
+      "eyebrow": "Shaffof, hammasi kiritilgan narxlar",
+      "title": "Ommabop davolash turlari",
+      "viewAll": "Barcha davolash turlari"
+    },
+    "hospitals": {
+      "eyebrow": "Jahon darajasidagi hamkor muassasalar",
+      "title": "Akkreditatsiyadan o‘tgan yetakchi shifoxonalar",
+      "subtitle": "Zamonaviy operatsiya xonalari va xorijiy bemorlar bo‘limlariga ega akkreditatsiyadan o‘tgan tibbiyot markazlari bilan hamkorlik qilamiz."
+    },
+    "pricing": {
+      "eyebrow": "To‘liq moliyaviy shaffoflik",
+      "title": "100% narx moslik kafolati bilan eng past narxlar",
+      "body": "Yashirin shifoxona to‘lovlari va vositachi ustamalarini yo‘q qilamiz. AQSh va Buyuk Britaniyadagi odatiy narxlarga nisbatan operatsiyada to‘g‘ridan-to‘g‘ri tejang — narx moslik kafolatimiz bilan.",
+      "stat1Value": "80% gacha",
+      "stat1Label": "Bemorlarning o‘rtacha tejashi",
+      "stat2Value": "0%",
+      "stat2Label": "Yashirin bron to‘lovlari",
+      "stat3Value": "100%",
+      "stat3Label": "Narx moslik siyosati",
+      "cardTitle": "Bugun solishtiring va tejang",
+      "cardBody": "Shifoxonangizdagi narx taklifini yuboring — jamoamiz uni tekshiradi yoki yaxshiroq taklif beradi.",
+      "cardButton": "Narx taklifini yuborish"
+    },
+    "journey": {
+      "eyebrow": "Boshidan oxirigacha to‘liq yordam",
+      "title": "Mendsure bilan 4 bosqichli davolanish yo‘lingiz",
+      "subtitle": "Barcha tibbiy va tashkiliy masalalarni o‘z zimmamizga olamiz, siz esa faqat tuzalishga e’tibor qaratasiz.",
+      "cta": "Butun jarayonni ko‘rish",
+      "step1Title": "Mutaxassis ko‘rigi",
+      "step1Text": "Tibbiy hujjatlaringizni xavfsiz yuboring. Hamkor mutaxassislarimiz holatingizni o‘rganib, davolash rejasi va ikkinchi xulosani yuboradi.",
+      "step1Meta": "Muddat: 24 soat",
+      "step2Title": "Shifoxona tanlash",
+      "step2Text": "Holatingiz, byudjetingiz va tanlagan shahringizga mos akkreditatsiyadan o‘tgan shifoxonalardan birini tanlang.",
+      "step2Meta": "Shaffof narx takliflari",
+      "step3Title": "Safar va yotqizish",
+      "step3Text": "Tibbiy viza uchun taklifnoma, aeroportda kutib olish, tiklanish davri uchun turar joy va shifoxonaga navbatsiz yotqizishni tashkil qilamiz.",
+      "step3Meta": "Shaxsiy konsyerj",
+      "step4Title": "Operatsiyadan keyingi tiklanish",
+      "step4Text": "Doimiy kuzatuv, fizioterapiyani muvofiqlashtirish va vataningizga eson-omon qaytganingizdan keyin muntazam aloqa.",
+      "step4Meta": "Umrbod yordam"
+    },
+    "doctors": {
+      "eyebrow": "Yetakchi xalqaro mutaxassislar",
+      "title": "Shifokorlarimiz",
+      "subtitle": "Hamkor shifoxonalar tarmog‘imizdagi sertifikatlangan jarrohlar va shifokorlar.",
+      "cta": "Mutaxassis topish"
+    },
+    "specialDoctors": {
+      "eyebrow": "Taniqli mutaxassislar",
+      "title": "Maxsus shifokorlarimiz",
+      "subtitle": "Hamkor shifoxonalar tarmog‘imizda davolashga rahbarlik qilayotgan ba’zi taniqli mutaxassislar bilan yaqindan tanishing."
+    },
+    "ourHospitals": {
+      "eyebrow": "Ishonchli davolanish manzillari",
+      "title": "Shifoxonalarimiz",
+      "subtitle": "Hamkorlar tarmog‘imizdagi akkreditatsiyadan o‘tgan ba’zi shifoxonalar bilan yaqindan tanishing."
+    },
+    "services": {
+      "eyebrow": "Bemorlarga har tomonlama yordam",
+      "title": "Yo‘lingizning har bir qadami shaxsan nazoratda",
+      "subtitle": "Birinchi tibbiy xulosadan tiklanish davridagi shaxsiy hamshiragacha — davolanish yo‘lingizning har bir qismi siz uchun tashkil etiladi.",
+      "cta": "Koordinator bilan gaplashish",
+      "opinionTitle": "Tibbiy xulosa va narx hisob-kitobi",
+      "opinionText": "Hujjatlaringizni yuboring va mutaxassislarimizdan tasdiqlangan ikkinchi xulosani, batafsil va hammasi kiritilgan narxlar bilan birga, hech qanday majburiyatsiz oling.",
+      "preTravelTitle": "Safardan oldingi konsultatsiyalar",
+      "preTravelText": "Uchishdan oldin davolovchi shifokoringiz bilan video orqali gaplashing — davolash rejasi, muddatlar va safarga yaroqlilik oldindan kelishiladi.",
+      "visaTitle": "Viza bo‘yicha yordam",
+      "visaText": "Tibbiy viza uchun taklifnomalar, hujjatlar ro‘yxati va siz hamda hamrohingiz uchun elchixona bilan aloqa.",
+      "moneyTitle": "Valyuta ayirboshlash",
+      "moneyText": "Rasmiy valyuta ayirboshlash va xavfsiz to‘lov usullari bo‘yicha maslahat — ortiqcha naqd pul olib yurmasdan adolatli kurs.",
+      "interpreterTitle": "Tarjimonlar",
+      "interpreterText": "Konsultatsiya xonasida va palatada til yordami, shuningdek tibbiy hujjatlar va chiqish xulosalarini tarjima qilish.",
+      "transportTitle": "Transport bo‘yicha yordam",
+      "transportText": "Aeroportdan kutib olish va kuzatish, shifoxonalar o‘rtasida qatnov va qabul hamda davolash jadvalingizga mos mahalliy safarlar.",
+      "stayTitle": "Turar joy variantlari",
+      "stayText": "Shifoxonangiz yaqinidagi har qanday byudjetga mos tekshirilgan turar joylar — mehmon uylari, xizmat ko‘rsatiladigan kvartiralar va mehmonxonalar.",
+      "admissionTitle": "Yotqizish, qabul va dori-darmon",
+      "admissionText": "Navbatsiz yotqizish, shifokoringiz bilan qabulni rejalashtirish va buyurilgan dorilarni topishda yordam — yotgan vaqtingizda ham, keyin ham.",
+      "nursingTitle": "Shaxsiy hamshira xizmati",
+      "nursingText": "Tiklanish davri davomida shifoxonada yoki turar joyingizda parvarish uchun o‘qitilgan hamshira va parvarishchilar."
+    },
+    "cities": {
+      "eyebrow": "Hindiston bo‘ylab tarmog‘imiz",
+      "title": "Hindistonda sizni qayerda davolaymiz",
+      "subtitle": "Hamkor shifoxonalarimiz Hindistonning yirik tibbiyot markazlarida joylashgan."
+    },
+    "testimonials": {
+      "eyebrow": "Bemorlarning haqiqiy muvaffaqiyat hikoyalari",
+      "title": "Mamnun bemorlar — faxrli xizmat",
+      "subtitle": "Mendsure yordamida sog‘lig‘ini tiklab, hayotiga qaytgan insonlar hikoyalarini tinglang.",
+      "viewAll": "Barcha bemorlar hikoyalari"
+    },
+    "faq": {
+      "eyebrow": "Savollaringiz bormi?",
+      "title": "Ko‘p beriladigan savollar",
+      "subtitle": "Tibbiy sayohat, narxlar, xavfsizlik va ikkinchi xulosa haqida bilishingiz kerak bo‘lgan hamma narsa.",
+      "q1": "Qanday boshlayman?",
+      "a1": "Ushbu sahifadagi konsultatsiya shaklini holatingiz va mavjud tibbiy hujjatlaringiz bilan to‘ldiring. Jamoamiz uni ko‘rib chiqib, aniq va hammasi kiritilgan narxli davolash rejasini yuboradi — odatda 48 soat ichida.",
+      "q2": "Xalqaro sug‘urtani qabul qilasizmi?",
+      "a2": "Qoplama sug‘urta kompaniyasi va shifoxonaga qarab farq qiladi. Polis ma’lumotlaringizni jamoamizga yuborganingizdan so‘ng, nimalar qoplanishini oldindan tasdiqlaymiz.",
+      "q3": "Safar qiladigan bemorlarga qanday yordam berasiz?",
+      "a3": "Tibbiy viza bo‘yicha yordam, turar joy variantlari, aeroport transferlari va tarjimon xizmatlari — safaringiz davolanishning o‘zi kabi xotirjam o‘tishi uchun hammasi muvofiqlashtiriladi.",
+      "q4": "Safardan oldin narxni bilib olsam bo‘ladimi?",
+      "a4": "Ha — bepul narx taklifining maqsadi aynan shu. Chipta olishdan oldin holatingiz uchun batafsil va hammasi kiritilgan narxni ko‘rasiz."
+    },
+    "cta": {
+      "eyebrow": "Tuzalish yo‘lingizni bugun boshlang",
+      "title": "Arzonroq narxda jahon darajasidagi tibbiyotga tayyormisiz?",
+      "body": "Bepul konsultatsiya va shaxsiy narx hisob-kitobi uchun hoziroq katta maslahatchi bilan gaplashing.",
+      "book": "Bepul konsultatsiyaga yozilish",
+      "talk": "Jamoamiz bilan gaplashish"
+    }
+  },
+  "form": {
+    "fullName": "To‘liq ism",
+    "fullNamePlaceholder": "To‘liq ismingizni kiriting",
+    "email": "Elektron pochta",
+    "emailPlaceholder": "patient@example.com",
+    "phone": "Telefon raqami / WhatsApp",
+    "phonePlaceholder": "+1 (555) 000-0000",
+    "country": "Mamlakat",
+    "countryPlaceholder": "Qaysi mamlakatdan murojaat qilyapsiz",
+    "treatment": "Qiziqtirgan davolash",
+    "treatmentPlaceholder": "Ixtiyoriy",
+    "message": "Qisqacha klinik ma’lumot / belgilar",
+    "messagePlaceholder": "Holatingiz haqida biroz yozing (ixtiyoriy)",
+    "submit": "Bepul narx taklifini olish",
+    "submitting": "Yuborilmoqda...",
+    "successTitle": "Rahmat! So‘rovingizni qabul qildik.",
+    "successBody": "Jamoamiz 24 soat ichida siz bilan bog‘lanadi.",
+    "confidential": "100% maxfiy — tibbiy ma’lumotlaringiz hech qachon uchinchi shaxslarga berilmaydi."
+  },
+  "footer": {
+    "tagline": "Bemorlarga Hindistonda AQSh va Buyuk Britaniya narxlarining kichik bir qismiga jahon darajasidagi davolanishni olishda yordam beramiz.",
+    "quickLinks": "Tezkor havolalar",
+    "partnerHospitals": "Hamkor shifoxonalar",
+    "ourDoctors": "Shifokorlarimiz",
+    "support": "Yordam va xavfsizlik",
+    "aboutUs": "Biz haqimizda",
+    "freeQuote": "Bepul narx taklifi",
+    "patientLogin": "Bemorlar uchun kirish",
+    "privacyPolicy": "Maxfiylik siyosati",
+    "contact": "Biz bilan bog‘laning",
+    "disclaimerTitle": "Tibbiy ogohlantirish",
+    "disclaimer": "Mendsure’dagi ma’lumotlar faqat tanishish uchun berilgan va professional tibbiy maslahat, tashxis yoki davolash o‘rnini bosmaydi. Doimo shifokoringiz bilan maslahatlashing.",
+    "rights": "Barcha huquqlar himoyalangan.",
+    "socialLabel": "Mendsure {{network}} tarmog‘ida"
+  },
+  "pages": {
+    "treatments": {
+      "eyebrow": "Shaffof, hammasi kiritilgan narxlar",
+      "title": "Davolash va muolajalar",
+      "subtitle": "Kerakli muolaja uchun akkreditatsiyadan o‘tgan shifoxonalar va umumiy narxlarni solishtiring."
+    },
+    "hospitals": {
+      "eyebrow": "Akkreditatsiyadan o‘tgan shifoxonalar tarmog‘i",
+      "title": "Jahon darajasidagi hamkor shifoxonalar va zamonaviy tibbiyot muassasalari",
+      "subtitle": "Hindiston bo‘ylab xalqaro akkreditatsiyaga ega, xorijiy bemorlar bo‘limlari va tiklanish davrida to‘liq yordam ko‘rsatadigan muassasalar."
+    },
+    "doctors": {
+      "eyebrow": "Yetakchi xalqaro mutaxassislar",
+      "title": "Siz uchun moslashtirilgan sifatli tibbiy yordam.",
+      "subtitle": "Hindistondagi akkreditatsiyadan o‘tgan hamkor shifoxonalarimizdagi tajribali, sertifikatlangan mutaxassislar.",
+      "specialists": "Mutaxassislar",
+      "specialties": "Yo‘nalishlar",
+      "allSpecialists": "Barcha mutaxassislar",
+      "searchPlaceholder": "Ism yoki shifoxona bo‘yicha qidirish...",
+      "noMatch": "Bu so‘rov bo‘yicha shifokor topilmadi.",
+      "loading": "Shifokorlar yuklanmoqda...",
+      "error": "Hozircha shifokorlarni yuklab bo‘lmadi. Birozdan so‘ng qayta urinib ko‘ring.",
+      "priorityTitle": "Tanlangan mutaxassislar",
+      "moreTitle": "Boshqa mutaxassislar",
+      "pageOf": "{{count}} dan {{page}}-sahifa",
+      "prevPage": "Oldingi sahifa",
+      "nextPage": "Keyingi sahifa"
+    },
+    "cost": {
+      "eyebrow": "Shaffof, hammasi kiritilgan narxlar",
+      "title": "Hindistonda davolanish narxlari",
+      "subtitle": "Biz tashkil qiladigan har bir muolajaning o‘rtacha narxi — yo‘nalishlar bo‘yicha, Hindiston rupiyasi va AQSh dollarida.",
+      "procedures": "Muolajalar",
+      "specialties": "Yo‘nalishlar",
+      "savings": "Arzonroq",
+      "searchPlaceholder": "Muolajani qidiring...",
+      "noMatch": "Bu so‘rov bo‘yicha muolaja topilmadi.",
+      "fullGuide": "To‘liq davolash qo‘llanmasi",
+      "disclaimer": "Narxlar taxminiy o‘rtacha qiymatlar bo‘lib, shifoxona, shahar, palata turi va sog‘lig‘ingiz holatiga qarab farq qilishi mumkin. Koordinatoringiz holatingiz uchun batafsil narx taklifini yuboradi.",
+      "ctaTitle": "Holatingiz uchun aniq narx kerakmi?",
+      "ctaBody": "Tibbiy hujjatlaringizni yuboring — jamoamiz 48 soat ichida shaxsiy, hammasi kiritilgan narx hisob-kitobini yuboradi.",
+      "ctaButton": "Bepul narx taklifini olish"
+    },
+    "howItWorks": {
+      "eyebrow": "Boshidan oxirigacha to‘liq yordam",
+      "title": "Mendsure qanday ishlaydi",
+      "subtitle": "Birinchi xabaringizdan uyga qaytish reysigacha — siz uchun bajaradigan har bir qadamimiz."
+    },
+    "about": {
+      "eyebrow": "Ishonchli xalqaro sog‘liq hamkoringiz",
+      "title": "Hindistonda jahon darajasidagi tibbiyot — oson va qulay",
+      "subtitle": "Xorijiy bemorlarni Hindistondagi ishonchli shifoxonalar, tajribali mutaxassislar, zamonaviy tibbiy texnologiyalar va shaxsiy tibbiy xizmat bilan bog‘laymiz."
+    },
+    "testimonials": {
+      "eyebrow": "Bemorlarning haqiqiy muvaffaqiyat hikoyalari",
+      "title": "Bemorlar hikoyalari",
+      "subtitle": "Mendsure yordamida sog‘lig‘ini tiklagan insonlar hikoyalarini tinglang."
+    },
+    "contact": {
+      "eyebrow": "Biz bilan gaplashing",
+      "title": "Bepul narx taklifini oling",
+      "subtitle": "Holatingiz haqida yozing — jamoamiz 24 soat ichida javob beradi."
+    },
+    "login": {
+      "title": "Mendsure hisobingiz"
+    }
+  },
+  "errors": {
+    "pageTitle": "Bu sahifada xatolik yuz berdi",
+    "pageBody": "Kechirasiz — sahifa to‘g‘ri yuklanmadi. Odatda qayta yuklash yordam beradi. Hozir yordam kerak bo‘lsa, jamoamiz bilan to‘g‘ridan-to‘g‘ri bog‘laning.",
+    "reload": "Sahifani qayta yuklash",
+    "goHome": "Bosh sahifaga o‘tish",
+    "callUs": "Yoki bizga qo‘ng‘iroq qiling"
+  }
+}

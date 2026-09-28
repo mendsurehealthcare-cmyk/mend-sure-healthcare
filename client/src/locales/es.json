@@ -175,7 +175,13 @@
     "submitting": "Enviando...",
     "successTitle": "¡Gracias! Hemos recibido tu solicitud.",
     "successBody": "Nuestro equipo se pondrá en contacto contigo en menos de 24 horas.",
-    "confidential": "100% confidencial: tus datos médicos nunca se comparten."
+    "confidential": "100% confidencial: tus datos médicos nunca se comparten.",
+    "phoneNumberPlaceholder": "Número de teléfono",
+    "phoneRequired": "Introduzca su número de teléfono.",
+    "phoneInvalid": "Introduzca un número de teléfono válido de {{country}}.",
+    "phoneCountry": "Código de país: {{country}} (+{{dialCode}}). Cambiar país",
+    "phoneSearch": "Buscar país o código (p. ej., India, +91)",
+    "phoneNoCountries": "Ningún país coincide con la búsqueda."
   },
   "footer": {
     "tagline": "Ayudamos a los pacientes a recibir tratamiento de primer nivel en India por una fracción de los precios de Estados Unidos y Reino Unido.",
@@ -219,7 +225,17 @@
       "moreTitle": "Más Especialistas",
       "pageOf": "Página {{page}} de {{count}}",
       "prevPage": "Página anterior",
-      "nextPage": "Página siguiente"
+      "nextPage": "Página siguiente",
+      "findSpecialist": "Encuentre un especialista",
+      "resultsTitle": "Especialistas",
+      "resultCount": "{{count}} médicos",
+      "showingFor": "Mostrando resultados para {{filters}}",
+      "showingAll": "Mostrando todos los especialistas",
+      "clearFilters": "Borrar filtros",
+      "atHospital": "en {{hospital}}",
+      "removeHospital": "Mostrar médicos de todos los hospitales",
+      "departments": "Departamentos",
+      "removeFilter": "Quitar {{filter}}"
     },
     "cost": {
       "eyebrow": "Precios transparentes y todo incluido",

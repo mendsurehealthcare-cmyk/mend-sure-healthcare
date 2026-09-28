@@ -7,6 +7,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import AdminRoute from './components/AdminRoute';
 import StateMessage from './components/StateMessage';
 import ScrollToTop from './components/ScrollToTop';
+import CanonicalLink from './components/CanonicalLink';
 
 // Lazy-loaded rather than imported up front: with 15 pages in one bundle,
 // visiting any single page — including a doctor's profile reached via a
@@ -43,6 +44,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <CanonicalLink />
       <AuthProvider>
         <Layout>
           {/* Inside Layout so a page-level crash keeps the header, nav, and

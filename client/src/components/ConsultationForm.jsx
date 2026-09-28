@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { submitInquiry } from '../lib/api';
 import { COUNTRY_INDEX } from '../lib/locations';
 import Autocomplete from './Autocomplete';
 import Icon from './Icon';
+import { isValidPhone } from '../lib/phone';
+import PhoneField from './PhoneField';
 
 const initialForm = {
   fullName: '',
@@ -25,6 +27,10 @@ export default function ConsultationForm({ sourcePage, bare = false }) {
   const [status, setStatus] = useState('idle'); // idle | submitting | success | error
   const [errorMessage, setErrorMessage] = useState('');
   const [formLoadedAt] = useState(() => Date.now());
+  // Shows the phone field's validation message once a submit has been tried,
+  // even if the field was never focused.
+  const [submitAttempted, setSubmitAttempted] = useState(false);
+  const phoneId = useId();
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -33,6 +39,16 @@ export default function ConsultationForm({ sourcePage, bare = false }) {
 
   async function handleSubmit(event) {
     event.preventDefault();
+    setSubmitAttempted(true);
+
+    // The browser's own `required` checks have already passed by the time
+    // this runs; this adds the one it can't do — a complete, valid number
+    // for the chosen country.
+    if (!isValidPhone(form.phone)) {
+      document.getElementById(phoneId)?.focus();
+      return;
+    }
+
     setStatus('submitting');
     setErrorMessage('');
 
@@ -40,6 +56,7 @@ export default function ConsultationForm({ sourcePage, bare = false }) {
       await submitInquiry({ ...form, sourcePage, formLoadedAt });
       setStatus('success');
       setForm(initialForm);
+      setSubmitAttempted(false);
     } catch (err) {
       setStatus('error');
       setErrorMessage(err.message);
@@ -101,18 +118,15 @@ export default function ConsultationForm({ sourcePage, bare = false }) {
             className={fieldClasses}
           />
         </div>
-        <div>
-          <label className={labelClasses}>{t('form.phone')}</label>
-          <input
-            type="tel"
-            name="phone"
-            placeholder={t('form.phonePlaceholder')}
-            required
-            value={form.phone}
-            onChange={handleChange}
-            className={fieldClasses}
-          />
-        </div>
+        <PhoneField
+          id={phoneId}
+          label={t('form.phone')}
+          labelClassName={labelClasses}
+          value={form.phone}
+          onChange={(phone) => setForm((prev) => ({ ...prev, phone }))}
+          required
+          showError={submitAttempted}
+        />
         <div>
           <label className={labelClasses} htmlFor="consultation-country">
             {t('form.country')}

@@ -185,7 +185,13 @@
     "submitting": "Sending...",
     "successTitle": "Thank you! We've received your request.",
     "successBody": "Our care team will reach out within 24 hours.",
-    "confidential": "100% confidential — your medical data is never shared."
+    "confidential": "100% confidential — your medical data is never shared.",
+    "phoneNumberPlaceholder": "Phone number",
+    "phoneRequired": "Please enter your phone number.",
+    "phoneInvalid": "Please enter a valid {{country}} phone number.",
+    "phoneCountry": "Country code: {{country}} (+{{dialCode}}). Change country",
+    "phoneSearch": "Search country or code (e.g. India, +91)",
+    "phoneNoCountries": "No countries match that search."
   },
   "footer": {
     "tagline": "Helping patients get world-class treatment in India at a fraction of US and UK prices.",
@@ -229,7 +235,17 @@
       "moreTitle": "More Specialists",
       "pageOf": "Page {{page}} of {{count}}",
       "prevPage": "Previous page",
-      "nextPage": "Next page"
+      "nextPage": "Next page",
+      "findSpecialist": "Find a specialist",
+      "resultsTitle": "Specialists",
+      "resultCount": "{{count}} doctors",
+      "showingFor": "Showing results for {{filters}}",
+      "showingAll": "Showing all specialists",
+      "clearFilters": "Clear filters",
+      "atHospital": "at {{hospital}}",
+      "removeHospital": "Show doctors at all hospitals",
+      "departments": "Departments",
+      "removeFilter": "Remove {{filter}}"
     },
     "cost": {
       "eyebrow": "Transparent, All-In Pricing",

@@ -185,7 +185,13 @@
     "submitting": "Yuborilmoqda...",
     "successTitle": "Rahmat! So‘rovingizni qabul qildik.",
     "successBody": "Jamoamiz 24 soat ichida siz bilan bog‘lanadi.",
-    "confidential": "100% maxfiy — tibbiy ma’lumotlaringiz hech qachon uchinchi shaxslarga berilmaydi."
+    "confidential": "100% maxfiy — tibbiy ma’lumotlaringiz hech qachon uchinchi shaxslarga berilmaydi.",
+    "phoneNumberPlaceholder": "Telefon raqami",
+    "phoneRequired": "Iltimos, telefon raqamingizni kiriting.",
+    "phoneInvalid": "Iltimos, {{country}} uchun to‘g‘ri telefon raqamini kiriting.",
+    "phoneCountry": "Mamlakat kodi: {{country}} (+{{dialCode}}). Mamlakatni o‘zgartirish",
+    "phoneSearch": "Mamlakat yoki kodni qidiring (masalan, India, +91)",
+    "phoneNoCountries": "Bunday mamlakat topilmadi."
   },
   "footer": {
     "tagline": "Bemorlarga Hindistonda AQSh va Buyuk Britaniya narxlarining kichik bir qismiga jahon darajasidagi davolanishni olishda yordam beramiz.",
@@ -229,7 +235,17 @@
       "moreTitle": "Boshqa mutaxassislar",
       "pageOf": "{{count}} dan {{page}}-sahifa",
       "prevPage": "Oldingi sahifa",
-      "nextPage": "Keyingi sahifa"
+      "nextPage": "Keyingi sahifa",
+      "findSpecialist": "Mutaxassis topish",
+      "resultsTitle": "Mutaxassislar",
+      "resultCount": "{{count}} ta shifokor",
+      "showingFor": "Natijalar: {{filters}}",
+      "showingAll": "Barcha mutaxassislar",
+      "clearFilters": "Filtrlarni tozalash",
+      "atHospital": "{{hospital}}da",
+      "removeHospital": "Barcha shifoxonalar shifokorlarini ko‘rsatish",
+      "departments": "Bo‘limlar",
+      "removeFilter": "{{filter}} ni olib tashlash"
     },
     "cost": {
       "eyebrow": "Shaffof, hammasi kiritilgan narxlar",

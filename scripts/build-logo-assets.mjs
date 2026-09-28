@@ -8,7 +8,7 @@
 // real content, resizes, and writes optimised PNGs into client/public/, which
 // are committed so a deploy needs neither this script nor sharp.
 import sharp from 'sharp';
-import { mkdir, readdir, stat } from 'node:fs/promises';
+import { mkdir, readdir, stat, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -28,7 +28,12 @@ async function markSquare(size) {
   // sits identically whether it's rendered at 28px or 128px.
   const side = Math.max(MARK.width, MARK.height);
 
-  return sharp(TRANSPARENT)
+  // Two separate sharp pipelines on purpose: within one pipeline sharp always
+  // runs extract -> resize -> extend, whatever order they're chained in, so
+  // the square padding was being added *after* the resize and every icon
+  // came out a few pixels taller than wide (32x38, 192x198, ...). Google
+  // rejects non-square favicons for search results.
+  const square = await sharp(TRANSPARENT)
     .extract(MARK)
     .extend({
       top: Math.floor((side - MARK.height) / 2),
@@ -37,9 +42,47 @@ async function markSquare(size) {
       right: Math.ceil((side - MARK.width) / 2),
       background: { r: 0, g: 0, b: 0, alpha: 0 },
     })
+    .png()
+    .toBuffer();
+
+  return sharp(square)
     .resize(size, size, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
     .png({ compressionLevel: 9, palette: true })
     .toBuffer();
+}
+
+// Packs PNG images into one .ico file. ICO entries may be PNG-encoded
+// (supported everywhere since Windows Vista), so no extra tool is needed:
+// a 6-byte header, a 16-byte directory entry per image, then the PNG bytes.
+function pngsToIco(images) {
+  const header = Buffer.alloc(6);
+  header.writeUInt16LE(0, 0); // reserved
+  header.writeUInt16LE(1, 2); // type: icon
+  header.writeUInt16LE(images.length, 4);
+
+  let offset = 6 + 16 * images.length;
+  const entries = images.map(({ size, png }) => {
+    const entry = Buffer.alloc(16);
+    entry.writeUInt8(size >= 256 ? 0 : size, 0); // width (0 means 256)
+    entry.writeUInt8(size >= 256 ? 0 : size, 1); // height
+    entry.writeUInt8(0, 2); // palette colours
+    entry.writeUInt8(0, 3); // reserved
+    entry.writeUInt16LE(1, 4); // colour planes
+    entry.writeUInt16LE(32, 6); // bits per pixel
+    entry.writeUInt32LE(png.length, 8);
+    entry.writeUInt32LE(offset, 12);
+    offset += png.length;
+    return entry;
+  });
+
+  return Buffer.concat([header, ...entries, ...images.map(({ png }) => png)]);
+}
+
+async function writeRaw(name, buffer) {
+  const path = join(OUT, name);
+  await writeFile(path, buffer);
+  const { size } = await stat(path);
+  console.log(`  ${name.padEnd(24)} ${(size / 1024).toFixed(1)} KB`);
 }
 
 async function write(name, buffer) {
@@ -74,6 +117,22 @@ async function main() {
   // Browser tab icon.
   await write('favicon-32.png', await markSquare(32));
   await write('favicon-192.png', await markSquare(192));
+
+  // Google shows a site's favicon beside its search results, and only uses
+  // one that is square and a multiple of 48px (48, 96, 144, ...). 48 and 96
+  // are listed first in index.html for that reason.
+  await write('favicon-48.png', await markSquare(48));
+  await write('favicon-96.png', await markSquare(96));
+
+  // /favicon.ico is the address browsers and crawlers request by default,
+  // even with no <link> pointing at it. Without a real file there, the site's
+  // catch-all route answered it with the homepage HTML.
+  await writeRaw(
+    'favicon.ico',
+    pngsToIco(
+      await Promise.all([16, 32, 48].map(async (size) => ({ size, png: await markSquare(size) })))
+    )
+  );
 
   // iOS home-screen tile. The roundel only — at 180px the full lockup's
   // "HEALTHCARE SERVICES" rule is far below legible, and a tile crowded with

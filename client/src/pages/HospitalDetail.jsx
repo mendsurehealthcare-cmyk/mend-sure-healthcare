@@ -149,13 +149,21 @@ export default function HospitalDetail() {
                 </h2>
                 <div className="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm">
                   <ul className="grid gap-space-md sm:grid-cols-2">
+                    {/* Each opens the Doctors page filtered to this specialty
+                        at this hospital. */}
                     {specialtiesHere.map((item) => (
-                      <li
-                        key={item}
-                        className="flex items-center gap-space-sm text-body-md text-on-surface"
-                      >
-                        <Icon name={specialtyIcon(item)} className="shrink-0 text-secondary" />
-                        {item}
+                      <li key={item}>
+                        <Link
+                          to={`/doctors?specialty=${encodeURIComponent(item)}&hospital=${encodeURIComponent(slug)}`}
+                          className="group flex items-center gap-space-sm rounded-lg px-space-2xs py-space-3xs text-body-md text-on-surface transition-colors hover:text-primary"
+                        >
+                          <Icon name={specialtyIcon(item)} className="shrink-0 text-secondary" />
+                          <span className="group-hover:underline">{item}</span>
+                          <Icon
+                            name="chevron_right"
+                            className="!text-[18px] text-on-surface-variant opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
+                          />
+                        </Link>
                       </li>
                     ))}
                   </ul>

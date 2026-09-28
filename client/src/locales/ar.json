@@ -185,7 +185,13 @@
     "submitting": "جارٍ الإرسال...",
     "successTitle": "شكرًا لك! لقد استلمنا طلبك.",
     "successBody": "سيتواصل معك فريق الرعاية خلال 24 ساعة.",
-    "confidential": "سرية تامة 100% — لا تتم مشاركة بياناتك الطبية أبدًا."
+    "confidential": "سرية تامة 100% — لا تتم مشاركة بياناتك الطبية أبدًا.",
+    "phoneNumberPlaceholder": "رقم الهاتف",
+    "phoneRequired": "يرجى إدخال رقم هاتفك.",
+    "phoneInvalid": "يرجى إدخال رقم هاتف صالح في {{country}}.",
+    "phoneCountry": "رمز الدولة: {{country}} (+{{dialCode}}). تغيير الدولة",
+    "phoneSearch": "ابحث عن دولة أو رمز (مثل الهند، +91)",
+    "phoneNoCountries": "لا توجد دول تطابق هذا البحث."
   },
   "footer": {
     "tagline": "نساعد المرضى على الحصول على علاج عالمي المستوى في الهند بجزء بسيط من أسعار الولايات المتحدة والمملكة المتحدة.",
@@ -229,7 +235,17 @@
       "moreTitle": "المزيد من الأخصائيين",
       "pageOf": "الصفحة {{page}} من {{count}}",
       "prevPage": "الصفحة السابقة",
-      "nextPage": "الصفحة التالية"
+      "nextPage": "الصفحة التالية",
+      "findSpecialist": "ابحث عن أخصائي",
+      "resultsTitle": "الأخصائيون",
+      "resultCount": "{{count}} طبيب",
+      "showingFor": "عرض النتائج لـ {{filters}}",
+      "showingAll": "عرض جميع الأخصائيين",
+      "clearFilters": "مسح عوامل التصفية",
+      "atHospital": "في {{hospital}}",
+      "removeHospital": "عرض الأطباء في جميع المستشفيات",
+      "departments": "الأقسام",
+      "removeFilter": "إزالة {{filter}}"
     },
     "cost": {
       "eyebrow": "أسعار شفافة وشاملة",

@@ -6,9 +6,9 @@ import ScrollRow from './ScrollRow';
 import FaqAccordion from './FaqAccordion';
 
 /*
-  The fuller, vaidam.com-style specialty page: an intro, one or more price
-  tables, a doctors carousel, a hospitals carousel, a patient-education
-  article, and an FAQ. Shared by every specialty whose content fits this one
+  The fuller, vaidam.com-style specialty page: an intro, a hospitals
+  carousel, a doctors carousel, one or more price tables, a
+  patient-education article, and an FAQ. Shared by every specialty whose content fits this one
   shape — currently Oncology, Neurosurgery, Orthopedics and Spine Surgery;
   Cardiac Surgery keeps its own component (CardiacSurgeryCostGuide.jsx)
   because its second table (the Turkey/Thailand comparison) bolds a specific
@@ -76,11 +76,19 @@ export default function TreatmentArticleGuide({
         <p className="text-body-lg leading-relaxed text-on-surface-variant">{intro}</p>
       </div>
 
-      <div className="space-y-space-2xl">
-        {priceTables.map((table) => (
-          <CostGuideTable key={table.title} {...table} />
-        ))}
-      </div>
+      {/* Hospitals, then doctors, then cost — the order Mend Sure asked for. */}
+      {relatedHospitals.length > 0 && (
+        <div>
+          <h3 className="mb-space-lg text-headline-md font-bold text-primary">{hospitalsHeading}</h3>
+          <ScrollRow>
+            {relatedHospitals.map((hospital) => (
+              <div key={hospital.id} className="w-80 shrink-0">
+                <HospitalCard hospital={hospital} />
+              </div>
+            ))}
+          </ScrollRow>
+        </div>
+      )}
 
       {doctors?.length > 0 && (
         <div>
@@ -95,18 +103,11 @@ export default function TreatmentArticleGuide({
         </div>
       )}
 
-      {relatedHospitals.length > 0 && (
-        <div>
-          <h3 className="mb-space-lg text-headline-md font-bold text-primary">{hospitalsHeading}</h3>
-          <ScrollRow>
-            {relatedHospitals.map((hospital) => (
-              <div key={hospital.id} className="w-80 shrink-0">
-                <HospitalCard hospital={hospital} />
-              </div>
-            ))}
-          </ScrollRow>
-        </div>
-      )}
+      <div className="space-y-space-2xl">
+        {priceTables.map((table) => (
+          <CostGuideTable key={table.title} {...table} />
+        ))}
+      </div>
 
       <div className="max-w-3xl space-y-space-xl">
         {articleSections.map((section) => (

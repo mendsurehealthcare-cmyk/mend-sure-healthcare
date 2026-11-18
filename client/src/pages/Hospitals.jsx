@@ -7,6 +7,7 @@ import StatBadge from '../components/StatBadge';
 import HospitalWideCard from '../components/HospitalWideCard';
 import StateMessage from '../components/StateMessage';
 import PaginatedGrid from '../components/PaginatedGrid';
+import { featuredFirst } from '../lib/featuredHospitals';
 
 const HERO_IMAGE =
   'https://lh3.googleusercontent.com/aida-public/AB6AXuDE9idZWJ-5x6_Pndnsxh1wogzVY63HxhLQFj2BydHPNnrWaqlZusK4QJhI9pBfKyzy9cPC8wB0Ay_lyxbP5WalF9EKhv-VhkAewwS52nmgjCXv7afEtpuo8ozqgftcQDvdxZ1g_1o9KLI5Ey0opcgd7SaNBccDwHJLOkclb6BWORsBvvJvUVz4NNeggALJAalvMKwAUBuQkE8g5R1Wwk5j-Luj5aILjK9OdWnoOkMqhwkZsKhyuiSY';
@@ -57,7 +58,7 @@ export default function Hospitals() {
   // API request itself for a deep link like "view hospitals in Delhi".
   const query = searchParams.get('q') || '';
   const city = searchParams.get('filterCity') || 'all';
-  const sort = searchParams.get('sort') || 'name-asc';
+  const sort = searchParams.get('sort') || 'featured';
 
   const setQuery = (value) =>
     setSearchParams(
@@ -85,7 +86,7 @@ export default function Hospitals() {
     setSearchParams(
       (prev) => {
         const next = new URLSearchParams(prev);
-        if (value && value !== 'name-asc') next.set('sort', value);
+        if (value && value !== 'featured') next.set('sort', value);
         else next.delete('sort');
         return next;
       },
@@ -138,6 +139,8 @@ export default function Hospitals() {
 
     // Sort a copy: the array from useApi is shared state, and sorting in place
     // would mutate it.
+    // Featured: Mend Sure's highlighted hospitals first, then the rest A–Z.
+    if (sort === 'featured') return featuredFirst([...matches].sort(byName));
     return [...matches].sort(sorters[sort] ?? byName);
   }, [hospitals, query, city, sort]);
 
@@ -235,6 +238,7 @@ export default function Hospitals() {
                 onChange={(e) => setSort(e.target.value)}
                 className="w-full rounded-lg bg-surface-container-low px-space-md py-space-sm text-body-md text-on-surface transition-all focus:ring-2 focus:ring-secondary focus:outline-none"
               >
+                <option value="featured">Featured</option>
                 <option value="name-asc">Name (A–Z)</option>
                 <option value="name-desc">Name (Z–A)</option>
                 <option value="city">City, then name</option>

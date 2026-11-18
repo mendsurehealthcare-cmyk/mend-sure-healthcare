@@ -175,3 +175,21 @@ body {
 .material-symbols-outlined.icon-filled {
   font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24;
 }
+
+/* Home "Our Doctors" continuous scroll. The track holds the list twice, so
+   sliding it by exactly half loops seamlessly. Pauses on hover/focus and
+   stops for visitors who prefer reduced motion. */
+@keyframes doctor-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.doctor-marquee-track {
+  animation: doctor-marquee 40s linear infinite;
+}
+.doctor-marquee:hover .doctor-marquee-track,
+.doctor-marquee:focus-within .doctor-marquee-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .doctor-marquee-track { animation: none; }
+}

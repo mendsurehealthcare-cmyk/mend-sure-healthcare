@@ -53,6 +53,13 @@ import {
   BONE_MARROW_FAQS,
   BONE_MARROW_INTRO,
 } from '../data/boneMarrowArticle';
+import {
+  KIDNEY_TRANSPLANT_ARTICLE_SECTIONS,
+  KIDNEY_TRANSPLANT_DOCTOR_SLUGS,
+  KIDNEY_TRANSPLANT_FAQS,
+  KIDNEY_TRANSPLANT_INTRO,
+  KIDNEY_TRANSPLANT_PRICE_TABLES,
+} from '../data/kidneyTransplantArticle';
 import StateMessage from '../components/StateMessage';
 
 // The specialties (besides Cardiac Surgery, which keeps its own bespoke
@@ -168,6 +175,18 @@ const ARTICLE_GUIDES = {
     articleSections: BONE_MARROW_ARTICLE_SECTIONS,
     faqs: BONE_MARROW_FAQS,
     // No closing disclaimer was supplied for this guide either.
+  },
+  // Reached from the home page's Kidney Transplant card only — see
+  // kidneyTransplantArticle.js for why it isn't in TREATMENT_COST_GUIDES.
+  'Kidney Transplant': {
+    title: 'Kidney Transplant',
+    intro: KIDNEY_TRANSPLANT_INTRO,
+    priceTables: KIDNEY_TRANSPLANT_PRICE_TABLES,
+    doctorSlugs: KIDNEY_TRANSPLANT_DOCTOR_SLUGS,
+    doctorsHeading: 'Meet Our Kidney Transplant Specialists',
+    hospitalsHeading: 'Hospitals for Kidney Transplant',
+    articleSections: KIDNEY_TRANSPLANT_ARTICLE_SECTIONS,
+    faqs: KIDNEY_TRANSPLANT_FAQS,
   },
 };
 

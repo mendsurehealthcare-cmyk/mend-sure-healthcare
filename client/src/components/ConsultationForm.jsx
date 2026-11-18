@@ -6,6 +6,9 @@ import Autocomplete from './Autocomplete';
 import Icon from './Icon';
 import { isValidPhone } from '../lib/phone';
 import PhoneField from './PhoneField';
+import countryData from '../data/countries.json';
+
+const COUNTRY_CODES = new Map(countryData.map((c) => [c.name.toLowerCase(), c.code]));
 
 const initialForm = {
   fullName: '',
@@ -31,6 +34,9 @@ export default function ConsultationForm({ sourcePage, bare = false }) {
   // even if the field was never focused.
   const [submitAttempted, setSubmitAttempted] = useState(false);
   const phoneId = useId();
+  // ISO code of the typed country (exact name match), used to set the
+  // phone field's dial code automatically.
+  const countryIso = COUNTRY_CODES.get(form.country.trim().toLowerCase());
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -107,27 +113,6 @@ export default function ConsultationForm({ sourcePage, bare = false }) {
           />
         </div>
         <div>
-          <label className={labelClasses}>{t('form.email')}</label>
-          <input
-            type="email"
-            name="email"
-            placeholder={t('form.emailPlaceholder')}
-            required
-            value={form.email}
-            onChange={handleChange}
-            className={fieldClasses}
-          />
-        </div>
-        <PhoneField
-          id={phoneId}
-          label={t('form.phone')}
-          labelClassName={labelClasses}
-          value={form.phone}
-          onChange={(phone) => setForm((prev) => ({ ...prev, phone }))}
-          required
-          showError={submitAttempted}
-        />
-        <div>
           <label className={labelClasses} htmlFor="consultation-country">
             {t('form.country')}
           </label>
@@ -141,18 +126,44 @@ export default function ConsultationForm({ sourcePage, bare = false }) {
             inputClassName={fieldClasses}
           />
         </div>
+        <div className="sm:col-span-2">
+          <PhoneField
+            id={phoneId}
+            label={t('form.phone')}
+            labelClassName={labelClasses}
+            value={form.phone}
+            onChange={(phone) => setForm((prev) => ({ ...prev, phone }))}
+            required
+            showError={submitAttempted}
+            syncCountry={countryIso}
+          />
+        </div>
       </div>
 
-      <div>
-        <label className={labelClasses}>{t('form.treatment')}</label>
-        <input
-          type="text"
-          name="treatmentInterested"
-          placeholder={t('form.treatmentPlaceholder')}
-          value={form.treatmentInterested}
-          onChange={handleChange}
-          className={fieldClasses}
-        />
+      <div className="grid gap-space-md sm:grid-cols-2">
+        <div>
+          <label className={labelClasses}>{t('form.treatment')}</label>
+          <input
+            type="text"
+            name="treatmentInterested"
+            placeholder={t('form.treatmentPlaceholder')}
+            value={form.treatmentInterested}
+            onChange={handleChange}
+            className={fieldClasses}
+          />
+        </div>
+        <div>
+          <label className={labelClasses}>{t('form.email')}</label>
+          <input
+            type="email"
+            name="email"
+            placeholder={t('form.emailPlaceholder')}
+            required
+            value={form.email}
+            onChange={handleChange}
+            className={fieldClasses}
+          />
+        </div>
       </div>
 
       <div>

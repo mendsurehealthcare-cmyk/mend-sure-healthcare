@@ -25,10 +25,11 @@
   Sure had its own branded artwork to use, which fits the site's own visual
   identity in a way stock/public-domain media couldn't.
 
-  Gynaecology is the one exception: no branded image was supplied for it, so
-  it still uses the v3 Wikimedia pick — a CDC/HHS public-domain reproductive-
-  system diagram (commons.wikimedia.org/wiki/File:Scheme_female_reproductive_system-en.svg)
-  — until one is.
+  Kidney Transplant's branded image was supplied later and added separately.
+
+  An entry can set `to` (where the card links, in place of its specialty's
+  guide) and `icon` (in place of the specialty's icon) when its specialty
+  label isn't a guide specialty.
 */
 import { CARDIAC_SURGERY_SPECIALTY, TREATMENT_COST_GUIDES } from './treatmentCostGuides';
 
@@ -89,12 +90,22 @@ export const HOME_POPULAR_TREATMENTS = [
     image: '/images/treatments/ivf-icsi.webp',
     ...findRow('IVF', 'IVF with Intracytoplasmic Sperm Injection (ICSI)'),
   },
+  // Organ transplant — kidney here, liver below — in place of Total
+  // Laparoscopic Hysterectomy, at Mend Sure's request. Kidney Transplant has
+  // no cost guide of its own, so it links to the kidney transplant doctors
+  // (filed under Urology Care and Nephrology) rather than a guide page.
+  // Price range is from published Delhi NCR estimates (Credihealth, Bookimed,
+  // Nov 2026) for a living-donor transplant package, not a Mend Sure quote —
+  // replace with Mend Sure's own figures when available.
   {
-    name: 'Total Laparoscopic Hysterectomy',
-    specialty: 'Gynaecology',
-    description: 'Minimally invasive keyhole removal of the uterus for fibroids, prolapse, or other conditions.',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/6/68/Scheme_female_reproductive_system-en.svg',
-    ...findRow('Gynaecology', 'Total Laparoscopic Hysterectomy (TLH)'),
+    name: 'Kidney Transplant',
+    specialty: 'Organ Transplant',
+    icon: 'nephrology',
+    to: '/treatments?specialty=Kidney%20Transplant',
+    description: 'Replaces a failed kidney with a healthy one from a living donor, typically a close relative, for end-stage kidney disease.',
+    image: '/images/treatments/kidney-transplant.webp',
+    inr: '₹5,50,000 – 11,00,000',
+    usd: '$6,500 – 13,500',
   },
   {
     name: 'Living Donor Liver Transplant',

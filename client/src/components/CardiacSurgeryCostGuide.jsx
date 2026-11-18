@@ -82,6 +82,37 @@ export default function CardiacSurgeryCostGuide() {
         <p className="text-body-lg leading-relaxed text-on-surface-variant">{CARDIAC_INTRO}</p>
       </div>
 
+      {/* Hospitals, then doctors, then cost — the order Mend Sure asked for. */}
+      {cardiacHospitals.length > 0 && (
+        <div>
+          <h3 className="mb-space-lg text-headline-md font-bold text-primary">
+            Hospitals for Cardiac Care
+          </h3>
+          <ScrollRow>
+            {cardiacHospitals.map((hospital) => (
+              <div key={hospital.id} className="w-80 shrink-0">
+                <HospitalCard hospital={hospital} />
+              </div>
+            ))}
+          </ScrollRow>
+        </div>
+      )}
+
+      {doctors?.length > 0 && (
+        <div>
+          <h3 className="mb-space-lg text-headline-md font-bold text-primary">
+            Meet Our Cardiac Specialists
+          </h3>
+          <ScrollRow>
+            {doctors.map((doctor) => (
+              <div key={doctor.id} className="w-72 shrink-0">
+                <DoctorCard doctor={doctor} />
+              </div>
+            ))}
+          </ScrollRow>
+        </div>
+      )}
+
       <div className="space-y-space-2xl">
         <TableCard title="Average Cost of Various Heart Surgeries in India">
           <table className="w-full min-w-[560px] text-left text-body-md">
@@ -134,36 +165,6 @@ export default function CardiacSurgeryCostGuide() {
           </table>
         </TableCard>
       </div>
-
-      {doctors?.length > 0 && (
-        <div>
-          <h3 className="mb-space-lg text-headline-md font-bold text-primary">
-            Meet Our Cardiac Specialists
-          </h3>
-          <ScrollRow>
-            {doctors.map((doctor) => (
-              <div key={doctor.id} className="w-72 shrink-0">
-                <DoctorCard doctor={doctor} />
-              </div>
-            ))}
-          </ScrollRow>
-        </div>
-      )}
-
-      {cardiacHospitals.length > 0 && (
-        <div>
-          <h3 className="mb-space-lg text-headline-md font-bold text-primary">
-            Hospitals for Cardiac Care
-          </h3>
-          <ScrollRow>
-            {cardiacHospitals.map((hospital) => (
-              <div key={hospital.id} className="w-80 shrink-0">
-                <HospitalCard hospital={hospital} />
-              </div>
-            ))}
-          </ScrollRow>
-        </div>
-      )}
 
       <div className="max-w-3xl space-y-space-xl">
         {CARDIAC_ARTICLE_SECTIONS.map((section) => (

@@ -46,6 +46,9 @@ export const HOME_DOCTOR_SLUGS = [
   'dr-vinod-raina',
   'dr-rana-patir',
   'dr-surender-kumar-dabas',
+  'dr-krishna-subramony-iyer',
+  'dr-sandeep-vaishya',
+  'dr-deepak-sarin',
 ];
 
 // A four-doctor spotlight for the home page's "Our Special Doctors" section —

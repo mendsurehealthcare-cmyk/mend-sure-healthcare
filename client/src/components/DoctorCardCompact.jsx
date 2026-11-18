@@ -13,7 +13,7 @@ export default function DoctorCardCompact({ doctor }) {
   return (
     <Link
       to={`/doctors/${doctor.slug}`}
-      className="group flex flex-col overflow-hidden rounded-xl bg-surface-container-lowest shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
+      className="group flex h-full flex-col overflow-hidden rounded-xl bg-surface-container-lowest shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
     >
       {/* Square, like the full card: these are headshots, and a taller box
           would crop a portrait down to a band across the face. */}
@@ -25,7 +25,7 @@ export default function DoctorCardCompact({ doctor }) {
         className="aspect-square rounded-none transition-transform duration-500 group-hover:scale-105"
       />
 
-      <div className="flex flex-col gap-space-3xs p-space-sm text-center">
+      <div className="flex flex-1 flex-col justify-center gap-space-3xs p-space-sm text-center">
         {/* A single-line truncate cuts a longer name off mid-word at this
             card's width ("Dr. Surender Kumar D…") — two lines with a clamp
             gives it room to wrap instead. */}

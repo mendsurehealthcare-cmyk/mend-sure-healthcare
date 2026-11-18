@@ -17,6 +17,7 @@ import HospitalCard from '../components/HospitalCard';
 import DoctorCard from '../components/DoctorCard';
 import DoctorCardCompact from '../components/DoctorCardCompact';
 import { HOME_DOCTOR_SLUGS, SPECIAL_DOCTOR_SLUGS, pickBySlug } from '../lib/priorityDoctors';
+import { featuredFirst } from '../lib/featuredHospitals';
 import { ALL_GUIDE_SPECIALTIES } from '../data/treatmentCostGuides';
 import { HOME_POPULAR_TREATMENTS } from '../data/homePopularTreatments';
 import TestimonialCard from '../components/TestimonialCard';
@@ -65,7 +66,9 @@ const HOME_TESTIMONIAL_NAMES = [
 
 export default function Home() {
   const { t } = useTranslation();
-  const { data: hospitals } = useApi('/hospitals');
+  // pageSize=300 for the same reason as doctors below: several featured
+  // hospitals (Medanta, Max Saket) sort past the default 20 alphabetically.
+  const { data: hospitals } = useApi('/hospitals?pageSize=300');
   // pageSize=300 rather than the default 20: the section below shows a fixed
   // set of named doctors (see HOME_DOCTOR_SLUGS), and several of them sort
   // well past the 20th row alphabetically, so the default page would silently
@@ -94,9 +97,13 @@ export default function Home() {
   const homeDoctors = useMemo(() => pickBySlug(doctors, HOME_DOCTOR_SLUGS), [doctors]);
   const specialDoctors = useMemo(() => pickBySlug(doctors, SPECIAL_DOCTOR_SLUGS), [doctors]);
 
+  // Mend Sure's highlighted hospitals lead both hospital sections below (see
+  // featuredHospitals.js), rather than whichever come first alphabetically.
+  const orderedHospitals = useMemo(() => featuredFirst(hospitals), [hospitals]);
+
   // A second, larger slice than the 3-hospital "Partner hospitals" section
   // above uses — this spotlight has room to show more of the network at once.
-  const spotlightHospitals = hospitals?.slice(0, 6) || [];
+  const spotlightHospitals = orderedHospitals.slice(0, 6);
 
   // The seed data ships three rows explicitly named "Sample Patient" with
   // placeholder quote text (see server/db/seed.sql) — a stand-in for real,
@@ -157,8 +164,10 @@ export default function Home() {
               {t('home.hero.subtitle')}
             </p>
 
-            <form onSubmit={handleHeroSearch} className="flex flex-col gap-space-sm sm:flex-row">
-              <div className="flex-1">
+            {/* Hero search disabled — set to true to restore. */}
+            {false && (<form onSubmit={handleHeroSearch} className="flex flex-col gap-space-sm sm:flex-row">
+              {/* Treatment/specialty search disabled — set to true to restore. */}
+              {false && (<div className="flex-1">
                 <Autocomplete
                   index={TREATMENT_INDEX}
                   value={specialtySearch}
@@ -171,7 +180,7 @@ export default function Home() {
                   aria-label={t('home.hero.searchSpecialtyLabel')}
                   inputClassName="w-full rounded-lg bg-surface-container-lowest py-space-sm pr-space-md text-body-md text-on-surface focus:ring-2 focus:ring-secondary focus:outline-none"
                 />
-              </div>
+              </div>)}
               <div className="flex-1">
                 <Autocomplete
                   index={INDIA_CITY_INDEX}
@@ -191,7 +200,7 @@ export default function Home() {
               >
                 <Icon name="search" className="!text-[18px]" /> {t('home.hero.searchButton')}
               </button>
-            </form>
+            </form>)}
 
             <div className="flex flex-wrap items-center gap-space-lg pt-space-sm text-label-md">
               {heroHighlights.map((item) => (
@@ -273,7 +282,7 @@ export default function Home() {
             {HOME_POPULAR_TREATMENTS.map((treatment) => (
               <Link
                 key={treatment.name}
-                to={`/treatments?specialty=${encodeURIComponent(treatment.specialty)}`}
+                to={treatment.to || `/treatments?specialty=${encodeURIComponent(treatment.specialty)}`}
                 className="group flex flex-col justify-between rounded-xl bg-surface-container-lowest p-space-lg shadow-sm transition-all hover:shadow-xl"
               >
                 <div>
@@ -282,13 +291,13 @@ export default function Home() {
                       image={treatment.image}
                       alt={treatment.name}
                       label={treatment.specialty}
-                      icon={specialtyIcon(treatment.specialty)}
+                      icon={treatment.icon || specialtyIcon(treatment.specialty)}
                     />
                   </div>
 
                   <div className="mb-space-xs flex items-center gap-space-sm">
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary-fixed text-primary">
-                      <Icon name={specialtyIcon(treatment.specialty)} className="!text-[24px]" />
+                      <Icon name={treatment.icon || specialtyIcon(treatment.specialty)} className="!text-[24px]" />
                     </div>
                     <div>
                       <h3 className="text-headline-sm text-on-surface">{treatment.name}</h3>
@@ -322,8 +331,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. Partner hospitals */}
-      {hospitals?.length > 0 && (
+      {/* 4. Partner hospitals — disabled; remove `false &&` to restore. */}
+      {false && hospitals?.length > 0 && (
         <section className="mx-auto w-full max-w-7xl px-space-md py-space-3xl sm:px-space-xl">
           <div className="mb-space-2xl flex flex-col justify-between md:flex-row md:items-end">
             <div>
@@ -338,7 +347,7 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 gap-space-xl lg:grid-cols-3">
-            {hospitals.slice(0, 3).map((hospital) => (
+            {orderedHospitals.slice(0, 3).map((hospital) => (
               <HospitalCard key={hospital.id} hospital={hospital} />
             ))}
           </div>
@@ -471,10 +480,24 @@ export default function Home() {
             title={t('home.doctors.title')}
             subtitle={t('home.doctors.subtitle')}
           />
-          <div className="grid grid-cols-2 gap-space-md sm:grid-cols-3 lg:grid-cols-6">
-            {homeDoctors.map((doctor) => (
-              <DoctorCardCompact key={doctor.id} doctor={doctor} />
-            ))}
+          <div
+            className="doctor-marquee overflow-hidden py-space-sm"
+            style={{
+              maskImage: 'linear-gradient(to right, transparent, black 5%, black 95%, transparent)',
+              WebkitMaskImage: 'linear-gradient(to right, transparent, black 5%, black 95%, transparent)',
+            }}
+          >
+            <div className="doctor-marquee-track flex w-max items-stretch" dir="ltr">
+              {[...homeDoctors, ...homeDoctors].map((doctor, index) => (
+                <div
+                  key={`${doctor.id}-${index}`}
+                  className="w-44 shrink-0 pr-space-md sm:w-52"
+                  aria-hidden={index >= homeDoctors.length || undefined}
+                >
+                  <DoctorCardCompact doctor={doctor} />
+                </div>
+              ))}
+            </div>
           </div>
           <div className="mt-space-2xl text-center">
             <Button to="/doctors" variant="secondary">
@@ -487,7 +510,8 @@ export default function Home() {
       {/* 7b. Our Special Doctors — four named specialists in full DoctorCards,
           a more prominent spotlight than the compact "Our Doctors" showcase
           above. See SPECIAL_DOCTOR_SLUGS in priorityDoctors.js. */}
-      {specialDoctors.length > 0 && (
+      {/* Disabled — remove `false &&` to restore. */}
+      {false && specialDoctors.length > 0 && (
         <section className="bg-surface-container-low px-space-md py-space-3xl sm:px-space-xl">
           <div className="mx-auto max-w-7xl">
             <SectionHeading
@@ -548,8 +572,35 @@ export default function Home() {
             title={t('home.cities.title')}
             subtitle={t('home.cities.subtitle')}
           />
+          <div className="mx-auto max-w-4xl overflow-hidden rounded-2xl bg-primary text-on-primary shadow-xl">
+            <div className="grid grid-cols-1 divide-y divide-white/10 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+              {[
+                { icon: 'public', title: 'Pan-India Coverage', text: 'Care available for patients from every state' },
+                { icon: 'local_hospital', title: 'Accredited Hospitals', text: 'JCI & NABH partner hospitals you can trust' },
+                { icon: 'support_agent', title: 'Guided Every Step', text: 'Travel, stay and treatment coordinated for you' },
+              ].map((item) => (
+                <div key={item.title} className="flex flex-col items-center gap-space-xs p-space-xl">
+                  <div className="mb-space-xs flex h-14 w-14 items-center justify-center rounded-full bg-secondary text-on-secondary">
+                    <Icon name={item.icon} className="!text-[28px]" />
+                  </div>
+                  <h3 className="text-headline-sm font-bold">{item.title}</h3>
+                  <p className="text-body-sm text-primary-fixed-dim">{item.text}</p>
+                </div>
+              ))}
+            </div>
+            <div className="bg-white/5 p-space-lg">
+              <Link
+                to="/hospitals"
+                className="inline-flex items-center gap-space-xs rounded-lg bg-secondary px-space-lg py-space-sm text-label-md font-semibold text-on-secondary shadow-sm transition-colors hover:bg-secondary-fixed-dim hover:text-on-secondary-fixed"
+              >
+                <Icon name="location_on" className="!text-[18px]" /> We treat all over India
+                <Icon name="arrow_forward" className="!text-[18px]" />
+              </Link>
+            </div>
+          </div>
           <div className="flex flex-wrap justify-center gap-space-sm">
-            {cities.map((city) => (
+            {/* City chips disabled — remove `false &&` to restore. */}
+            {false && cities.map((city) => (
               <Link
                 key={city}
                 to={`/hospitals?city=${encodeURIComponent(city)}`}

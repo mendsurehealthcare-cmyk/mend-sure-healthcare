@@ -9,6 +9,8 @@ import ar from './locales/ar.json';
 import pt from './locales/pt.json';
 import ru from './locales/ru.json';
 import uz from './locales/uz.json';
+import bn from './locales/bn.json';
+import hi from './locales/hi.json';
 
 // Exported so the language switcher and the <html lang> sync below stay in
 // step with the resources registered here — adding a language means adding it
@@ -21,6 +23,8 @@ export const LANGUAGES = [
   { code: 'pt', label: 'Português' },
   { code: 'ru', label: 'Русский' },
   { code: 'uz', label: 'O‘zbekcha' },
+  { code: 'bn', label: 'বাংলা' },
+  { code: 'hi', label: 'हिन्दी' },
 ];
 
 i18n
@@ -35,6 +39,8 @@ i18n
       pt: { translation: pt },
       ru: { translation: ru },
       uz: { translation: uz },
+      bn: { translation: bn },
+      hi: { translation: hi },
     },
     fallbackLng: 'en',
     // Without this, a browser reporting "en-GB" or "pt-BR" finds no exact

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Icon from './Icon';
 
 /*
@@ -30,6 +30,19 @@ export default function PaginatedGrid({
     if (page > pageCount - 1) setPage(0);
   }, [pageCount, page]);
 
+  // On a page change, bring the top of the list back into view — otherwise
+  // the visitor stays down by the Prev/Next buttons, at the bottom of the
+  // new page. Skipped on first render so arriving on the page doesn't jump.
+  const topRef = useRef(null);
+  const firstRender = useRef(true);
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
+    topRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [page]);
+
   const start = page * pageSize;
   const pageItems = items.slice(start, start + pageSize);
 
@@ -37,7 +50,7 @@ export default function PaginatedGrid({
     'flex h-10 w-10 items-center justify-center rounded-full bg-surface-container text-primary transition-colors hover:bg-primary hover:text-on-primary disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-surface-container disabled:hover:text-primary';
 
   return (
-    <div>
+    <div ref={topRef} className="scroll-mt-28">
       <div className={gridClassName}>{pageItems.map(renderItem)}</div>
 
       {pageCount > 1 && (

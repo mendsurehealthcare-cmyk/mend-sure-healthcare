@@ -121,8 +121,12 @@ export const GYNAECOLOGY_FAQS = [
   },
 ];
 
-// The doctor directory has no Gynaecology category — following the
-// MendSure_Departments_Doctors_Hospitals.xlsx categories, its gynaecologists
-// are the gynae-oncologists filed under Oncology Care — so they're named by
-// slug, the same way Bone Marrow's are.
-export const GYNAECOLOGY_DOCTOR_SLUGS = ['dr-sabhyata-gupta', 'dr-rama-joshi'];
+// Named by slug, the same way Bone Marrow's are: two of these are
+// gynae-oncologists filed under Oncology Care (following the
+// MendSure_Departments_Doctors_Hospitals.xlsx categories), so no single
+// specialty value picks out all three.
+export const GYNAECOLOGY_DOCTOR_SLUGS = [
+  'dr-sabhyata-gupta',
+  'dr-rama-joshi',
+  'dr-shipli-ghosh-shrivastava',
+];

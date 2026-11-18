@@ -1,13 +1,15 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useApi } from '../lib/useApi';
 import { specialtyIcon } from '../lib/specialtyIcons';
 import {
+  SEARCH_DEPARTMENTS,
+  SEARCH_DEPARTMENT_OPTIONS,
+  hasTreatmentGuide,
   hospitalsForTreatment,
   treatmentFromSlug,
   treatmentSlug,
 } from '../lib/treatmentHospitals';
-import { ALL_GUIDE_SPECIALTIES } from '../data/treatmentCostGuides';
 import HospitalWideCard from '../components/HospitalWideCard';
 import Icon from '../components/Icon';
 import PaginatedGrid from '../components/PaginatedGrid';
@@ -29,22 +31,156 @@ import StateMessage from '../components/StateMessage';
 // bar's Country field has somewhere to grow into.
 const COUNTRIES = ['India'];
 
-const selectClasses =
-  'h-full w-full cursor-pointer appearance-none bg-transparent px-space-md py-space-sm pr-10 text-body-md text-on-surface focus:outline-none';
+// A styled replacement for <select> — the browser's native option list
+// can't be themed, so it clashed with the site. `options` is a list of
+// { value, label }, optionally grouped: a row with `subCount` is a main
+// department, and rows with a matching `parent` are its sub-departments,
+// kept hidden until the main row is hovered (or reached with the arrow
+// keys). Supports click, Escape, and arrow/Enter keys.
+function BarSelect({ id, label, icon, value, onChange, options }) {
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState(0);
+  // Which main department's sub-departments are currently shown.
+  const [expanded, setExpanded] = useState(null);
+  const rootRef = useRef(null);
+  const listRef = useRef(null);
+  const selected = options.find((option) => option.value === value) || options[0];
+  const visible = options.filter((option) => !option.parent || option.parent === expanded);
 
-function BarSelect({ id, label, value, onChange, children }) {
+  // Moving onto a main department reveals its subs (and hides any other
+  // group's); moving onto a sub keeps its own group open.
+  function highlight(option) {
+    if (option.subCount) setExpanded(option.value);
+    else if (!option.parent) setExpanded(null);
+    const list = options.filter(
+      (item) =>
+        !item.parent ||
+        item.parent === (option.subCount ? option.value : option.parent || null)
+    );
+    setActive(Math.max(0, list.findIndex((item) => item.value === option.value)));
+  }
+
+  useEffect(() => {
+    if (!open) return undefined;
+    const close = (event) => {
+      if (!rootRef.current?.contains(event.target)) setOpen(false);
+    };
+    document.addEventListener('mousedown', close);
+    return () => document.removeEventListener('mousedown', close);
+  }, [open]);
+
+  // Keep the highlighted option in view while arrowing through a long list.
+  useEffect(() => {
+    if (open) listRef.current?.children[active]?.scrollIntoView({ block: 'nearest' });
+  }, [open, active]);
+
+  const openList = () => {
+    highlight(selected);
+    setOpen(true);
+  };
+  const choose = (option) => {
+    onChange(option.value);
+    setOpen(false);
+  };
+
+  function handleKeyDown(event) {
+    if (!open && ['ArrowDown', 'ArrowUp', 'Enter', ' '].includes(event.key)) {
+      event.preventDefault();
+      openList();
+      return;
+    }
+    if (!open) return;
+    if (event.key === 'Escape') setOpen(false);
+    else if (event.key === 'ArrowDown') highlight(visible[Math.min(visible.length - 1, active + 1)]);
+    else if (event.key === 'ArrowUp') highlight(visible[Math.max(0, active - 1)]);
+    else if (event.key === 'Enter' || event.key === ' ') choose(visible[active]);
+    else return;
+    event.preventDefault();
+  }
+
   return (
-    <div className="relative flex-1 border-outline-variant/30 bg-surface-container-lowest first:rounded-t-lg md:border-l md:first:rounded-l-lg md:first:rounded-tr-none md:first:border-l-0">
-      <label htmlFor={id} className="sr-only">
-        {label}
-      </label>
-      <select id={id} value={value} onChange={(e) => onChange(e.target.value)} className={selectClasses}>
-        {children}
-      </select>
-      <Icon
-        name="expand_more"
-        className="pointer-events-none absolute top-1/2 right-space-sm -translate-y-1/2 !text-[20px] text-on-surface-variant"
-      />
+    <div
+      ref={rootRef}
+      className="relative flex-1 border-outline-variant/30 bg-surface-container-lowest first:rounded-t-lg last:rounded-b-lg md:border-l md:first:rounded-l-lg md:first:rounded-tr-none md:first:border-l-0 md:last:rounded-r-lg md:last:rounded-bl-none"
+    >
+      <button
+        id={id}
+        type="button"
+        aria-label={`${label}: ${selected?.label}`}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        onClick={() => (open ? setOpen(false) : openList())}
+        onKeyDown={handleKeyDown}
+        className="flex h-full w-full items-center gap-space-xs px-space-md py-space-sm text-left text-body-md text-on-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+      >
+        {icon && <Icon name={icon} className="!text-[20px] text-secondary" />}
+        <span className="flex-1 truncate">{selected?.label}</span>
+        <Icon
+          name="expand_more"
+          className={`!text-[20px] text-on-surface-variant transition-transform ${open ? 'rotate-180' : ''}`}
+        />
+      </button>
+
+      {open && (
+        <ul
+          ref={listRef}
+          role="listbox"
+          aria-label={label}
+          className="absolute top-full right-0 left-0 z-30 mt-space-xs max-h-80 overflow-y-auto rounded-xl bg-surface-container-lowest p-space-xs shadow-xl ring-1 ring-outline-variant/30"
+        >
+          {visible.map((option, index) => {
+            const isSelected = option.value === value;
+            const isOpenGroup = option.subCount > 0 && expanded === option.value;
+            const isSub = Boolean(option.parent);
+            return (
+              <li
+                key={option.value}
+                role="option"
+                aria-selected={isSelected}
+                aria-expanded={option.subCount ? isOpenGroup : undefined}
+                onMouseEnter={() => highlight(option)}
+                onMouseDown={(event) => {
+                  event.preventDefault();
+                  choose(option);
+                }}
+                className={`flex cursor-pointer items-center justify-between gap-space-sm rounded-lg py-space-xs pr-space-sm transition-colors ${
+                  isSub
+                    ? 'ml-space-md border-l-2 border-secondary/40 pl-space-md text-body-sm'
+                    : 'pl-space-sm text-body-md'
+                } ${
+                  isSelected
+                    ? 'bg-primary text-on-primary'
+                    : index === active
+                      ? 'bg-surface-container text-primary'
+                      : 'text-on-surface'
+                }`}
+              >
+                <span className="truncate">{option.label}</span>
+                <span className="flex shrink-0 items-center gap-space-2xs">
+                  {/* The "has sub-departments" hint: a small count pill and
+                      a chevron that turns down once the group is open. */}
+                  {option.subCount > 0 && (
+                    <>
+                      <span
+                        className={`rounded-full px-space-xs text-label-sm ${
+                          isSelected ? 'bg-on-primary/20' : 'bg-secondary-container text-on-secondary-container'
+                        }`}
+                      >
+                        {option.subCount}
+                      </span>
+                      <Icon
+                        name="chevron_right"
+                        className={`!text-[18px] transition-transform ${isOpenGroup ? 'rotate-90' : ''}`}
+                      />
+                    </>
+                  )}
+                  {isSelected && <Icon name="check" className="!text-[18px]" />}
+                </span>
+              </li>
+            );
+          })}
+        </ul>
+      )}
     </div>
   );
 }
@@ -69,29 +205,41 @@ function SearchBar({ initialTreatment, initialCity, cities }) {
       onSubmit={handleSubmit}
       className="flex flex-col gap-space-sm rounded-xl bg-primary p-space-md shadow-lg md:flex-row md:items-stretch"
     >
-      <div className="flex flex-1 flex-col divide-y divide-outline-variant/30 overflow-hidden rounded-lg md:flex-row md:divide-y-0">
-        <BarSelect id="bar-country" label="Country" value={country} onChange={setCountry}>
-          {COUNTRIES.map((item) => (
-            <option key={item} value={item}>
-              {item}
-            </option>
-          ))}
-        </BarSelect>
-        <BarSelect id="bar-city" label="City" value={city} onChange={setCity}>
-          <option value="">All Cities</option>
-          {cities.map((item) => (
-            <option key={item} value={item}>
-              {item}
-            </option>
-          ))}
-        </BarSelect>
-        <BarSelect id="bar-treatment" label="Treatment" value={treatment} onChange={setTreatment}>
-          {ALL_GUIDE_SPECIALTIES.map((item) => (
-            <option key={item} value={item}>
-              {item}
-            </option>
-          ))}
-        </BarSelect>
+      <div className="flex flex-1 flex-col divide-y divide-outline-variant/30 rounded-lg md:flex-row md:divide-y-0">
+        <BarSelect
+          id="bar-country"
+          label="Country"
+          icon="public"
+          value={country}
+          onChange={setCountry}
+          options={COUNTRIES.map((item) => ({ value: item, label: item }))}
+        />
+        <BarSelect
+          id="bar-city"
+          label="City"
+          icon="location_on"
+          value={city}
+          onChange={setCity}
+          options={[
+            { value: '', label: 'All Cities' },
+            ...cities.map((item) => ({ value: item, label: item })),
+          ]}
+        />
+        {/* The sheet's departments; the current treatment is kept at the top
+            when it's a guide specialty (from the navbar menu) that isn't one
+            of them, so the dropdown still shows what's selected. */}
+        <BarSelect
+          id="bar-treatment"
+          label="Treatment"
+          icon="medical_services"
+          value={treatment}
+          onChange={setTreatment}
+          options={
+            SEARCH_DEPARTMENTS.includes(initialTreatment)
+              ? SEARCH_DEPARTMENT_OPTIONS
+              : [{ value: initialTreatment, label: initialTreatment }, ...SEARCH_DEPARTMENT_OPTIONS]
+          }
+        />
       </div>
       <button
         type="submit"
@@ -180,14 +328,19 @@ export default function HospitalsByTreatment() {
           accredited hospitals in our network where our {treatment.toLowerCase()} specialists
           practise, with the ones with the most specialists first. Open any hospital to see its
           full profile, departments, and doctors — or send us your reports for a personalised
-          treatment plan and quote.{' '}
-          <Link
-            to={`/treatments?specialty=${encodeURIComponent(treatment)}`}
-            className="font-semibold text-secondary hover:underline"
-          >
-            Read the {treatment} guide and costs
-          </Link>
-          .
+          treatment plan and quote.
+          {hasTreatmentGuide(treatment) && (
+            <>
+              {' '}
+              <Link
+                to={`/treatments?specialty=${encodeURIComponent(treatment)}`}
+                className="font-semibold text-secondary hover:underline"
+              >
+                Read the {treatment} guide and costs
+              </Link>
+              .
+            </>
+          )}
         </p>
 
         <div>

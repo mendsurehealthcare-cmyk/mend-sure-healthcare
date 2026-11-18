@@ -51,7 +51,6 @@ const hospitalGroups = [
       'Indraprastha Apollo Hospital',
       'Institute of Liver and Biliary Sciences',
       'Manipal Hospital, Dwarka',
-      'Max Smart Super Speciality Hospital, Saket',
       'Max Super Speciality Hospital, Panchsheel Park',
       'Max Super Speciality Hospital, Patparganj',
       'Max Super Speciality Hospital, Saket',

@@ -59,6 +59,9 @@ export default function PhoneField({
   required = false,
   showError = false,
   defaultCountry = 'in',
+  // Optional ISO-2 code (any case) from a separate country field; when it
+  // changes, the dial code switches to match.
+  syncCountry,
 }) {
   const { t } = useTranslation();
   const listId = useId();
@@ -81,6 +84,14 @@ export default function PhoneField({
     disableDialCodeAndPrefix: true,
     onChange: (data) => onChange(data.phone),
   });
+
+  useEffect(() => {
+    const iso2 = syncCountry?.toLowerCase();
+    if (!iso2 || iso2 === country.iso2) return;
+    if (COUNTRIES.some((item) => item.iso2 === iso2)) setCountry(iso2);
+    // Only react to the external country changing, not to manual picks.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [syncCountry]);
 
   const empty = isEmptyPhone(phone, country);
   const error = empty
